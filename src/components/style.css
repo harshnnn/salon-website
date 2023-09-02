@@ -430,6 +430,21 @@
 
 }
 
+.clicked-div-content{
+    font-size: small;
+    position: fixed;
+    bottom: 0;
+    background-color: red;
+    transform:translate(600px, -300px);
+    z-index: 1;
+    overflow: scroll;
+    height: 300px;
+}
+
+.service-card-1.clicked {
+    background-color: off-white; /* Add your off-white color value here */
+}
+
 
 
 
