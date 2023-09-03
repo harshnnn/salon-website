@@ -231,29 +231,433 @@
 
 
 .animated-div {
-    /* position: absolute;
-    top: 10%;
-    width: 30vw;
-    height: 80vh;
-    left: 100px;
-    right: 0; */
 
     position: fixed;
+    display: flex;
+    flex-direction: column;
     top: 10%;
     width: 30vw;
     height: 80vh;
     left: 100px;
     z-index: 1;
-
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
-.scrollbar{
+.animated-div-overflow-hidden{
+    overflow: hidden;
+}
+
+
+
+.close-btn {
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    color: black;
+    /* padding: 2px; */
+    border: none;
+    cursor: pointer;
+    margin-left: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    .close-icon {
+        padding: 1px;
+        width: 25px;
+        height: 18px;
+        transform-origin: center;
+        /* Set the transform origin */
+        transition: transform 0.3s ease;
+    }
+
+    .close-icon:hover {
+
+        transform: rotateZ(90deg);
+        /* Apply initial hover rotation */
+    }
+
+}
+
+
+
+
+
+
+@keyframes slideIn {
+    from {
+        opacity: 1;
+        transform: translatex(-200px);
+
+    }
+
+    to {
+        opacity: 1;
+        transform: translatex(0px);
+    }
+}
+
+
+
+.slide-in {
+    animation: slideIn 0.5s ease;
+}
+
+.slide-out {
+    animation: slideOut 0.3s ease;
+}
+
+
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack children vertically */
+    width: 100%;
+    /* Ensure children take full width */
+}
+
+.book-header {
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.animated-div .cards {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 50px;
+
+}
+
+.animated-div .cards .card-0 {
+
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #fff;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    font-size: large;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .card-0 {
+        width: calc(50% - 25px);
+        /* Calculate width for 2 cards with gap */
+    }
+}
+
+.expanded-card {
+    /* background-color: red; */
+    position: absolute;
+    top: 80px;
+    bottom: 0px;
+    left: -100px;
+    width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    /* height: 100%; */
+    background-color: white;
+    transform: translateX(100px);
+    animation: slideIn2 0.3s ease;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding-bottom: 20px;
+
+}
+
+.hidden {
+    display: none !important;
+}
+
+@keyframes slideIn2 {
+    from {
+        transform: translateX(200px);
+    }
+
+    to {
+        transform: translateX(100px);
+    }
+}
+
+.service-cards {
+    display: flex;
+    overflow: auto;
+    color: black;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-left: 20px;
+    gap: 50px;
+    row-gap: 20px;
+
+    height: fit-content;
+}
+
+.service-card-1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    font-size: large;
+    font-weight: 700;
+}
+
+.service-name {
+
+    padding: 20px;
+    margin-left: 30px;
+    font-size: large;
+    font-weight: 700;
+
+}
+
+.service-price {
+    position: relative;
+    background-color: #a7d4c2;
+    margin-left: auto;
+    align-self: flex-end;
+    font-size: large;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-radius: 5px;
+
+}
+
+
+.clicked-div-content {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #000000;
+    font-size: small;
+    position: relative;
+    bottom: 0;
+    background-color: white;
+    z-index: 1;
+    border-radius: 15px;
+    width: 100%;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+    margin-left: -20px;
+    margin-top: auto;
+    bottom: 0;
+    padding: 20px;
+    margin-bottom: -20px;
+
+
+    animation-name: slideUp;
+    animation-duration: 0.25s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    /* Keeps the final state of the animation */
+    opacity: 0;
+    /* Start with opacity 0 */
+
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
+
+
+
+.clicked-div-content-active {
+    /* Final state when active class is added */
+    transform: translateY(70%) !important;
+    opacity: 1;
+}
+.clicked-div-content-header{
+    display: flex;
+    justify-content: space-between;
+    gap: 300px;
+    
+}
+
+.clicked-div-content-header h2 {
+    margin-right: auto;
+    /* padding: 10px 0 10px 20px; */
+
+}
+
+.clicked-div-content-header button{
+    margin-left: auto;
+}
+
+.array-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    list-style: none;
+    background-color: white;
+}
+
+.array-info-left {
+    /* margin-left: 300px;  */
+    align-self: flex-start;
+
+}
+
+.array-info-right {
+    margin-left: auto;
+}
+
+.service-card-1.clicked {
+    background-color: grey;
+
+}
+
+.split-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.second-part {
+    position: absolute;
+    font-size: larger;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.16);
+    margin-bottom: 50px;
+    top: 40%;
+    right: 20px;
+}
+
+
+.choose-time {
+    width: 100px;
+}
+
+.choose-time-div{
+    /* background-color: #000000; */
+    /* width: 500px; */
+    /* margin-left: -20px; */
+    /* height: 700px; */
+    z-index: 1;
+    
+}
+
+
+/* CSS */
+.button-48 {
+
+    width: 80%;
+    border-radius: 15px;
+    appearance: none;
+    /* background-color: #FFFFFF; */
+    background-color: #2E7D32;
+    border-width: 0;
+    box-sizing: border-box;
+    color: #000000;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Clarkson, Helvetica, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1em;
+    margin: 0;
+    margin-bottom: 20px;
+    opacity: 1;
+    outline: 0;
+    padding: 1.5em 2.2em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-rendering: geometricprecision;
+    text-transform: uppercase;
+    transition: opacity 300ms cubic-bezier(.694, 0, 0.335, 1), background-color 100ms cubic-bezier(.694, 0, 0.335, 1), color 100ms cubic-bezier(.694, 0, 0.335, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: baseline;
+    white-space: nowrap;
+
+}
+
+.button-48:before {
+    border-radius: 15px;
+    animation: opacityFallbackOut .5s step-end forwards;
+    backface-visibility: hidden;
+    /* background-color: #EBEBEB; */
+    background-color: #1B5E20;
+    clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%);
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transform: translateZ(0);
+    transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1);
+    width: 100%;
+}
+
+.button-48:hover:before {
+    border-radius: 15px;
+    animation: opacityFallbackIn 0s step-start forwards;
+    clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
+}
+
+.button-48:after {
+    background-color: #FFFFFF;
+}
+
+.button-48 span {
+    z-index: 1;
+    position: relative;
+}
+
+.button-48:active {
+    border-radius: 15px;
+    /* Change the background color to your desired shade of green or olive when clicked */
+    background-color: #1B5E20;
+    /* Change this color to your preferred shade */
+}
+
+.button-48::after {
+    border-radius: 15px;
+    /* Add a cool animation for when the button is clicked */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: rgba(24, 99, 55, 0.5); */
+    background-color: #0e3510;
+    /* Change this color to your preferred shade */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.button-48:active::after {
+    /* Make the overlay appear when the button is clicked */
+    opacity: 1;
+}
+
+.scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #ccc transparent;
 }
@@ -278,175 +682,6 @@
     background-color: transparent;
     margin: 50px 0 20px 0 !important;
 }
-
-
-
-.close-btn {
-    background-color: #e0e0e0;
-    border-radius: 50%;
-    color: black;
-    /* padding: 2px; */
-    border: none;
-    cursor: pointer;
-    margin-left: auto;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-    .close-icon {
-        padding: 1px;
-        width: 25px;
-        height: 18px;
-        transform-origin: center; /* Set the transform origin */
-        transition: transform 0.3s ease;
-    }
-    
-    .close-icon:hover {
-
-        transform: rotateZ(90deg); /* Apply initial hover rotation */
-    }
-    
-
-    
-
-}
-
-
-
-
-
-
-@keyframes slideIn {
-    from {
-        opacity: 1;
-        transform: translatex(-200px);
-
-    }
-
-    to {
-        opacity: 1;
-        transform: translatex(0px);
-    }
-}
-
-/* @keyframes slideOut {
-    from {
-        opacity: 1;
-        transform: translatex(0);
-    }
-
-    to {
-        opacity: 0;
-        transform: translatex(-1000px);
-    }
-} */
-
-.slide-in {
-    animation: slideIn 0.5s ease;
-}
-
-.slide-out {
-    animation: slideOut 0.3s ease;
-}
-
-
-
-.book-header {
-    color: black;
-    display: flex;
-
-    /* gap: 100px; */
-    padding-bottom: 50px;
-}
-
-.animated-div .cards {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    gap: 50px;
-
-}
-
-.animated-div .cards .card-0 {
-    
-    width: 200px;
-    height: 200px;
-    border-radius: 10px;
-    background-color: #fff;
-    color: black;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-}
-
-@media (min-width: 768px) {
-    .card-0 {
-        width: calc(50% - 25px);
-        /* Calculate width for 2 cards with gap */
-    }
-}
-
-.expanded-card {
-    /* background-color: red; */
-    position: absolute;
-    top: 80px;
-    bottom: 0px;
-    left: -100px;
-    width: 100%;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    /* height: 100%; */
-    background-color: white;
-    transform: translateX(100px);
-    animation: slideIn2 0.3s ease;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-}
-.hidden{
-    display: none !important;
-}
-
-@keyframes slideIn2 {
-    from {
-        transform: translateX(200px);
-    }
-
-    to {
-        transform: translateX(100px);
-    }
-}
-.service-cards{
-    display: flex;
-    overflow: auto;
-    color: black;
-    flex-wrap: wrap;
-    width: 100%;
-    margin-left: 20px;
-    gap: 50px;
-    
-    height: fit-content;
-}
-.service-card-1{
-    width: 200px;
-    height: 200px;
-    border-radius: 15px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-
-}
-
-.clicked-div-content{
-    font-size: small;
-    position: fixed;
-    bottom: 0;
-    background-color: red;
-    transform:translate(600px, -300px);
-    z-index: 1;
-    overflow: scroll;
-    height: 300px;
-}
-
-.service-card-1.clicked {
-    background-color: off-white; /* Add your off-white color value here */
-}
-
-
-
 
 .content-2 {
     background-color: #fff;

@@ -878,3 +878,117 @@ const HomePage = () => {
 
 
 export default HomePage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
+                                {selectedService !== null && (
+                                    <div className='expanded-card scrollbar'>
+                                        <button className='close-btn' onClick={closeSelectedService}>
+                                            <AiOutlineClose className='close-icon' />
+                                        </button>
+                                        <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1>
+                                        <div className='chutiya'>
+                                          
+                                            <div className='service-cards'>
+                                                {serviceData[selectedService].content.props.children.map(
+                                                    (child, index) => (
+                                                        <div
+                                                            key={index}
+                                                            className={`service-card-1 ${selectedCardIndex === index ? 'blue' : ''}`}
+
+                                                            onClick={() => servicecarddetails(index)}
+                                                        >
+                                                            {serviceData[selectedService].content.props.children[index]}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
+
+    
+
+    // const servicecarddetails = (serviceindex, index) => {
+    //     openServiceDetails(serviceindex);// to open the service detail and storing the title of the div
+
+    //     setClickedServiceIndex(serviceindex);
+    //     const price = serviceData[serviceindex].content.props.children[index];
+    //     // const title = serviceData[selectedService].content.props.children[index]
+    //     // const price = serviceData[serviceindex].content.props.children[1].props.children;
+    //     const content = (
+    //         <div>
+
+    //             {price}
+
+    //         </div>
+    //     );
+    //     setClickedContents(prevContents => [...prevContents, content]);
+
+    // };
+
+
+
+    // const closeSelectedService = () => {
+    //     setSelectedService(null);
+
+    //     setBookingDetail(true); //adding hidden class to the final booking div
+    //     setBackgroundColor('white');
+
+
+    //     setClickedContents(prevContents => {
+    //         const newContents = [...prevContents];
+    //         newContents.pop();
+    //         newContents.pop();//removing 1 more element
+    //         return newContents;
+    //     });
+
+
+    // };
+
+
+    // const [backgroundColor, setBackgroundColor] = useState('white');
+
+    // const openServiceCard = () => {
+    //     setBackgroundColor('green');
+    //     setBookingDetail(true);
+    // };                                
+
+
+
+
+
+    
+                                                {serviceData.slice(
+                                                    selectedService * 5,
+                                                    selectedService * 5 + 5
+                                                ).map((service, index) => (
+                                                    <div key={index}>
+                                                        <h2>{service.title}</h2>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className="service-card-1"
+                                                                        onClick={() => handleClick(serviceName)}
+                                                                    >
+                                                                        {child}
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                ))}
