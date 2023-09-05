@@ -547,6 +547,7 @@
 
 .choose-time {
     width: 100px;
+    
 }
 
 .choose-time-div{
@@ -555,9 +556,71 @@
     /* margin-left: -20px; */
     /* height: 700px; */
     z-index: 1;
+    color: #000000;
     
 }
 
+.date-picker{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: auto;
+}
+.date-picker-mini-head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px 10px 50px;
+    font-size: large;
+    font-weight: 700;
+}
+.date-picker-mini-body{
+    font-size: medium;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.mini-date-day:hover{
+    cursor: pointer;
+}
+.mini-date{
+    border-radius: 50%;
+    border: 1px solid green;
+    width: 25px;
+    
+}
+.toggle-calander{
+    width: 30px;
+    height: 30px;
+    padding-bottom: 14px;
+}
+.Time-slots-header{
+    margin-right: auto;
+    width: fit-content;
+    font-size: large;
+    font-weight: 700;
+    padding: 20px 40px;
+}
+.Time-slots{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    font-size: medium;
+    font-weight: 650;
+}
+.time-slot-card{
+    width: 20%;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 10%;
+    padding: 7px 5px;
+    align-items: center;
+    justify-content: center;
+}
 
 /* CSS */
 .button-48 {

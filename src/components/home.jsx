@@ -1,12 +1,15 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
-import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose } from 'react-icons/ai';
+import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
+import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
 import './style.css'
 import imagex from './Resources/random.webp';
 import image1 from './Resources/Ellipse\ 14.png'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 import AliceCarousel from 'react-alice-carousel'
@@ -538,12 +541,12 @@ const HomePage = () => {
     const [minimized, setMinimized] = useState(false);
 
     const [isChooseTimeClicked, setIsChooseTImeClicked] = useState(null);
-    
+
 
     const handleChooseTimeClick = () => {
         setIsChooseTImeClicked(!isChooseTimeClicked);
         handleMinimizeOrder();
-        
+
     }
     const handleMinimizeOrder = () => {
         setMinimized(!minimized);
@@ -554,6 +557,61 @@ const HomePage = () => {
     }
 
 
+    // calander
+    const [date, setDate] = useState(new Date()); // Initialize with today's date
+
+    // const handleDateChange = (newDate) => {
+    //     setDate(newDate);
+    // };
+
+    const [showTimeSlots, setShowTimeSlots] = useState(null);
+
+
+
+
+    const today = new Date();
+    // const currentMonth = today.getMonth();
+    const dayOfWeek = today.getDay();
+
+    // To get the day name in English:
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const currentDayName = dayNames[dayOfWeek];
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const currentDayOfMonth = today.getDate();
+    const currentMonth = monthNames[today.getMonth()];
+    const currentYear = today.getFullYear();
+
+    const handleDateChange = (newDate) => {
+        setDate(newDate);
+        toggleCalendar();
+        today.setDate(today.getDate() - 1);
+
+
+        if (newDate >= today) {
+            setShowTimeSlots(true);
+
+            // alert(today);
+        } else {
+            setShowTimeSlots(null);
+            alert('Choose a valid date');
+        }
+    };
+
+    const [calendarVisible, setCalendarVisible] = useState(null);
+    const toggleCalendar = () => {
+        if (calendarVisible == true) {
+            setCalendarVisible(null);
+        }
+        else {
+            setCalendarVisible(true);
+        }
+    }
+
+
+    
     return (
         <div className='home-page'>
             <div className='content-1' id="content-1" >
@@ -796,39 +854,99 @@ const HomePage = () => {
 
 
 
-                                {/* stored the content of clicked divs */}
-                                {/* <div className={`clicked-div-content  ${bookingDetail ? '' : 'hidden'}`}>
-                                    <h2>Your Order</h2>
-                                    <ul className='array-info'>
-                                        {clickedContents.map((content, index) => {
-                                            if (index === 2 && typeof content === 'string') {
-                                                const [beforeDollar, afterDollar] = content.split('$');
-                                                return (
-                                                    <li key={index} className='split-content'>
-                                                        <span className="first-part">{beforeDollar}</span>
-                                                        <span className="second-part">${afterDollar}</span>
-                                                    </li>
-                                                );
-                                            } else {
-                                                return (
-                                                    <li key={index} className={index < 2 ? 'array-info-left' : 'array-info-right'}>
-                                                        {content}
-                                                    </li>
-                                                );
-                                            }
-                                        })}
-                                    </ul>
 
-                                    <button className="button-48" role="button">
-                                        <span className="text">Choose a time</span>
-                                    </button>
-                                </div> */}
 
                                 {isChooseTimeClicked !== null && (
                                     <div className='expanded-card scrollbar choose-time-div'>
                                         <button className='close-btn' onClick={closeChooseTime}>
                                             <AiOutlineClose className='close-icon' />
                                         </button>
+
+                                        <div className='date-picker-mini'>
+                                            <div className='date-picker-mini-head'>
+                                                <div className='month-year'>
+                                                    {currentMonth + ' ' + currentYear}
+                                                </div>
+
+                                                <div className='expand-calander-btn'>
+                                                    <div> {'Today'}</div>
+                                                </div>
+
+                                            </div>
+
+                                            <div className='date-picker-mini-body'>
+                                                <div className='mini-date-day'>
+                                                    <div className='mini-date'>{currentDayOfMonth}</div>
+                                                    <div className='mini-day'>{dayNames[dayOfWeek]}</div>
+                                                </div>
+                                                <div className='mini-date-day'>
+                                                    <div className='mini-date'>{currentDayOfMonth + 1}</div>
+                                                    <div className='mini-day'>{dayNames[dayOfWeek + 1]}</div>
+                                                </div>
+                                                <div className='mini-date-day'>
+                                                    <div className='mini-date'>{currentDayOfMonth + 2}</div>
+                                                    <div className='mini-day'>{dayNames[dayOfWeek + 2]}</div>
+                                                </div>
+                                                <div className='mini-date-day'>
+                                                    <div className='mini-date'>{currentDayOfMonth + 3}</div>
+                                                    <div className='mini-day'>{dayNames[dayOfWeek + 3]}</div>
+                                                </div>
+                                                <div className='mini-date-day'>
+                                                    <div className='mini-date'>{currentDayOfMonth + 4}</div>
+                                                    <div className='mini-day'>{dayNames[dayOfWeek + 4]}</div>
+                                                </div>
+                                                <div className='mini-date-day'>
+                                                    <div className='mini-date'>{currentDayOfMonth + 5}</div>
+                                                    <div className='mini-day'>{dayNames[dayOfWeek + 5]}</div>
+                                                </div>
+                                                <div className='mini-date-day'><AiOutlineDownCircle className='toggle-calander' onClick={toggleCalendar} /> </div>
+                                            </div>
+
+
+
+                                        </div>
+                                        {calendarVisible !== null && (
+                                            <div className='date-picker'>
+                                                <Calendar
+                                                    onChange={handleDateChange}
+                                                    value={date}
+                                                />
+                                            </div>
+                                        )}
+
+                                        {showTimeSlots !== null && (
+                                            <div >
+
+                                                {/* This div will be shown for today or future dates */}
+                                                <p className='Time-slots-header' style={{ backgroundColor: 'white' }}>{date.toDateString()}</p>
+                                                <div className='Time-slots'>
+                                                    <div className='time-slot-card'>
+                                                        <BsSunrise /> 10:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSunrise /> 11:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun /> 12:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun /> 01:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun />02:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun />03:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun />04:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSunset /> 05:00 PM
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
 
