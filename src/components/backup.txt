@@ -992,3 +992,58 @@ export default HomePage;
                                                         </div>
                                                     </div>
                                                 ))}
+
+
+
+
+
+                                                
+        setActiveDayIndex(index); // Set the active day index
+        //to make time div visible
+        //   setShowTimeSlots(true);
+        const selectedDate = new Date(selectedYear, selectedMonth, selectedDay);
+        const headerText = selectedDate.toDateString();
+        // Update the state or perform any other necessary actions with the headerText
+        setHeaderText(headerText);
+        alert(`Clicked day: ${selectedDay}, Month: ${selectedMonth}, Year: ${selectedYear}`);
+        // alert(`Clicked day: ${dayOfMonth}`);
+
+
+
+
+
+
+
+ const renderMiniDateDays = (startOffset, endOffset) => {
+        const dateDivs = [];
+        for (let offset = startOffset; offset <= endOffset; offset++) {
+            const dayOfMonth = (currentDayOfMonth + offset) % dayRange;
+            const dayOfWeekIndex = (dayOfWeek + offset) % 7;
+            const isActive = offset === activeDayIndex; // Check if the current div is active
+
+            const weekname = isActive ? dayNames[dayOfWeekIndex] : null;
+            if (weekname != null){
+                alert(weekname);
+            }
+            
+            // const dateObj = isActive ? new Date(currentYear, currentMonth - 1, dayOfMonth) : null;
+            console.log('Debugging:');
+            console.log('currentYear:', currentYear);
+            console.log('currentMonth:', currentMonth);
+            console.log('dayOfMonth:', dayOfMonth);
+            console.log('dayOfWeekIndex:', dayOfWeekIndex);
+            // console.log('dateObj:', dateObj);
+            // const huihui = dateObj.toDateString();
+            dateDivs.push(
+                <div
+                    key={offset}
+                    className='mini-date-day'
+                    onClick={() => activeDay(offset)}
+                >
+                    <div className={`mini-date ${isActive ? 'activeDay' : ''}`}>{dayOfMonth}</div>
+                    <div className='mini-day'>{dayNames[dayOfWeekIndex]}</div>
+                </div>
+            );
+        }
+        return dateDivs;
+    };

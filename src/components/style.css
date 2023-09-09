@@ -249,7 +249,7 @@
     overflow-x: hidden;
 }
 
-.animated-div-overflow-hidden{
+.animated-div-overflow-hidden {
     overflow: hidden;
 }
 
@@ -487,11 +487,12 @@
     transform: translateY(70%) !important;
     opacity: 1;
 }
-.clicked-div-content-header{
+
+.clicked-div-content-header {
     display: flex;
     justify-content: space-between;
     gap: 300px;
-    
+
 }
 
 .clicked-div-content-header h2 {
@@ -500,7 +501,7 @@
 
 }
 
-.clicked-div-content-header button{
+.clicked-div-content-header button {
     margin-left: auto;
 }
 
@@ -547,27 +548,28 @@
 
 .choose-time {
     width: 100px;
-    
+
 }
 
-.choose-time-div{
+.choose-time-div {
     /* background-color: #000000; */
     /* width: 500px; */
     /* margin-left: -20px; */
     /* height: 700px; */
     z-index: 1;
     color: #000000;
-    
+
 }
 
-.date-picker{
+.date-picker {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: auto;
 }
-.date-picker-mini-head{
+
+.date-picker-mini-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -575,7 +577,8 @@
     font-size: large;
     font-weight: 700;
 }
-.date-picker-mini-body{
+
+.date-picker-mini-body {
     font-size: medium;
     font-weight: 600;
     display: flex;
@@ -583,28 +586,55 @@
     justify-content: center;
     gap: 40px;
 }
-.mini-date-day:hover{
+
+.mini-date-day:hover {
     cursor: pointer;
+
 }
-.mini-date{
+
+.mini-date {
+    font-size: small;
+    color: white;
+    background-color: #1E3722;
     border-radius: 50%;
-    border: 1px solid green;
-    width: 25px;
-    
+    border: 1px solid #E0E0E0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
-.toggle-calander{
+
+.activeDay {
+    background-color: #1E3722;
+    color: white;
+        box-shadow: 0 0 0 2px white, 0 0 0 4px green;
+      
+      
+    /* Add your desired styling for active days here */
+}
+
+.mini-date:hover {
+    background-color: #2E6C3D; /* A more noticeable shade */
+
+}
+
+.toggle-calander {
     width: 30px;
     height: 30px;
     padding-bottom: 14px;
 }
-.Time-slots-header{
+
+.Time-slots-header {
     margin-right: auto;
     width: fit-content;
     font-size: large;
     font-weight: 700;
     padding: 20px 40px;
 }
-.Time-slots{
+
+.Time-slots {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -613,7 +643,8 @@
     font-size: medium;
     font-weight: 650;
 }
-.time-slot-card{
+
+.time-slot-card {
     width: 20%;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 10%;

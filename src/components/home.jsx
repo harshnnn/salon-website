@@ -559,27 +559,33 @@ const HomePage = () => {
 
     // calander
     const [date, setDate] = useState(new Date()); // Initialize with today's date
-
-    // const handleDateChange = (newDate) => {
-    //     setDate(newDate);
-    // };
-
     const [showTimeSlots, setShowTimeSlots] = useState(null);
-
-
-
-
     const today = new Date();
     // const currentMonth = today.getMonth();
     const dayOfWeek = today.getDay();
-
     // To get the day name in English:
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const currentDayName = dayNames[dayOfWeek];
     const monthNames = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
+    var dayRange = 0;
+    if ([0, 2, 4, 6, 7, 9, 11].includes(today.getMonth())) {
+        dayRange = 31;
+    }
+    if ([3, 5, 8, 10].includes(today.getMonth())) {
+        dayRange = 30;
+    }
+    if (today.getMonth() === 1) {
+        if ((today.getFullYear() % 4 === 0 && today.getFullYear() % 100 !== 0) || (today.getFullYear() % 400 === 0)) {
+            dayRange = 29;
+        }
+        else {
+            dayRange = 28;
+        }
+    }
+
+
     const currentDayOfMonth = today.getDate();
     const currentMonth = monthNames[today.getMonth()];
     const currentYear = today.getFullYear();
@@ -589,10 +595,8 @@ const HomePage = () => {
         toggleCalendar();
         today.setDate(today.getDate() - 1);
 
-
         if (newDate >= today) {
             setShowTimeSlots(true);
-
             // alert(today);
         } else {
             setShowTimeSlots(null);
@@ -610,8 +614,65 @@ const HomePage = () => {
         }
     }
 
+    //To map all of the mini-date-day divs
+    // Define the activeDay function to handle the click event.
+    // const [isactiveDay, setActiveday] = useState(null);
 
-    
+    const [activeDayIndex, setActiveDayIndex] = useState(0);
+    const [headerText, setHeaderText] = useState('lavda');
+
+    const activeDay = (offset) => {
+
+
+        setActiveDayIndex(offset); // Set the active day index
+
+
+
+        // alert(`Clicked day: ${huihui}`);
+
+
+
+
+
+
+    };
+
+    // ... (other code)
+
+    const renderMiniDateDays = (startOffset, endOffset) => {
+        const dateDivs = [];
+
+
+        for (let offset = startOffset; offset <= endOffset; offset++) {
+            const dayOfMonth = (currentDayOfMonth + offset) % dayRange;
+            const dayOfWeekIndex = (dayOfWeek + offset) % 7;
+            const isActive = offset === activeDayIndex; // Check if the current div is active
+
+            const weekname = isActive ? dayNames[dayOfWeekIndex] : null;
+            const datename = isActive ? dayOfMonth : null;
+
+            if (weekname != null) {
+                
+                alert('datename : '+datename+ " "+weekname);
+            }
+
+            dateDivs.push(
+                <div
+                    key={offset}
+                    className='mini-date-day'
+                    onClick={() => activeDay(offset)}
+                >
+                    <div className={`mini-date ${isActive ? 'activeDay' : ''}`}>{dayOfMonth}</div>
+                    <div className='mini-day'>{dayNames[dayOfWeekIndex]}</div>
+                </div>
+            );
+        }
+
+
+        return dateDivs;
+    };
+
+
     return (
         <div className='home-page'>
             <div className='content-1' id="content-1" >
@@ -623,11 +684,9 @@ const HomePage = () => {
                         </div>
                         {isVisible && (
                             <div className={`animated-div scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
-
                                 {/* booking header div */}
                                 <div className='header-container'>
                                     <div className='book-header'>
-
                                         <h3>{selectedCard !== null ? 'Choose a service' : 'Choose a professional'}</h3>
                                         {/* <h2>
                                             {selectedCard !== null
@@ -852,10 +911,6 @@ const HomePage = () => {
                                 )}
 
 
-
-
-
-
                                 {isChooseTimeClicked !== null && (
                                     <div className='expanded-card scrollbar choose-time-div'>
                                         <button className='close-btn' onClick={closeChooseTime}>
@@ -875,33 +930,11 @@ const HomePage = () => {
                                             </div>
 
                                             <div className='date-picker-mini-body'>
+                                                {renderMiniDateDays(0, 5)}
                                                 <div className='mini-date-day'>
-                                                    <div className='mini-date'>{currentDayOfMonth}</div>
-                                                    <div className='mini-day'>{dayNames[dayOfWeek]}</div>
+                                                    <AiOutlineDownCircle className='toggle-calander' onClick={toggleCalendar} />
                                                 </div>
-                                                <div className='mini-date-day'>
-                                                    <div className='mini-date'>{currentDayOfMonth + 1}</div>
-                                                    <div className='mini-day'>{dayNames[dayOfWeek + 1]}</div>
-                                                </div>
-                                                <div className='mini-date-day'>
-                                                    <div className='mini-date'>{currentDayOfMonth + 2}</div>
-                                                    <div className='mini-day'>{dayNames[dayOfWeek + 2]}</div>
-                                                </div>
-                                                <div className='mini-date-day'>
-                                                    <div className='mini-date'>{currentDayOfMonth + 3}</div>
-                                                    <div className='mini-day'>{dayNames[dayOfWeek + 3]}</div>
-                                                </div>
-                                                <div className='mini-date-day'>
-                                                    <div className='mini-date'>{currentDayOfMonth + 4}</div>
-                                                    <div className='mini-day'>{dayNames[dayOfWeek + 4]}</div>
-                                                </div>
-                                                <div className='mini-date-day'>
-                                                    <div className='mini-date'>{currentDayOfMonth + 5}</div>
-                                                    <div className='mini-day'>{dayNames[dayOfWeek + 5]}</div>
-                                                </div>
-                                                <div className='mini-date-day'><AiOutlineDownCircle className='toggle-calander' onClick={toggleCalendar} /> </div>
                                             </div>
-
 
 
                                         </div>
@@ -918,7 +951,7 @@ const HomePage = () => {
                                             <div >
 
                                                 {/* This div will be shown for today or future dates */}
-                                                <p className='Time-slots-header' style={{ backgroundColor: 'white' }}>{date.toDateString()}</p>
+                                                <p className='Time-slots-header' style={{ backgroundColor: 'white' }}>{date.toDateString() + ' ' + headerText}</p>
                                                 <div className='Time-slots'>
                                                     <div className='time-slot-card'>
                                                         <BsSunrise /> 10:00 AM
@@ -981,13 +1014,8 @@ const HomePage = () => {
                                     </button>
                                 </div>
 
-
-
                             </div>
                         )}
-
-
-
                     </div>
                 </div>
             </div>
@@ -1090,8 +1118,6 @@ const HomePage = () => {
                         </div>
 
 
-
-
                         <div className="carousel-item forsmallscreen">
                             <div className='stff1'></div>
                             <div className='stff1'></div>
@@ -1108,7 +1134,6 @@ const HomePage = () => {
                             <div className='stff1'></div>
                             <div className='stff1'></div>
                         </div>
-
 
 
                     </AliceCarousel>
@@ -1214,7 +1239,15 @@ const HomePage = () => {
             <div className="content-9">
                 <div>
                     <h2>About our store</h2>
-                    <p>Nestled on the top of Queen Anne <br /> Hill, Intermezzo Salon & Spa has been <br /> Seattle’s premiere boutique salon for for  <br />over 20 years. Our staff of highly-trained <br /> professionals is committed to bringing <br /> best-in-class service and products <br /> designed to make you feel and look <br /> your best.</p>
+                    <p>
+                        Nestled on the top of Queen Anne <br />
+                        Hill, Intermezzo Salon & Spa has been <br />
+                        Seattle’s premiere boutique salon for for  <br />
+                        over 20 years. Our staff of highly-trained <br />
+                        professionals is committed to bringing <br />
+                        best-in-class service and products <br />
+                        designed to make you feel and look <br />
+                        your best.</p>
                 </div>
                 <div>
 
