@@ -5,6 +5,7 @@ import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
+import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import './style.css'
 import imagex from './Resources/random.webp';
 import image1 from './Resources/Ellipse\ 14.png'
@@ -419,24 +420,26 @@ const HomePage = () => {
 
 
 
+
+
     const toggleDiv = () => {
 
         setIsVisible(!isVisible);
         setSelectedCard(null); // Reset selected card when toggling
         setCardsVisible(true); // Show the .cards div
-        setClickedContents([]); //clear the array
+
     };
     const openCardDetails = (cardIndex) => {
         setSelectedCard(cardIndex);
         setCardsVisible(false); // Hide the .cards div
 
-
+        //pushing the professional name
         const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
         if (clickedDiv) {
             const contentElement = clickedDiv.querySelector('p');
             if (contentElement) {
-                const content = contentElement.textContent;
-                setClickedContents(prevContents => [...prevContents, content]);
+                const content1 = contentElement.textContent;
+                setClickedContents(prevContents => [...prevContents, { type: 'content-1-style', value: content1, index: prevContents.filter(item => item.type === 'content-1-style').length },]);
             }
         }
     };
@@ -448,26 +451,34 @@ const HomePage = () => {
         setSelectedCard(null);
         setCardsVisible(true); // Show the .cards div
 
-        setClickedContents([]); // Clear the array when closing the card
+
 
 
     };
 
-    const openServiceDetails = (serviceindex) => {
 
-        setSelectedService(serviceindex);
+    //to open the list of  service cards having service name and price
+    const openServiceDetails = (serviceindex) => {
 
         //To Show the title of the service detail 
         const title = serviceData[serviceindex].title;
+        console.log(title)
         const content = (
             <div>
                 {/* <p>lavda</p> */}
                 <div className='card-title'>{title}</div>
             </div>
         );
-        setClickedContents(prevContents => [...prevContents, content]);
+
+        //pushing the service name title
+        if (serviceindex >= 0) {
+            const content2 = title;
+            setClickedContents(prevContents => [...prevContents, { type: 'content-2-style', value: content2, index: prevContents.filter(item => item.type === 'content-2-style').length },]);
+        }
+
 
         //last
+        setSelectedService(serviceindex);
 
         if (serviceindex === 0) {
             setselectedServiceCard1(true);
@@ -510,23 +521,33 @@ const HomePage = () => {
         setBookingDetail(false);//last
         setSelectedService(null);
         //function to delet the latest item form the array
-        setClickedContents(prevContents => {
-            const newContents = [...prevContents];
-            newContents.pop();
-            // newContents.pop();//removing 1 more element
-            return newContents;
-        });
+
     }
 
 
 
-
+    //click of the service subtype (service subtype + price div)
     const handleClick = (serviceName, index) => {
+
         setBookingDetail(true);
+        alert('it should work')
+        if (true) {
+            const content3 = serviceName;
+            setClickedContents(prevContents => [...prevContents, { type: 'content-3-style', value: content3, index: prevContents.filter(item => item.type === 'content-3-style').length },]);
+        }
         // alert(serviceName);
         sethighlited(index);
         // setselectedServiceCard2(index);
-        setClickedContents(prevContents => [...prevContents, serviceName]);
+
+        //if any div is highlited then setting the selected item list div to maximized
+        if (higlited) {
+            setMinimized(false);
+        }
+
+        console.log(serviceName);
+
+
+
     };
 
     //for showing the sliced array to it's correct title
@@ -547,10 +568,17 @@ const HomePage = () => {
         setIsChooseTImeClicked(!isChooseTimeClicked);
         handleMinimizeOrder();
 
+        if (today.getDay() === 0 || today.getDay() === 1) {
+            setShowTimeSlots2(true);
+        }
+        else { setShowTimeSlots1(true); }
+
     }
+    //to toggle the order list div up and down 
     const handleMinimizeOrder = () => {
         setMinimized(!minimized);
     }
+
 
     const closeChooseTime = () => {
         setIsChooseTImeClicked(null);
@@ -559,8 +587,10 @@ const HomePage = () => {
 
     // calander
     const [date, setDate] = useState(new Date()); // Initialize with today's date
-    const [showTimeSlots, setShowTimeSlots] = useState(null);
+    const [showTimeSlots1, setShowTimeSlots1] = useState(null);
+    const [showTimeSlots2, setShowTimeSlots2] = useState(null);
     const today = new Date();
+
     // const currentMonth = today.getMonth();
     const dayOfWeek = today.getDay();
     // To get the day name in English:
@@ -586,27 +616,33 @@ const HomePage = () => {
     }
 
 
-    const currentDayOfMonth = today.getDate();
-    const currentMonth = monthNames[today.getMonth()];
-    const currentYear = today.getFullYear();
-
     const handleDateChange = (newDate) => {
         setDate(newDate);
-        toggleCalendar();
+        // toggleCalendar();
         today.setDate(today.getDate() - 1);
-
+        alert(newDate.getDay());//if newDate.getDay() 0 or 1 setshowTimeSlots2(true) else setshowTimeSlots1(true)
         if (newDate >= today) {
-            setShowTimeSlots(true);
+            if (newDate.getDay() === 0 || newDate.getDay() === 1) {
+                setShowTimeSlots1(null);
+                setShowTimeSlots2(true);
+            }
+            else {
+                setShowTimeSlots1(true);
+                setShowTimeSlots2(null);
+            }
+
             // alert(today);
         } else {
-            setShowTimeSlots(null);
+            setShowTimeSlots1(null);
+            setShowTimeSlots2(null);
             alert('Choose a valid date');
         }
     };
 
-    const [calendarVisible, setCalendarVisible] = useState(null);
+    const [calendarVisible, setCalendarVisible] = useState(true);
     const toggleCalendar = () => {
         if (calendarVisible == true) {
+
             setCalendarVisible(null);
         }
         else {
@@ -614,63 +650,34 @@ const HomePage = () => {
         }
     }
 
-    //To map all of the mini-date-day divs
-    // Define the activeDay function to handle the click event.
-    // const [isactiveDay, setActiveday] = useState(null);
-
-    const [activeDayIndex, setActiveDayIndex] = useState(0);
-    const [headerText, setHeaderText] = useState('lavda');
-
-    const activeDay = (offset) => {
-
-
-        setActiveDayIndex(offset); // Set the active day index
-
-
-
-        // alert(`Clicked day: ${huihui}`);
 
 
 
 
+    // ... (array push button)
+    const [isPushButtonVisible, setPushButtonVisible] = useState(false);
+    //setPushButtonVisible(true);
+    const handlePushButtonClick = () => {
+        setPushButtonVisible(false);
+    }
+    const handleSelectedTimeClick = () => {
+        setPushButtonVisible(true);
+    }
 
 
-    };
-
-    // ... (other code)
-
-    const renderMiniDateDays = (startOffset, endOffset) => {
-        const dateDivs = [];
-
-
-        for (let offset = startOffset; offset <= endOffset; offset++) {
-            const dayOfMonth = (currentDayOfMonth + offset) % dayRange;
-            const dayOfWeekIndex = (dayOfWeek + offset) % 7;
-            const isActive = offset === activeDayIndex; // Check if the current div is active
-
-            const weekname = isActive ? dayNames[dayOfWeekIndex] : null;
-            const datename = isActive ? dayOfMonth : null;
-
-            if (weekname != null) {
-                
-                alert('datename : '+datename+ " "+weekname);
-            }
-
-            dateDivs.push(
-                <div
-                    key={offset}
-                    className='mini-date-day'
-                    onClick={() => activeDay(offset)}
-                >
-                    <div className={`mini-date ${isActive ? 'activeDay' : ''}`}>{dayOfMonth}</div>
-                    <div className='mini-day'>{dayNames[dayOfWeekIndex]}</div>
-                </div>
-            );
-        }
+    //add more button
+    const addMoreItems = () => {
+        // closeSelectedService();
+        setBookingDetail(false);//last
+        setSelectedService(null);
+        sethighlited(null);
 
 
-        return dateDivs;
-    };
+    }
+
+    //storing the prices
+
+
 
 
     return (
@@ -824,6 +831,7 @@ const HomePage = () => {
                                                                         <span className="service-price">${afterDollar}</span>
                                                                     </div>
                                                                 );
+
                                                             })}
                                                         </div>
                                                     </div>
@@ -848,12 +856,14 @@ const HomePage = () => {
                                                                         <span className="service-price">${afterDollar}</span>
                                                                     </div>
                                                                 );
+
                                                             })}
 
                                                         </div>
                                                     </div>
                                                 )
                                             ))}
+
 
                                             {serviceData.slice(4, 5).map((service, index) => (
                                                 selectedServiceCard5 && (
@@ -910,34 +920,13 @@ const HomePage = () => {
 
                                 )}
 
-
+                                {/* To open the div Having calendar and time slots */}
                                 {isChooseTimeClicked !== null && (
                                     <div className='expanded-card scrollbar choose-time-div'>
                                         <button className='close-btn' onClick={closeChooseTime}>
                                             <AiOutlineClose className='close-icon' />
                                         </button>
 
-                                        <div className='date-picker-mini'>
-                                            <div className='date-picker-mini-head'>
-                                                <div className='month-year'>
-                                                    {currentMonth + ' ' + currentYear}
-                                                </div>
-
-                                                <div className='expand-calander-btn'>
-                                                    <div> {'Today'}</div>
-                                                </div>
-
-                                            </div>
-
-                                            <div className='date-picker-mini-body'>
-                                                {renderMiniDateDays(0, 5)}
-                                                <div className='mini-date-day'>
-                                                    <AiOutlineDownCircle className='toggle-calander' onClick={toggleCalendar} />
-                                                </div>
-                                            </div>
-
-
-                                        </div>
                                         {calendarVisible !== null && (
                                             <div className='date-picker'>
                                                 <Calendar
@@ -947,11 +936,56 @@ const HomePage = () => {
                                             </div>
                                         )}
 
-                                        {showTimeSlots !== null && (
+                                        {showTimeSlots1 !== null && (
                                             <div >
 
                                                 {/* This div will be shown for today or future dates */}
-                                                <p className='Time-slots-header' style={{ backgroundColor: 'white' }}>{date.toDateString() + ' ' + headerText}</p>
+                                                <div className='Time-slots-header'>
+                                                    <div className='Time-slots-header-text'><p>All Available Times</p></div>
+                                                    <div className='selected-date'>{date.toDateString()}</div>
+                                                </div>
+                                                <div className='Time-slots'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunrise /> 10:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick} >
+                                                        <BsSunrise /> 11:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun /> 12:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun /> 01:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun />02:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun />03:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun />04:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunset /> 05:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunset /> 06:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunset /> 07:00 PM
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )}
+                                        {showTimeSlots2 !== null && (
+                                            <div >
+
+                                                {/* This div will be shown for today or future dates */}
+                                                <div className='Time-slots-header'>
+                                                    <div className='Time-slots-header-text'><p>All Available Times</p></div>
+                                                    <div className='selected-date'>{date.toDateString()}</div>
+                                                </div>
                                                 <div className='Time-slots'>
                                                     <div className='time-slot-card'>
                                                         <BsSunrise /> 10:00 AM
@@ -980,39 +1014,63 @@ const HomePage = () => {
                                                 </div>
                                             </div>
                                         )}
+
                                     </div>
+                                )}
+
+                                {/* Pushing items to cart */}
+                                {isPushButtonVisible && (
+                                    <button className='CartPush' id="myButton" onClick={handlePushButtonClick}>
+                                        Click me to execute a function
+                                    </button>
                                 )}
 
                                 <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`}>
                                     <div className='clicked-div-content-header'>
                                         <h2>Your Order</h2>
-                                        <button onClick={handleMinimizeOrder}> ˄</button>
+                                        <button onClick={handleMinimizeOrder} className='button-28'>
+                                            {minimized ? <MdExpandLess /> : <MdExpandMore />}
+                                        </button>
                                     </div>
 
                                     <ul className='array-info'>
-                                        {clickedContents.map((content, index) => {
-                                            if (index === 2 && typeof content === 'string') {
-                                                const [beforeDollar, afterDollar] = content.split('$');
-                                                return (
-                                                    <li key={index} className='split-content'>
-                                                        <span className="first-part">{beforeDollar}</span>
-                                                        <span className="second-part">${afterDollar}</span>
-                                                    </li>
-                                                );
-                                            } else {
-                                                return (
-                                                    <li key={index} className={index < 2 ? 'array-info-left' : 'array-info-right'}>
-                                                        {content}
-                                                    </li>
-                                                );
-                                            }
-                                        })}
+                                        <div>
+                                            {/* Render the contents of clickedContents */}
+                                            {clickedContents.map((item, index) => {
+                                                // Split the content based on the '$' symbol
+                                                const parts = item.value.split('$');
+
+                                                // Check if there are multiple parts after splitting
+                                                if (parts.length > 1) {
+                                                    return (
+                                                        <li key={index} className={item.type}>
+                                                            {parts[0]} - <span className="pricing">{`$${parts[1]}`}</span>
+                                                            {/* - Index: {item.index} */}
+                                                        </li>
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <li key={index} className={item.type}>
+                                                            {item.value}
+                                                            {/* - Index: {item.index} */}
+                                                        </li>
+                                                    );
+                                                }
+                                            })}
+
+                                        </div>
                                     </ul>
+
+                                    <div className='add-more-div' onClick={addMoreItems}>Add More</div>
 
                                     <button className="button-48" role="button" onClick={handleChooseTimeClick}>
                                         <span className="text">Choose a time</span>
                                     </button>
+
+
                                 </div>
+
+
 
                             </div>
                         )}

@@ -348,6 +348,7 @@
     font-weight: 700;
     display: flex;
     align-items: center;
+    cursor: default;
     justify-content: center;
 }
 
@@ -413,6 +414,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     font-size: large;
     font-weight: 700;
+    cursor: default;
 }
 
 .service-name {
@@ -421,6 +423,7 @@
     margin-left: 30px;
     font-size: large;
     font-weight: 700;
+    cursor:default;
 
 }
 
@@ -465,6 +468,7 @@
     /* Keeps the final state of the animation */
     opacity: 0;
     /* Start with opacity 0 */
+    height: 100%;
 
 }
 
@@ -484,9 +488,12 @@
 
 .clicked-div-content-active {
     /* Final state when active class is added */
-    transform: translateY(70%) !important;
+    transform: translateY(calc(100% - 60px)) !important;
     opacity: 1;
 }
+
+
+
 
 .clicked-div-content-header {
     display: flex;
@@ -503,8 +510,103 @@
 
 .clicked-div-content-header button {
     margin-left: auto;
+    
+    
 }
 
+
+/* CSS */
+.button-28 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid #1A1A1A;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #3B3B3B;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  /* min-height: 60px; */
+  min-width: 0;
+  outline: none;
+  /* padding: 2px 4px; */
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 30px;
+  height: 30px;
+  will-change: transform;
+}
+
+.button-28:disabled {
+  pointer-events: none;
+}
+
+.button-28:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+
+/* CSS */
+.button-30 {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 4px;
+  border-width: 0;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "JetBrains Mono",monospace;
+  height: 48px;
+  justify-content: center;
+  line-height: 1;
+  list-style: none;
+  overflow: hidden;
+  padding-left: 16px;
+  padding-right: 16px;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  transition: box-shadow .15s,transform .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  will-change: box-shadow,transform;
+  font-size: 18px;
+}
+
+.button-30:focus {
+  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+}
+
+.button-30:hover {
+  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+  transform: translateY(-2px);
+}
+
+.button-30:active {
+  box-shadow: #D6D6E7 0 3px 7px inset;
+  transform: translateY(2px);
+}
 .array-info {
     padding: 10px;
     display: flex;
@@ -512,6 +614,23 @@
     width: 90%;
     list-style: none;
     background-color: white;
+}
+.content-1-style{
+    background-color:whitesmoke;
+    font-size: larger;
+    
+}
+.content-2-style{
+    background-color: whitesmoke;
+    font-size: medium;
+}
+.content-3-style{
+    background-color: whitesmoke;
+    font-size: medium;
+    
+}
+.pricing{
+    background-color: #17a66d;
 }
 
 .array-info-left {
@@ -609,15 +728,36 @@
 .activeDay {
     background-color: #1E3722;
     color: white;
-        box-shadow: 0 0 0 2px white, 0 0 0 4px green;
-      
-      
+    box-shadow: 0 0 0 2px white, 0 0 0 4px green;
+
+
     /* Add your desired styling for active days here */
 }
 
 .mini-date:hover {
-    background-color: #2E6C3D; /* A more noticeable shade */
+    background-color: #2E6C3D;
+    /* A more noticeable shade */
 
+}
+
+.react-calendar {
+    border: 0px !important;
+    background-color: #84e1bc29 !important;
+    border-radius: 5% !important;
+}
+
+.react-calendar__month-view__weekdays abbr {
+    font-size: small !important;
+    text-decoration: none !important;
+
+}
+
+.react-calendar__month-view__days__day {
+    border-radius: 50% !important;
+}
+
+.react-calendar__navigation {
+    margin: 0 !important;
 }
 
 .toggle-calander {
@@ -628,10 +768,31 @@
 
 .Time-slots-header {
     margin-right: auto;
+    display: flex;
     width: fit-content;
+    
+    background-color: white;
+    width: 80%;
+    justify-content: space-between;
+    padding: 20px 40px;
+}
+
+.Time-slots-header-text {
+    font-size: medium;
+    font-weight: 700;
+    flex: 1;
+    /* Make the left div flexible to take available space */
+    color: grey;
+}
+
+.selected-date {
     font-size: large;
     font-weight: 700;
-    padding: 20px 40px;
+    flex: 1;
+    /* Make the left div flexible to take available space */
+    text-align: right;
+    /* Align the text to the right */
+    color: #000000;
 }
 
 .Time-slots {
@@ -642,6 +803,7 @@
     flex-wrap: wrap;
     font-size: medium;
     font-weight: 650;
+    margin-bottom: 50px;
 }
 
 .time-slot-card {
@@ -650,8 +812,52 @@
     border-radius: 10%;
     padding: 7px 5px;
     align-items: center;
+    cursor: pointer;
     justify-content: center;
 }
+
+.CartPush {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border-radius: 10%;
+    background-color: #000000;
+    animation-name: slideInFromBelow;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    z-index: 3;
+    bottom: 100px;
+    left: 40%;
+  }
+  
+  @keyframes slideInFromBelow {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .add-more-div{
+    padding: 5px 10px;
+    background-color: #E91E63;
+    border-radius: 10px;
+    cursor: default;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: auto;
+  }
+ .real-hero{
+    background-color: #0e3510;
+    width: 500px;
+    height: 500px;
+ }
+  
 
 /* CSS */
 .button-48 {

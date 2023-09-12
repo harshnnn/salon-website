@@ -1,12 +1,15 @@
-import React, { Component, useState, useRef } from 'react';
-import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose } from 'react-icons/ai';
+import React, { Component, useState, useRef, useEffect } from 'react';
+import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
+import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
 import './style.css'
 import imagex from './Resources/random.webp';
 import image1 from './Resources/Ellipse\ 14.png'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 
 import AliceCarousel from 'react-alice-carousel'
@@ -26,6 +29,197 @@ const HomePage = () => {
     const handleItemClick = (index) => {
         setSelectedItem(index);
     };
+
+
+    const serviceData = [
+        {
+            title: 'Haircut & Style', content:
+                <>
+                    <div className='service-card-1' >
+                        Women’s Haircut
+                        $85
+                    </div>
+
+                    <div className='service-card-1'  >
+                        Blowdry & Style
+                        $65
+                    </div>
+                    <div className='service-card-1'>
+                        Deep Conditioner
+                        $70
+                    </div>
+
+                    <div className='service-card-1'>
+                        Men’s Haircut
+                        $50
+                    </div>
+
+                    <div className='service-card-1'>
+                        Brazilian Blowout
+                        $75
+                    </div>
+                </>
+
+        },
+        {
+            title: 'Hair Color', content:
+                <>
+                    <div className='service-card-1'>
+                        Hair Color
+                        $65
+                    </div>
+                    <div className='service-card-1'>
+                        Highlights
+                        $BB
+                    </div>
+
+                    <div className='service-card-1'>
+                        Balayage
+                        $CC
+                    </div>
+
+                    <div className='service-card-1'>
+                        Color Correction
+                        $DD
+                    </div>
+
+                    <div className='service-card-1'>
+                        Ombre
+                        $EE
+                    </div>
+
+
+                </>
+        },
+        {
+            title: 'Spa Facial', content:
+                <>
+                    <div className='service-card-1'>
+                        Classic Spa Facial
+                        $FF
+                    </div>
+
+                    <div className='service-card-1'>
+                        Anti-Aging Facial
+                        $GG
+                    </div>
+
+                    <div className='service-card-1'>
+                        Hydrating Facial
+                        $HH
+                    </div>
+
+                    <div className='service-card-1'>
+                        Acne Clearing Facial
+                        $II
+                    </div>
+
+                    <div className='service-card-1'>
+                        Sensitive Skin Facial
+                        $JJ
+                    </div>
+
+                </>
+        },
+        {
+            title: 'Eyelashes Services',
+            content:
+                <>
+                    <div class='service-card-1'>
+                        Classic Eyelash Extensions
+                        $KK
+                    </div>
+
+                    <div class='service-card-1'>
+                        Volume Eyelash Extensions
+                        $LL
+                    </div>
+
+                    <div class='service-card-1'>
+                        Eyelash Lift & Tint
+                        $MM
+                    </div>
+
+                    <div class='service-card-1'>
+                        Eyelash Extension Refill
+                        $NN
+                    </div>
+
+                    <div class='service-card-1'>
+                        Lash Removal
+                        $OO
+                    </div>
+
+
+                </>
+        },
+        {
+            title: 'Hair Removal', content:
+                <>
+                    <div class='service-card-1'>
+                        Waxing Services
+                        $PP
+                    </div>
+
+                    <div class='service-card-1'>
+                        Threading
+                        $QQ
+                    </div>
+
+                    <div class='service-card-1'>
+                        Laser Hair Removal
+                        $RR
+                    </div>
+
+                    <div class='service-card-1'>
+                        Bikini Wax
+                        $SS
+                    </div>
+
+                    <div class='service-card-1'>
+                        Body Sugaring
+                        $TT
+                    </div>
+
+                </>
+        },
+        {
+            title: 'Express Treatments', content:
+                <>
+                    <div class='service-card-1'>
+                        Express Facial
+                        $UU
+                    </div>
+
+                    <div class='service-card-1'>
+                        Mini Manicure
+                        $VV
+                    </div>
+
+                    <div class='service-card-1'>
+                        Mini Pedicure
+                        $WW
+                    </div>
+
+                    <div class='service-card-1'>
+                        Eyebrow Tinting
+                        $XX
+                    </div>
+
+                    <div class='service-card-1'>
+                        Lash Tinting
+                        $YY
+                    </div>
+
+                </>
+        },
+        // ... other service data ...
+    ];
+
+
+
+
+
 
 
     const items = ['Haircut & Style',
@@ -215,8 +409,12 @@ const HomePage = () => {
     const [selectedCard, setSelectedCard] = useState(null);
     const [cardsVisible, setCardsVisible] = useState(true);
     const [selectedService, setSelectedService] = useState(null);
-    
+    const [bookingDetail, setBookingDetail] = useState(null);
 
+
+    const [clickedContents, setClickedContents] = useState([]);
+
+    const [clickedServiceIndex, setClickedServiceIndex] = useState(null);
 
 
 
@@ -226,231 +424,268 @@ const HomePage = () => {
         setIsVisible(!isVisible);
         setSelectedCard(null); // Reset selected card when toggling
         setCardsVisible(true); // Show the .cards div
-
+        setClickedContents([]); //clear the array
     };
     const openCardDetails = (cardIndex) => {
         setSelectedCard(cardIndex);
         setCardsVisible(false); // Hide the .cards div
 
+
+        const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
+        if (clickedDiv) {
+            const contentElement = clickedDiv.querySelector('p');
+            if (contentElement) {
+                const content = contentElement.textContent;
+                setClickedContents(prevContents => [...prevContents, content]);
+            }
+        }
     };
+
+
+
 
     const closeselectedcard = () => {
         setSelectedCard(null);
         setCardsVisible(true); // Show the .cards div
 
-    };
+        setClickedContents([]); // Clear the array when closing the card
 
 
-    const openServiceDetails = (index) => {
-        setSelectedService(index);
     };
+
+    const openServiceDetails = (serviceindex) => {
+
+        setSelectedService(serviceindex);
+
+        //To Show the title of the service detail 
+        const title = serviceData[serviceindex].title;
+        const content = (
+            <div>
+                {/* <p>lavda</p> */}
+                <div className='card-title'>{title}</div>
+            </div>
+        );
+        setClickedContents(prevContents => [...prevContents, content]);
+
+        //last
+
+        if (serviceindex === 0) {
+            setselectedServiceCard1(true);
+        } else {
+            setselectedServiceCard1(false);
+        }
+        if (serviceindex === 1) {
+            setselectedServiceCard2(true);
+        } else {
+            setselectedServiceCard2(false);
+        }
+        if (serviceindex === 2) {
+            setselectedServiceCard3(true);
+        } else {
+            setselectedServiceCard3(false);
+        }
+        if (serviceindex === 3) {
+            setselectedServiceCard4(true);
+        } else {
+            setselectedServiceCard4(false);
+        }
+        if (serviceindex === 4) {
+            setselectedServiceCard5(true);
+        } else {
+            setselectedServiceCard5(false);
+        }
+        if (serviceindex === 5) {
+            setselectedServiceCard6(true);
+        } else {
+            setselectedServiceCard6(false);
+        }
+
+
+    };
+
 
     const closeSelectedService = () => {
+        sethighlited(null);
+        //to get back
+        setBookingDetail(false);//last
         setSelectedService(null);
+        //function to delet the latest item form the array
+        setClickedContents(prevContents => {
+            const newContents = [...prevContents];
+            newContents.pop();
+            // newContents.pop();//removing 1 more element
+            return newContents;
+        });
+    }
+
+
+
+
+    const handleClick = (serviceName, index) => {
+        setBookingDetail(true);
+        // alert(serviceName);
+        sethighlited(index);
+        // setselectedServiceCard2(index);
+        setClickedContents(prevContents => [...prevContents, serviceName]);
     };
 
-    const serviceData = [
-        {
-            title: 'Haircut & Style', content:
-                <div style={{ color: "black" }} className='service-cards'>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Women’s Haircut</div>
-                        <div className='service-price'>$85</div>
-                    </div>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Blowdry & Style </div>
-                        <div className='service-price'>$65</div>
-                    </div>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Deep Conditioner</div>
-                        <div className='service-price'>$70</div>
-                    </div>
+    //for showing the sliced array to it's correct title
+    const [selectedServiceCard1, setselectedServiceCard1] = useState(null);
+    const [selectedServiceCard2, setselectedServiceCard2] = useState(null);
+    const [selectedServiceCard3, setselectedServiceCard3] = useState(null);
+    const [selectedServiceCard4, setselectedServiceCard4] = useState(null);
+    const [selectedServiceCard5, setselectedServiceCard5] = useState(null);
+    const [selectedServiceCard6, setselectedServiceCard6] = useState(null);
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Men’s Haircut</div>
-                        <div className='service-price'>$50</div>
-                    </div>
+    const [higlited, sethighlited] = useState(null);
+    const [minimized, setMinimized] = useState(false);
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Brazilian Blowout</div>
-                        <div className='service-price'>$75</div>
-                    </div>
+    const [isChooseTimeClicked, setIsChooseTImeClicked] = useState(null);
 
-                </div>
-        },
-        {
-            title: 'Hair Color', content:
-                <div style={{ color: "black" }} className='service-cards'>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Hair Color</div>
-                        <div className='service-price'>$AA</div>
-                    </div>
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Highlights</div>
-                        <div className='service-price'>$BB</div>
-                    </div>
+    const handleChooseTimeClick = () => {
+        setIsChooseTImeClicked(!isChooseTimeClicked);
+        handleMinimizeOrder();
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Balayage</div>
-                        <div className='service-price'>$CC</div>
-                    </div>
+        if (today.getDay() === 0 || today.getDay() === 1) {
+            setShowTimeSlots2(true);
+        }
+        else { setShowTimeSlots1(true); }
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Color Correction</div>
-                        <div className='service-price'>$DD</div>
-                    </div>
+    }
+    const handleMinimizeOrder = () => {
+        setMinimized(!minimized);
+    }
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Ombre</div>
-                        <div className='service-price'>$EE</div>
-                    </div>
+    const closeChooseTime = () => {
+        setIsChooseTImeClicked(null);
+    }
 
-                </div>
-        },
-        {
-            title: 'Spa Facial', content:
-                <div style={{ color: "black" }} className='service-cards'>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Classic Spa Facial</div>
-                        <div className='service-price'>$FF</div>
-                    </div>
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Anti-Aging Facial</div>
-                        <div className='service-price'>$GG</div>
-                    </div>
+    // calander
+    const [date, setDate] = useState(new Date()); // Initialize with today's date
+    const [showTimeSlots1, setShowTimeSlots1] = useState(null);
+    const [showTimeSlots2, setShowTimeSlots2] = useState(null);
+    const today = new Date();
 
-                    <div className='service-card-1'>
-                        <div className='card-title'>Hydrating Facial</div>
-                        <div className='service-price'>$HH</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Acne Clearing Facial</div>
-                        <div className='service-price'>$II</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Sensitive Skin Facial</div>
-                        <div className='service-price'>$JJ</div>
-                    </div>
-
-                </div>
-        },
-        {
-            title: 'Eyelashes Services',
-            content: <div style={{ color: "black" }} className='service-cards'>
-                <div className='service-card-1'>
-                    <div className='card-title'>Classic Eyelash Extensions</div>
-                    <div className='service-price'>$KK</div>
-                </div>
-
-                <div className='service-card-1'>
-                    <div className='card-title'>Volume Eyelash Extensions</div>
-                    <div className='service-price'>$LL</div>
-                </div>
-
-                <div className='service-card-1'>
-                    <div className='card-title'>Eyelash Lift & Tint</div>
-                    <div className='service-price'>$MM</div>
-                </div>
-
-                <div className='service-card-1'>
-                    <div className='card-title'>Eyelash Extension Refill</div>
-                    <div className='service-price'>$NN</div>
-                </div>
-
-                <div className='service-card-1'>
-                    <div className='card-title'>Lash Removal</div>
-                    <div className='service-price'>$OO</div>
-                </div>
-
-            </div>
-        },
-        {
-            title: 'Hair Removal', content:
-                <div style={{ color: "black" }} className='service-cards'>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Waxing Services</div>
-                        <div className='service-price'>$PP</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Threading</div>
-                        <div className='service-price'>$QQ</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Laser Hair Removal</div>
-                        <div className='service-price'>$RR</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Bikini Wax</div>
-                        <div className='service-price'>$SS</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Body Sugaring</div>
-                        <div className='service-price'>$TT</div>
-                    </div>
-
-                </div>
-        },
-        {
-            title: 'Express Treatments', content:
-                <div style={{ color: "black" }} className='service-cards'>
-                    <div className='service-card-1'>
-                        <div className='card-title'>Express Facial</div>
-                        <div className='service-price'>$UU</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Mini Manicure</div>
-                        <div className='service-price'>$VV</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Mini Pedicure</div>
-                        <div className='service-price'>$WW</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Eyebrow Tinting</div>
-                        <div className='service-price'>$XX</div>
-                    </div>
-
-                    <div className='service-card-1'>
-                        <div className='card-title'>Lash Tinting</div>
-                        <div className='service-price'>$YY</div>
-                    </div>
-
-                </div>
-        },
-        // ... other service data ...
+    // const currentMonth = today.getMonth();
+    const dayOfWeek = today.getDay();
+    // To get the day name in English:
+    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
     ];
+    var dayRange = 0;
+    if ([0, 2, 4, 6, 7, 9, 11].includes(today.getMonth())) {
+        dayRange = 31;
+    }
+    if ([3, 5, 8, 10].includes(today.getMonth())) {
+        dayRange = 30;
+    }
+    if (today.getMonth() === 1) {
+        if ((today.getFullYear() % 4 === 0 && today.getFullYear() % 100 !== 0) || (today.getFullYear() % 400 === 0)) {
+            dayRange = 29;
+        }
+        else {
+            dayRange = 28;
+        }
+    }
+
+
+    const handleDateChange = (newDate) => {
+        setDate(newDate);
+        // toggleCalendar();
+        today.setDate(today.getDate() - 1);
+        alert(newDate.getDay());//if newDate.getDay() 0 or 1 setshowTimeSlots2(true) else setshowTimeSlots1(true)
+        if (newDate >= today) {
+            if (newDate.getDay() === 0 || newDate.getDay() === 1) {
+                setShowTimeSlots1(null);
+                setShowTimeSlots2(true);
+            }
+            else {
+                setShowTimeSlots1(true);
+                setShowTimeSlots2(null);
+            }
+
+            // alert(today);
+        } else {
+            setShowTimeSlots1(null);
+            setShowTimeSlots2(null);
+            alert('Choose a valid date');
+        }
+    };
+
+    const [calendarVisible, setCalendarVisible] = useState(true);
+    const toggleCalendar = () => {
+        if (calendarVisible == true) {
+
+            setCalendarVisible(null);
+        }
+        else {
+            setCalendarVisible(true);
+        }
+    }
+
+
+
+
+
+    // ... (array push button)
+    const [isPushButtonVisible, setPushButtonVisible] = useState(false);
+    //setPushButtonVisible(true);
+    const handlePushButtonClick = () => {
+        setPushButtonVisible(false);
+    }
+    const handleSelectedTimeClick = () => {
+        setPushButtonVisible(true);
+    }
+
+
+    //add more button
+    const addMoreItems = () => {
+        // closeSelectedService();
+        setBookingDetail(false);//last
+        setSelectedService(null);
+        sethighlited(null);
+
+
+    }
+
+    //storing the prices
+
+
+
 
     return (
         <div className='home-page'>
             <div className='content-1' id="content-1" >
                 <div className='tagline'><p>We provde you the best experience which your hair <span>loves</span></p>
-                    {/* <div className='book-btn'>Book Now</div> */}
+
                     <div className='container'>
                         <div className='book-btn' onClick={toggleDiv}>
                             Book Now
                         </div>
                         {isVisible && (
-                            <div className={`animated-div scrollbar ${isVisible ? 'slide-in' : 'slide-out'}`}>
-
-
-                                <div className='book-header'>
-                                    {/* <h3>Choose a professional</h3> */}
-                                    <h3>{selectedCard !== null ? 'Choose a service' : 'Choose a professional'}</h3>
-                                    <button className='close-btn' onClick={toggleDiv}>
-                                        <AiOutlineClose className='close-icon' />
-                                    </button>
+                            <div className={`animated-div scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
+                                {/* booking header div */}
+                                <div className='header-container'>
+                                    <div className='book-header'>
+                                        <h3>{selectedCard !== null ? 'Choose a service' : 'Choose a professional'}</h3>
+                                        {/* <h2>
+                                            {selectedCard !== null
+                                                ? 'Choose a service'
+                                                : showTimeSelection !== null
+                                                    ? 'Choose Time'
+                                                    : 'Choose a professional'}
+                                        </h2> */}
+                                        <button className='close-btn' onClick={toggleDiv}>
+                                            <AiOutlineClose className='close-icon' />
+                                        </button>
+                                    </div>
                                 </div>
+
+                                {/* this div has the list of all the professionals */}
                                 <div className={`cards ${cardsVisible ? '' : 'hidden'}`}>
 
                                     {Array.from({ length: 8 }, (_, index) => (
@@ -459,8 +694,7 @@ const HomePage = () => {
                                             key={index}
                                             onClick={() => openCardDetails(index)}
                                         >
-                                            {/* Different content for different div */}
-                                            {index === 0 && <div className='refdiv'>  <p> <FaRandom /></p> </div>}
+                                            {index === 0 && <div>  <p> <FaRandom /></p> </div>}
                                             {index === 1 && <p>Content for div 1</p>}
                                             {index === 2 && <p>Content for div 2</p>}
                                             {index === 3 && <p>Content for div 3</p>}
@@ -468,112 +702,350 @@ const HomePage = () => {
                                             {index === 5 && <p>Content for div 5</p>}
                                             {index === 6 && <p>Content for div 6</p>}
                                             {index === 7 && <p>Content for div 7</p>}
-                                            {/* ... and so on for other indices */}
                                         </div>
                                     ))}
 
                                 </div>
-                                {/* {selectedCard !== null && (
-                                    <div className='expanded-card scrollbar'>
-                                        <button className='close-btn' onClick={closeselectedcard}>
+
+                                {/* this div has all the service types listed*/}
+                                {selectedCard !== null && (
+                                    <div className='expanded-card scrollbar '>
+                                        <button className='close-btn ' onClick={closeselectedcard}>
                                             <AiOutlineClose className='close-icon' />
                                         </button>
                                         <div className='service-cards'>
-                                            <div className='service-card-1'>Haircut & Style
-                                            </div>
-                                            <div className='service-card-1'>Hair Color
-                                            </div>
-                                            <div className='service-card-1'>Spa Facial
-                                            </div>
-                                            <div className='service-card-1'>Eylashes Services
-                                            </div>
-                                            <div className='service-card-1'>Hair Removal
-                                            </div>
-                                            <div className='service-card-1'>Express Treatments
-                                            </div>
+                                            {serviceData.map((service, serviceindex) => (
+                                                <div
+                                                    key={serviceindex}
+                                                    className={`service-card-1 ${selectedService === serviceindex ? 'selected' : ''
+                                                        } ${clickedServiceIndex === serviceindex ? 'clicked' : ''}`}
+                                                    onClick={() => openServiceDetails(serviceindex)}
+                                                >
+                                                    <div>
+                                                        <p>{service.title}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* this div has all the types of services  prices */}
+                                {selectedService !== null && (
+                                    <div className='expanded-card scrollbar'>
+                                        <button className='close-btn' onClick={closeSelectedService}>
+                                            <AiOutlineClose className='close-icon' />
+                                        </button>
+                                        {/* <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1> */}
+                                        <div className='' style={{ color: 'black' }} >
+                                            {/* {serviceData[selectedService].content }  */}
+
+                                            {serviceData.slice(0, 1).map((service, index) => (
+                                                selectedServiceCard1 && (
+                                                    <div key={index}>
+                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
+                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                    >
+                                                                        <span className="service-name">{beforeDollar}</span>
+                                                                        <span className="service-price">${afterDollar}</span>
+                                                                    </div>
+                                                                );
+                                                            })}
+
+                                                        </div>
+                                                    </div>
+                                                )
+                                            ))}
+
+                                            {serviceData.slice(1, 2).map((service, index) => (
+                                                selectedServiceCard2 && (
+                                                    <div key={index}>
+                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
+                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                    >
+                                                                        <span className="service-name">{beforeDollar}</span>
+                                                                        <span className="service-price">${afterDollar}</span>
+                                                                    </div>
+                                                                );
+                                                            })}
+
+                                                        </div>
+                                                    </div>
+                                                )
+                                            ))}
+
+                                            {serviceData.slice(2, 3).map((service, index) => (
+                                                selectedServiceCard3 && (
+                                                    <div key={index}>
+                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
+                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                    >
+                                                                        <span className="service-name">{beforeDollar}</span>
+                                                                        <span className="service-price">${afterDollar}</span>
+                                                                    </div>
+                                                                );
+
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            ))}
+
+                                            {serviceData.slice(3, 4).map((service, index) => (
+                                                selectedServiceCard4 && (
+                                                    <div key={index}>
+                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
+                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                    >
+                                                                        <span className="service-name">{beforeDollar}</span>
+                                                                        <span className="service-price">${afterDollar}</span>
+                                                                    </div>
+                                                                );
+
+                                                            })}
+
+                                                        </div>
+                                                    </div>
+                                                )
+                                            ))}
+
+
+                                            {serviceData.slice(4, 5).map((service, index) => (
+                                                selectedServiceCard5 && (
+                                                    <div key={index}>
+                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
+                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                    >
+                                                                        <span className="service-name">{beforeDollar}</span>
+                                                                        <span className="service-price">${afterDollar}</span>
+                                                                    </div>
+                                                                );
+                                                            })}
+
+                                                        </div>
+                                                    </div>
+                                                )
+                                            ))}
+
+                                            {serviceData.slice(5, 6).map((service, index) => (
+                                                selectedServiceCard6 && (
+                                                    <div key={index}>
+                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
+                                                        <div style={{ color: 'black' }} className="service-cards">
+                                                            {service.content.props.children.map((child, i) => {
+                                                                const serviceName = child.props.children;
+                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
+                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                    >
+                                                                        <span className="service-name">{beforeDollar}</span>
+                                                                        <span className="service-price">${afterDollar}</span>
+                                                                    </div>
+                                                                );
+                                                            })}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            ))}
+
 
                                         </div>
                                     </div>
-                                )} */}
 
+                                )}
 
-                                {selectedCard !== null && (
-                                    <div className='expanded-card scrollbar'>
-                                        {/* Content of the expanded card */}
-                                        <button className='close-btn' onClick={closeselectedcard}>
+                                {/* To open the div Having calendar and time slots */}
+                                {isChooseTimeClicked !== null && (
+                                    <div className='expanded-card scrollbar choose-time-div'>
+                                        <button className='close-btn' onClick={closeChooseTime}>
                                             <AiOutlineClose className='close-icon' />
                                         </button>
-                                         <div className='service-cards'>
-                                            <div
-                                                className={`service-card-1 ${selectedService === 0 ? 'selected' : ''}`}
-                                                onClick={() => openServiceDetails(0)}
-                                            >   <div>
-                                                    Haircut & Style
+
+                                        {calendarVisible !== null && (
+                                            <div className='date-picker'>
+                                                <Calendar
+                                                    onChange={handleDateChange}
+                                                    value={date}
+                                                />
+                                            </div>
+                                        )}
+
+                                        {showTimeSlots1 !== null && (
+                                            <div >
+
+                                                {/* This div will be shown for today or future dates */}
+                                                <div className='Time-slots-header'>
+                                                    <div className='Time-slots-header-text'><p>All Available Times</p></div>
+                                                    <div className='selected-date'>{date.toDateString()}</div>
+                                                </div>
+                                                <div className='Time-slots'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunrise /> 10:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick} >
+                                                        <BsSunrise /> 11:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun /> 12:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun /> 01:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun />02:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun />03:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSun />04:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunset /> 05:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunset /> 06:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
+                                                        <BsSunset /> 07:00 PM
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div
-                                                className={`service-card-1 ${selectedService === 1 ? 'selected' : ''}`}
-                                                onClick={() => openServiceDetails(1)}
-                                            >   <div>
-                                                    Hair Color
+                                        )}
+                                        {showTimeSlots2 !== null && (
+                                            <div >
+
+                                                {/* This div will be shown for today or future dates */}
+                                                <div className='Time-slots-header'>
+                                                    <div className='Time-slots-header-text'><p>All Available Times</p></div>
+                                                    <div className='selected-date'>{date.toDateString()}</div>
+                                                </div>
+                                                <div className='Time-slots'>
+                                                    <div className='time-slot-card'>
+                                                        <BsSunrise /> 10:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSunrise /> 11:00 AM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun /> 12:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun /> 01:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun />02:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun />03:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSun />04:00 PM
+                                                    </div>
+                                                    <div className='time-slot-card'>
+                                                        <BsSunset /> 05:00 PM
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div
-                                                className={`service-card-1 ${selectedService === 2 ? 'selected' : ''}`}
-                                                onClick={() => openServiceDetails(2)}
-                                            >   <div>
-                                                    Spa Facial
-                                                </div>
-                                            </div>
-                                            <div
-                                                className={`service-card-1 ${selectedService === 3 ? 'selected' : ''}`}
-                                                onClick={() => openServiceDetails(3)}
-                                            >   <div>
-                                                    Eylashes Services
-                                                </div>
-                                            </div>
-                                            <div
-                                                className={`service-card-1 ${selectedService === 4 ? 'selected' : ''}`}
-                                                onClick={() => openServiceDetails(4)}
-                                            >   <div>
-                                                    Hair Removal
-                                                </div>
-                                            </div>
-                                            <div
-                                                className={`service-card-1 ${selectedService === 5 ? 'selected' : ''}`}
-                                                onClick={() => openServiceDetails(5)}
-                                            >   <div>
-                                                    Express Treatments
-                                                </div>
-                                            </div>
-                                            
-                                        </div> 
+                                        )}
+
+
 
                                     </div>
                                 )}
-                                {/* {selectedService !== null && (
-                                    <div className='expanded-card scrollbar'>
-                                        
-                                        <button className='close-btn' onClick={closeSelectedService}>
-                                            <AiOutlineClose className='close-icon' />
-                                        </button>
 
-                                        <h1 style={{color: "red"}}>Hui hui </h1>
-                                        
-                                    </div>
-                                )} */}
-
-                                {selectedService !== null && (
-                                    <div className='expanded-card scrollbar'>
-                                        {/* Content of the selected service card */}
-                                        <button className='close-btn' onClick={closeSelectedService}>
-                                            <AiOutlineClose className='close-icon' />
-                                        </button>
-
-                                        <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1>
-                                        <p>{serviceData[selectedService].content}</p>
-                                    </div>
+                                {/* Pushing items to cart */}
+                                {isPushButtonVisible && (
+                                    <button className='CartPush' id="myButton" onClick={handlePushButtonClick}>
+                                        Click me to execute a function
+                                    </button>
                                 )}
+
+                                <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`}>
+                                    <div className='clicked-div-content-header'>
+                                        <h2>Your Order</h2>
+                                        <button onClick={handleMinimizeOrder}> ˄</button>
+                                    </div>
+
+                                    <ul className='array-info'>
+                                        {clickedContents.map((content, index) => {
+                                            if ( typeof content === 'string') {
+
+                                                const [beforeDollar, afterDollar] = content.split('$');
+                                                // Add the afterDollar value to the afterDollarArray
+
+
+                                                return (
+                                                    <li key={index}  >
+                                                        {beforeDollar}
+                                                        <span className='second-part'></span>${afterDollar}
+                                                    </li>
+                                                );
+                                            } else {
+                                                return (
+                                                    // className={index < 2 ? 'array-info-left' : 'array-info-right'}
+                                                    <li key={index}>
+                                                        {content}
+                                                    </li>
+                                                );
+                                            }
+
+
+                                        })}
+                                    </ul>
+
+                                    <div className='add-more-div' onClick={addMoreItems}>Add More</div>
+
+                                    <button className="button-48" role="button" onClick={handleChooseTimeClick}>
+                                        <span className="text">Choose a time</span>
+                                    </button>
+
+
+                                </div>
+
 
 
                             </div>
@@ -680,8 +1152,6 @@ const HomePage = () => {
                         </div>
 
 
-
-
                         <div className="carousel-item forsmallscreen">
                             <div className='stff1'></div>
                             <div className='stff1'></div>
@@ -698,7 +1168,6 @@ const HomePage = () => {
                             <div className='stff1'></div>
                             <div className='stff1'></div>
                         </div>
-
 
 
                     </AliceCarousel>
@@ -710,7 +1179,6 @@ const HomePage = () => {
                 <h1>Our Prices</h1>
 
                 <div className='list-details'>
-
 
                     <div>
                         <ul>
@@ -726,9 +1194,6 @@ const HomePage = () => {
                             {selectedItem !== null && <div>{content[selectedItem]}</div>}
                         </div>
                     </div>
-
-
-
 
                 </div>
 
@@ -808,7 +1273,15 @@ const HomePage = () => {
             <div className="content-9">
                 <div>
                     <h2>About our store</h2>
-                    <p>Nestled on the top of Queen Anne <br /> Hill, Intermezzo Salon & Spa has been <br /> Seattle’s premiere boutique salon for for  <br />over 20 years. Our staff of highly-trained <br /> professionals is committed to bringing <br /> best-in-class service and products <br /> designed to make you feel and look <br /> your best.</p>
+                    <p>
+                        Nestled on the top of Queen Anne <br />
+                        Hill, Intermezzo Salon & Spa has been <br />
+                        Seattle’s premiere boutique salon for for  <br />
+                        over 20 years. Our staff of highly-trained <br />
+                        professionals is committed to bringing <br />
+                        best-in-class service and products <br />
+                        designed to make you feel and look <br />
+                        your best.</p>
                 </div>
                 <div>
 
@@ -883,167 +1356,5 @@ export default HomePage;
 
 
 
-
-
-
-
-
-
-
-
-                                
-                                {selectedService !== null && (
-                                    <div className='expanded-card scrollbar'>
-                                        <button className='close-btn' onClick={closeSelectedService}>
-                                            <AiOutlineClose className='close-icon' />
-                                        </button>
-                                        <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1>
-                                        <div className='chutiya'>
-                                          
-                                            <div className='service-cards'>
-                                                {serviceData[selectedService].content.props.children.map(
-                                                    (child, index) => (
-                                                        <div
-                                                            key={index}
-                                                            className={`service-card-1 ${selectedCardIndex === index ? 'blue' : ''}`}
-
-                                                            onClick={() => servicecarddetails(index)}
-                                                        >
-                                                            {serviceData[selectedService].content.props.children[index]}
-                                                        </div>
-                                                    )
-                                                )}
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
-
-    
-
-    // const servicecarddetails = (serviceindex, index) => {
-    //     openServiceDetails(serviceindex);// to open the service detail and storing the title of the div
-
-    //     setClickedServiceIndex(serviceindex);
-    //     const price = serviceData[serviceindex].content.props.children[index];
-    //     // const title = serviceData[selectedService].content.props.children[index]
-    //     // const price = serviceData[serviceindex].content.props.children[1].props.children;
-    //     const content = (
-    //         <div>
-
-    //             {price}
-
-    //         </div>
-    //     );
-    //     setClickedContents(prevContents => [...prevContents, content]);
-
-    // };
-
-
-
-    // const closeSelectedService = () => {
-    //     setSelectedService(null);
-
-    //     setBookingDetail(true); //adding hidden class to the final booking div
-    //     setBackgroundColor('white');
-
-
-    //     setClickedContents(prevContents => {
-    //         const newContents = [...prevContents];
-    //         newContents.pop();
-    //         newContents.pop();//removing 1 more element
-    //         return newContents;
-    //     });
-
-
-    // };
-
-
-    // const [backgroundColor, setBackgroundColor] = useState('white');
-
-    // const openServiceCard = () => {
-    //     setBackgroundColor('green');
-    //     setBookingDetail(true);
-    // };                                
-
-
-
-
-
-    
-                                                {serviceData.slice(
-                                                    selectedService * 5,
-                                                    selectedService * 5 + 5
-                                                ).map((service, index) => (
-                                                    <div key={index}>
-                                                        <h2>{service.title}</h2>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className="service-card-1"
-                                                                        onClick={() => handleClick(serviceName)}
-                                                                    >
-                                                                        {child}
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                        </div>
-                                                    </div>
-                                                ))}
-
-
-
-
-
-                                                
-        setActiveDayIndex(index); // Set the active day index
-        //to make time div visible
-        //   setShowTimeSlots(true);
-        const selectedDate = new Date(selectedYear, selectedMonth, selectedDay);
-        const headerText = selectedDate.toDateString();
-        // Update the state or perform any other necessary actions with the headerText
-        setHeaderText(headerText);
-        alert(`Clicked day: ${selectedDay}, Month: ${selectedMonth}, Year: ${selectedYear}`);
-        // alert(`Clicked day: ${dayOfMonth}`);
-
-
-
-
-
-
-
- const renderMiniDateDays = (startOffset, endOffset) => {
-        const dateDivs = [];
-        for (let offset = startOffset; offset <= endOffset; offset++) {
-            const dayOfMonth = (currentDayOfMonth + offset) % dayRange;
-            const dayOfWeekIndex = (dayOfWeek + offset) % 7;
-            const isActive = offset === activeDayIndex; // Check if the current div is active
-
-            const weekname = isActive ? dayNames[dayOfWeekIndex] : null;
-            if (weekname != null){
-                alert(weekname);
-            }
-            
-            // const dateObj = isActive ? new Date(currentYear, currentMonth - 1, dayOfMonth) : null;
-            console.log('Debugging:');
-            console.log('currentYear:', currentYear);
-            console.log('currentMonth:', currentMonth);
-            console.log('dayOfMonth:', dayOfMonth);
-            console.log('dayOfWeekIndex:', dayOfWeekIndex);
-            // console.log('dateObj:', dateObj);
-            // const huihui = dateObj.toDateString();
-            dateDivs.push(
-                <div
-                    key={offset}
-                    className='mini-date-day'
-                    onClick={() => activeDay(offset)}
-                >
-                    <div className={`mini-date ${isActive ? 'activeDay' : ''}`}>{dayOfMonth}</div>
-                    <div className='mini-day'>{dayNames[dayOfWeekIndex]}</div>
-                </div>
-            );
-        }
-        return dateDivs;
-    };
+//	Application Development for monitoring of wool from Farm to fabric
+//Use of Digital Technology to calculate water footprints for different daily use items.           
