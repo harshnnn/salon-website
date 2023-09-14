@@ -423,7 +423,7 @@
     margin-left: 30px;
     font-size: large;
     font-weight: 700;
-    cursor:default;
+    cursor: default;
 
 }
 
@@ -510,103 +510,205 @@
 
 .clicked-div-content-header button {
     margin-left: auto;
-    
-    
+
+
 }
 
+/* crousel */
+
+/* .crousel-div {
+    width: 90%;
+   overflow: hidden;
+    position: relative; 
+    margin: auto; 
+    padding-bottom: 20px;
+    background-color: #ffffff;
+    overflow: hidden !important;
+
+} */
+
+.crousel-div {
+    width: 70%;
+    /* Set the width of the container */
+    overflow-x: auto;
+    /* Enable horizontal scrolling when needed */
+    overflow-y: hidden;
+    /* Disable vertical scrolling */
+    position: relative;
+    /* Required for absolute positioning of the UL */
+    margin: auto; 
+    padding-bottom: 20px;
+    background-color: #ffffff;
+}
+  
+
+
+.crousel-div ::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+    
+    background: black;
+    -webkit-border-radius: 1ex;
+
+    /* Add margin-top to position the scrollbar */
+
+}
+
+.crousel-div::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    -webkit-border-radius: 1ex;
+    margin-top: 10px;
+}
+
+.crousel-div::-webkit-scrollbar-corner {
+    background: #fff3;
+    margin-top: 10px;
+}
+
+
+
+ .stafflist {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    transition: transform 0.5s ease-in-out;
+    position: relative;  
+    overflow-x: scroll;
+    gap: 5px;
+    padding:20px  20px 40px 20px;
+} 
+
+
+.stafflist li {
+    flex: 0 0 25%;
+    /* Initially, show 4 items with 25% width each */
+    padding: 10px;
+    text-align: center;
+    background-color: wheat;
+    height: 400px;
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    /* Additional styles for list items */
+}
+
+/* Styling the progress indicator */
+#progress {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+.bg {
+    fill: lightgray;
+}
+
+.indicator {
+    fill: white;
+    stroke: black;
+    stroke-width: 5;
+    padding: 100px;
+}
+
+
+
+/*  */
+
+/* Additional styling for the SVG and progress indicator */
 
 /* CSS */
 .button-28 {
-  appearance: none;
-  background-color: transparent;
-  border: 2px solid #1A1A1A;
-  border-radius: 15px;
-  box-sizing: border-box;
-  color: #3B3B3B;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Roobert,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-  font-size: 16px;
-  font-weight: 600;
-  line-height: normal;
-  margin: 0;
-  /* min-height: 60px; */
-  min-width: 0;
-  outline: none;
-  /* padding: 2px 4px; */
-  text-align: center;
-  text-decoration: none;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 30px;
-  height: 30px;
-  will-change: transform;
+    appearance: none;
+    background-color: transparent;
+    border: 2px solid #1A1A1A;
+    border-radius: 15px;
+    box-sizing: border-box;
+    color: #3B3B3B;
+    cursor: pointer;
+    display: inline-block;
+    font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 16px;
+    font-weight: 600;
+    line-height: normal;
+    margin: 0;
+    /* min-height: 60px; */
+    min-width: 0;
+    outline: none;
+    /* padding: 2px 4px; */
+    text-align: center;
+    text-decoration: none;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: 30px;
+    height: 30px;
+    will-change: transform;
 }
 
 .button-28:disabled {
-  pointer-events: none;
+    pointer-events: none;
 }
 
 .button-28:hover {
-  color: #fff;
-  background-color: #1A1A1A;
-  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
-  transform: translateY(-2px);
+    color: #fff;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    transform: translateY(-2px);
 }
 
 .button-28:active {
-  box-shadow: none;
-  transform: translateY(0);
+    box-shadow: none;
+    transform: translateY(0);
 }
 
 
 /* CSS */
 .button-30 {
-  align-items: center;
-  appearance: none;
-  background-color: #FCFCFD;
-  border-radius: 4px;
-  border-width: 0;
-  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
-  box-sizing: border-box;
-  color: #36395A;
-  cursor: pointer;
-  display: inline-flex;
-  font-family: "JetBrains Mono",monospace;
-  height: 48px;
-  justify-content: center;
-  line-height: 1;
-  list-style: none;
-  overflow: hidden;
-  padding-left: 16px;
-  padding-right: 16px;
-  position: relative;
-  text-align: left;
-  text-decoration: none;
-  transition: box-shadow .15s,transform .15s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  will-change: box-shadow,transform;
-  font-size: 18px;
+    align-items: center;
+    appearance: none;
+    background-color: #FCFCFD;
+    border-radius: 4px;
+    border-width: 0;
+    box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-sizing: border-box;
+    color: #36395A;
+    cursor: pointer;
+    display: inline-flex;
+    font-family: "JetBrains Mono", monospace;
+    height: 48px;
+    justify-content: center;
+    line-height: 1;
+    list-style: none;
+    overflow: hidden;
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+    text-align: left;
+    text-decoration: none;
+    transition: box-shadow .15s, transform .15s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    will-change: box-shadow, transform;
+    font-size: 18px;
 }
 
 .button-30:focus {
-  box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    box-shadow: #D6D6E7 0 0 0 1.5px inset, rgba(45, 35, 66, 0.4) 0 2px 4px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
 }
 
 .button-30:hover {
-  box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
-  transform: translateY(-2px);
+    box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+    transform: translateY(-2px);
 }
 
 .button-30:active {
-  box-shadow: #D6D6E7 0 3px 7px inset;
-  transform: translateY(2px);
+    box-shadow: #D6D6E7 0 3px 7px inset;
+    transform: translateY(2px);
 }
+
 .array-info {
     padding: 10px;
     display: flex;
@@ -615,21 +717,25 @@
     list-style: none;
     background-color: white;
 }
-.content-1-style{
-    background-color:whitesmoke;
+
+.content-1-style {
+    background-color: whitesmoke;
     font-size: larger;
-    
+
 }
-.content-2-style{
+
+.content-2-style {
     background-color: whitesmoke;
     font-size: medium;
 }
-.content-3-style{
+
+.content-3-style {
     background-color: whitesmoke;
     font-size: medium;
-    
+
 }
-.pricing{
+
+.pricing {
     background-color: #17a66d;
 }
 
@@ -770,7 +876,7 @@
     margin-right: auto;
     display: flex;
     width: fit-content;
-    
+
     background-color: white;
     width: 80%;
     justify-content: space-between;
@@ -828,20 +934,21 @@
     z-index: 3;
     bottom: 100px;
     left: 40%;
-  }
-  
-  @keyframes slideInFromBelow {
-    0% {
-      transform: translateY(100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
+}
 
-  .add-more-div{
+@keyframes slideInFromBelow {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.add-more-div {
     padding: 5px 10px;
     background-color: #E91E63;
     border-radius: 10px;
@@ -851,13 +958,14 @@
     margin-top: 30px;
     margin-bottom: 10px;
     margin-left: auto;
-  }
- .real-hero{
+}
+
+.real-hero {
     background-color: #0e3510;
     width: 500px;
     height: 500px;
- }
-  
+}
+
 
 /* CSS */
 .button-48 {
@@ -1160,6 +1268,7 @@
 .content-4 {
     background-color: #fff;
     height: 75vh;
+    margin-bottom: 200px;
 }
 
 .content-4 h1 {

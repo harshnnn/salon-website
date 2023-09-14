@@ -1,4 +1,5 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
+import './style.css'
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
@@ -6,15 +7,12 @@ import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
-import './style.css'
-import imagex from './Resources/random.webp';
-import image1 from './Resources/Ellipse\ 14.png'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
-
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
+import { motion, useTransform, useScroll } from "framer-motion";
+
 
 
 
@@ -214,13 +212,31 @@ const HomePage = () => {
 
                 </>
         },
+        {
+            title: 'lavda-title', content: <>
+                <div class='service-card-1'>
+                    lavda Facial
+                    $UU
+                </div>
+
+                <div class='service-card-1'>
+                    Mini lavda
+                    $VV
+                </div>
+
+                <div class='service-card-1'>
+                    lavda Pedicure
+                    $WW
+                </div>
+
+                <div class='service-card-1'>
+                    lavda Tinting
+                    $XX
+                </div>
+            </>
+        },
         // ... other service data ...
     ];
-
-
-
-
-
 
 
     const items = ['Haircut & Style',
@@ -394,15 +410,33 @@ const HomePage = () => {
 
     const scrollLeft = () => {
         if (containerRef.current) {
-            containerRef.current.scrollLeft -= 450; // Adjust scroll amount as needed (width of a single item)
+            containerRef.current.scrollLeft -= 450;
+        }
+
+
+        const ul = ref.current;
+        if (ul) {
+            ul.scrollTo({
+                left: ul.scrollLeft - 300,
+                behavior: "smooth",
+            });
         }
     };
 
     const scrollRight = () => {
         if (containerRef.current) {
-            containerRef.current.scrollLeft += 450; // Adjust scroll amount as needed (width of a single item)
+            containerRef.current.scrollLeft += 450;
+        }
+
+        const ul = ref.current;
+        if (ul) {
+            ul.scrollTo({
+                left: ul.scrollLeft + 300,
+                behavior: "smooth",
+            });
         }
     };
+
 
 
     // booking div
@@ -446,14 +480,11 @@ const HomePage = () => {
 
 
 
-
+    //close button for closing the service list
     const closeselectedcard = () => {
         setSelectedCard(null);
         setCardsVisible(true); // Show the .cards div
-
-
-
-
+        setMinimized(!minimized);
     };
 
 
@@ -471,45 +502,52 @@ const HomePage = () => {
         );
 
         //pushing the service name title
-        if (serviceindex >= 0) {
-            const content2 = title;
-            setClickedContents(prevContents => [...prevContents, { type: 'content-2-style', value: content2, index: prevContents.filter(item => item.type === 'content-2-style').length },]);
-        }
+        // if (serviceindex >= 0) {
+        //     const content2 = title;
+        //     setClickedContents(prevContents => [...prevContents, { type: 'content-2-style', value: content2, index: prevContents.filter(item => item.type === 'content-2-style').length },]);
+        // }
 
 
         //last
         setSelectedService(serviceindex);
 
-        if (serviceindex === 0) {
-            setselectedServiceCard1(true);
-        } else {
-            setselectedServiceCard1(false);
-        }
-        if (serviceindex === 1) {
-            setselectedServiceCard2(true);
-        } else {
-            setselectedServiceCard2(false);
-        }
-        if (serviceindex === 2) {
-            setselectedServiceCard3(true);
-        } else {
-            setselectedServiceCard3(false);
-        }
-        if (serviceindex === 3) {
-            setselectedServiceCard4(true);
-        } else {
-            setselectedServiceCard4(false);
-        }
-        if (serviceindex === 4) {
-            setselectedServiceCard5(true);
-        } else {
-            setselectedServiceCard5(false);
-        }
-        if (serviceindex === 5) {
-            setselectedServiceCard6(true);
-        } else {
-            setselectedServiceCard6(false);
-        }
+        // Create a new array where all states are set to false except the selected one.
+        const updatedStates = serviceCardStates.map((state, index) => index === serviceindex);
+        setServiceCardStates(updatedStates);
+
+
+        // if (serviceindex === 0) {
+        //     setselectedServiceCard1(true);
+        // } else {
+        //     setselectedServiceCard1(false);
+        // }
+        // if (serviceindex === 1) {
+        //     setselectedServiceCard2(true);
+        // } else {
+        //     setselectedServiceCard2(false);
+        // }
+        // if (serviceindex === 2) {
+        //     setselectedServiceCard3(true);
+        // } else {
+        //     setselectedServiceCard3(false);
+        // }
+        // if (serviceindex === 3) {
+        //     setselectedServiceCard4(true);
+        // } else {
+        //     setselectedServiceCard4(false);
+        // }
+        // if (serviceindex === 4) {
+        //     setselectedServiceCard5(true);
+        // } else {
+        //     setselectedServiceCard5(false);
+        // }
+        // if (serviceindex === 5) {
+        //     setselectedServiceCard6(true);
+        // } else {
+        //     setselectedServiceCard6(false);
+        // }
+
+
 
 
     };
@@ -525,38 +563,51 @@ const HomePage = () => {
     }
 
 
-
     //click of the service subtype (service subtype + price div)
     const handleClick = (serviceName, index) => {
-
         setBookingDetail(true);
-        alert('it should work')
+        alert(index)
+        // const content3 = serviceName;
+        // alert(content3); // Log content3 to see its value
         if (true) {
-            const content3 = serviceName;
+            const content3 = index;
             setClickedContents(prevContents => [...prevContents, { type: 'content-3-style', value: content3, index: prevContents.filter(item => item.type === 'content-3-style').length },]);
         }
+
+        // const content3 = serviceName; 
+        // setClickedContents(prevContents => [
+        //     ...prevContents,
+        //     {
+        //         type: 'content-3-style',
+        //         value: content3,
+        //         index: prevContents.filter(item => item.type === 'content-3-style').length,
+        //     },
+        // ]);
+
         // alert(serviceName);
         sethighlited(index);
         // setselectedServiceCard2(index);
-
         //if any div is highlited then setting the selected item list div to maximized
         if (higlited) {
             setMinimized(false);
         }
-
         console.log(serviceName);
 
 
+        //for dynamically adding 
 
     };
 
     //for showing the sliced array to it's correct title
-    const [selectedServiceCard1, setselectedServiceCard1] = useState(null);
-    const [selectedServiceCard2, setselectedServiceCard2] = useState(null);
-    const [selectedServiceCard3, setselectedServiceCard3] = useState(null);
-    const [selectedServiceCard4, setselectedServiceCard4] = useState(null);
-    const [selectedServiceCard5, setselectedServiceCard5] = useState(null);
-    const [selectedServiceCard6, setselectedServiceCard6] = useState(null);
+    // const [selectedServiceCard1, setselectedServiceCard1] = useState(null);
+    // const [selectedServiceCard2, setselectedServiceCard2] = useState(null);
+    // const [selectedServiceCard3, setselectedServiceCard3] = useState(null);
+    // const [selectedServiceCard4, setselectedServiceCard4] = useState(null);
+    // const [selectedServiceCard5, setselectedServiceCard5] = useState(null);
+    // const [selectedServiceCard6, setselectedServiceCard6] = useState(null);
+    const [serviceCardStates, setServiceCardStates] = useState(Array(serviceData.length).fill(false));
+
+
 
     const [higlited, sethighlited] = useState(null);
     const [minimized, setMinimized] = useState(false);
@@ -591,30 +642,6 @@ const HomePage = () => {
     const [showTimeSlots2, setShowTimeSlots2] = useState(null);
     const today = new Date();
 
-    // const currentMonth = today.getMonth();
-    const dayOfWeek = today.getDay();
-    // To get the day name in English:
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    var dayRange = 0;
-    if ([0, 2, 4, 6, 7, 9, 11].includes(today.getMonth())) {
-        dayRange = 31;
-    }
-    if ([3, 5, 8, 10].includes(today.getMonth())) {
-        dayRange = 30;
-    }
-    if (today.getMonth() === 1) {
-        if ((today.getFullYear() % 4 === 0 && today.getFullYear() % 100 !== 0) || (today.getFullYear() % 400 === 0)) {
-            dayRange = 29;
-        }
-        else {
-            dayRange = 28;
-        }
-    }
-
 
     const handleDateChange = (newDate) => {
         setDate(newDate);
@@ -640,19 +667,6 @@ const HomePage = () => {
     };
 
     const [calendarVisible, setCalendarVisible] = useState(true);
-    const toggleCalendar = () => {
-        if (calendarVisible == true) {
-
-            setCalendarVisible(null);
-        }
-        else {
-            setCalendarVisible(true);
-        }
-    }
-
-
-
-
 
     // ... (array push button)
     const [isPushButtonVisible, setPushButtonVisible] = useState(false);
@@ -675,10 +689,15 @@ const HomePage = () => {
 
     }
 
+
+
+
     //storing the prices
 
 
-
+    //crousel
+    const ref = useRef(null);
+    const { scrollXProgress } = useScroll({ container: ref });
 
     return (
         <div className='home-page'>
@@ -763,8 +782,8 @@ const HomePage = () => {
                                         <div className='' style={{ color: 'black' }} >
                                             {/* {serviceData[selectedService].content }  */}
 
-                                            {serviceData.slice(0, 1).map((service, index) => (
-                                                selectedServiceCard1 && (
+                                            {serviceData.map((service, index) => (
+                                                serviceCardStates[index] && (
                                                     <div key={index}>
                                                         <h3 style={{ color: 'black' }}>{service.title}</h3>
                                                         <div style={{ color: 'black' }} className="service-cards">
@@ -775,134 +794,7 @@ const HomePage = () => {
                                                                     <div
                                                                         key={i}
                                                                         className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(serviceName, i)}
-                                                                    >
-                                                                        <span className="service-name">{beforeDollar}</span>
-                                                                        <span className="service-price">${afterDollar}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-
-                                                        </div>
-                                                    </div>
-                                                )
-                                            ))}
-
-                                            {serviceData.slice(1, 2).map((service, index) => (
-                                                selectedServiceCard2 && (
-                                                    <div key={index}>
-                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(serviceName, i)}
-                                                                    >
-                                                                        <span className="service-name">{beforeDollar}</span>
-                                                                        <span className="service-price">${afterDollar}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-
-                                                        </div>
-                                                    </div>
-                                                )
-                                            ))}
-
-                                            {serviceData.slice(2, 3).map((service, index) => (
-                                                selectedServiceCard3 && (
-                                                    <div key={index}>
-                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(serviceName, i)}
-                                                                    >
-                                                                        <span className="service-name">{beforeDollar}</span>
-                                                                        <span className="service-price">${afterDollar}</span>
-                                                                    </div>
-                                                                );
-
-                                                            })}
-                                                        </div>
-                                                    </div>
-                                                )
-                                            ))}
-
-                                            {serviceData.slice(3, 4).map((service, index) => (
-                                                selectedServiceCard4 && (
-                                                    <div key={index}>
-                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(serviceName, i)}
-                                                                    >
-                                                                        <span className="service-name">{beforeDollar}</span>
-                                                                        <span className="service-price">${afterDollar}</span>
-                                                                    </div>
-                                                                );
-
-                                                            })}
-
-                                                        </div>
-                                                    </div>
-                                                )
-                                            ))}
-
-
-                                            {serviceData.slice(4, 5).map((service, index) => (
-                                                selectedServiceCard5 && (
-                                                    <div key={index}>
-                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(serviceName, i)}
-                                                                    >
-                                                                        <span className="service-name">{beforeDollar}</span>
-                                                                        <span className="service-price">${afterDollar}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-
-                                                        </div>
-                                                    </div>
-                                                )
-                                            ))}
-
-                                            {serviceData.slice(5, 6).map((service, index) => (
-                                                selectedServiceCard6 && (
-                                                    <div key={index}>
-                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(serviceName, i)}
+                                                                        onClick={() => handleClick(index, serviceName)}
                                                                     >
                                                                         <span className="service-name">{beforeDollar}</span>
                                                                         <span className="service-price">${afterDollar}</span>
@@ -913,7 +805,6 @@ const HomePage = () => {
                                                     </div>
                                                 )
                                             ))}
-
 
                                         </div>
                                     </div>
@@ -1159,7 +1050,7 @@ const HomePage = () => {
 
 
                 <div className="carousel-container">
-                    <AliceCarousel showArrows={false} showStatus={false} showIndicators={false}>
+                    {/* <AliceCarousel showArrows={false} showStatus={false} showIndicators={false}>
 
 
                         <div className="carousel-item forlargescreen">
@@ -1194,10 +1085,47 @@ const HomePage = () => {
                         </div>
 
 
-                    </AliceCarousel>
+                    </AliceCarousel> */}
+                </div>
+                <div className='crousel-div'>
+                    <button className="scroll-button left-button" onClick={scrollLeft}>
+                        Scroll Left
+                    </button>
+
+                    <svg id="progress" width="50" height="50" viewBox="0 0 100 100">
+                        <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
+                        <motion.circle
+                            cx="50"
+                            cy="50"
+                            r="30"
+                            pathLength="1"
+                            className="indicator"
+                            style={{ pathLength: scrollXProgress }}
+                        />
+                    </svg>
+
+                    <button className="scroll-button right-button" onClick={scrollRight}>
+                        Scroll Right
+                    </button>
+                    <ul className='stafflist' ref={ref} >
+                        <li>list item 1</li>
+                        <li>list item 2</li>
+                        <li>list item 3</li>
+                        <li>list item 4</li>
+                        <li>list item 5</li>
+                        <li>list item 6</li>
+                        <li>list item 7</li>
+                        <li>list item 8</li>
+                        <li>list item 9</li>
+                        <li>list item 10</li>
+                        <li>list item 11</li>
+                    </ul>
                 </div>
 
             </div>
+
+
+
 
             <div className="content-5">
                 <h1>Our Prices</h1>

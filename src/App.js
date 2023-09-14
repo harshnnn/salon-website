@@ -3,14 +3,22 @@ import './App.css';
 import HomePage from './components/home';
 import Navbar from './components/navbar';
 
+// JavaScript code
+
+
+
+
+
+
+
 
 
 function App() {
   return (
-    
-    <div className="App">
-      <Navbar/>
-      <HomePage/>
+
+    <div className = "App" >
+      <Navbar / >
+    <HomePage / >
     </div>
   );
 }

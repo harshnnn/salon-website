@@ -1,19 +1,18 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
+import './style.css'
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
-import './style.css'
-import imagex from './Resources/random.webp';
-import image1 from './Resources/Ellipse\ 14.png'
+import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-
-
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
+import { motion, useTransform, useScroll } from "framer-motion";
+
 
 
 
@@ -217,11 +216,6 @@ const HomePage = () => {
     ];
 
 
-
-
-
-
-
     const items = ['Haircut & Style',
         'Hair Color',
         'Spa Facial',
@@ -393,15 +387,33 @@ const HomePage = () => {
 
     const scrollLeft = () => {
         if (containerRef.current) {
-            containerRef.current.scrollLeft -= 450; // Adjust scroll amount as needed (width of a single item)
+            containerRef.current.scrollLeft -= 450; 
+        }
+
+
+        const ul = ref.current;
+        if (ul) {
+            ul.scrollTo({
+                left: ul.scrollLeft - 300,
+                behavior: "smooth", 
+            });
         }
     };
 
     const scrollRight = () => {
         if (containerRef.current) {
-            containerRef.current.scrollLeft += 450; // Adjust scroll amount as needed (width of a single item)
+            containerRef.current.scrollLeft += 450; 
+        }
+
+        const ul = ref.current;
+        if (ul) {
+            ul.scrollTo({
+                left: ul.scrollLeft + 300, 
+                behavior: "smooth", 
+            });
         }
     };
+
 
 
     // booking div
@@ -419,55 +431,62 @@ const HomePage = () => {
 
 
 
+
+
     const toggleDiv = () => {
 
         setIsVisible(!isVisible);
         setSelectedCard(null); // Reset selected card when toggling
         setCardsVisible(true); // Show the .cards div
-        setClickedContents([]); //clear the array
+
     };
     const openCardDetails = (cardIndex) => {
         setSelectedCard(cardIndex);
         setCardsVisible(false); // Hide the .cards div
 
-
+        //pushing the professional name
         const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
         if (clickedDiv) {
             const contentElement = clickedDiv.querySelector('p');
             if (contentElement) {
-                const content = contentElement.textContent;
-                setClickedContents(prevContents => [...prevContents, content]);
+                const content1 = contentElement.textContent;
+                setClickedContents(prevContents => [...prevContents, { type: 'content-1-style', value: content1, index: prevContents.filter(item => item.type === 'content-1-style').length },]);
             }
         }
     };
 
 
 
-
+    //close button for closing the service list
     const closeselectedcard = () => {
         setSelectedCard(null);
         setCardsVisible(true); // Show the .cards div
-
-        setClickedContents([]); // Clear the array when closing the card
-
-
+        setMinimized(!minimized);   
     };
 
-    const openServiceDetails = (serviceindex) => {
 
-        setSelectedService(serviceindex);
+    //to open the list of  service cards having service name and price
+    const openServiceDetails = (serviceindex) => {
 
         //To Show the title of the service detail 
         const title = serviceData[serviceindex].title;
+        console.log(title)
         const content = (
             <div>
                 {/* <p>lavda</p> */}
                 <div className='card-title'>{title}</div>
             </div>
         );
-        setClickedContents(prevContents => [...prevContents, content]);
+
+        //pushing the service name title
+        // if (serviceindex >= 0) {
+        //     const content2 = title;
+        //     setClickedContents(prevContents => [...prevContents, { type: 'content-2-style', value: content2, index: prevContents.filter(item => item.type === 'content-2-style').length },]);
+        // }
+
 
         //last
+        setSelectedService(serviceindex);
 
         if (serviceindex === 0) {
             setselectedServiceCard1(true);
@@ -510,23 +529,33 @@ const HomePage = () => {
         setBookingDetail(false);//last
         setSelectedService(null);
         //function to delet the latest item form the array
-        setClickedContents(prevContents => {
-            const newContents = [...prevContents];
-            newContents.pop();
-            // newContents.pop();//removing 1 more element
-            return newContents;
-        });
+
     }
 
 
 
-
+    //click of the service subtype (service subtype + price div)
     const handleClick = (serviceName, index) => {
+
         setBookingDetail(true);
+        alert('it should work')
+        if (true) {
+            const content3 = serviceName;
+            setClickedContents(prevContents => [...prevContents, { type: 'content-3-style', value: content3, index: prevContents.filter(item => item.type === 'content-3-style').length },]);
+        }
         // alert(serviceName);
         sethighlited(index);
         // setselectedServiceCard2(index);
-        setClickedContents(prevContents => [...prevContents, serviceName]);
+
+        //if any div is highlited then setting the selected item list div to maximized
+        if (higlited) {
+            setMinimized(false);
+        }
+
+        console.log(serviceName);
+
+
+
     };
 
     //for showing the sliced array to it's correct title
@@ -553,9 +582,11 @@ const HomePage = () => {
         else { setShowTimeSlots1(true); }
 
     }
+    //to toggle the order list div up and down 
     const handleMinimizeOrder = () => {
         setMinimized(!minimized);
     }
+
 
     const closeChooseTime = () => {
         setIsChooseTImeClicked(null);
@@ -567,30 +598,6 @@ const HomePage = () => {
     const [showTimeSlots1, setShowTimeSlots1] = useState(null);
     const [showTimeSlots2, setShowTimeSlots2] = useState(null);
     const today = new Date();
-
-    // const currentMonth = today.getMonth();
-    const dayOfWeek = today.getDay();
-    // To get the day name in English:
-    const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    var dayRange = 0;
-    if ([0, 2, 4, 6, 7, 9, 11].includes(today.getMonth())) {
-        dayRange = 31;
-    }
-    if ([3, 5, 8, 10].includes(today.getMonth())) {
-        dayRange = 30;
-    }
-    if (today.getMonth() === 1) {
-        if ((today.getFullYear() % 4 === 0 && today.getFullYear() % 100 !== 0) || (today.getFullYear() % 400 === 0)) {
-            dayRange = 29;
-        }
-        else {
-            dayRange = 28;
-        }
-    }
 
 
     const handleDateChange = (newDate) => {
@@ -617,19 +624,6 @@ const HomePage = () => {
     };
 
     const [calendarVisible, setCalendarVisible] = useState(true);
-    const toggleCalendar = () => {
-        if (calendarVisible == true) {
-
-            setCalendarVisible(null);
-        }
-        else {
-            setCalendarVisible(true);
-        }
-    }
-
-
-
-
 
     // ... (array push button)
     const [isPushButtonVisible, setPushButtonVisible] = useState(false);
@@ -655,7 +649,9 @@ const HomePage = () => {
     //storing the prices
 
 
-
+    //crousel
+    const ref = useRef(null);
+    const { scrollXProgress } = useScroll({ container: ref });
 
     return (
         <div className='home-page'>
@@ -992,8 +988,6 @@ const HomePage = () => {
                                             </div>
                                         )}
 
-
-
                                     </div>
                                 )}
 
@@ -1007,34 +1001,37 @@ const HomePage = () => {
                                 <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`}>
                                     <div className='clicked-div-content-header'>
                                         <h2>Your Order</h2>
-                                        <button onClick={handleMinimizeOrder}> ˄</button>
+                                        <button onClick={handleMinimizeOrder} className='button-28'>
+                                            {minimized ? <MdExpandLess /> : <MdExpandMore />}
+                                        </button>
                                     </div>
 
                                     <ul className='array-info'>
-                                        {clickedContents.map((content, index) => {
-                                            if ( typeof content === 'string') {
+                                        <div>
+                                            {/* Render the contents of clickedContents */}
+                                            {clickedContents.map((item, index) => {
+                                                // Split the content based on the '$' symbol
+                                                const parts = item.value.split('$');
 
-                                                const [beforeDollar, afterDollar] = content.split('$');
-                                                // Add the afterDollar value to the afterDollarArray
+                                                // Check if there are multiple parts after splitting
+                                                if (parts.length > 1) {
+                                                    return (
+                                                        <li key={index} className={item.type}>
+                                                            {parts[0]} - <span className="pricing">{`$${parts[1]}`}</span>
+                                                            {/* - Index: {item.index} */}
+                                                        </li>
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <li key={index} className={item.type}>
+                                                            {item.value}
+                                                            {/* - Index: {item.index} */}
+                                                        </li>
+                                                    );
+                                                }
+                                            })}
 
-
-                                                return (
-                                                    <li key={index}  >
-                                                        {beforeDollar}
-                                                        <span className='second-part'></span>${afterDollar}
-                                                    </li>
-                                                );
-                                            } else {
-                                                return (
-                                                    // className={index < 2 ? 'array-info-left' : 'array-info-right'}
-                                                    <li key={index}>
-                                                        {content}
-                                                    </li>
-                                                );
-                                            }
-
-
-                                        })}
+                                        </div>
                                     </ul>
 
                                     <div className='add-more-div' onClick={addMoreItems}>Add More</div>
@@ -1135,7 +1132,7 @@ const HomePage = () => {
 
 
                 <div className="carousel-container">
-                    <AliceCarousel showArrows={false} showStatus={false} showIndicators={false}>
+                    {/* <AliceCarousel showArrows={false} showStatus={false} showIndicators={false}>
 
 
                         <div className="carousel-item forlargescreen">
@@ -1170,10 +1167,46 @@ const HomePage = () => {
                         </div>
 
 
-                    </AliceCarousel>
+                    </AliceCarousel> */}
+
                 </div>
 
             </div>
+            <div className='crousel-div'>
+                <button className="scroll-button left-button" onClick={scrollLeft}>
+                    Scroll Left
+                </button>
+
+                <svg id="progress" width="50" height="50" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
+                    <motion.circle
+                        cx="50"
+                        cy="50"
+                        r="30"
+                        pathLength="1"
+                        className="indicator"
+                        style={{ pathLength: scrollXProgress }}
+                    />
+                </svg>
+
+                <button className="scroll-button right-button" onClick={scrollRight}>
+                    Scroll Right
+                </button>
+                <ul className='stafflist' ref={ref} >
+                    <li>list item 1</li>
+                    <li>list item 2</li>
+                    <li>list item 3</li>
+                    <li>list item 4</li>
+                    <li>list item 5</li>
+                    <li>list item 6</li>
+                    <li>list item 7</li>
+                    <li>list item 8</li>
+                    <li>list item 9</li>
+                    <li>list item 10</li>
+                    <li>list item 11</li>
+                </ul>
+            </div>
+
 
             <div className="content-5">
                 <h1>Our Prices</h1>
@@ -1353,8 +1386,26 @@ const HomePage = () => {
 export default HomePage;
 
 
+{
+            title: 'lavda-title' , content:<>
+                <div class='service-card-1'>
+                        lavda Facial
+                        $UU
+                    </div>
 
+                    <div class='service-card-1'>
+                        Mini lavda
+                        $VV
+                    </div>
 
+                    <div class='service-card-1'>
+                        lavda Pedicure
+                        $WW
+                    </div>
 
-//	Application Development for monitoring of wool from Farm to fabric
-//Use of Digital Technology to calculate water footprints for different daily use items.           
+                    <div class='service-card-1'>
+                        lavda Tinting
+                        $XX
+                    </div>
+            </> 
+        }
