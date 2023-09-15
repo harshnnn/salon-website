@@ -23,6 +23,8 @@ import image8 from './Resources/proffessionals/proff8.jpg';
 import image9 from './Resources/proffessionals/proff9.jpg';
 import image10 from './Resources/proffessionals/proff10.jpg';
 import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
+import scroll from 'smooth-scroll';
+
 
 
 
@@ -247,7 +249,7 @@ const HomePage = () => {
 
                 </>
         },
-    
+
         // ... other service data ...
     ];
 
@@ -517,7 +519,7 @@ const HomePage = () => {
         console.log(title)
         const content = (
             <div>
-                
+
                 <div className='card-title'>{title}</div>
             </div>
         );
@@ -553,7 +555,7 @@ const HomePage = () => {
     //click of the service subtype (service subtype + price div)
     const handleClick = (serviceName, index) => {
         setBookingDetail(true);
-        
+
         // const content3 = serviceName;
         // alert(content3); // Log content3 to see its value
         if (true) {
@@ -628,7 +630,7 @@ const HomePage = () => {
         setDate(newDate);
         // toggleCalendar();
         today.setDate(today.getDate() - 1);
-       
+
         if (newDate >= today) {
             if (newDate.getDay() === 0 || newDate.getDay() === 1) {
                 setShowTimeSlots1(null);
@@ -697,17 +699,17 @@ const HomePage = () => {
     };
 
     const handleHover = () => {
-       
+
         const body = document.body;
         body.style.overflowY = 'hidden'; // Disable vertical scrolling
-          
+
     }
 
     const handleMouseLeave = () => {
-        
-            const body = document.body;
-            body.style.overflow = 'auto';
-          
+
+        const body = document.body;
+        body.style.overflow = 'auto';
+
     }
 
 
@@ -727,23 +729,77 @@ const HomePage = () => {
 
     useEffect(() => {
         const carouselContainer = document.querySelector('.carousel-container');
-
+        let isScrolling = false;
+      
         const handleWheelScroll = (event) => {
-            if (event.deltaY > 0) {
-                handleNextClick(); // Scroll down, go to the next card
-            } else if (event.deltaY < 0) {
-                handlePrevClick(); // Scroll up, go to the previous card
-            }
+          if (isScrolling) return;
+      
+          if (event.deltaY > 0) {
+            isScrolling = true;
+            setTimeout(() => {
+              handleNextClick(); // Scroll down, go to the next card
+              isScrolling = false;
+            }, 300); // Adjust the delay time (in milliseconds) as needed
+          } else if (event.deltaY < 0) {
+            isScrolling = true;
+            setTimeout(() => {
+              handlePrevClick(); // Scroll up, go to the previous card
+              isScrolling = false;
+            }, 300); // Adjust the delay time (in milliseconds) as needed
+          }
         };
-
+      
         if (carouselContainer) {
-            carouselContainer.addEventListener('wheel', handleWheelScroll);
-
-            return () => {
-                carouselContainer.removeEventListener('wheel', handleWheelScroll);
-            };
+          carouselContainer.addEventListener('wheel', handleWheelScroll);
+      
+          return () => {
+            carouselContainer.removeEventListener('wheel', handleWheelScroll);
+          };
         }
-    }, [currentIndex]);
+      }, [currentIndex]);
+      
+
+    useEffect(() => {
+        const carouselContainer = document.querySelector('.carousel-container');
+        let touchStartX = null;
+        let touchEndX = null;
+      
+        const handleTouchStart = (event) => {
+          touchStartX = event.touches[0].clientX;
+        };
+      
+        const handleTouchEnd = (event) => {
+          touchEndX = event.changedTouches[0].clientX;
+          const swipeDistance = touchEndX - touchStartX;
+      
+          if (swipeDistance > 30) {
+            // Right swipe
+            handlePrevClick();
+          } else if (swipeDistance < -30) {
+            // Left swipe
+            handleNextClick();
+          }
+        };
+      
+        if (carouselContainer) {
+          carouselContainer.addEventListener('touchstart', handleTouchStart);
+          carouselContainer.addEventListener('touchend', handleTouchEnd);
+      
+          return () => {
+            carouselContainer.removeEventListener('touchstart', handleTouchStart);
+            carouselContainer.removeEventListener('touchend', handleTouchEnd);
+          };
+        }
+      }, [currentIndex]);
+      
+  
+
+
+
+
+
+
+
 
     //storing the prices
 
