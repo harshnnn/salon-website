@@ -1409,3 +1409,36 @@ export default HomePage;
                     </div>
             </> 
         }
+
+
+
+
+
+        //content 4 backup
+
+        <div className="carousel-container">
+                    <button className="prev-button" onClick={handlePrevClick}>
+                        &lt;
+                    </button>
+                    <div className="carousel">
+                        <div className="carousel-card empty"></div>
+                        {cardData.map((item, index) => (
+                            <div
+                                className={`carousel-card ${currentIndex === index ? 'active' : ''}`}
+                                key={index}
+                                ref={currentIndex === index ? activeCardRef : null}
+                            >
+                                <h2>{item}</h2>
+                                {currentIndex === index && (
+                                    <div className="content">
+                                        <p>This is the content below the active card.</p>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                        <div className="carousel-card empty"></div>
+                    </div>
+                    <button className="next-button" onClick={handleNextClick}>
+                        &gt;
+                    </button>
+                </div>

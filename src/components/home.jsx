@@ -7,13 +7,22 @@ import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
+import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
-import { motion, useTransform, useScroll } from "framer-motion";
-
-
+import image1 from './Resources/proffessionals/proff1.jpg';
+import image2 from './Resources/proffessionals/proff2.jpg';
+import image3 from './Resources/proffessionals/proff3.jpg';
+import image4 from './Resources/proffessionals/proff4.jpg';
+import image5 from './Resources/proffessionals/proff5.jpg';
+import image6 from './Resources/proffessionals/proff6.jpg';
+import image7 from './Resources/proffessionals/proff7.jpg';
+import image8 from './Resources/proffessionals/proff8.jpg';
+import image9 from './Resources/proffessionals/proff9.jpg';
+import image10 from './Resources/proffessionals/proff10.jpg';
+import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
 
 
 
@@ -29,8 +38,34 @@ const HomePage = () => {
         setSelectedItem(index);
     };
 
+    const [professionals, setProfessionals] = useState([]);
 
-    const serviceData = [
+    useEffect(() => {
+        // Initialize with default professionals
+        const defaultProfessionals = [
+            'Professional 1',
+            'Professional 2',
+            'Professional 3',
+            'Professional 4',
+            'Professional 5',
+            'Professional 6',
+            'Professional 7',
+        ];
+
+        setProfessionals(defaultProfessionals);
+
+        // Fetch additional professionals from the backend API and append to the state
+        fetch('/api/professionals')
+            .then(response => response.json())
+            .then(data => {
+                // Append the fetched professionals to the existing state
+                setProfessionals(prevProfessionals => [...prevProfessionals, ...data]);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+
+    const defaultServiceData = [
         {
             title: 'Haircut & Style', content:
                 <>
@@ -212,31 +247,46 @@ const HomePage = () => {
 
                 </>
         },
-        {
-            title: 'lavda-title', content: <>
-                <div class='service-card-1'>
-                    lavda Facial
-                    $UU
-                </div>
-
-                <div class='service-card-1'>
-                    Mini lavda
-                    $VV
-                </div>
-
-                <div class='service-card-1'>
-                    lavda Pedicure
-                    $WW
-                </div>
-
-                <div class='service-card-1'>
-                    lavda Tinting
-                    $XX
-                </div>
-            </>
-        },
+    
         // ... other service data ...
     ];
+
+    const [serviceData, setServiceData] = useState(defaultServiceData);
+
+    // Function to fetch additional service data from the backend
+    async function fetchServiceDataFromBackend() {
+        try {
+            const response = await fetch('/api/services'); // Replace with your actual backend API endpoint
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            return data; // Assuming the data is an array of new service objects
+        } catch (error) {
+            console.error('Error fetching service data:', error);
+            return []; // Return an empty array or handle the error as needed
+        }
+    }
+
+    // Function to update the serviceData array with new data
+    async function updateServiceData() {
+        const newServiceData = await fetchServiceDataFromBackend();
+        if (newServiceData.length > 0) {
+            // Merge or append the new data to the existing array
+            const updatedServiceData = [...serviceData, ...newServiceData];
+            // Update the state or variable holding your service data
+            setServiceData(updatedServiceData); // If using React state
+            // Alternatively, assign the updated data to your existing array
+            // serviceData = updatedServiceData;
+        }
+    }
+
+    // Call the updateServiceData function to fetch and update data when needed
+    useEffect(() => {
+        updateServiceData();
+    }, []); // Empty dependency array ensures it runs only once on component mount
+
+
 
 
     const items = ['Haircut & Style',
@@ -406,36 +456,7 @@ const HomePage = () => {
     ];
 
 
-    const containerRef = useRef(null);
 
-    const scrollLeft = () => {
-        if (containerRef.current) {
-            containerRef.current.scrollLeft -= 450;
-        }
-
-
-        const ul = ref.current;
-        if (ul) {
-            ul.scrollTo({
-                left: ul.scrollLeft - 300,
-                behavior: "smooth",
-            });
-        }
-    };
-
-    const scrollRight = () => {
-        if (containerRef.current) {
-            containerRef.current.scrollLeft += 450;
-        }
-
-        const ul = ref.current;
-        if (ul) {
-            ul.scrollTo({
-                left: ul.scrollLeft + 300,
-                behavior: "smooth",
-            });
-        }
-    };
 
 
 
@@ -496,7 +517,7 @@ const HomePage = () => {
         console.log(title)
         const content = (
             <div>
-                {/* <p>lavda</p> */}
+                
                 <div className='card-title'>{title}</div>
             </div>
         );
@@ -516,40 +537,6 @@ const HomePage = () => {
         setServiceCardStates(updatedStates);
 
 
-        // if (serviceindex === 0) {
-        //     setselectedServiceCard1(true);
-        // } else {
-        //     setselectedServiceCard1(false);
-        // }
-        // if (serviceindex === 1) {
-        //     setselectedServiceCard2(true);
-        // } else {
-        //     setselectedServiceCard2(false);
-        // }
-        // if (serviceindex === 2) {
-        //     setselectedServiceCard3(true);
-        // } else {
-        //     setselectedServiceCard3(false);
-        // }
-        // if (serviceindex === 3) {
-        //     setselectedServiceCard4(true);
-        // } else {
-        //     setselectedServiceCard4(false);
-        // }
-        // if (serviceindex === 4) {
-        //     setselectedServiceCard5(true);
-        // } else {
-        //     setselectedServiceCard5(false);
-        // }
-        // if (serviceindex === 5) {
-        //     setselectedServiceCard6(true);
-        // } else {
-        //     setselectedServiceCard6(false);
-        // }
-
-
-
-
     };
 
 
@@ -566,7 +553,7 @@ const HomePage = () => {
     //click of the service subtype (service subtype + price div)
     const handleClick = (serviceName, index) => {
         setBookingDetail(true);
-        alert(index)
+        
         // const content3 = serviceName;
         // alert(content3); // Log content3 to see its value
         if (true) {
@@ -599,12 +586,6 @@ const HomePage = () => {
     };
 
     //for showing the sliced array to it's correct title
-    // const [selectedServiceCard1, setselectedServiceCard1] = useState(null);
-    // const [selectedServiceCard2, setselectedServiceCard2] = useState(null);
-    // const [selectedServiceCard3, setselectedServiceCard3] = useState(null);
-    // const [selectedServiceCard4, setselectedServiceCard4] = useState(null);
-    // const [selectedServiceCard5, setselectedServiceCard5] = useState(null);
-    // const [selectedServiceCard6, setselectedServiceCard6] = useState(null);
     const [serviceCardStates, setServiceCardStates] = useState(Array(serviceData.length).fill(false));
 
 
@@ -647,7 +628,7 @@ const HomePage = () => {
         setDate(newDate);
         // toggleCalendar();
         today.setDate(today.getDate() - 1);
-        alert(newDate.getDay());//if newDate.getDay() 0 or 1 setshowTimeSlots2(true) else setshowTimeSlots1(true)
+       
         if (newDate >= today) {
             if (newDate.getDay() === 0 || newDate.getDay() === 1) {
                 setShowTimeSlots1(null);
@@ -690,14 +671,82 @@ const HomePage = () => {
     }
 
 
+    //carusel
+    const cardData = [
+        { image: image1, name: 'Image 1' },
+        { image: image2, name: 'Image 2' },
+        { image: image3, name: 'Image 3' },
+        { image: image4, name: 'Image 4' },
+        { image: image5, name: 'Image 5' },
+        { image: image6, name: 'Image 6' },
+        { image: image7, name: 'Image 7' },
+        { image: image8, name: 'Image 8' },
+        { image: image9, name: 'Image 9' },
+        { image: image10, name: 'Image 10' },
+    ];
 
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const activeCardRef = useRef(null);
+
+    const handlePrevClick = () => {
+        setCurrentIndex((currentIndex - 1 + cardData.length) % cardData.length);
+    };
+
+    const handleNextClick = () => {
+        setCurrentIndex((currentIndex + 1) % cardData.length);
+    };
+
+    const handleHover = () => {
+       
+        const body = document.body;
+        body.style.overflowY = 'hidden'; // Disable vertical scrolling
+          
+    }
+
+    const handleMouseLeave = () => {
+        
+            const body = document.body;
+            body.style.overflow = 'auto';
+          
+    }
+
+
+    // Add event listener to the window to enable scrolling when the mouse leaves the carousel
+
+    useEffect(() => {
+        if (activeCardRef.current) {
+            activeCardRef.current.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center',
+                inline: 'center',
+            });
+        }
+    }, [currentIndex]);
+
+
+
+    useEffect(() => {
+        const carouselContainer = document.querySelector('.carousel-container');
+
+        const handleWheelScroll = (event) => {
+            if (event.deltaY > 0) {
+                handleNextClick(); // Scroll down, go to the next card
+            } else if (event.deltaY < 0) {
+                handlePrevClick(); // Scroll up, go to the previous card
+            }
+        };
+
+        if (carouselContainer) {
+            carouselContainer.addEventListener('wheel', handleWheelScroll);
+
+            return () => {
+                carouselContainer.removeEventListener('wheel', handleWheelScroll);
+            };
+        }
+    }, [currentIndex]);
 
     //storing the prices
 
-
-    //crousel
-    const ref = useRef(null);
-    const { scrollXProgress } = useScroll({ container: ref });
 
     return (
         <div className='home-page'>
@@ -729,24 +778,15 @@ const HomePage = () => {
 
                                 {/* this div has the list of all the professionals */}
                                 <div className={`cards ${cardsVisible ? '' : 'hidden'}`}>
-
-                                    {Array.from({ length: 8 }, (_, index) => (
+                                    {professionals.map((professional, index) => (
                                         <div
                                             className={`card-0 ${selectedCard === index ? 'card-expanded' : ''}`}
                                             key={index}
                                             onClick={() => openCardDetails(index)}
                                         >
-                                            {index === 0 && <div>  <p> <FaRandom /></p> </div>}
-                                            {index === 1 && <p>Content for div 1</p>}
-                                            {index === 2 && <p>Content for div 2</p>}
-                                            {index === 3 && <p>Content for div 3</p>}
-                                            {index === 4 && <p>Content for div 4</p>}
-                                            {index === 5 && <p>Content for div 5</p>}
-                                            {index === 6 && <p>Content for div 6</p>}
-                                            {index === 7 && <p>Content for div 7</p>}
+                                            <p>{professional}</p>
                                         </div>
                                     ))}
-
                                 </div>
 
                                 {/* this div has all the service types listed*/}
@@ -1047,79 +1087,34 @@ const HomePage = () => {
             <div className="content-4">
                 <h1>Out Talanted Staff</h1>
 
-
-
-                <div className="carousel-container">
-                    {/* <AliceCarousel showArrows={false} showStatus={false} showIndicators={false}>
-
-
-                        <div className="carousel-item forlargescreen">
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                        </div>
-                        <div className="carousel-item forlargescreen">
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                        </div>
-
-
-                        <div className="carousel-item forsmallscreen">
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                        </div>
-                        <div className="carousel-item forsmallscreen">
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                        </div>
-                        <div className="carousel-item forsmallscreen">
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                        </div>
-                        <div className="carousel-item forsmallscreen">
-                            <div className='stff1'></div>
-                            <div className='stff1'></div>
-                        </div>
-
-
-                    </AliceCarousel> */}
-                </div>
-                <div className='crousel-div'>
-                    <button className="scroll-button left-button" onClick={scrollLeft}>
-                        Scroll Left
+                <div className="carousel-container" >
+                    <button className="prev-button" onClick={handlePrevClick}>
+                        <BiSolidChevronLeft />
                     </button>
-
-                    <svg id="progress" width="50" height="50" viewBox="0 0 100 100">
-                        <circle cx="50" cy="50" r="30" pathLength="1" className="bg" />
-                        <motion.circle
-                            cx="50"
-                            cy="50"
-                            r="30"
-                            pathLength="1"
-                            className="indicator"
-                            style={{ pathLength: scrollXProgress }}
-                        />
-                    </svg>
-
-                    <button className="scroll-button right-button" onClick={scrollRight}>
-                        Scroll Right
+                    <div className="carousel" onMouseEnter={handleHover}
+                        onMouseLeave={handleMouseLeave}>
+                        <div className="carousel-card empty"><img src={image11} alt="Image Description" /></div>
+                        {cardData.map((item, index) => (
+                            <div
+                                className={`carousel-card ${currentIndex === index ? 'active' : ''}`}
+                                key={index}
+                                ref={currentIndex === index ? activeCardRef : null}
+                            >
+                                <img src={item.image} alt={`Image ${index + 1}`} />
+                                {currentIndex === index && (
+                                    <div className="content">
+                                        <p>{item.name}</p>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                        <div className="carousel-card empty">
+                            <img src={image1} alt="Image Description" />
+                        </div>
+                    </div>
+                    <button className="next-button" onClick={handleNextClick}>
+                        <BiSolidChevronRight />
                     </button>
-                    <ul className='stafflist' ref={ref} >
-                        <li>list item 1</li>
-                        <li>list item 2</li>
-                        <li>list item 3</li>
-                        <li>list item 4</li>
-                        <li>list item 5</li>
-                        <li>list item 6</li>
-                        <li>list item 7</li>
-                        <li>list item 8</li>
-                        <li>list item 9</li>
-                        <li>list item 10</li>
-                        <li>list item 11</li>
-                    </ul>
                 </div>
 
             </div>

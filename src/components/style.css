@@ -527,88 +527,9 @@
 
 } */
 
-.crousel-div {
-    width: 70%;
-    /* Set the width of the container */
-    overflow-x: auto;
-    /* Enable horizontal scrolling when needed */
-    overflow-y: hidden;
-    /* Disable vertical scrolling */
-    position: relative;
-    /* Required for absolute positioning of the UL */
-    margin: auto; 
-    padding-bottom: 20px;
-    background-color: #ffffff;
-}
-  
-
-
-.crousel-div ::-webkit-scrollbar {
-    height: 5px;
-    width: 5px;
-    
-    background: black;
-    -webkit-border-radius: 1ex;
-
-    /* Add margin-top to position the scrollbar */
-
-}
-
-.crousel-div::-webkit-scrollbar-thumb {
-    background: var(--accent);
-    -webkit-border-radius: 1ex;
-    margin-top: 10px;
-}
-
-.crousel-div::-webkit-scrollbar-corner {
-    background: #fff3;
-    margin-top: 10px;
-}
 
 
 
- .stafflist {
-    list-style: none;
-    display: flex;
-    padding: 0;
-    margin: 0;
-    transition: transform 0.5s ease-in-out;
-    position: relative;  
-    overflow-x: scroll;
-    gap: 5px;
-    padding:20px  20px 40px 20px;
-} 
-
-
-.stafflist li {
-    flex: 0 0 25%;
-    /* Initially, show 4 items with 25% width each */
-    padding: 10px;
-    text-align: center;
-    background-color: wheat;
-    height: 400px;
-    border-radius: 15px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
-    /* Additional styles for list items */
-}
-
-/* Styling the progress indicator */
-#progress {
-    display: block;
-    margin: 0 auto;
-    border-radius: 50%;
-}
-
-.bg {
-    fill: lightgray;
-}
-
-.indicator {
-    fill: white;
-    stroke: black;
-    stroke-width: 5;
-    padding: 100px;
-}
 
 
 
@@ -1267,79 +1188,128 @@
 
 .content-4 {
     background-color: #fff;
-    height: 75vh;
-    margin-bottom: 200px;
+
+    margin-bottom: 0px;
 }
 
 .content-4 h1 {
     padding: 80px 0 100px 0;
 }
 
-.forlargescreen {
+/* new carousel */
+/* Carousel container */
+.carousel-container {
+    width: 100%;
     display: flex;
-}
-
-.carousel-item {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
     align-items: center;
-    flex-wrap: nowrap;
+    justify-content: center;
+    position: relative;
 }
 
-.forsmallscreen {
+.carousel {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    margin: 0 -10px;
+    /* width: calc(100% + 20px); */
+    width: 83%;
+    padding-bottom: 100px;
+}
+
+.carousel-card {
+    flex: 0 0 30%;
+    margin: 0 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    text-align: center;
+    scroll-snap-align: center;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+    max-width: 360px;
+    max-height: 360px;
+
+}
+.carousel-card img{
+    border-radius: 15px;
+}
+
+.carousel-card.active {
+    transform: scale(1.1);
+    /* Zoom in effect for active card */
+    filter: brightness(1.2) blur(0px);
+    /* Adjust brightness and blur for active card */
+    max-width: 360px;
+    max-height: 360px;
+
+}
+
+.carousel-card:not(.active) {
+    filter: brightness(0.8) blur(1.5px);
+    /* Adjust brightness and blur for non-active cards */
+    max-width: 360px;
+    max-height: 360px;
+
+}
+
+.content {
     display: none;
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
-.stff1 {
-    background-image: url('./Resources/Ellipse\ 9.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 205px;
-    height: 340px;
+.carousel-card.active .content {
+    display: block;
 }
 
-.carousel-container .alice-carousel__prev-btn {
-    transform: translate(-3450%, -510%);
-    margin: 0;
-    width: 20px !important;
-    /* hiding the previus button */
-    display: none;
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-40%);
+    font-size: 34px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: black;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
 }
 
-.carousel-container .alice-carousel__next-btn {
-    transform: translate(6500%, -425%);
-    width: 10px !important;
-    /* hiding the next button */
-    display: none;
+.prev-button {
+    left: 35%;
+    z-index: 1;
 }
 
-@media(max-width : 768px) {
-    .forlargescreen {
-        display: none;
-    }
+.next-button {
+    right: 35%;
 
-    .forsmallscreen {
-        display: flex;
-    }
-
-    .carousel-container {
-        width: 100vw;
-    }
-
-    .carousel-container .alice-carousel__prev-btn {
-        transform: translate(-750%, -510%);
-        margin: 0;
-        width: 20px !important;
-    }
-
-    .carousel-container .alice-carousel__next-btn {
-        transform: translate(1400%, -425%);
-        width: 10px !important;
-    }
+}
+/* Show the buttons when hovering over the carousel */
+.carousel-container:hover .prev-button,
+.carousel-container:hover .next-button {
+    opacity: 1;
+    visibility: visible;
+  
 }
 
+/* Define a CSS class to hide the vertical scrollbar */
+::-webkit-scrollbar {
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: transparent transparent; /* For Firefox */
+    overflow-y: scroll; /* For other browsers */
+    width: 1px;
+  }
+  
 
+  
 
 
 
