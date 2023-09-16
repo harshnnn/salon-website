@@ -1149,7 +1149,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-4">
-                <h1>Out Talanted Staff</h1>
+                <h1>Out Talented Staff</h1>
 
                 <div className="carousel-container" >
                     <button className="prev-button" onClick={handlePrevClick}>

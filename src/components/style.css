@@ -1187,13 +1187,15 @@
 /* content-4 */
 
 .content-4 {
-    background-color: rgba(0, 0, 0, 0.518);
+    /* background-color: rgba(0, 0, 0, 0.518); */
+    background-color: #555555;
 
     margin-bottom: 0px;
 }
 
 .content-4 h1 {
     padding: 80px 0 100px 0;
+    color: white;
 }
 
 /* new carousel */
@@ -1213,7 +1215,6 @@
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     margin: 0 -10px;
-    /* width: calc(100% + 20px); */
     width: 75%;
     padding-bottom: 100px;
 }
@@ -1221,11 +1222,7 @@
 .carousel-card {
     flex: 0 0 30%;
     margin: 0 10px;
-    
-   
-    /* background-color: #fff; */
-   background-color: rgba(0, 0, 0, 0.518);
-
+    background-color: rgba(0, 0, 0, 0.518);
     border: 1px solid #ccc;
     border-radius: 15px;
     text-align: center;
@@ -1233,26 +1230,23 @@
     transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
     max-width: 360px;
     max-height: 360px;
-
 }
-.carousel-card img{
+
+.carousel-card img {
     border-radius: 15px;
 }
 
 .carousel-card.active {
     transform: scale(1.03);
-    /* Zoom in effect for active card */
     filter: brightness(1.2) blur(0px);
-    /* Adjust brightness and blur for active card */
     max-width: 360px;
     max-height: 360px;
     border-radius: 15px;
-    padding-top:  5px;
+    padding-top: 5px;
 }
 
 .carousel-card:not(.active) {
     filter: brightness(0.8) blur(1.5px);
-    /* Adjust brightness and blur for non-active cards */
     max-width: 360px;
     max-height: 360px;
     border-radius: 5px;
@@ -1266,6 +1260,7 @@
     right: 0;
     padding: 10px;
     background-color: rgba(0, 0, 0, 0);
+    color: white;
     border-radius: 15px;
 }
 
@@ -1282,7 +1277,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: black;
+    color: white;
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.5s, visibility 0.5s;
@@ -1295,8 +1290,27 @@
 
 .next-button {
     right: 35%;
-
 }
+
+/* Media Query for Tablets and Smaller Screens */
+@media (max-width: 768px) {
+    .carousel-card {
+        flex: 0 0 45%; /* Adjust the card width for smaller screens */
+    }
+    
+    .prev-button,
+    .next-button {
+        top: 50%; /* Adjust button position for smaller screens */
+        transform: translateY(-150%);
+    }
+    .prev-button{
+        left: 3%;
+    }
+    .next-button{
+        right: 3%;
+    }
+}
+
 /* Show the buttons when hovering over the carousel */
 .carousel-container:hover .prev-button,
 .carousel-container:hover .next-button {
