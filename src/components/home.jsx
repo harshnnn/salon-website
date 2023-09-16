@@ -31,6 +31,10 @@ import scroll from 'smooth-scroll';
 
 const HomePage = () => {
 
+
+
+    
+
     const handleOnDragStart = (e) => e.preventDefault();
 
 
@@ -728,70 +732,74 @@ const HomePage = () => {
 
 
     useEffect(() => {
-        const carouselContainer = document.querySelector('.carousel-container');
+        const carouselContainer = document.querySelector('.carousel');
         let isScrolling = false;
-      
+
         const handleWheelScroll = (event) => {
-          if (isScrolling) return;
-      
-          if (event.deltaY > 0) {
-            isScrolling = true;
-            setTimeout(() => {
-              handleNextClick(); // Scroll down, go to the next card
-              isScrolling = false;
-            }, 300); // Adjust the delay time (in milliseconds) as needed
-          } else if (event.deltaY < 0) {
-            isScrolling = true;
-            setTimeout(() => {
-              handlePrevClick(); // Scroll up, go to the previous card
-              isScrolling = false;
-            }, 300); // Adjust the delay time (in milliseconds) as needed
-          }
+            if (isScrolling) return;
+
+            if (event.deltaY > 70) {
+                isScrolling = true;
+                setTimeout(() => {
+                    handleNextClick(); // Scroll down, go to the next card
+                    isScrolling = false;
+                }, 500); // Adjust the delay time (in milliseconds) as needed
+            } else if (event.deltaY < -70) {
+                isScrolling = true;
+                setTimeout(() => {
+                    handlePrevClick(); // Scroll up, go to the previous card
+                    isScrolling = false;
+                }, 500); // Adjust the delay time (in milliseconds) as needed
+            }
         };
-      
+
         if (carouselContainer) {
-          carouselContainer.addEventListener('wheel', handleWheelScroll);
-      
-          return () => {
-            carouselContainer.removeEventListener('wheel', handleWheelScroll);
-          };
+            carouselContainer.addEventListener('wheel', handleWheelScroll);
+
+            return () => {
+                carouselContainer.removeEventListener('wheel', handleWheelScroll);
+            };
         }
-      }, [currentIndex]);
-      
+    }, [currentIndex]);
+
 
     useEffect(() => {
-        const carouselContainer = document.querySelector('.carousel-container');
+        const carouselContainer = document.querySelector('.carousel');
         let touchStartX = null;
         let touchEndX = null;
-      
+
         const handleTouchStart = (event) => {
-          touchStartX = event.touches[0].clientX;
+            touchStartX = event.touches[0].clientX;
         };
-      
+
         const handleTouchEnd = (event) => {
-          touchEndX = event.changedTouches[0].clientX;
-          const swipeDistance = touchEndX - touchStartX;
-      
-          if (swipeDistance > 30) {
-            // Right swipe
-            handlePrevClick();
-          } else if (swipeDistance < -30) {
-            // Left swipe
-            handleNextClick();
-          }
+
+            touchEndX = event.changedTouches[0].clientX;
+            const swipeDistance = touchEndX - touchStartX;
+
+            if (swipeDistance > 30) {
+
+                // Right swipe
+                handlePrevClick();
+            } else if (swipeDistance < -30) {
+                // Left swipe
+
+                handleNextClick();
+            }
         };
-      
+
         if (carouselContainer) {
-          carouselContainer.addEventListener('touchstart', handleTouchStart);
-          carouselContainer.addEventListener('touchend', handleTouchEnd);
-      
-          return () => {
-            carouselContainer.removeEventListener('touchstart', handleTouchStart);
-            carouselContainer.removeEventListener('touchend', handleTouchEnd);
-          };
+            carouselContainer.addEventListener('touchstart', handleTouchStart);
+            carouselContainer.addEventListener('touchend', handleTouchEnd);
+
+            return () => {
+                carouselContainer.removeEventListener('touchstart', handleTouchStart);
+                carouselContainer.removeEventListener('touchend', handleTouchEnd);
+            };
         }
-      }, [currentIndex]);
-      
+    }, [currentIndex]);
+
+  
   
 
 

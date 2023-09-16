@@ -3,6 +3,13 @@ import './style.css'
 
 const Navbar = () => {
 
+  //Phone call
+  const phoneNumber = '+1234567890';
+
+  const handleCallClick = () => {
+    window.location.href = `tel:${phoneNumber}`;
+  };
+
 
   const [menuVisible, setMenuVisible] = useState(false);
 
@@ -34,7 +41,7 @@ const Navbar = () => {
           <li><a href="#" className='nav-link' onClick={() => handleNavClick('content-3')}>About Us</a></li>
         </ul>
       </div>
-      <div className='contact-btn'><p>206 281 XXXX</p></div>
+      <div className='contact-btn' onClick={handleCallClick}><p> {phoneNumber}</p></div>
       <div className='menu-toggle-btn' onClick={toggleMenu} >&#9776;</div>
 
     </div>
