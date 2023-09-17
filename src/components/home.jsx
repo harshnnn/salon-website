@@ -1263,7 +1263,7 @@ const HomePage = () => {
 
                 <AliceCarousel className='content-6-box' >
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        <img className='content-6-img img1' />
+                        
                         <p>
                             Brazilian Blowout is by far the most-requested hair
                             smoothing treatment <br /> as it creates a protective layer
@@ -1272,11 +1272,13 @@ const HomePage = () => {
                             treatment saves your strands from the stressors of day-to-day <br />
                             life by adding extra moisture for shiny, healthy <br />
                             hair. <br />
-                            ~Cherry
+            
                         </p>
+                        <img className='content-6-img img1' />
+                        <p>~Cherry</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        <img className='content-6-img img2' />
+                        
                         <p>
                             Keratin treatment is widely known as a highly sought-after hair <br />
                             care solution that forms a shielding barrier around each hair <br />
@@ -1284,11 +1286,13 @@ const HomePage = () => {
                             This nourishing therapy revitalizes your locks from everyday <br />
                             challenges, replenishing added hydration for lustrous, vibrant <br />
                             hair. <br />
-                            ~Aqua
+                            
                         </p>
+                        <img className='content-6-img img2' />
+                        <p>~Aqua</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        <img className='content-6-img img3' />
+                        
                         <p>
                             The trendsetting Silk Press has become the ultimate choice for <br />
                             achieving sleek hair, crafting a safeguarding coat around every <br />
@@ -1296,11 +1300,13 @@ const HomePage = () => {
                             a radiant sheen. This enriching treatment rejuvenates your hair <br />
                             against everyday pressures, infusing additional moisture for <br />
                             luminous, robust hair. <br />
-                            ~Luna
+                            
                         </p>
+                        <img className='content-6-img img3' />
+                        <p>~Luna</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        <img className='content-6-img img4' />
+                        
                         <p>
                             Glossy hair, sought-after by many, the Japanese Straightening <br />
                             technique is renowned for enveloping each strand with a <br />
@@ -1308,8 +1314,10 @@ const HomePage = () => {
                             luminous brilliance. This nutrient-packed treatment shields your <br />
                             strands from daily life challenges, providing extra hydration <br />
                             for glossy, resilient hair. <br />
-                            ~Jade
+                            
                         </p>
+                        <img className='content-6-img img4' />
+                        <p>~Jade</p>
                     </div>
                 </AliceCarousel>
             </div>
