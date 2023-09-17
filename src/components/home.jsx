@@ -5,7 +5,7 @@ import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
-import { BsSunrise, BsSun, BsSunset } from 'react-icons/bs';
+import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi';
 import Calendar from 'react-calendar';
@@ -33,7 +33,7 @@ const HomePage = () => {
 
 
 
-    
+
 
     const handleOnDragStart = (e) => e.preventDefault();
 
@@ -42,6 +42,7 @@ const HomePage = () => {
 
     const handleItemClick = (index) => {
         setSelectedItem(index);
+        setIsExpanded(!isExpanded);
     };
 
     const [professionals, setProfessionals] = useState([]);
@@ -307,7 +308,7 @@ const HomePage = () => {
                 <p className='list-detail-heading'>Women’s Haircut <br />
                     $75 - $90</p>
 
-                <p>Consult with our stylists to create a look that compliments your features and accents your personal style. <br />
+                <p className='list-detail-content'>Consult with our stylists to create a look that compliments your features and accents your personal style. 
                     Includes a shampoo, blowdry and style.</p>
             </div>
             <div className='detail-1'>
@@ -315,23 +316,23 @@ const HomePage = () => {
                     <br />
                     $55 - $60</p>
 
-                <p>Starting with freshly cleansed and conditioned hair, our stylists apply different <br />
+                <p className='list-detail-content'>Starting with freshly cleansed and conditioned hair, our stylists apply different 
                     techniques to achieve the perfect straight, wavy or curly style.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Deep Conditioner<br />
                     $65</p>
 
-                <p>
-                    This nutrient-rich treatment saves your strands from the stressors of day-to-day life by <br />
+                <p className='list-detail-content'>
+                    This nutrient-rich treatment saves your strands from the stressors of day-to-day life by 
                     adding extra moisture for shiny, healthy hair.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Men’s Haircut <br />
                     $60 - $70</p>
 
-                <p>
-                    Add some swagger to your step with our high-quality men's haircuts. <br />
+                <p className='list-detail-content'>
+                    Add some swagger to your step with our high-quality men's haircuts. 
                     Includes head massage, shampoo, cut, style & neck clean-up.</p>
             </div>
             <div className='detail-1'>
@@ -339,123 +340,147 @@ const HomePage = () => {
                     <br />
                     Starting at $315</p>
 
-                <p>
-                    Brazilian Blowout is by far the most-requested hair smoothing treatment as it creates a protective <br />
+                <p className='list-detail-content'>
+                    Brazilian Blowout is by far the most-requested hair smoothing treatment as it creates a protective 
                     layer around each strand of hair, effectively diminishing frizz and promoting intense shine.</p>
             </div>
         </div>,
         <div className='list-1-detail'>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Hair Color<br />$100 - $150</p>
-                <p>Our expert colorists use the latest techniques and high-quality products to create a hair color that suits your personality and style.</p>
+                <p className='list-detail-heading'>Hair Color
+                <br/>$100-$150</p>
+                <p className='list-detail-content'>Our expert colorists use the latest techniques and high-quality products to create a hair color that suits your personality and style.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Highlights<br />Starting at $120</p>
-                <p>Add dimension and brightness to your hair with our professional highlighting services. Choose from a variety of shades and techniques.</p>
+                <p className='list-detail-heading'>Highlights<br/>
+                Starting at $120</p>
+                <p className='list-detail-content'>Add dimension and brightness to your hair with our professional highlighting services. Choose from a variety of shades and techniques.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Balayage<br />Starting at $150</p>
-                <p>Get that sun-kissed, natural look with our custom balayage technique. Our colorists blend shades seamlessly for a stunning result.</p>
+                <p className='list-detail-heading'>Balayage
+                <br />Starting at $150</p>
+                <p className='list-detail-content'>Get that sun-kissed, natural look with our custom balayage technique. Our colorists blend shades seamlessly for a stunning result.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Color Correction<br />Price Varies</p>
-                <p>If you're unhappy with your current hair color, our color correction service can help you achieve your desired shade while maintaining hair health.</p>
+                <p className='list-detail-heading'>Color Correction
+                <br />Price Varies</p>
+                <p className='list-detail-content'>If you're unhappy with your current hair color, our color correction service can help you achieve your desired shade while maintaining hair health.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Ombre<br />Starting at $130</p>
-                <p>Transform your look with the trendy ombre hair coloring technique. Our experts create a smooth transition between two shades for a striking effect.</p>
-            </div>
-        </div>
-        ,
-        <div className='list-1-detail'>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Classic Spa Facial<br />$80</p>
-                <p>Indulge in relaxation with our classic spa facial. Includes deep cleansing, exfoliation, steam, extractions, mask, and soothing massage.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Anti-Aging Facial<br />$100</p>
-                <p>Revitalize your skin with our anti-aging facial. Specialized products and techniques target fine lines, wrinkles, and promote a youthful complexion.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Hydrating Facial<br />$90</p>
-                <p>Restore moisture balance to your skin with our hydrating facial. Perfect for dry or dehydrated skin, leaving you with a radiant glow.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Acne Clearing Facial<br />$85</p>
-                <p>Combat acne and blemishes with our acne clearing facial. Deep cleansing, exfoliation, and targeted treatments help improve skin clarity.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Sensitive Skin Facial<br />$95</p>
-                <p>Gentle care for sensitive skin. Our soothing facial calms irritation and redness, providing relief and leaving your skin feeling refreshed.</p>
+                <p className='list-detail-heading'>Ombre
+                <br />Starting at $130</p>
+                <p className='list-detail-content'>Transform your look with the trendy ombre hair coloring technique. Our experts create a smooth transition between two shades for a striking effect.</p>
             </div>
         </div>
         ,
         <div className='list-1-detail'>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Classic Eyelash Extensions<br />$120</p>
-                <p>Enhance your natural beauty with our classic eyelash extensions. One extension is applied to each natural lash for a subtle yet stunning look.</p>
+                <p className='list-detail-heading'>Classic Spa Facial
+                <br />$80</p>
+                <p className='list-detail-content'>Indulge in relaxation with our classic spa facial. Includes deep cleansing, exfoliation, steam, extractions, mask, and soothing massage.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Volume Eyelash Extensions<br />$150</p>
-                <p>Get a more dramatic and voluminous look with our volume eyelash extensions. Multiple lightweight extensions are applied to each natural lash.</p>
+                <p className='list-detail-heading'>Anti-Aging Facial
+                <br />$100</p>
+                <p className='list-detail-content'>Revitalize your skin with our anti-aging facial. Specialized products and techniques target fine lines, wrinkles, and promote a youthful complexion.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Eyelash Lift & Tint<br />$75</p>
-                <p>Lift and curl your natural lashes while adding a tint for enhanced definition. Wake up with beautifully lifted and darkened lashes.</p>
+                <p className='list-detail-heading'>Hydrating Facial
+                <br />$90</p>
+                <p className='list-detail-content'>Restore moisture balance to your skin with our hydrating facial. Perfect for dry or dehydrated skin, leaving you with a radiant glow.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Eyelash Extension Refill<br />$60</p>
-                <p>Maintain the longevity of your eyelash extensions with our refill service. Recommended every 2-3 weeks to keep your lashes looking full.</p>
+                <p className='list-detail-heading'>Acne Clearing Facial
+                <br />$85</p>
+                <p className='list-detail-content'>Combat acne and blemishes with our acne clearing facial. Deep cleansing, exfoliation, and targeted treatments help improve skin clarity.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Sensitive Skin Facial
+                <br />$95</p>
+                <p className='list-detail-content'>Gentle care for sensitive skin. Our soothing facial calms irritation and redness, providing relief and leaving your skin feeling refreshed.</p>
+            </div>
+        </div>
+        ,
+        <div className='list-1-detail'>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Classic Eyelash Extensions
+                <br />$120</p>
+                <p className='list-detail-content'>Enhance your natural beauty with our classic eyelash extensions. One extension is applied to each natural lash for a subtle yet stunning look.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Volume Eyelash Extensions
+                <br />$150</p>
+                <p className='list-detail-content'>Get a more dramatic and voluminous look with our volume eyelash extensions. Multiple lightweight extensions are applied to each natural lash.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Eyelash Lift & Tint
+                <br />$75</p>
+                <p className='list-detail-content'>Lift and curl your natural lashes while adding a tint for enhanced definition. Wake up with beautifully lifted and darkened lashes.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Eyelash Extension Refill
+                <br />$60</p>
+                <p className='list-detail-content'>Maintain the longevity of your eyelash extensions with our refill service. Recommended every 2-3 weeks to keep your lashes looking full.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Lash Removal<br />$25</p>
-                <p>If you decide to remove your eyelash extensions, our gentle removal process ensures your natural lashes remain intact.</p>
+                <p className='list-detail-content'>If you decide to remove your eyelash extensions, our gentle removal process ensures your natural lashes remain intact.</p>
             </div>
         </div>
         ,
         <div className='list-1-detail'>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Waxing Services<br />Price Varies</p>
-                <p>Our waxing services offer hair removal solutions for various areas including eyebrows, upper lip, chin, legs, arms, and more. Prices depend on the area.</p>
+                <p className='list-detail-heading'>Waxing Services
+                <br />Price Varies</p>
+                <p className='list-detail-content'>Our waxing services offer hair removal solutions for various areas including eyebrows, upper lip, chin, legs, arms, and more. Prices depend on the area.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Threading<br />Price Varies</p>
-                <p>Experience the precision of threading for facial hair removal. Our technicians shape eyebrows and remove unwanted facial hair with this ancient technique.</p>
+                <p className='list-detail-heading'>Threading
+                <br />Price Varies</p>
+                <p className='list-detail-content'>Experience the precision of threading for facial hair removal. Our technicians shape eyebrows and remove unwanted facial hair with this ancient technique.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Laser Hair Removal<br />Price Varies</p>
-                <p>Permanently reduce unwanted hair with our advanced laser hair removal technology. Sessions are tailored to your needs for optimal results.</p>
+                <p className='list-detail-heading'>Laser Hair 
+                <br />Price Varies</p>
+                <p className='list-detail-content'>Permanently reduce unwanted hair with our advanced laser hair removal technology. Sessions are tailored to your needs for optimal results.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Bikini Wax<br />Starting at $45</p>
-                <p>Get beach-ready with our bikini waxing services. Choose from a standard bikini wax or more comprehensive styles like Brazilian or Hollywood wax.</p>
+                <p className='list-detail-heading'>Bikini Wax
+                <br />Starting at $45</p>
+                <p className='list-detail-content'>Get beach-ready with our bikini waxing services. Choose from a standard bikini wax or more comprehensive styles like Brazilian or Hollywood wax.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Body Sugaring<br />Price Varies</p>
-                <p>Try the natural alternative to waxing with our body sugaring services. Gentle on the skin and effective for hair removal on various body parts.</p>
+                <p className='list-detail-heading'>Body Sugaring
+                <br />Price Varies</p>
+                <p className='list-detail-content'>Try the natural alternative to waxing with our body sugaring services. Gentle on the skin and effective for hair removal on various body parts.</p>
             </div>
         </div>
         ,
         <div className='list-1-detail'>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Express Facial<br />$50</p>
-                <p>When time is limited, our express facial provides a quick and rejuvenating treatment to cleanse, exfoliate, and nourish your skin.</p>
+                <p className='list-detail-heading'>Express Facial
+                <br />$50</p>
+                <p className='list-detail-content'>When time is limited, our express facial provides a quick and rejuvenating treatment to cleanse, exfoliate, and nourish your skin.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Mini Manicure<br />$25</p>
-                <p>Give your hands some attention with our mini manicure. Includes nail shaping, cuticle care, and a polish application of your choice.</p>
+                <p className='list-detail-heading'>Mini Manicure
+                <br />$25</p>
+                <p className='list-detail-content'>Give your hands some attention with our mini manicure. Includes nail shaping, cuticle care, and a polish application of your choice.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Mini Pedicure<br />$30</p>
-                <p>Treat your feet with our mini pedicure. Relax in a foot soak, get nail shaping, cuticle care, and a polish application for a quick refresh.</p>
+                <p className='list-detail-heading'>Mini Pedicure
+                <br />$30</p>
+                <p className='list-detail-content'>Treat your feet with our mini pedicure. Relax in a foot soak, get nail shaping, cuticle care, and a polish application for a quick refresh.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Eyebrow Tinting<br />$20</p>
-                <p>Enhance your brows with eyebrow tinting. Our experts apply a custom tint to match your desired shade, providing a defined look.</p>
+                <p className='list-detail-heading'>Eyebrow Tinting
+                <br />$20</p>
+                <p className='list-detail-content'>Enhance your brows with eyebrow tinting. Our experts apply a custom tint to match your desired shade, providing a defined look.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Lash Tinting<br />$25</p>
-                <p>Darken your lashes with our lash tinting service. Achieve the appearance of mascara without the daily hassle.</p>
+                <p className='list-detail-heading'>Lash Tinting
+                <br />$25</p>
+                <p className='list-detail-content'>Darken your lashes with our lash tinting service. Achieve the appearance of mascara without the daily hassle.</p>
             </div>
         </div>
 
@@ -677,6 +702,9 @@ const HomePage = () => {
     }
 
 
+
+    // For Content 4
+
     //carusel
     const cardData = [
         { image: image1, name: 'Image 1' },
@@ -730,41 +758,9 @@ const HomePage = () => {
     }, [currentIndex]);
 
 
-
     useEffect(() => {
         const carouselContainer = document.querySelector('.carousel');
         let isScrolling = false;
-
-        const handleWheelScroll = (event) => {
-            if (isScrolling) return;
-
-            if (event.deltaY > 70) {
-                isScrolling = true;
-                setTimeout(() => {
-                    handleNextClick(); // Scroll down, go to the next card
-                    isScrolling = false;
-                }, 500); // Adjust the delay time (in milliseconds) as needed
-            } else if (event.deltaY < -70) {
-                isScrolling = true;
-                setTimeout(() => {
-                    handlePrevClick(); // Scroll up, go to the previous card
-                    isScrolling = false;
-                }, 500); // Adjust the delay time (in milliseconds) as needed
-            }
-        };
-
-        if (carouselContainer) {
-            carouselContainer.addEventListener('wheel', handleWheelScroll);
-
-            return () => {
-                carouselContainer.removeEventListener('wheel', handleWheelScroll);
-            };
-        }
-    }, [currentIndex]);
-
-
-    useEffect(() => {
-        const carouselContainer = document.querySelector('.carousel');
         let touchStartX = null;
         let touchEndX = null;
 
@@ -788,28 +784,58 @@ const HomePage = () => {
             }
         };
 
+        const handleWheelScroll = (event) => {
+            if (isScrolling) return;
+
+            if (event.deltaY > 40) {
+                isScrolling = true;
+                setTimeout(() => {
+                    handleNextClick(); // Scroll down, go to the next card
+                    isScrolling = false;
+                }, 500); // Adjust the delay time (in milliseconds) as needed
+            } else if (event.deltaY < -40) {
+                isScrolling = true;
+                setTimeout(() => {
+                    handlePrevClick(); // Scroll up, go to the previous card
+                    isScrolling = false;
+                }, 500); // Adjust the delay time (in milliseconds) as needed
+            }
+        };
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowLeft') {
+                handlePrevClick(); // Left arrow key
+            } else if (event.key === 'ArrowRight') {
+                handleNextClick(); // Right arrow key
+            }
+        };
+
         if (carouselContainer) {
+            carouselContainer.addEventListener('wheel', handleWheelScroll);
+            window.addEventListener('keydown', handleKeyDown); // Listen for keydown events
             carouselContainer.addEventListener('touchstart', handleTouchStart);
             carouselContainer.addEventListener('touchend', handleTouchEnd);
 
             return () => {
+                carouselContainer.removeEventListener('wheel', handleWheelScroll);
+                window.removeEventListener('keydown', handleKeyDown); // Remove the event listener
                 carouselContainer.removeEventListener('touchstart', handleTouchStart);
                 carouselContainer.removeEventListener('touchend', handleTouchEnd);
+
             };
         }
     }, [currentIndex]);
 
-  
-  
 
 
+    //For content 5
 
+    const [isExpanded, setIsExpanded] = useState(false);
 
+    const toggleList = () => {
+        setIsExpanded(!isExpanded);
+    };
 
-
-
-
-    //storing the prices
 
 
     return (
@@ -1155,14 +1181,16 @@ const HomePage = () => {
                     <button className="prev-button" onClick={handlePrevClick}>
                         <BiSolidChevronLeft />
                     </button>
-                    <div className="carousel" onMouseEnter={handleHover}
-                        onMouseLeave={handleMouseLeave}>
+                    <div className="carousel"
+                    >
                         <div className="carousel-card empty"><img src={image11} alt="Image Description" /></div>
                         {cardData.map((item, index) => (
                             <div
                                 className={`carousel-card ${currentIndex === index ? 'active' : ''}`}
                                 key={index}
                                 ref={currentIndex === index ? activeCardRef : null}
+                                onMouseLeave={handleMouseLeave}
+                                onMouseEnter={handleHover}
                             >
                                 <img src={item.image} alt={`Image ${index + 1}`} />
                                 {currentIndex === index && (
@@ -1192,7 +1220,7 @@ const HomePage = () => {
                 <div className='list-details'>
 
                     <div>
-                        <ul>
+                        <ul className='list-title'>
                             {items.map((item, index) => (
                                 <li key={index} onClick={() => handleItemClick(index)}
                                     className={selectedItem === index ? 'selected' : ''}
@@ -1201,6 +1229,25 @@ const HomePage = () => {
                                 </li>
                             ))}
                         </ul>
+
+
+                        <div className="list-group">
+                            <div className="list-group-item" onClick={toggleList}>
+                            Service List <p style={{visibility:'hidden', display:'inline'}}>lal</p> <BsChevronBarExpand/>
+                            </div>
+                            <ul className={`list-group-content ${isExpanded ? 'expanded' : 'not-expanded'}`}>
+                                {items.map((item, index) => (
+                                    <li
+                                        key={index}
+                                        onClick={() => handleItemClick(index)}
+                                        className={selectedItem === index ? 'selected' : ''}
+                                    >
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
                         <div>
                             {selectedItem !== null && <div>{content[selectedItem]}</div>}
                         </div>

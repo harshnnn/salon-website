@@ -1295,18 +1295,22 @@
 /* Media Query for Tablets and Smaller Screens */
 @media (max-width: 768px) {
     .carousel-card {
-        flex: 0 0 45%; /* Adjust the card width for smaller screens */
+        flex: 0 0 45%;
+        /* Adjust the card width for smaller screens */
     }
-    
+
     .prev-button,
     .next-button {
-        top: 50%; /* Adjust button position for smaller screens */
+        top: 50%;
+        /* Adjust button position for smaller screens */
         transform: translateY(-150%);
     }
-    .prev-button{
+
+    .prev-button {
         left: 3%;
     }
-    .next-button{
+
+    .next-button {
         right: 3%;
     }
 }
@@ -1316,19 +1320,22 @@
 .carousel-container:hover .next-button {
     opacity: 1;
     visibility: visible;
-  
+
 }
 
 /* Define a CSS class to hide the vertical scrollbar */
 ::-webkit-scrollbar {
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: transparent transparent; /* For Firefox */
-    overflow-y: scroll; /* For other browsers */
+    scrollbar-width: thin;
+    /* For Firefox */
+    scrollbar-color: transparent transparent;
+    /* For Firefox */
+    overflow-y: scroll;
+    /* For other browsers */
     width: 1px;
-  }
-  
+}
 
-  
+
+
 
 
 
@@ -1338,12 +1345,12 @@
     height: fit-content;
     background-color: #fff;
     width: 100%;
-
 }
 
 .content-5 h1 {
     position: relative;
-    padding-top: 150px;
+    padding-top: 100px;
+    padding-bottom: 50px;
 }
 
 .content-5 ul {
@@ -1362,6 +1369,7 @@
     transition: background-color 0.3s ease;
     padding: 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .content-5 ul li:hover {
@@ -1379,25 +1387,6 @@
     }
 }
 
-@media (max-width: 768px) {
-    .list-details {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .list-details li {
-        margin: 5px;
-    }
-
-    .list-details div {
-        width: 95%;
-
-    }
-
-    .book-slot-btn {
-        margin-top: 10px;
-    }
-}
 
 .list-details {
     width: 90vw;
@@ -1407,17 +1396,31 @@
 
 .detail-1 {
     padding: 20px;
+    padding-bottom: 10px;
     width: 70vw;
     margin: auto;
     display: flex;
     border-bottom: 1px solid gray;
-    justify-content: space-between;
+
 }
 
 .list-detail-heading {
+    width: 300px;
     font-size: medium;
     font-weight: 600;
+    text-align: center;
 }
+
+.list-detail-content {
+    text-align: center;
+    /* Center-align the text */
+    margin-right: 0px;
+    /* Add space at the top */
+
+}
+
+
+
 
 .book-slot-btn {
     margin-top: 50px;
@@ -1439,6 +1442,100 @@
     background-color: #84E1BC;
     color: black;
 }
+
+
+/* For the collapse menu */
+.list-group {
+    width: 300px;
+    /* Adjust the width as needed */
+    display: none;
+    padding-top: 20px;
+}
+
+.list-group-item {
+    background-color: #007bff;
+    /* Background color */
+
+    border: 1px solid #ccc;
+
+    color: #fff;
+    /* Text color */
+    padding: 10px 20px;
+    /* Padding */
+    border-radius: 5px;
+    /* Rounded corners */
+    text-align: center;
+    /* Center text horizontally */
+    cursor: pointer;
+    /* Cursor style for interaction */
+}
+
+/* Hover effect */
+.list-group-item:hover {
+    background-color: #0056b3;
+    /* Change background color on hover */
+}
+
+
+.list-group-content {
+    display: none;
+    max-height: 0;
+    padding-bottom: 0 !important;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.list-group-content.expanded {
+    display: block;
+    max-height: 500px;
+    /* Adjust the maximum height as needed */
+    overflow-y: auto;
+}
+
+.list-group-content.not-expanded {
+    display: block;
+}
+
+
+@media (max-width: 768px) {
+
+    .content-5 h1 {
+        font-size: x-large;
+        padding: 50px 0;
+    }
+
+    .list-group {
+        display: block;
+        margin: 0 auto;
+    }
+
+
+    .list-title {
+        display: none !important;
+    }
+
+
+    .list-detail-heading {
+        margin: auto;
+        width: 400px !important;
+        font-size: medium;
+        font-weight: 600;
+        text-align: center;
+    }
+
+    .list-detail-content {
+        text-align: center;
+        /* Center-align the text */
+        padding-left: 5px;
+        
+        margin-left: 0px;
+        /* Add space at the top */
+
+    }
+
+}
+
+
 
 
 /* Content-6 */
