@@ -99,7 +99,7 @@
 
     .menu-items {
         display: none;
-        
+
         align-items: center;
         justify-content: center;
         gap: 10px;
@@ -121,8 +121,8 @@
     .menu-toggle-btn {
         position: absolute;
         top: 0;
-        right: 0;
-        margin:10px 0px;
+        right: 3%;
+        margin: 10px 0px;
         width: 40px;
         height: 40px;
         cursor: pointer;
@@ -173,7 +173,7 @@
 
     .menu-icon::after {
         top: -8px;
-    }    
+    }
 
 }
 
@@ -490,7 +490,7 @@
     display: flex;
     justify-content: space-between;
     gap: 300px;
-    
+
 
 }
 
@@ -517,7 +517,7 @@
 
 /* responsive animated div */
 @media (max-width: 768px) {
-    .card-0{
+    .card-0 {
         width: 42% !important;
     }
 
@@ -854,18 +854,21 @@
 .card-left {
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
 }
 
 .card-right {
     display: flex;
     justify-content: center;
+    margin-bottom: 100px;
 }
+
 
 .card-img {
     background-repeat: no-repeat;
     background-size: cover;
-    height: 300px;
-    width: 180px;
+    height: 350px;
+    width: 200px;
 }
 
 .card-1 .card-img {
@@ -898,10 +901,21 @@
     background-image: url('./Resources/Rectangle\ 82.svg');
     margin-bottom: 50px;
 }
+.card-6{
+    margin-bottom: 0 !important;
+}
 
 .card-info-left {
     text-align: justify;
     font-size: 1.3em;
+}
+
+.card-info-left h4 {
+    padding: 1em;
+}
+
+.card-info-left p {
+    margin: auto 0;
 }
 
 .card-info-right {
@@ -909,12 +923,60 @@
     font-size: 1.3em;
 }
 
+.card-info-right h4 {
+    padding: 1em;
+}
+
+.card-info-right p {
+    margin: auto 0px;
+}
+
+
+/* Apply initial styles */
+.card-left .card-img,
+.card-left .card-info-left {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Add a class to trigger the animation */
+.card-left.animate .card-img,
+.card-left.animate .card-info-left {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Apply initial styles to card-right */
+.card-right .card-img,
+.card-right .card-info-right {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Add a class to trigger the animation for card-right */
+.card-right.animate .card-img,
+.card-right.animate .card-info-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
 @media (max-width: 768px) {
+
+    .card-img {
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 300px;
+        width: 180px;
+    }
 
     .card-left,
     .card-right {
         flex-basis: 100%;
         margin: 0;
+        margin-bottom: 50px;
     }
 
     .card-left {
@@ -953,6 +1015,46 @@
     .content-2 p {
         font-size: medium;
     }
+
+    .card-right .card-img {
+        margin-right: 10px;
+    }
+
+    .card-left .card-img {
+        margin-left: 10px;
+    }
+
+
+    /* Apply initial styles */
+    .card-left .card-img,
+    .card-left .card-info-left {
+        opacity: 0;
+        transform: translateX(-10%);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    /* Add a class to trigger the animation */
+    .card-left.animate .card-img,
+    .card-left.animate .card-info-left {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* Apply initial styles to card-right */
+    .card-right .card-img,
+    .card-right .card-info-right {
+        opacity: 0;
+        transform: translateX(10%);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    /* Add a class to trigger the animation for card-right */
+    .card-right.animate .card-img,
+    .card-right.animate .card-info-right {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
 }
 
 
@@ -1354,7 +1456,7 @@
         text-align: center;
         /* Center-align the text */
         padding-left: 5px;
-        
+
         margin-left: 0px;
         /* Add space at the top */
 

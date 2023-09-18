@@ -23,7 +23,6 @@ import image8 from './Resources/proffessionals/proff8.jpg';
 import image9 from './Resources/proffessionals/proff9.jpg';
 import image10 from './Resources/proffessionals/proff10.jpg';
 import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
-import scroll from 'smooth-scroll';
 
 
 
@@ -308,7 +307,7 @@ const HomePage = () => {
                 <p className='list-detail-heading'>Women’s Haircut <br />
                     $75 - $90</p>
 
-                <p className='list-detail-content'>Consult with our stylists to create a look that compliments your features and accents your personal style. 
+                <p className='list-detail-content'>Consult with our stylists to create a look that compliments your features and accents your personal style.
                     Includes a shampoo, blowdry and style.</p>
             </div>
             <div className='detail-1'>
@@ -316,7 +315,7 @@ const HomePage = () => {
                     <br />
                     $55 - $60</p>
 
-                <p className='list-detail-content'>Starting with freshly cleansed and conditioned hair, our stylists apply different 
+                <p className='list-detail-content'>Starting with freshly cleansed and conditioned hair, our stylists apply different
                     techniques to achieve the perfect straight, wavy or curly style.</p>
             </div>
             <div className='detail-1'>
@@ -324,7 +323,7 @@ const HomePage = () => {
                     $65</p>
 
                 <p className='list-detail-content'>
-                    This nutrient-rich treatment saves your strands from the stressors of day-to-day life by 
+                    This nutrient-rich treatment saves your strands from the stressors of day-to-day life by
                     adding extra moisture for shiny, healthy hair.</p>
             </div>
             <div className='detail-1'>
@@ -332,7 +331,7 @@ const HomePage = () => {
                     $60 - $70</p>
 
                 <p className='list-detail-content'>
-                    Add some swagger to your step with our high-quality men's haircuts. 
+                    Add some swagger to your step with our high-quality men's haircuts.
                     Includes head massage, shampoo, cut, style & neck clean-up.</p>
             </div>
             <div className='detail-1'>
@@ -341,34 +340,34 @@ const HomePage = () => {
                     Starting at $315</p>
 
                 <p className='list-detail-content'>
-                    Brazilian Blowout is by far the most-requested hair smoothing treatment as it creates a protective 
+                    Brazilian Blowout is by far the most-requested hair smoothing treatment as it creates a protective
                     layer around each strand of hair, effectively diminishing frizz and promoting intense shine.</p>
             </div>
         </div>,
         <div className='list-1-detail'>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Hair Color
-                <br/>$100-$150</p>
+                    <br />$100-$150</p>
                 <p className='list-detail-content'>Our expert colorists use the latest techniques and high-quality products to create a hair color that suits your personality and style.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Highlights<br/>
-                Starting at $120</p>
+                <p className='list-detail-heading'>Highlights<br />
+                    Starting at $120</p>
                 <p className='list-detail-content'>Add dimension and brightness to your hair with our professional highlighting services. Choose from a variety of shades and techniques.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Balayage
-                <br />Starting at $150</p>
+                    <br />Starting at $150</p>
                 <p className='list-detail-content'>Get that sun-kissed, natural look with our custom balayage technique. Our colorists blend shades seamlessly for a stunning result.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Color Correction
-                <br />Price Varies</p>
+                    <br />Price Varies</p>
                 <p className='list-detail-content'>If you're unhappy with your current hair color, our color correction service can help you achieve your desired shade while maintaining hair health.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Ombre
-                <br />Starting at $130</p>
+                    <br />Starting at $130</p>
                 <p className='list-detail-content'>Transform your look with the trendy ombre hair coloring technique. Our experts create a smooth transition between two shades for a striking effect.</p>
             </div>
         </div>
@@ -376,27 +375,27 @@ const HomePage = () => {
         <div className='list-1-detail'>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Classic Spa Facial
-                <br />$80</p>
+                    <br />$80</p>
                 <p className='list-detail-content'>Indulge in relaxation with our classic spa facial. Includes deep cleansing, exfoliation, steam, extractions, mask, and soothing massage.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Anti-Aging Facial
-                <br />$100</p>
+                    <br />$100</p>
                 <p className='list-detail-content'>Revitalize your skin with our anti-aging facial. Specialized products and techniques target fine lines, wrinkles, and promote a youthful complexion.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Hydrating Facial
-                <br />$90</p>
+                    <br />$90</p>
                 <p className='list-detail-content'>Restore moisture balance to your skin with our hydrating facial. Perfect for dry or dehydrated skin, leaving you with a radiant glow.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Acne Clearing Facial
-                <br />$85</p>
+                    <br />$85</p>
                 <p className='list-detail-content'>Combat acne and blemishes with our acne clearing facial. Deep cleansing, exfoliation, and targeted treatments help improve skin clarity.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Sensitive Skin Facial
-                <br />$95</p>
+                    <br />$95</p>
                 <p className='list-detail-content'>Gentle care for sensitive skin. Our soothing facial calms irritation and redness, providing relief and leaving your skin feeling refreshed.</p>
             </div>
         </div>
@@ -404,22 +403,22 @@ const HomePage = () => {
         <div className='list-1-detail'>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Classic Eyelash Extensions
-                <br />$120</p>
+                    <br />$120</p>
                 <p className='list-detail-content'>Enhance your natural beauty with our classic eyelash extensions. One extension is applied to each natural lash for a subtle yet stunning look.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Volume Eyelash Extensions
-                <br />$150</p>
+                    <br />$150</p>
                 <p className='list-detail-content'>Get a more dramatic and voluminous look with our volume eyelash extensions. Multiple lightweight extensions are applied to each natural lash.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Eyelash Lift & Tint
-                <br />$75</p>
+                    <br />$75</p>
                 <p className='list-detail-content'>Lift and curl your natural lashes while adding a tint for enhanced definition. Wake up with beautifully lifted and darkened lashes.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Eyelash Extension Refill
-                <br />$60</p>
+                    <br />$60</p>
                 <p className='list-detail-content'>Maintain the longevity of your eyelash extensions with our refill service. Recommended every 2-3 weeks to keep your lashes looking full.</p>
             </div>
             <div className='detail-1'>
@@ -431,27 +430,27 @@ const HomePage = () => {
         <div className='list-1-detail'>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Waxing Services
-                <br />Price Varies</p>
+                    <br />Price Varies</p>
                 <p className='list-detail-content'>Our waxing services offer hair removal solutions for various areas including eyebrows, upper lip, chin, legs, arms, and more. Prices depend on the area.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Threading
-                <br />Price Varies</p>
+                    <br />Price Varies</p>
                 <p className='list-detail-content'>Experience the precision of threading for facial hair removal. Our technicians shape eyebrows and remove unwanted facial hair with this ancient technique.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Laser Hair 
-                <br />Price Varies</p>
+                <p className='list-detail-heading'>Laser Hair
+                    <br />Price Varies</p>
                 <p className='list-detail-content'>Permanently reduce unwanted hair with our advanced laser hair removal technology. Sessions are tailored to your needs for optimal results.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Bikini Wax
-                <br />Starting at $45</p>
+                    <br />Starting at $45</p>
                 <p className='list-detail-content'>Get beach-ready with our bikini waxing services. Choose from a standard bikini wax or more comprehensive styles like Brazilian or Hollywood wax.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Body Sugaring
-                <br />Price Varies</p>
+                    <br />Price Varies</p>
                 <p className='list-detail-content'>Try the natural alternative to waxing with our body sugaring services. Gentle on the skin and effective for hair removal on various body parts.</p>
             </div>
         </div>
@@ -459,27 +458,27 @@ const HomePage = () => {
         <div className='list-1-detail'>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Express Facial
-                <br />$50</p>
+                    <br />$50</p>
                 <p className='list-detail-content'>When time is limited, our express facial provides a quick and rejuvenating treatment to cleanse, exfoliate, and nourish your skin.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Mini Manicure
-                <br />$25</p>
+                    <br />$25</p>
                 <p className='list-detail-content'>Give your hands some attention with our mini manicure. Includes nail shaping, cuticle care, and a polish application of your choice.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Mini Pedicure
-                <br />$30</p>
+                    <br />$30</p>
                 <p className='list-detail-content'>Treat your feet with our mini pedicure. Relax in a foot soak, get nail shaping, cuticle care, and a polish application for a quick refresh.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Eyebrow Tinting
-                <br />$20</p>
+                    <br />$20</p>
                 <p className='list-detail-content'>Enhance your brows with eyebrow tinting. Our experts apply a custom tint to match your desired shade, providing a defined look.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Lash Tinting
-                <br />$25</p>
+                    <br />$25</p>
                 <p className='list-detail-content'>Darken your lashes with our lash tinting service. Achieve the appearance of mascara without the daily hassle.</p>
             </div>
         </div>
@@ -701,6 +700,57 @@ const HomePage = () => {
 
     }
 
+    //For Content 2
+    // let firstScroll = true;
+
+    // window.addEventListener('scroll', () => {
+    //     if (firstScroll && window.scrollY > 300) {
+    //         firstScroll = false;
+    //         document.querySelectorAll('.card-left').forEach((cardLeft) => {
+    //             cardLeft.classList.add('animate');
+    //         });
+    //         document.querySelectorAll('.card-right').forEach((cardRight) => {
+    //             cardRight.classList.add('animate');
+    //         });
+    //     }
+    // });
+
+    // Define an array of scroll thresholds for each card
+    // const thresholds = [300, 600, 1100, 1400, 1900, 2300];
+    // const animatedCards = document.querySelectorAll('.card-left, .card-right');
+
+    // animatedCards.forEach((card, index) => {
+    //     let animated = false;
+
+    //     window.addEventListener('scroll', () => {
+    //         if (!animated && window.scrollY > thresholds[index]) {
+    //             animated = true;
+    //             card.classList.add('animate');
+    //         }
+    //     });
+    // });
+
+    const animatedCards = document.querySelectorAll('.card-left, .card-right');
+
+    animatedCards.forEach((card, index) => {
+        let animated = false;
+
+        // Define different scroll thresholds for desktop and mobile
+        const thresholds = window.innerWidth < 768 ? [200, 400, 600, 800,1100, 1500 ] : [300, 600, 1100, 1400, 1900, 2300];
+
+        window.addEventListener('scroll', () => {
+            const threshold = thresholds[index];
+
+            if (!animated && window.scrollY > threshold) {
+                animated = true;
+                card.classList.add('animate');
+            }
+        });
+    });
+
+
+
+
 
 
     // For Content 4
@@ -840,7 +890,7 @@ const HomePage = () => {
 
     return (
         <div className='home-page'>
-            <div className='content-1' id="content-1" >
+            <div className='content-1' id="content1" >
                 <div className='tagline'><p>We provde you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
@@ -1099,13 +1149,13 @@ const HomePage = () => {
                 </div>
             </div>
 
-            <div className='content-2' id='content-2'>
+            <div className='content-2' id='content2'>
                 <h1>Services We Offer</h1>
                 <div className='cards'>
                     <div className='card-1 card-left'>
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h1>Haircut & Style</h1>
+                            <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
                                 cuts, treatments, and styling services that are <br />
                                 customized to your specific needs.</p>
@@ -1113,7 +1163,7 @@ const HomePage = () => {
                     </div>
                     <div className='card-2 card-right'>
                         <div className='card-info-right'>
-                            <h1>Haircut & Style</h1>
+                            <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
                                 cuts, treatments, and styling services that are <br />
                                 customized to your specific needs.</p>
@@ -1123,7 +1173,7 @@ const HomePage = () => {
                     <div className='card-3 card-left'>
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h1>Haircut & Style</h1>
+                            <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
                                 cuts, treatments, and styling services that are <br />
                                 customized to your specific needs.</p>
@@ -1131,7 +1181,7 @@ const HomePage = () => {
                     </div>
                     <div className='card-4 card-right'>
                         <div className='card-info-right'>
-                            <h1>Haircut & Style</h1>
+                            <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
                                 cuts, treatments, and styling services that are <br />
                                 customized to your specific needs.</p>
@@ -1141,7 +1191,7 @@ const HomePage = () => {
                     <div className='card-5 card-left'>
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h1>Haircut & Style</h1>
+                            <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
                                 cuts, treatments, and styling services that are <br />
                                 customized to your specific needs.</p>
@@ -1149,7 +1199,7 @@ const HomePage = () => {
                     </div>
                     <div className='card-6 card-right'>
                         <div className='card-info-right'>
-                            <h1>Haircut & Style</h1>
+                            <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
                                 cuts, treatments, and styling services that are <br />
                                 customized to your specific needs.</p>
@@ -1161,7 +1211,7 @@ const HomePage = () => {
             </div>
 
 
-            <div className="content-3" id="content-3" >
+            <div className="content-3" id="content3" >
                 <div className="content-3-img"></div>
                 <div className="content-3-info">
                     <h1>About Us</h1>
@@ -1233,7 +1283,7 @@ const HomePage = () => {
 
                         <div className="list-group">
                             <div className="list-group-item" onClick={toggleList}>
-                            Service List <p style={{visibility:'hidden', display:'inline'}}>lal</p> <BsChevronBarExpand/>
+                                Service List <p style={{ visibility: 'hidden', display: 'inline' }}>lal</p> <BsChevronBarExpand />
                             </div>
                             <ul className={`list-group-content ${isExpanded ? 'expanded' : 'not-expanded'}`}>
                                 {items.map((item, index) => (
@@ -1263,7 +1313,7 @@ const HomePage = () => {
 
                 <AliceCarousel className='content-6-box' >
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        
+
                         <p>
                             Brazilian Blowout is by far the most-requested hair
                             smoothing treatment <br /> as it creates a protective layer
@@ -1272,13 +1322,13 @@ const HomePage = () => {
                             treatment saves your strands from the stressors of day-to-day <br />
                             life by adding extra moisture for shiny, healthy <br />
                             hair. <br />
-            
+
                         </p>
                         <img className='content-6-img img1' />
                         <p>~Cherry</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        
+
                         <p>
                             Keratin treatment is widely known as a highly sought-after hair <br />
                             care solution that forms a shielding barrier around each hair <br />
@@ -1286,13 +1336,13 @@ const HomePage = () => {
                             This nourishing therapy revitalizes your locks from everyday <br />
                             challenges, replenishing added hydration for lustrous, vibrant <br />
                             hair. <br />
-                            
+
                         </p>
                         <img className='content-6-img img2' />
                         <p>~Aqua</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        
+
                         <p>
                             The trendsetting Silk Press has become the ultimate choice for <br />
                             achieving sleek hair, crafting a safeguarding coat around every <br />
@@ -1300,13 +1350,13 @@ const HomePage = () => {
                             a radiant sheen. This enriching treatment rejuvenates your hair <br />
                             against everyday pressures, infusing additional moisture for <br />
                             luminous, robust hair. <br />
-                            
+
                         </p>
                         <img className='content-6-img img3' />
                         <p>~Luna</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
-                        
+
                         <p>
                             Glossy hair, sought-after by many, the Japanese Straightening <br />
                             technique is renowned for enveloping each strand with a <br />
@@ -1314,7 +1364,7 @@ const HomePage = () => {
                             luminous brilliance. This nutrient-packed treatment shields your <br />
                             strands from daily life challenges, providing extra hydration <br />
                             for glossy, resilient hair. <br />
-                            
+
                         </p>
                         <img className='content-6-img img4' />
                         <p>~Jade</p>
@@ -1322,7 +1372,7 @@ const HomePage = () => {
                 </AliceCarousel>
             </div>
 
-            <div className="content-7" id='content-7'>
+            <div className="content-7" id='content7'>
                 <h1>Check Our Gallery</h1>
                 <div className='shape'></div>
                 <div className='shape shape2'></div>
