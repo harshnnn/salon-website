@@ -22,6 +22,7 @@ const Navbar = () => {
   // scrolling 
 
   const handleNavClick = (sectionId) => {
+    setMenuVisible(!menuVisible);
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });

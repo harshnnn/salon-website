@@ -74,18 +74,14 @@
         width: 90vw;
     }
 
-    .menu-items ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
     .contact-btn {
         margin-left: auto;
+        margin-right: 70px;
         margin-top: 8px;
         height: 12px;
         mix-blend-mode: darken;
         background-color: #FFFFFF;
-        background-image: url('./Resources/icons8-contact-24.png');
+        background-image: url('./Resources/svg-images/phone-solid.svg');
         background-size: cover;
         background-position: center center;
         background-repeat: no-repeat;
@@ -95,15 +91,23 @@
         display: none;
     }
 
+    .menu-items ul {
+        margin-top: 50px;
+        flex-direction: column;
+        gap: 10px;
+    }
+
     .menu-items {
         display: none;
-        flex-direction: column;
+        
         align-items: center;
         justify-content: center;
         gap: 10px;
     }
 
     .menu-toggle-btn {
+        margin-left: 10px;
+        margin-right: 10px;
         display: flex;
         border: 1px solid black;
         border-radius: 5px;
@@ -111,10 +115,14 @@
 
     .menu-items.active {
         margin-left: auto;
-        display: block;
+        display: inline;
     }
 
     .menu-toggle-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin:10px 0px;
         width: 40px;
         height: 40px;
         cursor: pointer;
@@ -165,7 +173,7 @@
 
     .menu-icon::after {
         top: -8px;
-    }
+    }    
 
 }
 
@@ -482,6 +490,7 @@
     display: flex;
     justify-content: space-between;
     gap: 300px;
+    
 
 }
 
