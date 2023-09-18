@@ -1,5 +1,6 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import './style.css'
+import Navbar from './navbar';
 import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
@@ -26,11 +27,9 @@ import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
 
 
 
-
-
 const HomePage = () => {
 
-
+    
 
 
 
@@ -1225,7 +1224,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-4">
-                <h1>Out Talented Staff</h1>
+                <h1>Our Talented Staff</h1>
 
                 <div className="carousel-container" >
                     <button className="prev-button" onClick={handlePrevClick}>
