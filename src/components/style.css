@@ -1,3 +1,4 @@
+
 * {
     margin: 0;
     padding: 0;
@@ -1684,9 +1685,127 @@
 /* content-8 */
 
 .content-8 {
-    height: 40vh;
+    height: 80vh;
     width: 100%;
 }
+
+.content-8 {
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.content-8 h1 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+.content-8-body {
+    display: flex;
+    
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    margin-top: 30px;
+}
+
+.content-8-info {
+    flex-direction: column;
+    flex: 1;
+    text-align: left;
+    padding: 0 20px;
+    max-width: 50%;
+}
+
+.content-8-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.content-8-info p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.content-8-info button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #E91E63;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.content-8-info button:hover {
+    background-color: #C2185B;
+}
+
+.content-8-images {
+    flex: 1;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    max-width: 50%;
+    gap: 0px;
+    width: 40%;
+    height: 400px;
+}
+
+.content-8-images-img1 {
+    width: 100px;
+    height: 100px;
+    background-image: url('./Resources/svg-images/partner1.jpeg'); /* URL to your image */
+    background-size: contain; /* Adjust to your preference */
+    background-repeat: no-repeat;
+    mix-blend-mode: color-burn;
+}
+
+.content-8-images-img2 {
+    width: 80px;
+    height: 80px;
+    background-image: url('./Resources/svg-images/partner2.avif'); /* URL to your image */
+    background-size: contain; /* Adjust to your preference */
+    background-repeat: no-repeat;
+    mix-blend-mode:multiply;
+}
+
+.content-8-images-img3 {
+    background-image: url('./Resources/svg-images/partner3.avif'); /* URL to your image */
+    background-size: contain; /* Adjust to your preference */
+    background-repeat: no-repeat;
+    mix-blend-mode:darken;
+    padding-top: -150px !important;
+    margin-top: -50px !important;
+}
+
+.content-8-images-img4 {
+    width: 80px;
+    height: 80px;
+    background-image: url('./Resources/svg-images/partner4.avif'); /* URL to your image */
+    background-size: contain; /* Adjust to your preference */
+    background-repeat: no-repeat;
+    mix-blend-mode: color-burn;
+
+}
+
+.content-8-images div {
+    width: 48%;
+    height: 200px;
+    background-color: #fff; /* Set your image background here */
+    border-radius: 10px;
+    /* Add background-image properties for your images here */
+}
+
 
 
 /* content-9 */

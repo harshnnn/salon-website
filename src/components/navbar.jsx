@@ -22,26 +22,27 @@ const Navbar = () => {
   // scrolling 
 
   const handleNavClick = (sectionId) => {
-    setMenuVisible(!menuVisible);
+    alert(`clicked at ${sectionId}`);
+    // Get the target section by ID
+    const element = document.getElementById(sectionId);
   
-    // Get the currently active section
-    const activeSection = document.querySelector('.section.active');
+    if (element) {
+      // Check if the target section is already in view
+      const elementRect = element.getBoundingClientRect();
+      if (elementRect.top >= 0 && elementRect.bottom <= window.innerHeight) {
+        // Target section is already in view, do nothing
+        return;
+      }
   
-    // Check if the clicked section is different from the active section
-    // if (activeSection && activeSection.id === sectionId) {
-    //   // Clicked on the same section, close the menu
-    //   return;
-    // }
+      // Scroll to the target section
+      element.scrollIntoView({ behavior: 'smooth' });
   
-    // Scroll to the target section immediately if the menu is closed
-    if (!menuVisible) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      // Close the menu if it's open
+      if (menuVisible) {
+        toggleMenu();
       }
     }
   };
-  
   
 
   return (
@@ -51,7 +52,7 @@ const Navbar = () => {
       <div className={`menu-items ${menuVisible ? 'active' : ''}`}>
         <ul>
           <li><a href="#" className='nav-link' onClick={() => handleNavClick('content1')}>Home</a></li>
-          <li><a href="#" className='nav-link' >Book Online</a></li>
+          <li><a href="#" className='nav-link' onClick={() => handleNavClick('content4')} >Book Online</a></li>
           <li><a href="#" className='nav-link' onClick={() => handleNavClick('content2')}>Services</a></li>
           <li><a href="#" className='nav-link' onClick={() => handleNavClick('content7')}>Gallery</a></li>
           <li><a href="#" className='nav-link' onClick={() => handleNavClick('content3')}>About Us</a></li>

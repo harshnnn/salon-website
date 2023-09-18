@@ -24,12 +24,16 @@ import image8 from './Resources/proffessionals/proff8.jpg';
 import image9 from './Resources/proffessionals/proff9.jpg';
 import image10 from './Resources/proffessionals/proff10.jpg';
 import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
+import partner1 from './Resources/svg-images/partner1.jpeg';
+import partner2 from './Resources/svg-images/partner2.avif';
+import partner3 from './Resources/svg-images/partner3.avif';
+import partner4 from './Resources/svg-images/partner4.avif';
 
 
 
 const HomePage = () => {
 
-    
+
 
 
 
@@ -700,34 +704,6 @@ const HomePage = () => {
     }
 
     //For Content 2
-    // let firstScroll = true;
-
-    // window.addEventListener('scroll', () => {
-    //     if (firstScroll && window.scrollY > 300) {
-    //         firstScroll = false;
-    //         document.querySelectorAll('.card-left').forEach((cardLeft) => {
-    //             cardLeft.classList.add('animate');
-    //         });
-    //         document.querySelectorAll('.card-right').forEach((cardRight) => {
-    //             cardRight.classList.add('animate');
-    //         });
-    //     }
-    // });
-
-    // Define an array of scroll thresholds for each card
-    // const thresholds = [300, 600, 1100, 1400, 1900, 2300];
-    // const animatedCards = document.querySelectorAll('.card-left, .card-right');
-
-    // animatedCards.forEach((card, index) => {
-    //     let animated = false;
-
-    //     window.addEventListener('scroll', () => {
-    //         if (!animated && window.scrollY > thresholds[index]) {
-    //             animated = true;
-    //             card.classList.add('animate');
-    //         }
-    //     });
-    // });
 
     const animatedCards = document.querySelectorAll('.card-left, .card-right');
 
@@ -735,7 +711,7 @@ const HomePage = () => {
         let animated = false;
 
         // Define different scroll thresholds for desktop and mobile
-        const thresholds = window.innerWidth < 768 ? [200, 400, 600, 800,1100, 1500 ] : [300, 600, 1100, 1400, 1900, 2300];
+        const thresholds = window.innerWidth < 768 ? [200, 400, 600, 800, 1100, 1500] : [300, 600, 1100, 1400, 1900, 2300];
 
         window.addEventListener('scroll', () => {
             const threshold = thresholds[index];
@@ -746,10 +722,6 @@ const HomePage = () => {
             }
         });
     });
-
-
-
-
 
 
     // For Content 4
@@ -893,7 +865,7 @@ const HomePage = () => {
                 <div className='tagline'><p>We provde you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
-                        <div className='book-btn' onClick={toggleDiv}>
+                        <div className='book-btn' onClick={toggleDiv} id='content4'>
                             Book Now
                         </div>
                         {isVisible && (
@@ -1149,7 +1121,7 @@ const HomePage = () => {
             </div>
 
             <div className='content-2' id='content2'>
-                <h1>Services We Offer</h1>
+                <h1>SERVICES WE OFFER</h1>
                 <div className='cards'>
                     <div className='card-1 card-left'>
                         <div className='card-img'></div>
@@ -1213,7 +1185,7 @@ const HomePage = () => {
             <div className="content-3" id="content3" >
                 <div className="content-3-img"></div>
                 <div className="content-3-info">
-                    <h1>About Us</h1>
+                    <h1>ABOUT US</h1>
                     <p>
                         Come relax and rejuvenate with the variety of luxurious salon and spa services <br />
                         offered by Intermezzo Salon & Spa, nestled on the top of Queen Anne Hill. <br />
@@ -1224,7 +1196,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-4">
-                <h1>Our Talented Staff</h1>
+                <h1>OUR TALENTED STAFF</h1>
 
                 <div className="carousel-container" >
                     <button className="prev-button" onClick={handlePrevClick}>
@@ -1264,7 +1236,7 @@ const HomePage = () => {
 
 
             <div className="content-5">
-                <h1>Our Prices</h1>
+                <h1>OUR PRICES</h1>
 
                 <div className='list-details'>
 
@@ -1308,7 +1280,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-6">
-                <h1>Testimonials</h1>
+                <h1>TESTIMONIALS</h1>
 
                 <AliceCarousel className='content-6-box' >
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
@@ -1372,7 +1344,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-7" id='content7'>
-                <h1>Check Our Gallery</h1>
+                <h1>CHECK OUR GALLERY</h1>
                 <div className='shape'></div>
                 <div className='shape shape2'></div>
                 <div className="img1"></div>
@@ -1382,7 +1354,21 @@ const HomePage = () => {
             </div>
 
             <div className="content-8">
-                <h1>Out Partnerships</h1>
+                <h1>OUR PARTNERSHIPS</h1>
+                <div className='content-8-body'>
+                    <div className='content-8-info'>
+                        <h2>WE WORK WITH THE <br /> BEST PARTNERS</h2>
+                        <p>Experience beauty like never before with our salon's exclusive partnerships. Our commitment to excellence is fueled by collaborations with the industry's finest. Discover the best in beauty with our trusted partners.</p>
+                        <button>READ MORE</button>
+                    </div>
+                    <div className='content-8-images'>
+                        <div className='content-8-images-img1'></div>
+                        <div className='content-8-images-img2'></div>
+                        <div className='content-8-images-img3'></div>
+                        <div className='content-8-images-img4'></div>
+                    </div>
+
+                </div>
             </div>
 
             <div className="content-9">
