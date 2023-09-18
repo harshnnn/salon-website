@@ -1806,6 +1806,84 @@
     /* Add background-image properties for your images here */
 }
 
+@media (max-width:786px) {
+    .content-8-body {
+        display: flex;
+        flex-direction: column;   
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+        
+    }
+    .content-8-info {
+        flex: 2;
+        flex-direction: column;
+        text-align: left;
+        padding: 0 20px;
+        max-width: 90%;
+    }
+    .content-8-images {
+        flex: 1;
+        display: flex;
+        flex-wrap:wrap;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        gap: 0px;
+        width: 90%;
+        height: 400px;
+    }
+    .content-8-images div {
+        margin-top: 40px;
+        width: 48%;
+        height: 100px;
+        background-color: #fff; /* Set your image background here */
+        border-radius:  0px;
+        /* Add background-image properties for your images here */
+    }
+
+    .content-8-images-img1 {
+
+        width: 50% !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        height: 70px !important;
+        background-image: url('./Resources/svg-images/partner1.jpeg'); /* URL to your image */
+        background-size: contain; /* Adjust to your preference */
+        background-repeat: no-repeat;
+        mix-blend-mode: color-burn;
+    }
+    
+    .content-8-images-img2 {
+        width: 80px;
+        height: 80px;
+        background-image: url('./Resources/svg-images/partner2.avif'); /* URL to your image */
+        background-size: contain; /* Adjust to your preference */
+        background-repeat: no-repeat;
+        mix-blend-mode:multiply;
+    }
+    
+    .content-8-images-img3 {
+        background-image: url('./Resources/svg-images/partner3.avif'); /* URL to your image */
+        background-size: contain; /* Adjust to your preference */
+        background-repeat: no-repeat;
+        mix-blend-mode:darken;
+        
+    }
+    
+    .content-8-images-img4 {
+        width: 80px;
+        height: 80px;
+        background-image: url('./Resources/svg-images/partner4.avif'); /* URL to your image */
+        background-size: contain; /* Adjust to your preference */
+        background-repeat: no-repeat;
+        mix-blend-mode: color-burn;
+    
+    }
+}
+
+
 
 
 /* content-9 */
