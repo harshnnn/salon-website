@@ -768,8 +768,10 @@ const HomePage = () => {
 
     // Add event listener to the window to enable scrolling when the mouse leaves the carousel
 
+
+
     useEffect(() => {
-        if (activeCardRef.current) {
+        if (activeCardRef.current && currentIndex !== 0) {  //To prevent this behavior, you can use a conditional check to ensure that scrollIntoView is only called when necessary
             activeCardRef.current.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center',
@@ -777,6 +779,7 @@ const HomePage = () => {
             });
         }
     }, [currentIndex]);
+    
 
 
     useEffect(() => {
@@ -1202,10 +1205,9 @@ const HomePage = () => {
                     <button className="prev-button" onClick={handlePrevClick}>
                         <BiSolidChevronLeft />
                     </button>
-                    <div className="carousel"
-                    >
+                    <div className="carousel">
                         <div className="carousel-card empty"><img src={image11} alt="Image Description" /></div>
-                        {cardData.map((item, index) => (
+                         {cardData.map((item, index) => (
                             <div
                                 className={`carousel-card ${currentIndex === index ? 'active' : ''}`}
                                 key={index}
@@ -1220,7 +1222,7 @@ const HomePage = () => {
                                     </div>
                                 )}
                             </div>
-                        ))}
+                        ))} 
                         <div className="carousel-card empty">
                             <img src={image1} alt="Image Description" />
                         </div>

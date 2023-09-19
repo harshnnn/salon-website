@@ -22,7 +22,6 @@ const Navbar = () => {
   // scrolling 
 
   const handleNavClick = (sectionId) => {
-    alert(`clicked at ${sectionId}`);
     // Get the target section by ID
     const element = document.getElementById(sectionId);
   
