@@ -188,7 +188,7 @@
 
 .content-1 {
 
-    background-image: url(./Resources/logo.svg);
+    background-image: url(./Resources/logo.png);
     background-repeat: no-repeat;
     background-size: cover;
     height: 92vh;
@@ -874,32 +874,32 @@
 
 .card-1 .card-img {
     margin-right: 100px;
-    background-image: url('./Resources/Rectangle\ 77.svg');
+    background-image: url('./Resources/Rectangle\ 77.png');
 }
 
 .card-2 .card-img {
     margin-left: 100px;
-    background-image: url('./Resources/Rectangle\ 78.svg');
+    background-image: url('./Resources/Rectangle\ 78.png');
 }
 
 .card-3 .card-img {
     margin-right: 100px;
-    background-image: url('./Resources/Rectangle\ 79.svg');
+    background-image: url('./Resources/Rectangle\ 79.png');
 }
 
 .card-4 .card-img {
     margin-left: 100px;
-    background-image: url('./Resources/Rectangle\ 80.svg');
+    background-image: url('./Resources/Rectangle\ 80.png');
 }
 
 .card-5 .card-img {
     margin-right: 100px;
-    background-image: url('./Resources/Rectangle\ 81.svg');
+    background-image: url('./Resources/Rectangle\ 77.png');
 }
 
 .card-6 .card-img {
     margin-left: 100px;
-    background-image: url('./Resources/Rectangle\ 82.svg');
+    background-image: url('./Resources/Rectangle\ 78.png');
     margin-bottom: 50px;
 }
 .card-6{
@@ -1068,20 +1068,36 @@
     align-items: center;
     height: 100vh;
 }
-
 .content-3-img {
-    background-image: url('./Resources/Rectangle\ 15.svg');
+    background-image: url('./Resources/Rectangle\ 15.png');
     background-repeat: no-repeat;
     background-size: cover;
     width: 30%;
     height: 80vh;
-    margin-left: 10%;
     border-radius: 5%;
+    animation: slideInLeft 2s ease forwards; /* Slide in from left */
+    opacity: 0;
+    margin-left: 10%;
+    transform: translateX(-10%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slideInLeft {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .content-3-info {
     text-align: start;
     padding: 5%;
+    opacity: 0;
+    transform: translateX(10%);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slideInRight {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 .content-3-info h1 {
@@ -1624,7 +1640,7 @@
 }
 
 .content-7 .img1 {
-    background-image: url('./Resources/Rectangle\ 84.svg');
+    background-image: url('./Resources/Rectangle\ 84.png');
     background-repeat: no-repeat;
     background-size: cover;
     width: 300px;

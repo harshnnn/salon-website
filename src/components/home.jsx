@@ -711,7 +711,7 @@ const HomePage = () => {
         let animated = false;
 
         // Define different scroll thresholds for desktop and mobile
-        const thresholds = window.innerWidth < 768 ? [200, 400, 600, 800, 1100, 1500] : [300, 600, 1100, 1400, 1900, 2300];
+        const thresholds = window.innerWidth < 768 ? [200, 350, 650, 950, 1450, 1800] : [300, 600, 1100, 1400, 1900, 2300];
 
         window.addEventListener('scroll', () => {
             const threshold = thresholds[index];
@@ -722,6 +722,46 @@ const HomePage = () => {
             }
         });
     });
+
+
+    //for content 3
+
+    const [isAnimated, setIsAnimated] = useState(false);
+    const myDivRef = useRef(null);
+
+    useEffect(() => {
+        if (isAnimated) {
+        }
+    }, [isAnimated]);
+
+    useEffect(() => {
+        if (!myDivRef.current) return;
+
+        function handleDivIntersection(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setIsAnimated(true);
+                    observer.disconnect();
+                }
+            });
+        }
+
+        const options = {
+            root: null,
+            rootMargin: "-150px",
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver(handleDivIntersection, options);
+
+        observer.observe(myDivRef.current);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+
 
 
     // For Content 4
@@ -779,7 +819,7 @@ const HomePage = () => {
             });
         }
     }, [currentIndex]);
-    
+
 
 
     useEffect(() => {
@@ -1185,9 +1225,9 @@ const HomePage = () => {
             </div>
 
 
-            <div className="content-3" id="content3" >
-                <div className="content-3-img"></div>
-                <div className="content-3-info">
+            <div className="content-3" id="content3" ref={myDivRef}>
+                <div className={`content-3-img ${isAnimated ? 'slideInLeft' : ''}`}></div>
+                <div className={`content-3-info ${isAnimated ? 'slideInRight' : ''}`}>
                     <h1>ABOUT US</h1>
                     <p>
                         Come relax and rejuvenate with the variety of luxurious salon and spa services <br />
@@ -1207,7 +1247,7 @@ const HomePage = () => {
                     </button>
                     <div className="carousel">
                         <div className="carousel-card empty"><img src={image11} alt="Image Description" /></div>
-                         {cardData.map((item, index) => (
+                        {cardData.map((item, index) => (
                             <div
                                 className={`carousel-card ${currentIndex === index ? 'active' : ''}`}
                                 key={index}
@@ -1222,7 +1262,7 @@ const HomePage = () => {
                                     </div>
                                 )}
                             </div>
-                        ))} 
+                        ))}
                         <div className="carousel-card empty">
                             <img src={image1} alt="Image Description" />
                         </div>
