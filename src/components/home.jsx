@@ -9,6 +9,7 @@ import { IoCallOutline } from 'react-icons/io5';
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi';
+import { TiTick } from 'react-icons/ti'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import AliceCarousel from 'react-alice-carousel'
@@ -52,13 +53,13 @@ const HomePage = () => {
     useEffect(() => {
         // Initialize with default professionals
         const defaultProfessionals = [
-            'Professional 1',
-            'Professional 2',
-            'Professional 3',
-            'Professional 4',
-            'Professional 5',
-            'Professional 6',
-            'Professional 7',
+            { name: 'Professional 1', image: image1 },
+            { name: 'Professional 2', image: image2 },
+            { name: 'Professional 3', image: image3 },
+            { name: 'Professional 4', image: image4 },
+            { name: 'Professional 5', image: image5 },
+            { name: 'Professional 6', image: image6 },
+            { name: 'Professional 7', image: image7 },
         ];
 
         setProfessionals(defaultProfessionals);
@@ -113,22 +114,22 @@ const HomePage = () => {
                     </div>
                     <div className='service-card-1'>
                         Highlights
-                        $BB
+                        $35
                     </div>
 
                     <div className='service-card-1'>
                         Balayage
-                        $CC
+                        $45
                     </div>
 
                     <div className='service-card-1'>
                         Color Correction
-                        $DD
+                        $40
                     </div>
 
                     <div className='service-card-1'>
                         Ombre
-                        $EE
+                        $50
                     </div>
 
 
@@ -139,27 +140,27 @@ const HomePage = () => {
                 <>
                     <div className='service-card-1'>
                         Classic Spa Facial
-                        $FF
+                        $15
                     </div>
 
                     <div className='service-card-1'>
                         Anti-Aging Facial
-                        $GG
+                        $20
                     </div>
 
                     <div className='service-card-1'>
                         Hydrating Facial
-                        $HH
+                        $30
                     </div>
 
                     <div className='service-card-1'>
                         Acne Clearing Facial
-                        $II
+                        $40
                     </div>
 
                     <div className='service-card-1'>
                         Sensitive Skin Facial
-                        $JJ
+                        $45
                     </div>
 
                 </>
@@ -170,27 +171,27 @@ const HomePage = () => {
                 <>
                     <div class='service-card-1'>
                         Classic Eyelash Extensions
-                        $KK
+                        $50
                     </div>
 
                     <div class='service-card-1'>
                         Volume Eyelash Extensions
-                        $LL
+                        $55
                     </div>
 
                     <div class='service-card-1'>
                         Eyelash Lift & Tint
-                        $MM
+                        $60
                     </div>
 
                     <div class='service-card-1'>
                         Eyelash Extension Refill
-                        $NN
+                        $65
                     </div>
 
                     <div class='service-card-1'>
                         Lash Removal
-                        $OO
+                        $70
                     </div>
 
 
@@ -201,27 +202,27 @@ const HomePage = () => {
                 <>
                     <div class='service-card-1'>
                         Waxing Services
-                        $PP
+                        $70
                     </div>
 
                     <div class='service-card-1'>
                         Threading
-                        $QQ
+                        $65
                     </div>
 
                     <div class='service-card-1'>
                         Laser Hair Removal
-                        $RR
+                        $60
                     </div>
 
                     <div class='service-card-1'>
                         Bikini Wax
-                        $SS
+                        $55
                     </div>
 
                     <div class='service-card-1'>
                         Body Sugaring
-                        $TT
+                        $50
                     </div>
 
                 </>
@@ -231,27 +232,27 @@ const HomePage = () => {
                 <>
                     <div class='service-card-1'>
                         Express Facial
-                        $UU
+                        $45
                     </div>
 
                     <div class='service-card-1'>
                         Mini Manicure
-                        $VV
+                        $40
                     </div>
 
                     <div class='service-card-1'>
                         Mini Pedicure
-                        $WW
+                        $35
                     </div>
 
                     <div class='service-card-1'>
                         Eyebrow Tinting
-                        $XX
+                        $30
                     </div>
 
                     <div class='service-card-1'>
                         Lash Tinting
-                        $YY
+                        $25
                     </div>
 
                 </>
@@ -538,7 +539,7 @@ const HomePage = () => {
     const closeselectedcard = () => {
         setSelectedCard(null);
         setCardsVisible(true); // Show the .cards div
-        setMinimized(!minimized);
+        setMinimized(false);
     };
 
 
@@ -638,6 +639,15 @@ const HomePage = () => {
         }
         else { setShowTimeSlots1(true); }
 
+        //For Book Now
+        if(isTimeSelected){
+
+            
+        }
+
+        //toggleDiv();
+
+
     }
     //to toggle the order list div up and down 
     const handleMinimizeOrder = () => {
@@ -648,6 +658,53 @@ const HomePage = () => {
     const closeChooseTime = () => {
         setIsChooseTImeClicked(null);
     }
+
+
+
+
+    //to store the total price
+    let totalPrice = 0;
+    const selectedItems = [];
+
+    // Loop through clickedContents and process each item
+    clickedContents.forEach((item, index) => {
+        // Split the content based on the '$' symbol
+        const parts = item.value.split('$');
+
+        // Check if there are multiple parts after splitting
+        if (parts.length > 1) {
+            const itemPrice = parseFloat(parts[1]);
+
+            // Add the item to the selectedItems array
+            selectedItems.push({ price: itemPrice });
+
+            // Add the item price to the total price
+            totalPrice += itemPrice;
+        } else {
+            // Handle items without pricing (if needed)
+        }
+    });
+
+    // Render the list of selected items
+    const itemList = selectedItems.map((item, index) => (
+        <li key={index} >
+            <span className="pricing">{`$${item.price.toFixed(2)}`}</span>
+        </li>
+    ));
+
+    // Render the total price separately
+    const total = (
+        <div className="total-price">
+            Total Price: ${totalPrice.toFixed(2)}
+        </div>
+    );
+
+
+    //Storing the selected Time
+    const [isTimeSelected, setIsTimeSelected] = useState(null);
+    const [selectedDate, setSelectedDate] = useState('');
+    const [selectedTime, setSelectedTime] = useState('');
+
 
 
     // calander
@@ -687,9 +744,23 @@ const HomePage = () => {
     //setPushButtonVisible(true);
     const handlePushButtonClick = () => {
         setPushButtonVisible(false);
+        setMinimized(false);
+
+        //storing the time
+        const selectedDateElement = document.querySelector('.selected-date');
+        if (selectedDateElement) {
+            setSelectedDate(selectedDateElement.innerText);
+        }
+
+        //Displaying the Selected Time
+        setIsTimeSelected(true);
     }
-    const handleSelectedTimeClick = () => {
+    const handleSelectedTimeClick = (event) => {
         setPushButtonVisible(true);
+
+        //storing the time
+        setSelectedTime(event.target.innerText);
+
     }
 
 
@@ -726,13 +797,13 @@ const HomePage = () => {
 
     //for content 3
 
-    const [isAnimated, setIsAnimated] = useState(false);
+    const [isContent3Animated, setIsContent3Animated] = useState(false);
     const myDivRef = useRef(null);
 
     useEffect(() => {
-        if (isAnimated) {
+        if (isContent3Animated) {
         }
-    }, [isAnimated]);
+    }, [isContent3Animated]);
 
     useEffect(() => {
         if (!myDivRef.current) return;
@@ -740,7 +811,7 @@ const HomePage = () => {
         function handleDivIntersection(entries, observer) {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setIsAnimated(true);
+                    setIsContent3Animated(true);
                     observer.disconnect();
                 }
             });
@@ -900,6 +971,79 @@ const HomePage = () => {
         setIsExpanded(!isExpanded);
     };
 
+    //for content 7
+
+    const [isContent7Animated, setIsContent7Animated] = useState(false);
+    const myDiv7Ref = useRef(null);
+
+    useEffect(() => {
+        if (isContent7Animated) {
+        }
+    }, [isContent7Animated]);
+
+    useEffect(() => {
+        if (!myDiv7Ref.current) return;
+
+        function handleDivIntersection(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setIsContent7Animated(true);
+                    observer.disconnect();
+                }
+            });
+        }
+
+        const options = {
+            root: null,
+            rootMargin: "-150px",
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver(handleDivIntersection, options);
+
+        observer.observe(myDiv7Ref.current);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
+    //for content 8
+
+    const [isContent8Animated, setIsContent8Animated] = useState(false);
+    const myDiv8Ref = useRef(null);
+
+    useEffect(() => {
+        if (isContent8Animated) {
+        }
+    }, [isContent8Animated]);
+
+    useEffect(() => {
+        if (!myDiv8Ref.current) return;
+
+        function handleDivIntersection(entries, observer) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setIsContent8Animated(true);
+                    observer.disconnect();
+                }
+            });
+        }
+
+        const options = {
+            root: null,
+            rootMargin: "-150px",
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver(handleDivIntersection, options);
+
+        observer.observe(myDiv8Ref.current);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
 
 
     return (
@@ -938,7 +1082,8 @@ const HomePage = () => {
                                             key={index}
                                             onClick={() => openCardDetails(index)}
                                         >
-                                            <p>{professional}</p>
+                                            <img className='card-0-proff' src={professional.image} alt={`Image for ${professional.name}`} />
+                                            <p>{professional.name}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -1106,7 +1251,7 @@ const HomePage = () => {
                                 {/* Pushing items to cart */}
                                 {isPushButtonVisible && (
                                     <button className='CartPush' id="myButton" onClick={handlePushButtonClick}>
-                                        Click me to execute a function
+                                        <TiTick className='tick' />
                                     </button>
                                 )}
 
@@ -1129,28 +1274,50 @@ const HomePage = () => {
                                                 if (parts.length > 1) {
                                                     return (
                                                         <li key={index} className={item.type}>
-                                                            {parts[0]} - <span className="pricing">{`$${parts[1]}`}</span>
+                                                            <span className='clicked-service-name'>{parts[0]}</span>  <span className="pricing">{`$${parts[1]}`}</span>
                                                             {/* - Index: {item.index} */}
                                                         </li>
+
                                                     );
                                                 } else {
                                                     return (
-                                                        <li key={index} className={item.type}>
-                                                            {item.value}
+                                                        <li key={index} className={`item.type proffname`}>
+                                                            {'By ' + item.value}
                                                             {/* - Index: {item.index} */}
                                                         </li>
                                                     );
                                                 }
+
                                             })}
 
+                                            {isTimeSelected != null && (
+                                                <div className='selected-date-time content-3-style'>
+                                                    {selectedDate + ' '}
+                                                    {'at ' + selectedTime}
+                                                </div>)
+                                            }
+
+
+                                            <div className='total-price'>
+                                                {total}
+                                            </div>
+
+
+
                                         </div>
+                                        {/* Display the total price in a separate div */}
+
                                     </ul>
 
                                     <div className='add-more-div' onClick={addMoreItems}>Add More</div>
 
                                     <button className="button-48" role="button" onClick={handleChooseTimeClick}>
-                                        <span className="text">Choose a time</span>
+                                        <span className="text">{isTimeSelected ? 'Book Now':'Choose a time'}</span>
                                     </button>
+
+                                    {
+                                        
+                                    }
 
 
                                 </div>
@@ -1226,8 +1393,8 @@ const HomePage = () => {
 
 
             <div className="content-3" id="content3" ref={myDivRef}>
-                <div className={`content-3-img ${isAnimated ? 'slideInLeft' : ''}`}></div>
-                <div className={`content-3-info ${isAnimated ? 'slideInRight' : ''}`}>
+                <div className={`content-3-img ${isContent3Animated ? 'slideInLeft' : ''}`}></div>
+                <div className={`content-3-info ${isContent3Animated ? 'slideInRight' : ''}`}>
                     <h1>ABOUT US</h1>
                     <p>
                         Come relax and rejuvenate with the variety of luxurious salon and spa services <br />
@@ -1385,25 +1552,25 @@ const HomePage = () => {
                 </AliceCarousel>
             </div>
 
-            <div className="content-7" id='content7'>
+            <div className="content-7" id='content7' ref={myDiv7Ref}>
                 <h1>CHECK OUR GALLERY</h1>
-                <div className='shape'></div>
-                <div className='shape shape2'></div>
-                <div className="img1"></div>
-                <div className="img2"></div>
-                <div className="img3"></div>
+                <div className={`shape ${isContent7Animated ? 'slideInShape' : ''}`}></div>
+                <div className={`shape shape2 ${isContent7Animated ? 'slideInShape2' : ''}`}></div>
+                <div className={`img1 ${isContent7Animated ? 'slideInImg1' : ''}`}></div>
+                <div className={`img2 ${isContent7Animated ? 'slideInImg2' : ''}`}></div>
+                <div className={`img3 ${isContent7Animated ? 'slideInImg3' : ''}`}></div>
 
             </div>
 
-            <div className="content-8">
+            <div className="content-8" ref={myDiv8Ref}>
                 <h1>OUR PARTNERSHIPS</h1>
                 <div className='content-8-body'>
-                    <div className='content-8-info'>
+                    <div className={`content-8-info ${isContent8Animated ? 'slideInInfo' : ''}`}>
                         <h2>WE WORK WITH THE <br /> BEST PARTNERS</h2>
                         <p>Experience beauty like never before with our salon's exclusive partnerships. Our commitment to excellence is fueled by collaborations with the industry's finest. Discover the best in beauty with our trusted partners.</p>
                         <button>READ MORE</button>
                     </div>
-                    <div className='content-8-images'>
+                    <div className={`content-8-images ${isContent8Animated ? 'slideInImages' : ''}`} >
                         <div className='content-8-images-img1'></div>
                         <div className='content-8-images-img2'></div>
                         <div className='content-8-images-img3'></div>
