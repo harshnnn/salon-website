@@ -517,6 +517,9 @@ const HomePage = () => {
         setSelectedCard(null); // Reset selected card when toggling
         setCardsVisible(true); // Show the .cards div
 
+        SetIsSuccess(null);
+        setIsTimeSelected(null);
+
     };
     const openCardDetails = (cardIndex) => {
         setSelectedCard(cardIndex);
@@ -640,9 +643,14 @@ const HomePage = () => {
         else { setShowTimeSlots1(true); }
 
         //For Book Now
-        if(isTimeSelected){
+        if (isTimeSelected) {
 
-            
+            SetIsSuccess(true);
+
+
+            setTimeout(() => {
+              toggleDiv();
+            }, 3000); // 2000 milliseconds = 2 seconds
         }
 
         //toggleDiv();
@@ -657,6 +665,9 @@ const HomePage = () => {
 
     const closeChooseTime = () => {
         setIsChooseTImeClicked(null);
+        //marked
+        setMinimized(false);
+        
     }
 
 
@@ -702,6 +713,7 @@ const HomePage = () => {
 
     //Storing the selected Time
     const [isTimeSelected, setIsTimeSelected] = useState(null);
+    const [isSuccess, SetIsSuccess] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
 
@@ -1312,17 +1324,26 @@ const HomePage = () => {
                                     <div className='add-more-div' onClick={addMoreItems}>Add More</div>
 
                                     <button className="button-48" role="button" onClick={handleChooseTimeClick}>
-                                        <span className="text">{isTimeSelected ? 'Book Now':'Choose a time'}</span>
+                                        <span className="text">{isTimeSelected ? 'Book Now' : 'Choose a time'}</span>
                                     </button>
 
-                                    {
-                                        
-                                    }
+
+
 
 
                                 </div>
 
 
+                                {isSuccess && (
+                                    <div class="success-animation">
+                                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                                        </svg>
+                                        
+                                        <p>Success</p>
+                                    </div>
+                                )}
 
                             </div>
                         )}

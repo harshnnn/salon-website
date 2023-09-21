@@ -47,7 +47,7 @@
 
 .menu-items a:hover {
     color: white;
-    background-color: blue;
+    background-color: rgb(253, 194, 194);
     border-radius: 5px;
 }
 
@@ -717,20 +717,9 @@
 
 }
 
-.activeDay {
-    background-color: #1E3722;
-    color: white;
-    box-shadow: 0 0 0 2px white, 0 0 0 4px green;
 
 
-    /* Add your desired styling for active days here */
-}
 
-.mini-date:hover {
-    background-color: #2E6C3D;
-    /* A more noticeable shade */
-
-}
 
 .react-calendar {
     border: 0px !important;
@@ -832,18 +821,84 @@
     margin-top: 50px;
     margin-left: auto;
 }
-@keyframes slideInFromBelow {
-    0% {
-        transform: translateY(100%);
-        opacity: 0;
-    }
 
+.success-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0); /* Fallback color for older browsers */
+    backdrop-filter: blur(1px); 
+        z-index: 999; /* Adjust the z-index to ensure it's above other content */
+    opacity: 1; /* Ensure opacity is set to 1 for visibility */
+    transition: opacity 0.4s ease-in-out; /* Add a transition for smooth appearance/disappearance */
+    flex-direction: column;
+  }
+  .success-animation p{
+    color: green;
+    font-weight: 600;
+  }
+  .checkmark {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 2;
+    stroke: #4bb71b;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #4bb71b;
+    animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+    position: relative;
+    top: 5px;
+    right: 5px;
+    margin: 0 auto;
+    fill: transparent; /* Add this to make the SVG fill transparent */
+  }
+  
+  .checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #4bb71b;
+    fill: transparent; /* Add this to make the SVG fill transparent */
+    animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+  
+  .checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    fill: transparent; /* Add this to make the SVG fill transparent */
+  }
+  
+  @keyframes stroke {
     100% {
-        transform: translateY(0);
-        opacity: 1;
+      stroke-dashoffset: 0;
     }
-}
-
+  }
+  
+  @keyframes scale {
+    0%, 100% {
+      transform: none;
+    }
+  
+    50% {
+      transform: scale3d(1.1, 1.1, 1);
+    }
+  }
+  
+  @keyframes fill {
+    100% {
+      box-shadow: inset 0px 0px 0px 5px #4bb71b;
+    }
+  }
+  
 .add-more-div {
     padding: 5px 10px;
     background-color: #E91E63;
