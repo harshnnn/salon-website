@@ -14,35 +14,25 @@ const Navbar = () => {
   const [menuVisible, setMenuVisible] = useState(false);
 
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+  setMenuVisible(!menuVisible);
   };
 
 
 
   // scrolling 
-
-  const handleNavClick = (sectionId) => {
-    // Get the target section by ID
-    const element = document.getElementById(sectionId);
-  
-    if (element) {
-      // Check if the target section is already in view
-      const elementRect = element.getBoundingClientRect();
-      if (elementRect.top >= 0 && elementRect.bottom <= window.innerHeight) {
-        // Target section is already in view, do nothing
-        return;
-      }
-  
-      // Scroll to the target section
-      element.scrollIntoView({ behavior: 'smooth' });
-  
-      // Close the menu if it's open
-      if (menuVisible) {
-        toggleMenu();
-      }
+  // const handleNavLinkClick = (event) => {
+  //   event.preventDefault();
+  //   // Handle your navigation logic here
+  // };
+  const handleNavLinkClick = (event, targetId) => {
+    event.preventDefault();
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
-  
+
+
 
   return (
     <div className='nav-div'>
@@ -50,11 +40,11 @@ const Navbar = () => {
 
       <div className={`menu-items ${menuVisible ? 'active' : ''}`}>
         <ul>
-          <li><a href="#" className='nav-link' onClick={() => handleNavClick('content1')}>Home</a></li>
-          <li><a href="#" className='nav-link' onClick={() => handleNavClick('content4')} >Book Online</a></li>
-          <li><a href="#" className='nav-link' onClick={() => handleNavClick('content2')}>Services</a></li>
-          <li><a href="#" className='nav-link' onClick={() => handleNavClick('content7')}>Gallery</a></li>
-          <li><a href="#" className='nav-link' onClick={() => handleNavClick('content3')}>About Us</a></li>
+          <li><a href="#" className='nav-link' onClick={(e) => handleNavLinkClick(e, 'content1')}>Home</a></li>
+          <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content5')} >OUR PRICES</a></li>
+          <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content2')}>Services</a></li>
+          <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content7')} >Gallery</a></li>
+          <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content3')}>About Us</a></li>
         </ul>
       </div>
       <div className='contact-btn' onClick={handleCallClick}><p> {phoneNumber}</p></div>

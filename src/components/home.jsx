@@ -644,14 +644,18 @@ const HomePage = () => {
 
         //For Book Now
         if (isTimeSelected) {
-
             SetIsSuccess(true);
-
-
+        
             setTimeout(() => {
-              toggleDiv();
-            }, 3000); // 2000 milliseconds = 2 seconds
+                toggleDiv();
+                
+                // Reload the page after 3 seconds
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }, 3000); // 3000 milliseconds = 3 seconds
         }
+        
 
         //toggleDiv();
 
@@ -716,8 +720,6 @@ const HomePage = () => {
     const [isSuccess, SetIsSuccess] = useState(null);
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedTime, setSelectedTime] = useState('');
-
-
 
     // calander
     const [date, setDate] = useState(new Date()); // Initialize with today's date
@@ -1465,7 +1467,7 @@ const HomePage = () => {
 
 
 
-            <div className="content-5">
+            <div className="content-5" id='content5'>
                 <h1>OUR PRICES</h1>
 
                 <div className='list-details'>

@@ -72,10 +72,13 @@
         align-items: flex-start;
         flex-wrap: wrap;
         width: 90vw;
+        transition: max-height 0.5s ease-in-out; 
     }
-
+    
     .contact-btn {
-        margin-left: auto;
+        position: fixed;
+        right: 50px;
+        margin-right: auto;
         margin-right: 70px;
         margin-top: 8px;
         height: 12px;
@@ -116,6 +119,7 @@
     .menu-items.active {
         margin-left: auto;
         display: inline;
+
     }
 
     .menu-toggle-btn {
@@ -190,7 +194,7 @@
     background-image: url(./Resources/logo.png);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 92vh;
+    height: 100vh;
     display: flex;
     align-items: center;
     width: 100%;
@@ -832,7 +836,7 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(255, 255, 255, 0); /* Fallback color for older browsers */
-    backdrop-filter: blur(1px); 
+    backdrop-filter: blur(4px); 
         z-index: 999; /* Adjust the z-index to ensure it's above other content */
     opacity: 1; /* Ensure opacity is set to 1 for visibility */
     transition: opacity 0.4s ease-in-out; /* Add a transition for smooth appearance/disappearance */
@@ -840,7 +844,7 @@
   }
   .success-animation p{
     color: green;
-    font-weight: 600;
+    font-weight: 800;
   }
   .checkmark {
     width: 100px;
@@ -956,7 +960,8 @@
 }
 
 .content-2 h1 {
-    padding: 1em;
+    padding: 2em;
+    padding-top: 3em;
 }
 
 .cards {
@@ -1813,6 +1818,7 @@
 }
 
 
+
 /* content-8 */
 
 
@@ -1937,6 +1943,40 @@
     border-radius: 10px;
     /* Add background-image properties for your images here */
 }
+
+/* Define animation keyframes for slideInInfo and slideInImages */
+@keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slideInFromRight {
+    0% {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 0.5;
+
+    }
+  }
+  
+  /* Apply the animations to the elements */
+  .slideInInfo {
+    animation: slideInFromLeft 1s ease forwards;
+  }
+  
+  .slideInImages {
+    animation: slideInFromRight 1s ease forwards;
+  }
+  
 
 @media (max-width:786px) {
     .content-8-body {
