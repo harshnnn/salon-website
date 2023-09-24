@@ -765,13 +765,12 @@ const HomePage = () => {
         if (selectedDateElement) {
             setSelectedDate(selectedDateElement.innerText);
         }
-
+        
         //Displaying the Selected Time
         setIsTimeSelected(true);
     }
     const handleSelectedTimeClick = (event) => {
         setPushButtonVisible(true);
-
         //storing the time
         setSelectedTime(event.target.innerText);
 
@@ -1231,28 +1230,28 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
                                                         <BsSunrise /> 10:00 AM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card'onClick={handleSelectedTimeClick}>
                                                         <BsSunrise /> 11:00 AM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
                                                         <BsSun /> 12:00 PM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
                                                         <BsSun /> 01:00 PM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
                                                         <BsSun />02:00 PM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
                                                         <BsSun />03:00 PM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card'onClick={handleSelectedTimeClick}>
                                                         <BsSun />04:00 PM
                                                     </div>
-                                                    <div className='time-slot-card'>
+                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
                                                         <BsSunset /> 05:00 PM
                                                     </div>
                                                 </div>

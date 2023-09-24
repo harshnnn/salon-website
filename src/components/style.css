@@ -822,6 +822,17 @@
     bottom: 100px;
     left: 40%;
 }
+@keyframes slideInFromBelow {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
 .tick{
     color: white !important;
     width: 50px !important;
