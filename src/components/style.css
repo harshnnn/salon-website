@@ -37,6 +37,7 @@
     margin: 0;
 }
 
+
 .menu-items a {
     text-decoration: none;
     color: black;
@@ -77,9 +78,8 @@
     
     .contact-btn {
         position: fixed;
-        right: 50px;
-        margin-right: auto;
-        margin-right: 70px;
+        right: 50px ;
+        /* margin-right: 70px; */
         margin-top: 8px;
         height: 12px;
         mix-blend-mode: darken;
@@ -102,10 +102,17 @@
 
     .menu-items {
         display: none;
-
         align-items: center;
         justify-content: center;
         gap: 10px;
+        margin-top: 0;
+        padding: 0;
+        margin-right: 30%;
+    }
+
+    .menu-items li{
+        background-color: aliceblue;
+        padding: 5px 15px;
     }
 
     .menu-toggle-btn {

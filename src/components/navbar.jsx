@@ -1,4 +1,6 @@
 import React, { Component, useState } from 'react';
+import {GiHamburgerMenu} from 'react-icons/gi';
+import {AiOutlineClose} from 'react-icons/ai';
 import './style.css'
 
 const Navbar = () => {
@@ -30,6 +32,7 @@ const Navbar = () => {
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: 'smooth' });
     }
+    setMenuVisible(!menuVisible)
   };
 
 
@@ -48,7 +51,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className='contact-btn' onClick={handleCallClick}><p> {phoneNumber}</p></div>
-      <div className='menu-toggle-btn' onClick={toggleMenu} >&#9776;</div>
+      <div className='menu-toggle-btn' onClick={toggleMenu} >{menuVisible ?  <AiOutlineClose/>: <GiHamburgerMenu/> }</div>
 
     </div>
   );
