@@ -1104,9 +1104,9 @@ const HomePage = () => {
                                 {/* this div has all the service types listed*/}
                                 {selectedCard !== null && (
                                     <div className='expanded-card scrollbar '>
-                                        <button className='close-btn ' onClick={closeselectedcard}>
+                                        {/* <button className='close-btn ' onClick={closeselectedcard}>
                                             <AiOutlineClose className='close-icon' />
-                                        </button>
+                                        </button> */}
                                         <div className='service-cards'>
                                             {serviceData.map((service, serviceindex) => (
                                                 <div
@@ -1322,7 +1322,9 @@ const HomePage = () => {
 
                                     </ul>
 
-                                    <div className='add-more-div' onClick={addMoreItems}>Add More</div>
+                                    {isTimeSelected == null && (        
+                                    <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
+                                    }
 
                                     <button className="button-48" role="button" onClick={handleChooseTimeClick}>
                                         <span className="text">{isTimeSelected ? 'Book Now' : 'Choose a time'}</span>
