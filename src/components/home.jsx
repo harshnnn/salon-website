@@ -29,11 +29,172 @@ import partner1 from './Resources/svg-images/partner1.jpeg';
 import partner2 from './Resources/svg-images/partner2.avif';
 import partner3 from './Resources/svg-images/partner3.avif';
 import partner4 from './Resources/svg-images/partner4.avif';
-
+import axios from 'axios';
+import { duration } from '@mui/material';
 
 
 const HomePage = () => {
 
+    //Requests
+
+    const [response, setResponse] = useState('');
+    const [token, setToken] = useState(null);
+    const [phoneNumber, setPhoneNumber] = useState('');
+
+    const [isUser, setIsUser] = useState(false);
+    const [OTP, SetOpt] = useState('');
+
+    const postData = {
+        phone: phoneNumber,
+    };
+
+    let verifyData = {
+        phone: '',
+        otp: '',
+    };
+
+    const handleOtpRequest = () => {
+        axios.post('http://thorfinn.pythonanywhere.com/api/v1/generate/', postData)
+            .then((response) => {
+                setResponse(response.data);
+
+                // After getting the OTP, make another request to verify and obtain the token
+                verifyData = {
+                    phone: postData.phone,
+                    otp: String(response.data.generated_otp),
+                };
+
+                alert(response.data.generated_otp);
+
+            })
+            .catch((error) => {
+                console.error('POST request error:', error);
+            });
+    };
+
+    const handleVerifyRequest = () => {
+
+        axios.post('http://thorfinn.pythonanywhere.com/api/v1/verify/', verifyData)
+            .then((response) => {
+                // Assuming the token is in response.data.token, you can set it in state or use it as needed.
+                if (response.data.token != null) {
+                    setToken(true);
+                    console.log("just set the token to true ");
+                }
+
+                console.log("the token is " + response.data.token);
+
+
+            })
+            .catch((error) => {
+                setToken(false);
+                console.log("just set the token to false");
+                console.error('Verify request error:', error);
+            });
+    }
+
+    //Login 
+
+    useEffect(() => {
+        if (token === true) {
+            alert("Login Sucessfull!!");
+            setIsUser(true);
+
+            const parentDiv = document.getElementById('parent-div');
+            const loginContainer = parentDiv.querySelector('.login-container');
+            if (loginContainer) {
+                parentDiv.removeChild(loginContainer);
+                handleMinimizeOrder();
+            }
+        } else if (token === false) {
+            alert("Failed to login...");
+        }
+    }, [token]);
+
+    const handleLoginClick = (OTP) => {
+
+        const parentDiv = document.getElementById('parent-div');
+
+        // Create the container div
+        const loginContainer = document.createElement('div');
+        loginContainer.classList.add('login-container');
+
+        // Create the input field for mobile number
+        const mobileInput = document.createElement('input');
+        mobileInput.type = 'tel';
+        mobileInput.placeholder = 'Enter Mobile Number';
+        mobileInput.classList.add('login-input');
+
+        //Create the input field for OTP
+        const otpInput = document.createElement('input');
+        otpInput.type = 'number';
+        otpInput.placeholder = "Enter OTP...";
+        otpInput.classList.add('login-input');
+
+        // Create the "Send OTP" button
+        const sendOTPButton = document.createElement('button');
+        sendOTPButton.textContent = 'Send OTP';
+        sendOTPButton.classList.add('send-otp-button');
+
+        //Create the "Verify OTP" button
+        const verifyOTPButton = document.createElement('button');
+        verifyOTPButton.textContent = "Enter OTP...";
+        verifyOTPButton.classList.add('send-otp-button');
+
+        //Create the "Change Number" button
+        const changeNumberButton = document.createElement('button');
+        changeNumberButton.textContent = "Change Number";
+        changeNumberButton.classList.add('send-otp-button');
+        changeNumberButton.classList.add('change-number');
+
+        // Append elements to the container
+        loginContainer.appendChild(mobileInput);
+        loginContainer.appendChild(sendOTPButton);
+        parentDiv.appendChild(loginContainer);
+
+        // Add an event listener to the "Send OTP" button
+        sendOTPButton.addEventListener('click', () => {
+            const enteredPhoneNumber = String(mobileInput.value);
+
+            if (/^\d{10}$/.test(enteredPhoneNumber)) {
+                setPhoneNumber(enteredPhoneNumber);
+                
+
+                postData.phone = enteredPhoneNumber; // Update postData
+                
+                handleOtpRequest();
+
+                // Remove the "Send OTP" button
+                loginContainer.removeChild(sendOTPButton);
+                loginContainer.removeChild(mobileInput);
+
+                loginContainer.appendChild(otpInput);
+                loginContainer.appendChild(verifyOTPButton);
+
+                loginContainer.appendChild(changeNumberButton);
+            }
+
+        });
+
+        verifyOTPButton.addEventListener('click', () => {
+            handleVerifyRequest();
+        });
+
+        changeNumberButton.addEventListener('click', () => {
+
+            //Add both previous button and inputfield
+            loginContainer.appendChild(mobileInput);
+            loginContainer.appendChild(sendOTPButton);
+
+            //remove cuttent button and inputfield
+            loginContainer.removeChild(changeNumberButton);
+
+            loginContainer.removeChild(otpInput);
+            loginContainer.removeChild(verifyOTPButton);
+        });
+
+
+    };
 
 
 
@@ -64,14 +225,14 @@ const HomePage = () => {
 
         setProfessionals(defaultProfessionals);
 
-        // Fetch additional professionals from the backend API and append to the state
-        fetch('/api/professionals')
-            .then(response => response.json())
-            .then(data => {
-                // Append the fetched professionals to the existing state
-                setProfessionals(prevProfessionals => [...prevProfessionals, ...data]);
-            })
-            .catch(error => console.error('Error fetching data:', error));
+        // // Fetch additional professionals from the backend API and append to the state
+        // fetch('/api/professionals')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         // Append the fetched professionals to the existing state
+        //         setProfessionals(prevProfessionals => [...prevProfessionals, ...data]);
+        //     })
+        //     .catch(error => console.error('Error fetching data:', error));
     }, []);
 
 
@@ -263,38 +424,38 @@ const HomePage = () => {
 
     const [serviceData, setServiceData] = useState(defaultServiceData);
 
-    // Function to fetch additional service data from the backend
-    async function fetchServiceDataFromBackend() {
-        try {
-            const response = await fetch('/api/services'); // Replace with your actual backend API endpoint
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const data = await response.json();
-            return data; // Assuming the data is an array of new service objects
-        } catch (error) {
-            console.error('Error fetching service data:', error);
-            return []; // Return an empty array or handle the error as needed
-        }
-    }
+    // // Function to fetch additional service data from the backend
+    // async function fetchServiceDataFromBackend() {
+    //     try {
+    //         const response = await fetch('/api/services'); // Replace with your actual backend API endpoint
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    //         const data = await response.json();
+    //         return data; // Assuming the data is an array of new service objects
+    //     } catch (error) {
+    //         console.error('Error fetching service data:', error);
+    //         return []; // Return an empty array or handle the error as needed
+    //     }
+    // }
 
-    // Function to update the serviceData array with new data
-    async function updateServiceData() {
-        const newServiceData = await fetchServiceDataFromBackend();
-        if (newServiceData.length > 0) {
-            // Merge or append the new data to the existing array
-            const updatedServiceData = [...serviceData, ...newServiceData];
-            // Update the state or variable holding your service data
-            setServiceData(updatedServiceData); // If using React state
-            // Alternatively, assign the updated data to your existing array
-            // serviceData = updatedServiceData;
-        }
-    }
+    // // Function to update the serviceData array with new data
+    // async function updateServiceData() {
+    //     const newServiceData = await fetchServiceDataFromBackend();
+    //     if (newServiceData.length > 0) {
+    //         // Merge or append the new data to the existing array
+    //         const updatedServiceData = [...serviceData, ...newServiceData];
+    //         // Update the state or variable holding your service data
+    //         setServiceData(updatedServiceData); // If using React state
+    //         // Alternatively, assign the updated data to your existing array
+    //         // serviceData = updatedServiceData;
+    //     }
+    // }
 
-    // Call the updateServiceData function to fetch and update data when needed
-    useEffect(() => {
-        updateServiceData();
-    }, []); // Empty dependency array ensures it runs only once on component mount
+    // // Call the updateServiceData function to fetch and update data when needed
+    // useEffect(() => {
+    //     updateServiceData();
+    // }, []); // Empty dependency array ensures it runs only once on component mount
 
 
 
@@ -494,6 +655,8 @@ const HomePage = () => {
 
 
 
+
+
     // booking div
     const [isVisible, setIsVisible] = useState(false);
     const [selectedCard, setSelectedCard] = useState(null);
@@ -506,11 +669,6 @@ const HomePage = () => {
 
     const [clickedServiceIndex, setClickedServiceIndex] = useState(null);
 
-
-
-
-
-
     const toggleDiv = () => {
 
         setIsVisible(!isVisible);
@@ -520,6 +678,7 @@ const HomePage = () => {
         SetIsSuccess(null);
         setIsTimeSelected(null);
 
+       
     };
     const openCardDetails = (cardIndex) => {
         setSelectedCard(cardIndex);
@@ -551,7 +710,7 @@ const HomePage = () => {
 
         //To Show the title of the service detail 
         const title = serviceData[serviceindex].title;
-        console.log(title)
+
         const content = (
             <div>
 
@@ -615,7 +774,6 @@ const HomePage = () => {
         if (higlited) {
             setMinimized(false);
         }
-        console.log(serviceName);
 
 
         //for dynamically adding 
@@ -643,19 +801,25 @@ const HomePage = () => {
         else { setShowTimeSlots1(true); }
 
         //For Book Now
-        if (isTimeSelected) {
-            SetIsSuccess(true);
-        
-            setTimeout(() => {
-                toggleDiv();
-                
-                // Reload the page after 3 seconds
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }, 3000); // 3000 milliseconds = 3 seconds
+        if (isTimeSelected && isUser) {
+            // const orderDetails ={
+            //     professionalName: bookinginfo.innerText,
+            // };
+            console.log("professional: " + clickedContents[0].value + " Service " + clickedContents[1].value);
+            console.log("date: " + selectedDate + " time " + selectedTime);
+            console.log('total ' + total)
+            // SetIsSuccess(true);
+
+            // setTimeout(() => {
+            //     toggleDiv();
+
+            //     // Reload the page after 3 seconds
+            //     setTimeout(() => {
+            //         window.location.reload();
+            //     }, 1000);
+            // }, 3000); // 3000 milliseconds = 3 seconds
         }
-        
+
 
         //toggleDiv();
 
@@ -671,7 +835,7 @@ const HomePage = () => {
         setIsChooseTImeClicked(null);
         //marked
         setMinimized(false);
-        
+
     }
 
 
@@ -765,14 +929,14 @@ const HomePage = () => {
         if (selectedDateElement) {
             setSelectedDate(selectedDateElement.innerText);
         }
-        
+
         //Displaying the Selected Time
         setIsTimeSelected(true);
     }
-    const handleSelectedTimeClick = (event) => {
+    const handleSelectedTimeClick = (timeSlot) => {
         setPushButtonVisible(true);
         //storing the time
-        setSelectedTime(event.target.innerText);
+        setSelectedTime(timeSlot.time);
 
     }
 
@@ -783,9 +947,32 @@ const HomePage = () => {
         setBookingDetail(false);//last
         setSelectedService(null);
         sethighlited(null);
-
-
     }
+
+    //time slots
+    const timeSlots1 = [
+        { icon: <BsSunrise />, time: '10:00 AM' },
+        { icon: <BsSunrise />, time: '11:00 AM' },
+        { icon: <BsSun />, time: '12:00 PM' },
+        { icon: <BsSun />, time: '01:00 PM' },
+        { icon: <BsSun />, time: '02:00 PM' },
+        { icon: <BsSun />, time: '03:00 PM' },
+        { icon: <BsSun />, time: '04:00 PM' },
+        { icon: <BsSunset />, time: '05:00 PM' },
+        { icon: <BsSunset />, time: '06:00 PM' },
+        { icon: <BsSunset />, time: '07:00 PM' },
+    ];
+    const timeSlots2 = [
+        { icon: <BsSunrise />, time: '10:00 AM' },
+        { icon: <BsSunrise />, time: '11:00 AM' },
+        { icon: <BsSun />, time: '12:00 PM' },
+        { icon: <BsSun />, time: '01:00 PM' },
+        { icon: <BsSun />, time: '02:00 PM' },
+        { icon: <BsSun />, time: '03:00 PM' },
+        { icon: <BsSun />, time: '04:00 PM' },
+        { icon: <BsSunset />, time: '05:00 PM' },
+    ];
+
 
     //For Content 2
 
@@ -1065,11 +1252,13 @@ const HomePage = () => {
                 <div className='tagline'><p>We provde you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
+
                         <div className='book-btn' onClick={toggleDiv} id='content4'>
                             Book Now
                         </div>
+
                         {isVisible && (
-                            <div className={`animated-div scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
+                            <div id='parent-div' className={`animated-div scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
                                 {/* booking header div */}
                                 <div className='header-container'>
                                     <div className='book-header'>
@@ -1165,7 +1354,7 @@ const HomePage = () => {
 
                                 {/* To open the div Having calendar and time slots */}
                                 {isChooseTimeClicked !== null && (
-                                    <div className='expanded-card scrollbar choose-time-div'>
+                                    <div className='expanded-card scrollbar choose-time-div' >
                                         <button className='close-btn' onClick={closeChooseTime}>
                                             <AiOutlineClose className='close-icon' />
                                         </button>
@@ -1188,37 +1377,13 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSunrise /> 10:00 AM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick} >
-                                                        <BsSunrise /> 11:00 AM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun /> 12:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun /> 01:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun />02:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun />03:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun />04:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSunset /> 05:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSunset /> 06:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSunset /> 07:00 PM
-                                                    </div>
+                                                    {timeSlots1.map((timeSlot, index) => (
+                                                        <div className='time-slot-card' key={index} onClick={() => handleSelectedTimeClick(timeSlot)}>
+                                                            {timeSlot.icon} {timeSlot.time}
+                                                        </div>
+                                                    ))}
                                                 </div>
+
                                             </div>
                                         )}
                                         {showTimeSlots2 !== null && (
@@ -1230,30 +1395,11 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSunrise /> 10:00 AM
-                                                    </div>
-                                                    <div className='time-slot-card'onClick={handleSelectedTimeClick}>
-                                                        <BsSunrise /> 11:00 AM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun /> 12:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun /> 01:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun />02:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSun />03:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card'onClick={handleSelectedTimeClick}>
-                                                        <BsSun />04:00 PM
-                                                    </div>
-                                                    <div className='time-slot-card' onClick={handleSelectedTimeClick}>
-                                                        <BsSunset /> 05:00 PM
-                                                    </div>
+                                                    {timeSlots2.map((timeSlot, index) => (
+                                                        <div className='time-slot-card' key={index} onClick={() => handleSelectedTimeClick(timeSlot)}>
+                                                            {timeSlot.icon} {timeSlot.time}
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
                                         )}
@@ -1322,12 +1468,24 @@ const HomePage = () => {
 
                                     </ul>
 
-                                    {isTimeSelected == null && (        
-                                    <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
+                                    {isTimeSelected == null && (
+                                        <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
                                     }
 
                                     <button className="button-48" role="button" onClick={handleChooseTimeClick}>
-                                        <span className="text">{isTimeSelected ? 'Book Now' : 'Choose a time'}</span>
+
+                                        <span className="text">
+                                            {isUser ? <div  >Book Now </div> : (isTimeSelected ? <div style={{
+                                                padding: '0',
+                                                width: '100%',
+                                                height: '100%',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center'
+                                            }} onClick={handleLoginClick}>Login
+
+                                            </div> : 'Choose a time')}
+                                        </span>
                                     </button>
 
 
@@ -1343,7 +1501,7 @@ const HomePage = () => {
                                             <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
                                             <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
                                         </svg>
-                                        
+
                                         <p>Success</p>
                                     </div>
                                 )}
@@ -1355,6 +1513,7 @@ const HomePage = () => {
             </div>
 
             <div className='content-2' id='content2'>
+
                 <h1>SERVICES WE OFFER</h1>
                 <div className='cards'>
                     <div className='card-1 card-left'>
