@@ -157,10 +157,10 @@ const HomePage = () => {
 
             if (/^\d{10}$/.test(enteredPhoneNumber)) {
                 setPhoneNumber(enteredPhoneNumber);
-                
+
 
                 postData.phone = enteredPhoneNumber; // Update postData
-                
+
                 handleOtpRequest();
 
                 // Remove the "Send OTP" button
@@ -677,7 +677,7 @@ const HomePage = () => {
         SetIsSuccess(null);
         setIsTimeSelected(null);
 
-       
+
     };
     const openCardDetails = (cardIndex) => {
         setSelectedCard(cardIndex);
@@ -1145,9 +1145,9 @@ const HomePage = () => {
         };
 
         if (carouselContainer) {
-            carouselContainer.addEventListener('wheel', handleWheelScroll);
+            carouselContainer.addEventListener('wheel', handleWheelScroll, { passive: true });
             window.addEventListener('keydown', handleKeyDown); // Listen for keydown events
-            carouselContainer.addEventListener('touchstart', handleTouchStart);
+            carouselContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
             carouselContainer.addEventListener('touchend', handleTouchEnd);
 
             return () => {
@@ -1800,38 +1800,43 @@ const HomePage = () => {
                     </div>
 
                     <table>
-                        <th colSpan={2}>
+                        <thead>
+                            <tr>
+                                <th className='th' colSpan={2}>
 
-                        </th>
-
-                        <tr>
-                            <td>Monday</td>
-                            <td><p>10:00 -- 5:00</p></td>
-                        </tr>
-                        <tr>
-                            <td>Tuesday</td>
-                            <td>10:00 -- 7:00</td>
-                        </tr>
-                        <tr>
-                            <td>Webnesday</td>
-                            <td>10:00 -- 7:00</td>
-                        </tr>
-                        <tr>
-                            <td>Thursday</td>
-                            <td>10:00 -- 7:00</td>
-                        </tr>
-                        <tr>
-                            <td>Friday</td>
-                            <td>10:00 -- 7:00</td>
-                        </tr>
-                        <tr>
-                            <td>Saturday</td>
-                            <td>10:00 -- 7:00</td>
-                        </tr>
-                        <tr>
-                            <td>Sunnday</td>
-                            <td>10:00 -- 5:00</td>
-                        </tr>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Monday</td>
+                                <td><p>10:00 -- 5:00</p></td>
+                            </tr>
+                            <tr>
+                                <td>Tuesday</td>
+                                <td>10:00 -- 7:00</td>
+                            </tr>
+                            <tr>
+                                <td>Webnesday</td>
+                                <td>10:00 -- 7:00</td>
+                            </tr>
+                            <tr>
+                                <td>Thursday</td>
+                                <td>10:00 -- 7:00</td>
+                            </tr>
+                            <tr>
+                                <td>Friday</td>
+                                <td>10:00 -- 7:00</td>
+                            </tr>
+                            <tr>
+                                <td>Saturday</td>
+                                <td>10:00 -- 7:00</td>
+                            </tr>
+                            <tr>
+                                <td>Sunnday</td>
+                                <td>10:00 -- 5:00</td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
 
