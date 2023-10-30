@@ -38,6 +38,7 @@ const HomePage = () => {
 
     const [response, setResponse] = useState('');
     const [token, setToken] = useState(null);
+    const [tokenKey, setTokenKey] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
 
     const [isUser, setIsUser] = useState(false);
@@ -53,7 +54,7 @@ const HomePage = () => {
     };
 
     const handleOtpRequest = () => {
-        axios.post('http://thorfinn.pythonanywhere.com/api/v1/generate/', postData)
+        axios.post('https://thorfinn.pythonanywhere.com/api/v1/generate/', postData)
             .then((response) => {
                 setResponse(response.data);
 
@@ -73,11 +74,12 @@ const HomePage = () => {
 
     const handleVerifyRequest = () => {
 
-        axios.post('http://thorfinn.pythonanywhere.com/api/v1/verify/', verifyData)
+        axios.post('https://thorfinn.pythonanywhere.com/api/v1/verify/', verifyData)
             .then((response) => {
                 // Assuming the token is in response.data.token, you can set it in state or use it as needed.
                 if (response.data.token != null) {
                     setToken(true);
+                    setTokenKey(response.data.token);
                     console.log("just set the token to true ");
                 }
 
@@ -111,7 +113,7 @@ const HomePage = () => {
     }, [token]);
 
     const handleLoginClick = (OTP) => {
-
+        alert("it must open!!...")
         const parentDiv = document.getElementById('parent-div');
 
         // Create the container div
@@ -801,12 +803,96 @@ const HomePage = () => {
 
         //For Book Now
         if (isTimeSelected && isUser) {
-            // const orderDetails ={
-            //     professionalName: bookinginfo.innerText,
-            // };
-            console.log("professional: " + clickedContents[0].value + " Service " + clickedContents[1].value);
-            console.log("date: " + selectedDate + " time " + selectedTime);
-            console.log('total ' + total)
+
+            // console.log("professional: " + clickedContents[0].value + " Service " + clickedContents[1].value);
+            // clickedContents.map((item, index) => {
+            //     console.log(`Item ${index}: ${item.value}`);
+            // });
+
+            // console.log("date: " + selectedDate + " time " + selectedTime);
+
+            // console.log('total $' + totalPrice.toFixed(2))
+            // const professional = clickedContents[0];
+            clickedContents.forEach((item, index) => {
+                if (index === 0) return;
+
+                const variableName = `item${index}`;
+                window[variableName] = item;
+            });
+
+            // Create object with professional and items
+            const data = {
+                professional: clickedContents[0].value,
+                items: [],
+                date: selectedDate+'  '+selectedTime,
+                total: '$' + (totalPrice.toFixed(2)),
+            };
+
+            // Add items to array
+            // Initialize counter
+            let id = 1;
+
+            // Loop through items
+            for (let i = 1; i < clickedContents.length; i++) {
+
+                // Extract name
+                const itemValue = window[`item${i}`].value;
+                const match = itemValue.match(/^(.*?)\$/);
+                const name = match[1];
+
+                // Create item object with id
+                const item = {
+                    id: id,
+                    name
+                };
+
+                // Increment counter 
+                id++;
+
+                // Add item to array
+                data.items.push(item);
+            }
+
+            // Stringify as JSON
+            const jsonData = JSON.stringify(data);
+
+             console.log(data);
+
+            const dummy = {
+                items: {},
+                customer: 1,
+                staff: 3,
+                slot: 0,
+                ordered: '',
+                total: '21',
+                status: 'X',
+            }
+
+            const jsonBody = JSON.stringify(dummy); 
+
+
+            console.log('header token is : ' , tokenKey);
+            fetch('https://thorfinn.pythonanywhere.com/api/v1/order/', {
+                headers: {
+                    'Authorization': `Token ${tokenKey}`, 
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                body: jsonBody 
+              })
+              .then(response => {
+                if(response.status === 401) {
+                  throw new Error('Auth failed: ' + response.statusText); 
+                }
+                return response.json();
+              })
+              .then(data => {
+                console.log('Success:', data);
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+            });
+
             // SetIsSuccess(true);
 
             // setTimeout(() => {
