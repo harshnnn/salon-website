@@ -30,7 +30,6 @@ import partner2 from './Resources/svg-images/partner2.avif';
 import partner3 from './Resources/svg-images/partner3.avif';
 import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
-import { useActionData } from 'react-router-dom';
 
 
 const HomePage = () => {
