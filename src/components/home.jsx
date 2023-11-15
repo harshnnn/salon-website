@@ -30,6 +30,7 @@ import partner2 from './Resources/svg-images/partner2.avif';
 import partner3 from './Resources/svg-images/partner3.avif';
 import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
+import { useActionData } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -659,31 +660,37 @@ const HomePage = () => {
 
 
     // booking div
-    const [isVisible, setIsVisible] = useState(false);
-    const [selectedCard, setSelectedCard] = useState(null);
-    const [cardsVisible, setCardsVisible] = useState(true);
-    const [selectedService, setSelectedService] = useState(null);
+    const [isVisible, setIsVisible] = useState(false); // for booking div
+    const [bookingHeader, setBookingHeader] = useState(""); //for heading in booking div
+    const [serviceCard, setServiceCard] = useState(true);//for all the service types
+    const [isAddon, SetAddon] = useState(null); //for add on cards
+    const [proffVisible, setProffVisible] = useState(null); //for professional list
+    const [selectedService, setSelectedService] = useState(null); // for the selected service type
     const [bookingDetail, setBookingDetail] = useState(null);
+    const [orderbtn,setOrderbtn] = useState(null); //hiding and showing the choose time div
+    const [isNextBtnVisible, SetNextBtnvisible] = useState(true);
 
-
-    const [clickedContents, setClickedContents] = useState([]);
+    const [clickedContents, setClickedContents] = useState([]); //storing the clicked content
 
     const [clickedServiceIndex, setClickedServiceIndex] = useState(null);
 
-    const toggleDiv = () => {
+    const toggleBookingDiv = () => {
 
         setIsVisible(!isVisible);
-        setSelectedCard(null); // Reset selected card when toggling
-        setCardsVisible(true); // Show the .cards div
+        setServiceCard(true); // Reset selected card when toggling
+        setProffVisible(null); // Show the .cards div
 
         SetIsSuccess(null);
         setIsTimeSelected(null);
 
-
+        setBookingHeader("Choose a service")
     };
     const openCardDetails = (cardIndex) => {
-        setSelectedCard(cardIndex);
-        setCardsVisible(false); // Hide the .cards div
+        //setServiceCard(cardIndex);
+        setProffVisible(null); // Hide the .cards div
+        setMinimized(true);
+        setBookingDetail(true); //Booking
+        setIsChooseTImeClicked(true);
 
         //pushing the professional name
         const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
@@ -700,8 +707,8 @@ const HomePage = () => {
 
     //close button for closing the service list
     const closeselectedcard = () => {
-        setSelectedCard(null);
-        setCardsVisible(true); // Show the .cards div
+        setServiceCard(null);
+        setProffVisible(true); // Show the .cards div
         setMinimized(false);
     };
 
@@ -734,6 +741,8 @@ const HomePage = () => {
         setServiceCardStates(updatedStates);
 
 
+        setServiceCard(true);
+
     };
 
 
@@ -748,8 +757,17 @@ const HomePage = () => {
 
 
     //click of the service subtype (service subtype + price div)
-    const handleClick = (serviceName, index) => {
+    const openAddon = (serviceName, index) => {
         setBookingDetail(true);
+
+        // setBookingDetail(true); //target
+        //changes made here on 13-11-23
+        setProffVisible(null);
+        setSelectedService(null);
+        setServiceCard(null);
+        SetAddon(true);
+        setBookingHeader("Choose addons");
+       // setMinimized(true);
 
         // const content3 = serviceName;
         // alert(content3); // Log content3 to see its value
@@ -780,6 +798,50 @@ const HomePage = () => {
         //for dynamically adding 
 
     };
+
+    //For add-on cards click 
+    // const [isAddonSelected,SetAddonSelected] = useState(false);
+    // const toggleAddon = () =>{
+    //     SetAddonSelected(!isAddonSelected);
+    //     if(isAddonSelected){
+    //         alert('selected');
+    //     }
+    // }
+
+
+
+    //for color toggle 
+    const addonCards = [1, 2, 3, 4, 5];
+
+    const [selectedAddon, setSelectedAddon] = useState([]);
+
+    const toggleSelectAddon = (id) => {
+        setSelectedAddon(prev => {
+            if (prev.includes(id)) {
+                return prev.filter(x => x !== id);
+            } else {
+                return [...prev, id];
+            }
+        });
+
+        // Log the selectedAddon array after updating
+        console.log("Selected Addons:", selectedAddon);
+    }
+
+    const OpenProfessional = () => {
+  
+        if(!proffVisible){
+            setOrderbtn(true);
+            setBookingDetail(true);
+            setProffVisible(true);
+            setBookingHeader("Choose Proffesonals")
+            SetAddon(null);
+        }
+
+        SetNextBtnvisible(null);
+    }
+
+
 
     //for showing the sliced array to it's correct title
     const [serviceCardStates, setServiceCardStates] = useState(Array(serviceData.length).fill(false));
@@ -824,7 +886,7 @@ const HomePage = () => {
             const data = {
                 professional: clickedContents[0].value,
                 items: [],
-                date: selectedDate+'  '+selectedTime,
+                date: selectedDate + '  ' + selectedTime,
                 total: '$' + (totalPrice.toFixed(2)),
             };
 
@@ -856,7 +918,7 @@ const HomePage = () => {
             // Stringify as JSON
             const jsonData = JSON.stringify(data);
 
-             console.log(data);
+            console.log(data);
 
             const dummy = {
                 items: {},
@@ -868,35 +930,35 @@ const HomePage = () => {
                 status: 'X',
             }
 
-            const jsonBody = JSON.stringify(dummy); 
+            const jsonBody = JSON.stringify(dummy);
 
 
-            console.log('header token is : ' , tokenKey);
+            console.log('header token is : ', tokenKey);
             fetch('https://thorfinn.pythonanywhere.com/api/v1/order/', {
                 headers: {
-                    'Authorization': `Token ${tokenKey}`, 
+                    'Authorization': `Token ${tokenKey}`,
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-                body: jsonBody 
-              })
-              .then(response => {
-                if(response.status === 401) {
-                  throw new Error('Auth failed: ' + response.statusText); 
-                }
-                return response.json();
-              })
-              .then(data => {
-                console.log('Success:', data);
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-            });
+                body: jsonBody
+            })
+                .then(response => {
+                    if (response.status === 401) {
+                        throw new Error('Auth failed: ' + response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
 
             // SetIsSuccess(true);
 
             // setTimeout(() => {
-            //     toggleDiv();
+            //     toggleBookingDiv();
 
             //     // Reload the page after 3 seconds
             //     setTimeout(() => {
@@ -906,7 +968,7 @@ const HomePage = () => {
         }
 
 
-        //toggleDiv();
+        //toggleBookingDiv();
 
 
     }
@@ -1007,7 +1069,7 @@ const HomePage = () => {
     //setPushButtonVisible(true);
     const handlePushButtonClick = () => {
         setPushButtonVisible(false);
-        setMinimized(false);
+        setMinimized(true);
 
         //storing the time
         const selectedDateElement = document.querySelector('.selected-date');
@@ -1338,7 +1400,7 @@ const HomePage = () => {
 
                     <div className='container'>
 
-                        <div className='book-btn' onClick={toggleDiv} id='content4'>
+                        <div className='book-btn' onClick={toggleBookingDiv} id='content4'>
                             Book Now
                         </div>
 
@@ -1347,25 +1409,26 @@ const HomePage = () => {
                                 {/* booking header div */}
                                 <div className='header-container'>
                                     <div className='book-header'>
-                                        <h3>{selectedCard !== null ? 'Choose a service' : 'Choose a professional'}</h3>
+                                        <h3>{bookingHeader}</h3>
+                                        {/* <h3>{serviceCard !== null ? 'Choose a service' : 'Choose add-on service'}</h3> */}
                                         {/* <h2>
-                                            {selectedCard !== null
+                                            {serviceCard !== null
                                                 ? 'Choose a service'
                                                 : showTimeSelection !== null
                                                     ? 'Choose Time'
                                                     : 'Choose a professional'}
                                         </h2> */}
-                                        <button className='close-btn' onClick={toggleDiv}>
+                                        <button className='close-btn' onClick={toggleBookingDiv}>
                                             <AiOutlineClose className='close-icon' />
                                         </button>
                                     </div>
                                 </div>
 
                                 {/* this div has the list of all the professionals */}
-                                <div className={`cards ${cardsVisible ? '' : 'hidden'}`}>
+                                <div className={`cards ${proffVisible ? '' : 'hidden'}`}>
                                     {professionals.map((professional, index) => (
                                         <div
-                                            className={`card-0 ${selectedCard === index ? 'card-expanded' : ''}`}
+                                            className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
                                             key={index}
                                             onClick={() => openCardDetails(index)}
                                         >
@@ -1376,7 +1439,7 @@ const HomePage = () => {
                                 </div>
 
                                 {/* this div has all the service types listed*/}
-                                {selectedCard !== null && (
+                                {serviceCard !== null && (
                                     <div className='expanded-card scrollbar '>
                                         {/* <button className='close-btn ' onClick={closeselectedcard}>
                                             <AiOutlineClose className='close-icon' />
@@ -1420,7 +1483,7 @@ const HomePage = () => {
                                                                     <div
                                                                         key={i}
                                                                         className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => handleClick(index, serviceName)}
+                                                                        onClick={() => openAddon(index, serviceName)}
                                                                     >
                                                                         <span className="service-name">{beforeDollar}</span>
                                                                         <span className="service-price">${afterDollar}</span>
@@ -1436,6 +1499,35 @@ const HomePage = () => {
                                     </div>
 
                                 )}
+
+                                {/* This div has all the add-on service cards  */}
+                                {
+                                    isAddon !== null && (
+                                        <div className='Add-on-div scrollbar'>
+                                            {/* 
+                                            <div className="service-card-1" onClick={toggleAddon} >Add on 1</div>
+                                            <div className="service-card-1" onClick={toggleAddon} >Add on 2</div>
+                                            <div className="service-card-1" onClick={toggleAddon} >Add on 3</div>
+                                            <div className="service-card-1" onClick={toggleAddon} >Add on 4</div>
+                                            <div className="service-card-1" onClick={toggleAddon} >Add on 5</div> */}
+
+                                            {addonCards.map(id => (
+                                                <div
+                                                    className="service-card-1"
+                                                    onClick={() => toggleSelectAddon(id)}
+                                                    style={{ background: selectedAddon.includes(id) ? 'rgb(224, 224, 224)' : '' }}
+                                                    key={id}
+                                                >
+                                                    Add on {id}
+                                                </div>
+                                            ))}
+
+                                            <div onClick={OpenProfessional}></div>
+                                        </div>
+
+
+                                    )
+                                }
 
                                 {/* To open the div Having calendar and time slots */}
                                 {isChooseTimeClicked !== null && (
@@ -1501,10 +1593,15 @@ const HomePage = () => {
 
                                 <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`}>
                                     <div className='clicked-div-content-header'>
-                                        <h2>Your Order</h2>
+                                        <h2>Your Order </h2>
+
+                                        { isNextBtnVisible != null &&( <div onClick={OpenProfessional} className='button-48 btn-modified'>Next</div>)}
+
                                         <button onClick={handleMinimizeOrder} className='button-28'>
-                                            {minimized ? <MdExpandLess /> : <MdExpandMore />}
+                                            {minimized ?  <MdExpandMore />: <MdExpandLess /> }
                                         </button>
+
+                                        
                                     </div>
 
                                     <ul className='array-info'>
@@ -1534,6 +1631,12 @@ const HomePage = () => {
 
                                             })}
 
+                                            {selectedAddon.map(id => (
+                                                <div key={id} className="selected-addon">
+                                                    Addon {id}
+                                                </div>
+                                            ))}
+
                                             {isTimeSelected != null && (
                                                 <div className='selected-date-time content-3-style'>
                                                     {selectedDate + ' '}
@@ -1557,7 +1660,7 @@ const HomePage = () => {
                                         <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
                                     }
 
-                                    <button className="button-48" role="button" onClick={handleChooseTimeClick}>
+                                    {orderbtn !== null &&( <button className="button-48" role="button" onClick={handleChooseTimeClick}>
 
                                         <span className="text">
                                             {isUser ? <div  >Book Now </div> : (isTimeSelected ? <div style={{
@@ -1572,6 +1675,11 @@ const HomePage = () => {
                                             </div> : 'Choose a time')}
                                         </span>
                                     </button>
+                                    )}
+
+                                    {orderbtn == null &&(
+                                        <button className='button-48' onClick={OpenProfessional}>Choose Professional</button>
+                                    )}
 
 
 
@@ -1753,7 +1861,7 @@ const HomePage = () => {
 
                 </div>
 
-                <button className='book-slot-btn' onClick={toggleDiv}><p>Book Your Slot</p></button>
+                <button className='book-slot-btn' onClick={toggleBookingDiv}><p>Book Your Slot</p></button>
             </div>
 
             <div className="content-6">
