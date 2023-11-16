@@ -30,7 +30,6 @@ import partner2 from './Resources/svg-images/partner2.avif';
 import partner3 from './Resources/svg-images/partner3.avif';
 import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
-import { useActionData } from 'react-router-dom';
 
 
 const HomePage = () => {
@@ -667,7 +666,7 @@ const HomePage = () => {
     const [proffVisible, setProffVisible] = useState(null); //for professional list
     const [selectedService, setSelectedService] = useState(null); // for the selected service type
     const [bookingDetail, setBookingDetail] = useState(null);
-    const [orderbtn,setOrderbtn] = useState(null); //hiding and showing the choose time div
+    const [orderbtn, setOrderbtn] = useState(null); //hiding and showing the choose time div
     const [isNextBtnVisible, SetNextBtnvisible] = useState(true);
 
     const [clickedContents, setClickedContents] = useState([]); //storing the clicked content
@@ -690,6 +689,7 @@ const HomePage = () => {
         setProffVisible(null); // Hide the .cards div
         setMinimized(true);
         setBookingDetail(true); //Booking
+        setBookingHeader('Choose Time');
         setIsChooseTImeClicked(true);
 
         //pushing the professional name
@@ -751,7 +751,8 @@ const HomePage = () => {
         //to get back
         setBookingDetail(false);//last
         setSelectedService(null);
-        //function to delet the latest item form the array
+        
+        setServiceCard(true);
 
     }
 
@@ -766,8 +767,8 @@ const HomePage = () => {
         setSelectedService(null);
         setServiceCard(null);
         SetAddon(true);
-        setBookingHeader("Choose addons");
-       // setMinimized(true);
+        setBookingHeader("Choose Addons");
+        // setMinimized(true);
 
         // const content3 = serviceName;
         // alert(content3); // Log content3 to see its value
@@ -828,9 +829,15 @@ const HomePage = () => {
         console.log("Selected Addons:", selectedAddon);
     }
 
+    const closeSelectedAddon = () => {
+        SetAddon(null);
+        setSelectedService(true);
+        setBookingHeader('Choose Service');
+    }
+
     const OpenProfessional = () => {
-  
-        if(!proffVisible){
+
+        if (!proffVisible) {
             setOrderbtn(true);
             setBookingDetail(true);
             setProffVisible(true);
@@ -841,7 +848,12 @@ const HomePage = () => {
         SetNextBtnvisible(null);
     }
 
-
+    const closeSelecteProff = () => {
+        setProffVisible(null);
+        setBookingHeader('Choose Addons');
+        SetNextBtnvisible(true);
+        SetAddon(true);
+    }
 
     //for showing the sliced array to it's correct title
     const [serviceCardStates, setServiceCardStates] = useState(Array(serviceData.length).fill(false));
@@ -855,6 +867,7 @@ const HomePage = () => {
 
 
     const handleChooseTimeClick = () => {
+
         setIsChooseTImeClicked(!isChooseTimeClicked);
         handleMinimizeOrder();
 
@@ -983,6 +996,15 @@ const HomePage = () => {
         //marked
         setMinimized(false);
 
+        setProffVisible(true);
+        setBookingHeader('Choose Professional');
+
+        console.log(clickedContents);
+        // Filter out elements with type 'content-1-style' (which is professionals)
+        const filteredContents = clickedContents.filter(item => item.type !== 'content-1-style');
+
+        // Set the state with the new array
+        setClickedContents(filteredContents);
     }
 
 
@@ -1426,11 +1448,18 @@ const HomePage = () => {
 
                                 {/* this div has the list of all the professionals */}
                                 <div className={`cards ${proffVisible ? '' : 'hidden'}`}>
+
+                                    <div style={{ display: 'block', width: '100%' }}>
+                                        <button className='close-btn' onClick={closeSelecteProff} >
+                                            <AiOutlineClose className='close-icon' />
+                                        </button>
+                                    </div>
+
                                     {professionals.map((professional, index) => (
                                         <div
                                             className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
                                             key={index}
-                                            onClick={() => openCardDetails(index)}
+                                            onClick={() => openCardDetails(index+1)}
                                         >
                                             <img className='card-0-proff' src={professional.image} alt={`Image for ${professional.name}`} />
                                             <p>{professional.name}</p>
@@ -1510,6 +1539,13 @@ const HomePage = () => {
                                             <div className="service-card-1" onClick={toggleAddon} >Add on 3</div>
                                             <div className="service-card-1" onClick={toggleAddon} >Add on 4</div>
                                             <div className="service-card-1" onClick={toggleAddon} >Add on 5</div> */}
+
+                                            <div style={{ display: 'block', width: '100%' }}>
+                                                <button className='close-btn' onClick={closeSelectedAddon} >
+                                                    <AiOutlineClose className='close-icon' />
+                                                </button>
+                                            </div>
+
 
                                             {addonCards.map(id => (
                                                 <div
@@ -1595,13 +1631,13 @@ const HomePage = () => {
                                     <div className='clicked-div-content-header'>
                                         <h2>Your Order </h2>
 
-                                        { isNextBtnVisible != null &&( <div onClick={OpenProfessional} className='button-48 btn-modified'>Next</div>)}
+                                        {isNextBtnVisible != null && (<div onClick={OpenProfessional} className='button-48 btn-modified'>Next</div>)}
 
                                         <button onClick={handleMinimizeOrder} className='button-28'>
-                                            {minimized ?  <MdExpandMore />: <MdExpandLess /> }
+                                            {minimized ? <MdExpandMore /> : <MdExpandLess />}
                                         </button>
 
-                                        
+
                                     </div>
 
                                     <ul className='array-info'>
@@ -1660,7 +1696,7 @@ const HomePage = () => {
                                         <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
                                     }
 
-                                    {orderbtn !== null &&( <button className="button-48" role="button" onClick={handleChooseTimeClick}>
+                                    {orderbtn !== null && (<button className="button-48" role="button" onClick={handleChooseTimeClick}>
 
                                         <span className="text">
                                             {isUser ? <div  >Book Now </div> : (isTimeSelected ? <div style={{
@@ -1677,7 +1713,7 @@ const HomePage = () => {
                                     </button>
                                     )}
 
-                                    {orderbtn == null &&(
+                                    {orderbtn == null && (
                                         <button className='button-48' onClick={OpenProfessional}>Choose Professional</button>
                                     )}
 
