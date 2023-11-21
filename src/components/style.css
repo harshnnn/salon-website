@@ -26,15 +26,21 @@
     font-size: 24px;
     margin-left: 50px;
     margin-top: 10px;
+    z-index: -100;
 }
- .nav-logo{
-    width: 32px; 
+
+.nav-logo {
+    padding-top: 2px;
+    width: 52px;
     background-color: transparent;
     background-blend-mode: difference;
-    height: 25px;
-    transform: scale(6);
+    height: 35px;
+    transform: scale(4.3);
 
-} 
+}
+
+
+
 .menu-items ul {
     list-style: none;
     display: flex;
@@ -207,7 +213,7 @@
     background-image: url(./Resources//gallery/gallery-1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    min-height:700px ;
+    min-height: 700px;
     margin-top: 50px;
     display: flex;
     align-items: center;
@@ -1858,12 +1864,13 @@
     border-radius: 5%;
 }
 
-.alice-carousel__prev-btn{
-transform: translate(-2050%, -810%);
+.alice-carousel__prev-btn {
+    transform: translate(-2050%, -810%);
 }
-.alice-carousel__next-btn{
-transform: translate(4000%, -675%);
-} 
+
+.alice-carousel__next-btn {
+    transform: translate(4000%, -675%);
+}
 
 
 

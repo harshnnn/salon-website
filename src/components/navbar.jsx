@@ -2,7 +2,7 @@ import React, { Component, useState } from 'react';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {AiOutlineClose} from 'react-icons/ai';
 import './style.css'
-import logo from './Resources/THC-3.svg'
+import logo from './logo.svg'
 
 const Navbar = () => {
 
