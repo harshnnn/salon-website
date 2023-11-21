@@ -25,14 +25,28 @@ import image8 from './Resources/proffessionals/proff8.jpg';
 import image9 from './Resources/proffessionals/proff9.jpg';
 import image10 from './Resources/proffessionals/proff10.jpg';
 import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
+import gallery1 from './Resources/gallery/gallery-1.jpg'
+import gallery2 from './Resources/gallery/gallery-2.jpg'
+import gallery3 from './Resources/gallery/gallery-3.jpg'
+import gallery4 from './Resources/gallery/gallery-4.jpg'
+import gallery5 from './Resources/gallery/gallery-5.jpg'
+import gallery6 from './Resources/gallery/gallery-6.jpg'
+import gallery7 from './Resources/gallery/gallery-7.jpg'
+import gallery8 from './Resources/gallery/gallery-8.jpg'
+import gallery9 from './Resources/gallery/gallery-9.jpg'
+import gallery10 from './Resources/gallery/gallery-10.jpg'
 import partner1 from './Resources/svg-images/partner1.jpeg';
 import partner2 from './Resources/svg-images/partner2.avif';
 import partner3 from './Resources/svg-images/partner3.avif';
 import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
+import CustomCarousel from './content7'
+
 
 
 const HomePage = () => {
+
+
 
     //Requests
 
@@ -652,12 +666,6 @@ const HomePage = () => {
     ];
 
 
-
-
-
-
-
-
     // booking div
     const [isVisible, setIsVisible] = useState(false); // for booking div
     const [bookingHeader, setBookingHeader] = useState(""); //for heading in booking div
@@ -751,7 +759,7 @@ const HomePage = () => {
         //to get back
         setBookingDetail(false);//last
         setSelectedService(null);
-        
+
         setServiceCard(true);
 
     }
@@ -833,6 +841,18 @@ const HomePage = () => {
         SetAddon(null);
         setSelectedService(true);
         setBookingHeader('Choose Service');
+    }
+
+    const handleAddonDelete = (id) => {
+
+        const index = selectedAddon.indexOf(id);
+
+        const updatedAddons = [...selectedAddon];
+
+        updatedAddons.splice(index, 1);
+
+        setSelectedAddon(updatedAddons);
+
     }
 
     const OpenProfessional = () => {
@@ -1341,6 +1361,20 @@ const HomePage = () => {
     };
 
     //for content 7
+    const galleryItems = [
+        <div className="gallery-item" data-value="1"><img src={gallery1} alt="gallery-image" /></div>,
+        <div className="gallery-item" data-value="2"><img src={gallery2} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={gallery3} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="4"><img src={gallery4} alt="gallery-image" /></div>,
+        <div className="gallery-item" data-value="5"><img src={gallery5} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="2"><img src={gallery6} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={gallery7} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="4"><img src={gallery8} alt="gallery-image" /></div>,
+        <div className="gallery-item" data-value="5"><img src={gallery9} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="5"><img src={gallery10}alt="gallery-image" /> </div>,
+
+    ];
+
 
     const [isContent7Animated, setIsContent7Animated] = useState(false);
     const myDiv7Ref = useRef(null);
@@ -1459,7 +1493,7 @@ const HomePage = () => {
                                         <div
                                             className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
                                             key={index}
-                                            onClick={() => openCardDetails(index+1)}
+                                            onClick={() => openCardDetails(index + 1)}
                                         >
                                             <img className='card-0-proff' src={professional.image} alt={`Image for ${professional.name}`} />
                                             <p>{professional.name}</p>
@@ -1643,15 +1677,24 @@ const HomePage = () => {
                                     <ul className='array-info'>
                                         <div>
                                             {/* Render the contents of clickedContents */}
+
                                             {clickedContents.map((item, index) => {
                                                 // Split the content based on the '$' symbol
                                                 const parts = item.value.split('$');
+
+                                                //delete function
+                                                const handleDelete = () => {
+                                                    // Implement logic to remove the clicked item
+                                                    const updatedContents = clickedContents.filter((_, i) => i !== index);
+                                                    setClickedContents(updatedContents);
+                                                };
 
                                                 // Check if there are multiple parts after splitting
                                                 if (parts.length > 1) {
                                                     return (
                                                         <li key={index} className={item.type}>
                                                             <span className='clicked-service-name'>{parts[0]}</span>  <span className="pricing">{`$${parts[1]}`}</span>
+                                                            <button onClick={handleDelete}>Delete</button>
                                                             {/* - Index: {item.index} */}
                                                         </li>
 
@@ -1668,9 +1711,15 @@ const HomePage = () => {
                                             })}
 
                                             {selectedAddon.map(id => (
+
                                                 <div key={id} className="selected-addon">
                                                     Addon {id}
+
+                                                    <button onClick={() => handleAddonDelete(id)}>Delete</button>
+
                                                 </div>
+
+
                                             ))}
 
                                             {isTimeSelected != null && (
@@ -1818,7 +1867,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-4">
-                <h1>OUR TALENTED STAFF</h1>
+                <h1>Our Talanted Staff</h1>
 
                 <div className="carousel-container" >
                     <button className="prev-button" onClick={handlePrevClick}>
@@ -1857,7 +1906,7 @@ const HomePage = () => {
 
 
             <div className="content-5" id='content5'>
-                <h1>OUR PRICES</h1>
+                <h1>Our Prices</h1>
 
                 <div className='list-details'>
 
@@ -1965,17 +2014,15 @@ const HomePage = () => {
             </div>
 
             <div className="content-7" id='content7' ref={myDiv7Ref}>
-                <h1>CHECK OUR GALLERY</h1>
-                <div className={`shape ${isContent7Animated ? 'slideInShape' : ''}`}></div>
-                <div className={`shape shape2 ${isContent7Animated ? 'slideInShape2' : ''}`}></div>
-                <div className={`img1 ${isContent7Animated ? 'slideInImg1' : ''}`}></div>
-                <div className={`img2 ${isContent7Animated ? 'slideInImg2' : ''}`}></div>
-                <div className={`img3 ${isContent7Animated ? 'slideInImg3' : ''}`}></div>
+
+                <h1>Check Our Gallery</h1>
+
+                <CustomCarousel items={galleryItems} className="content-7-carousel" />
 
             </div>
 
             <div className="content-8" ref={myDiv8Ref}>
-                <h1>OUR PARTNERSHIPS</h1>
+                <h1>Our Partnership</h1>
                 <div className='content-8-body'>
                     <div className={`content-8-info ${isContent8Animated ? 'slideInInfo' : ''}`}>
                         <h2>WE WORK WITH THE <br /> BEST PARTNERS</h2>

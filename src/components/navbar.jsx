@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import {GiHamburgerMenu} from 'react-icons/gi';
 import {AiOutlineClose} from 'react-icons/ai';
 import './style.css'
+import logo from './Resources/THC-3.svg'
 
 const Navbar = () => {
 
@@ -39,12 +40,15 @@ const Navbar = () => {
 
   return (
     <div className='nav-div'>
-      <div className='logo'><p>Logo</p></div>
+      <div className='logo'>
+        <img src={logo} alt="" className='nav-logo'/>
+        
+      </div>
 
       <div className={`menu-items ${menuVisible ? 'active' : ''}`}>
         <ul>
           <li><a href="#" className='nav-link' onClick={(e) => handleNavLinkClick(e, 'content1')}>Home</a></li>
-          <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content5')} >OUR PRICES</a></li>
+          <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content5')} >Our Prices</a></li>
           <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content2')}>Services</a></li>
           <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content7')} >Gallery</a></li>
           <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content3')}>About Us</a></li>

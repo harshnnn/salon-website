@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    font-family: 'Fira Sans', sans-serif;
 }
 
 /* DIV style */
@@ -23,13 +24,17 @@
 
 .logo {
     font-size: 24px;
-    font-weight: bold;
     margin-left: 50px;
-    color: white;
-    background-color: black;
-    padding: 5px 10px;
+    margin-top: 10px;
 }
+ .nav-logo{
+    width: 32px; 
+    background-color: transparent;
+    background-blend-mode: difference;
+    height: 25px;
+    transform: scale(6);
 
+} 
 .menu-items ul {
     list-style: none;
     display: flex;
@@ -73,12 +78,12 @@
         align-items: flex-start;
         flex-wrap: wrap;
         width: 90vw;
-        transition: max-height 0.5s ease-in-out; 
+        transition: max-height 0.5s ease-in-out;
     }
-    
+
     .contact-btn {
         position: fixed;
-        right: 50px ;
+        right: 50px;
         /* margin-right: 70px; */
         margin-top: 8px;
         height: 12px;
@@ -110,7 +115,7 @@
         margin-right: 30%;
     }
 
-    .menu-items li{
+    .menu-items li {
         background-color: aliceblue;
         padding: 5px 15px;
     }
@@ -198,10 +203,12 @@
 
 .content-1 {
 
-    background-image: url(./Resources/logo.png);
+    /* background-image: url(./Resources/logo.png); */
+    background-image: url(./Resources//gallery/gallery-1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    min-height:700px ;
+    margin-top: 50px;
     display: flex;
     align-items: center;
     width: 100%;
@@ -365,19 +372,22 @@
     }
 }
 
-.card-0-proff{
+.card-0-proff {
     width: 85%;
     height: 85%;
     border-radius: 7%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.card-0-proff:hover{
+
+.card-0-proff:hover {
     transform: scale(1.05);
     transition: transform 0.5s ease;
 }
-.card-0 p{
+
+.card-0 p {
     padding: 3px;
 }
+
 .expanded-card {
     /* background-color: red; */
     position: absolute;
@@ -545,7 +555,7 @@
     background-color: white;
 }
 
-.proffname{
+.proffname {
     font-weight: 700;
     font-size: larger;
 }
@@ -597,13 +607,13 @@
         text-align: center;
     }
 
-    .clicked-div-content-header button{
+    .clicked-div-content-header button {
         margin-bottom: 10px;
     }
 }
 
 
-.Add-on-div{
+.Add-on-div {
     /* background-color: #000000; */
     display: flex;
     flex-wrap: wrap;
@@ -648,15 +658,15 @@
 }
 
 .pricing {
-    
-    background-color:#84E1BC;
+
+    background-color: #84E1BC;
     border-radius: 5%;
     padding: 1px;
     font-size: large;
     font-weight: 600;
 }
 
-.total-price{
+.total-price {
     text-align: end;
     width: 100%;
     height: 40px;
@@ -664,7 +674,7 @@
     padding-top: 20px;
     font-size: large;
     font-weight: 700;
-    
+
 }
 
 .array-info-left {
@@ -849,6 +859,7 @@
     bottom: 100px;
     left: 40%;
 }
+
 @keyframes slideInFromBelow {
     0% {
         transform: translateY(100%);
@@ -860,12 +871,14 @@
         opacity: 1;
     }
 }
-.tick{
+
+.tick {
     color: white !important;
     width: 50px !important;
     height: 50px !important;
 }
-.selected-date-time{
+
+.selected-date-time {
     text-align: end;
     margin-top: 50px;
     margin-left: auto;
@@ -880,18 +893,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0); /* Fallback color for older browsers */
-    backdrop-filter: blur(4px); 
-        z-index: 999; /* Adjust the z-index to ensure it's above other content */
-    opacity: 1; /* Ensure opacity is set to 1 for visibility */
-    transition: opacity 0.4s ease-in-out; /* Add a transition for smooth appearance/disappearance */
+    background-color: rgba(255, 255, 255, 0);
+    /* Fallback color for older browsers */
+    backdrop-filter: blur(4px);
+    z-index: 999;
+    /* Adjust the z-index to ensure it's above other content */
+    opacity: 1;
+    /* Ensure opacity is set to 1 for visibility */
+    transition: opacity 0.4s ease-in-out;
+    /* Add a transition for smooth appearance/disappearance */
     flex-direction: column;
-  }
-  .success-animation p{
+}
+
+.success-animation p {
     color: green;
     font-weight: 800;
-  }
-  .checkmark {
+}
+
+.checkmark {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -905,49 +924,54 @@
     top: 5px;
     right: 5px;
     margin: 0 auto;
-    fill: transparent; /* Add this to make the SVG fill transparent */
-  }
-  
-  .checkmark__circle {
+    fill: transparent;
+    /* Add this to make the SVG fill transparent */
+}
+
+.checkmark__circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;
     stroke-width: 2;
     stroke-miterlimit: 10;
     stroke: #4bb71b;
-    fill: transparent; /* Add this to make the SVG fill transparent */
+    fill: transparent;
+    /* Add this to make the SVG fill transparent */
     animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
-  }
-  
-  .checkmark__check {
+}
+
+.checkmark__check {
     transform-origin: 50% 50%;
     stroke-dasharray: 48;
     stroke-dashoffset: 48;
     animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
-    fill: transparent; /* Add this to make the SVG fill transparent */
-  }
-  
-  @keyframes stroke {
+    fill: transparent;
+    /* Add this to make the SVG fill transparent */
+}
+
+@keyframes stroke {
     100% {
-      stroke-dashoffset: 0;
+        stroke-dashoffset: 0;
     }
-  }
-  
-  @keyframes scale {
-    0%, 100% {
-      transform: none;
+}
+
+@keyframes scale {
+
+    0%,
+    100% {
+        transform: none;
     }
-  
+
     50% {
-      transform: scale3d(1.1, 1.1, 1);
+        transform: scale3d(1.1, 1.1, 1);
     }
-  }
-  
-  @keyframes fill {
+}
+
+@keyframes fill {
     100% {
-      box-shadow: inset 0px 0px 0px 5px #4bb71b;
+        box-shadow: inset 0px 0px 0px 5px #4bb71b;
     }
-  }
-  
+}
+
 .add-more-div {
     padding: 5px 10px;
     background-color: #E91E63;
@@ -958,7 +982,8 @@
     margin-bottom: 10px;
     margin-left: auto;
 }
-.add-more-div:hover{
+
+.add-more-div:hover {
     background-color: #c80043;
 
 }
@@ -1782,86 +1807,67 @@
 
 
 /* content-7 */
-/* content-7 */
-.content-7 {
+/* .content-7 {
     background-color: #fff;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-item{
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    width: 600px;
+    align-items: center;
+    justify-content: center;
+}
+.content-7-carousel{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+} */
+.content-7 {
+    text-align: center;
+    padding: 10px;
 }
 
 .content-7 h1 {
-    padding: 100px;
-    margin-bottom: -350px;
+    margin-top: 20px;
 }
 
-.content-7 .shape {
-    background-image: url('./Resources/Component\ 103.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 200px;
-    height: 200px;
-    transform: translate(180%, 220%);
+/* Styling for the carousel items */
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 1%;
+    padding: 20px;
+    margin: 10px;
 }
 
-.shape2 {
-    transform: translate(470%, 250%) !important;
+.gallery-item img {
+    /* max-width: 100%; */
+    width: 550px;
+    height: 600px !important;
+    border-radius: 5%;
 }
 
-.content-7 .img1 {
-    background-image: url('./Resources/Rectangle\ 84.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 300px;
-    height: 500px;
-    background-position: center center;
-    margin: auto;
+.alice-carousel__prev-btn{
+transform: translate(-2050%, -810%);
 }
+.alice-carousel__next-btn{
+transform: translate(4000%, -675%);
+} 
 
-.content-7 .img2 {
-    background-image: url('./Resources/Ellipse\ 14.png');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 150px;
-    height: 150px;
-    margin: auto;
-    transform: translate(110%, -380%);
-}
 
-.content-7 .img3 {
-    background-image: url('./Resources/Rectangle\ 85.svg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 200px;
-    height: 150px;
-    margin: auto;
-    transform: translate(-90%, -150%)
-}
 
-@media (max-width: 768px) {
-    .content-7 .shape {
-        transform: translate(0%, 220%);
-        width: 120px;
-        height: 120px;
-        z-index: 1;
-        mix-blend-mode: darken;
-
-    }
-
-    .shape2 {
-        transform: translate(200%, 250%) !important;
-        /* z-index: -1; */
-        /* mix-blend-mode:darken; */
-    }
-
-    .content-7 .img1 {
-        width: 210px;
-        height: 350px;
-    }
-
-    .content-7 .img2 {
-        width: 100px;
-        height: 100px;
-    }
-
-}
+@media (max-width: 768px) {}
 
 
 
@@ -1890,7 +1896,7 @@
 
 .content-8-body {
     display: flex;
-    
+
     justify-content: center;
     align-items: center;
     width: 80%;
@@ -1935,7 +1941,7 @@
 .content-8-images {
     flex: 1;
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
@@ -1948,8 +1954,10 @@
 .content-8-images-img1 {
     width: 100px;
     height: 100px;
-    background-image: url('./Resources/svg-images/partner1.jpeg'); /* URL to your image */
-    background-size: contain; /* Adjust to your preference */
+    background-image: url('./Resources/svg-images/partner1.jpeg');
+    /* URL to your image */
+    background-size: contain;
+    /* Adjust to your preference */
     background-repeat: no-repeat;
     mix-blend-mode: color-burn;
 }
@@ -1957,17 +1965,21 @@
 .content-8-images-img2 {
     width: 80px;
     height: 80px;
-    background-image: url('./Resources/svg-images/partner2.avif'); /* URL to your image */
-    background-size: contain; /* Adjust to your preference */
+    background-image: url('./Resources/svg-images/partner2.avif');
+    /* URL to your image */
+    background-size: contain;
+    /* Adjust to your preference */
     background-repeat: no-repeat;
-    mix-blend-mode:multiply;
+    mix-blend-mode: multiply;
 }
 
 .content-8-images-img3 {
-    background-image: url('./Resources/svg-images/partner3.avif'); /* URL to your image */
-    background-size: contain; /* Adjust to your preference */
+    background-image: url('./Resources/svg-images/partner3.avif');
+    /* URL to your image */
+    background-size: contain;
+    /* Adjust to your preference */
     background-repeat: no-repeat;
-    mix-blend-mode:darken;
+    mix-blend-mode: darken;
     padding-top: -150px !important;
     margin-top: -50px !important;
 }
@@ -1975,8 +1987,10 @@
 .content-8-images-img4 {
     width: 80px;
     height: 80px;
-    background-image: url('./Resources/svg-images/partner4.avif'); /* URL to your image */
-    background-size: contain; /* Adjust to your preference */
+    background-image: url('./Resources/svg-images/partner4.avif');
+    /* URL to your image */
+    background-size: contain;
+    /* Adjust to your preference */
     background-repeat: no-repeat;
     mix-blend-mode: color-burn;
 
@@ -1985,7 +1999,8 @@
 .content-8-images div {
     width: 48%;
     height: 200px;
-    background-color: #fff; /* Set your image background here */
+    background-color: #fff;
+    /* Set your image background here */
     border-radius: 10px;
     /* Add background-image properties for your images here */
 }
@@ -1993,47 +2008,50 @@
 /* Define animation keyframes for slideInInfo and slideInImages */
 @keyframes slideInFromLeft {
     0% {
-      transform: translateX(-100%);
-      opacity: 0;
+        transform: translateX(-100%);
+        opacity: 0;
     }
+
     100% {
-      transform: translateX(0);
-      opacity: 1;
+        transform: translateX(0);
+        opacity: 1;
     }
-  }
-  
-  @keyframes slideInFromRight {
+}
+
+@keyframes slideInFromRight {
     0% {
-      transform: translateX(100%);
-      opacity: 0;
+        transform: translateX(100%);
+        opacity: 0;
     }
+
     100% {
-      transform: translateX(0);
-      opacity: 0.5;
+        transform: translateX(0);
+        opacity: 0.5;
 
     }
-  }
-  
-  /* Apply the animations to the elements */
-  .slideInInfo {
+}
+
+/* Apply the animations to the elements */
+.slideInInfo {
     animation: slideInFromLeft 1s ease forwards;
-  }
-  
-  .slideInImages {
+}
+
+.slideInImages {
     animation: slideInFromRight 1s ease forwards;
-  }
-  
+}
+
 
 @media (max-width:786px) {
     .content-8-body {
         display: flex;
-        flex-direction: column;   
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         width: 90%;
         max-width: 1200px;
-        
+
     }
+
     .content-8-info {
         flex: 2;
         flex-direction: column;
@@ -2041,10 +2059,11 @@
         padding: 0 20px;
         max-width: 90%;
     }
+
     .content-8-images {
         flex: 1;
         display: flex;
-        flex-wrap:wrap;
+        flex-wrap: wrap;
         justify-content: space-between;
         align-items: center;
         padding: 0 10px;
@@ -2052,12 +2071,14 @@
         width: 90%;
         height: 400px;
     }
+
     .content-8-images div {
         margin-top: 40px;
         width: 48%;
         height: 100px;
-        background-color: #fff; /* Set your image background here */
-        border-radius:  0px;
+        background-color: #fff;
+        /* Set your image background here */
+        border-radius: 0px;
         /* Add background-image properties for your images here */
     }
 
@@ -2067,37 +2088,45 @@
         margin-left: 0 !important;
         padding-left: 0 !important;
         height: 70px !important;
-        background-image: url('./Resources/svg-images/partner1.jpeg'); /* URL to your image */
-        background-size: contain; /* Adjust to your preference */
+        background-image: url('./Resources/svg-images/partner1.jpeg');
+        /* URL to your image */
+        background-size: contain;
+        /* Adjust to your preference */
         background-repeat: no-repeat;
         mix-blend-mode: color-burn;
     }
-    
+
     .content-8-images-img2 {
         width: 80px;
         height: 80px;
-        background-image: url('./Resources/svg-images/partner2.avif'); /* URL to your image */
-        background-size: contain; /* Adjust to your preference */
+        background-image: url('./Resources/svg-images/partner2.avif');
+        /* URL to your image */
+        background-size: contain;
+        /* Adjust to your preference */
         background-repeat: no-repeat;
-        mix-blend-mode:multiply;
+        mix-blend-mode: multiply;
     }
-    
+
     .content-8-images-img3 {
-        background-image: url('./Resources/svg-images/partner3.avif'); /* URL to your image */
-        background-size: contain; /* Adjust to your preference */
+        background-image: url('./Resources/svg-images/partner3.avif');
+        /* URL to your image */
+        background-size: contain;
+        /* Adjust to your preference */
         background-repeat: no-repeat;
-        mix-blend-mode:darken;
-        
+        mix-blend-mode: darken;
+
     }
-    
+
     .content-8-images-img4 {
         width: 80px;
         height: 80px;
-        background-image: url('./Resources/svg-images/partner4.avif'); /* URL to your image */
-        background-size: contain; /* Adjust to your preference */
+        background-image: url('./Resources/svg-images/partner4.avif');
+        /* URL to your image */
+        background-size: contain;
+        /* Adjust to your preference */
         background-repeat: no-repeat;
         mix-blend-mode: color-burn;
-    
+
     }
 }
 
@@ -2384,7 +2413,7 @@ Carousel {
     opacity: 1;
 }
 
-.btn-modified{
+.btn-modified {
     width: 100px;
     height: 30px;
     padding: 0;
@@ -2395,8 +2424,8 @@ Carousel {
 
 /* Login page */
 
-  
-  .login-container {
+
+.login-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -2415,18 +2444,18 @@ Carousel {
     padding-right: 10px;
     height: 100%;
     overflow: hidden;
-  }
-  
-  .login-input {
+}
+
+.login-input {
     width: 80%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     outline: none;
-  }
-  
-  .send-otp-button {
+}
+
+.send-otp-button {
     background-color: #3498db;
     color: #fff;
     padding: 10px 20px;
@@ -2434,12 +2463,12 @@ Carousel {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  .send-otp-button:hover {
+}
+
+.send-otp-button:hover {
     background-color: #2573a7;
-  }
-  
-  .change-number{
+}
+
+.change-number {
     margin-top: 20px;
-  }
+}
