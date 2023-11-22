@@ -238,10 +238,10 @@ const HomePage = () => {
             { name: 'Professional 1', image: image1 },
             { name: 'Professional 2', image: image2 },
             { name: 'Professional 3', image: image3 },
-            { name: 'Professional 4', image: image4 },
-            { name: 'Professional 5', image: image5 },
-            { name: 'Professional 6', image: image6 },
-            { name: 'Professional 7', image: image7 },
+            // { name: 'Professional 4', image: image4 },
+            // { name: 'Professional 5', image: image5 },
+            // { name: 'Professional 6', image: image6 },
+            // { name: 'Professional 7', image: image7 },
         ];
 
         setProfessionals(defaultProfessionals);
