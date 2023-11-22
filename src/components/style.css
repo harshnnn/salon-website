@@ -253,7 +253,7 @@
     .content-1 {
         background-position: center center;
         background-image: url(./Resources//gallery/gallery-1-mobile.png);
-
+        height: 90vh;
     }
 
     .tagline {
@@ -350,6 +350,7 @@
     flex-direction: column;
     /* Stack children vertically */
     width: 100%;
+    height: 50px;
     /* Ensure children take full width */
 }
 
@@ -635,7 +636,7 @@
         position: fixed;
         width: 90%;
         left: 0%;
-        height: 100vh;
+        height: 100%;
     }
 
     .service-cards {
@@ -699,6 +700,15 @@
     animation: slideIn3 0.3s ease;
 
 }
+
+@media (max-width: 768px) {
+    .Add-on-div{
+        row-gap: 5px;
+        column-gap: 5px ;
+        height: 70vh;
+    }
+}
+
 
 @keyframes slideIn3 {
     from {
