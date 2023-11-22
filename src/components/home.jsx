@@ -6,6 +6,7 @@ import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
+import { IoIosArrowForward } from "react-icons/io";
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi';
@@ -14,9 +15,12 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
-import image1 from './Resources/proffessionals/proff1.jpg';
-import image2 from './Resources/proffessionals/proff2.jpg';
-import image3 from './Resources/proffessionals/proff3.jpg';
+import image1 from './Resources/proffessionals/proff2-1.jpg';
+import image2 from './Resources/proffessionals/proff2-2.jpg';
+import image3 from './Resources/proffessionals/proff2-3.jpg';
+//import image1 from './Resources/gallery/content2-1.jpg';
+//import image2 from './Resources/gallery/content2-2.jpg';
+//import image3 from './Resources/gallery/content2-3.jpg';
 import image4 from './Resources/proffessionals/proff4.jpg';
 import image5 from './Resources/proffessionals/proff5.jpg';
 import image6 from './Resources/proffessionals/proff6.jpg';
@@ -41,6 +45,8 @@ import partner3 from './Resources/svg-images/partner3.avif';
 import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
 import CustomCarousel from './content7'
+import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
+
 
 
 
@@ -253,59 +259,63 @@ const HomePage = () => {
 
     const defaultServiceData = [
         {
-            title: 'Haircut & Style', content:
+            title: 'Hair Services', content:
+
                 <>
+
+
                     <div className='service-card-1' >
-                        Women’s Haircut
-                        $85
+                        Haircut
+                        $25
                     </div>
 
                     <div className='service-card-1'  >
-                        Blowdry & Style
-                        $65
+                        Barber Cut
+                        $25
                     </div>
                     <div className='service-card-1'>
-                        Deep Conditioner
-                        $70
-                    </div>
-
-                    <div className='service-card-1'>
-                        Men’s Haircut
-                        $50
+                        Cut & Style
+                        $20
                     </div>
 
                     <div className='service-card-1'>
-                        Brazilian Blowout
-                        $75
+                        Shampoo Cut & Style
+                        $30
+                    </div>
+
+                    <div className='service-card-1'>
+                        Express Color(Toning, Gloss, Roots)
+                        $35
+                    </div>
+                    <div className='service-card-1'>
+                        Speciality Color
+                        $35
+                    </div>
+                    <div className='service-card-1'>
+                        Lightning Services
+                        $35
+                    </div>
+                    <div className='service-card-1'>
+                        Perms
+                        $35
+                    </div>
+                    <div className='service-card-1'>
+                        Shmapoo Style
+                        $20
                     </div>
                 </>
 
         },
         {
-            title: 'Hair Color', content:
+            title: 'Hair Removal', content:
                 <>
                     <div className='service-card-1'>
-                        Hair Color
-                        $65
+                        Threading
+                        $25
                     </div>
                     <div className='service-card-1'>
-                        Highlights
+                        Waxing
                         $35
-                    </div>
-
-                    <div className='service-card-1'>
-                        Balayage
-                        $45
-                    </div>
-
-                    <div className='service-card-1'>
-                        Color Correction
-                        $40
-                    </div>
-
-                    <div className='service-card-1'>
-                        Ombre
-                        $50
                     </div>
 
 
@@ -315,124 +325,133 @@ const HomePage = () => {
             title: 'Spa Facial', content:
                 <>
                     <div className='service-card-1'>
-                        Classic Spa Facial
-                        $15
-                    </div>
-
-                    <div className='service-card-1'>
-                        Anti-Aging Facial
-                        $20
-                    </div>
-
-                    <div className='service-card-1'>
-                        Hydrating Facial
+                        Express Facials
                         $30
                     </div>
 
                     <div className='service-card-1'>
-                        Acne Clearing Facial
-                        $40
+                        Papaya Facials
+                        $50
                     </div>
 
                     <div className='service-card-1'>
-                        Sensitive Skin Facial
-                        $45
-                    </div>
-
-                </>
-        },
-        {
-            title: 'Eyelashes Services',
-            content:
-                <>
-                    <div class='service-card-1'>
-                        Classic Eyelash Extensions
+                        Aleo & Cucumber
                         $50
                     </div>
 
-                    <div class='service-card-1'>
-                        Volume Eyelash Extensions
-                        $55
-                    </div>
-
-                    <div class='service-card-1'>
-                        Eyelash Lift & Tint
-                        $60
-                    </div>
-
-                    <div class='service-card-1'>
-                        Eyelash Extension Refill
-                        $65
-                    </div>
-
-                    <div class='service-card-1'>
-                        Lash Removal
-                        $70
-                    </div>
-
-
-                </>
-        },
-        {
-            title: 'Hair Removal', content:
-                <>
-                    <div class='service-card-1'>
-                        Waxing Services
-                        $70
-                    </div>
-
-                    <div class='service-card-1'>
-                        Threading
-                        $65
-                    </div>
-
-                    <div class='service-card-1'>
-                        Laser Hair Removal
-                        $60
-                    </div>
-
-                    <div class='service-card-1'>
-                        Bikini Wax
-                        $55
-                    </div>
-
-                    <div class='service-card-1'>
-                        Body Sugaring
+                    <div className='service-card-1'>
+                        Eng Rose
                         $50
                     </div>
 
+                    <div className='service-card-1'>
+                        Gold Facial
+                        $70
+                    </div>
+
+                    <div className='service-card-1'>
+                        Diamond
+                        $70
+                    </div>
+
+                    <div className='service-card-1'>
+                        Specialty Facials(Shehnaaz Hussein)
+                        $85
+                    </div>
                 </>
         },
-        {
-            title: 'Express Treatments', content:
-                <>
-                    <div class='service-card-1'>
-                        Express Facial
-                        $45
-                    </div>
+        // {
+        //     title: 'Eyelashes Services',
+        //     content:
+        //         <>
+        //             <div class='service-card-1'>
+        //                 Classic Eyelash Extensions
+        //                 $50
+        //             </div>
 
-                    <div class='service-card-1'>
-                        Mini Manicure
-                        $40
-                    </div>
+        //             <div class='service-card-1'>
+        //                 Volume Eyelash Extensions
+        //                 $55
+        //             </div>
 
-                    <div class='service-card-1'>
-                        Mini Pedicure
-                        $35
-                    </div>
+        //             <div class='service-card-1'>
+        //                 Eyelash Lift & Tint
+        //                 $60
+        //             </div>
 
-                    <div class='service-card-1'>
-                        Eyebrow Tinting
-                        $30
-                    </div>
+        //             <div class='service-card-1'>
+        //                 Eyelash Extension Refill
+        //                 $65
+        //             </div>
 
-                    <div class='service-card-1'>
-                        Lash Tinting
-                        $25
-                    </div>
+        //             <div class='service-card-1'>
+        //                 Lash Removal
+        //                 $70
+        //             </div>
 
-                </>
-        },
+
+        //         </>
+        // },
+        // {
+        //     title: 'Hair Removal', content:
+        //         <>
+        //             <div class='service-card-1'>
+        //                 Waxing Services
+        //                 $70
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Threading
+        //                 $65
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Laser Hair Removal
+        //                 $60
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Bikini Wax
+        //                 $55
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Body Sugaring
+        //                 $50
+        //             </div>
+
+        //         </>
+        // },
+        // {
+        //     title: 'Express Treatments', content:
+        //         <>
+        //             <div class='service-card-1'>
+        //                 Express Facial
+        //                 $45
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Mini Manicure
+        //                 $40
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Mini Pedicure
+        //                 $35
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Eyebrow Tinting
+        //                 $30
+        //             </div>
+
+        //             <div class='service-card-1'>
+        //                 Lash Tinting
+        //                 $25
+        //             </div>
+
+        //         </>
+        // },
 
         // ... other service data ...
     ];
@@ -475,7 +494,8 @@ const HomePage = () => {
 
 
 
-    const items = ['Haircut & Style',
+    const items = [
+        'Haircut & Style',
         'Hair Color',
         'Spa Facial',
         'Eylashes Services',
@@ -683,7 +703,27 @@ const HomePage = () => {
 
     const toggleBookingDiv = () => {
 
+
         setIsVisible(!isVisible);
+
+        //for mobile screen
+        if (!isVisible) {
+            for (let i = 2; i <= 9; i++) {
+                const contentElement = document.querySelector('.content-' + i);
+                contentElement.classList.add('responsive-class'); // No dot here
+            }
+
+            document.querySelector('.nav-div').classList.add('responsive-class'); // No dot here
+        }
+        if (isVisible) {
+            for (let i = 2; i <= 9; i++) {
+                const contentElement = document.querySelector('.content-' + i);
+                contentElement.classList.remove('responsive-class'); // No dot here
+            }
+
+            document.querySelector('.nav-div').classList.remove('responsive-class'); // No dot here
+        }
+
         setServiceCard(true); // Reset selected card when toggling
         setProffVisible(null); // Show the .cards div
 
@@ -820,7 +860,9 @@ const HomePage = () => {
 
 
     //for color toggle 
-    const addonCards = [1, 2, 3, 4, 5];
+    const addonCards = [
+        'Face Bleach', 'Derma Blade', 'Clay Mask', 'Extra Massage', 'Gua Sha 15 min Massage', 'Bleach Facial',
+    ];
 
     const [selectedAddon, setSelectedAddon] = useState([]);
 
@@ -1231,13 +1273,13 @@ const HomePage = () => {
         { image: image1, name: 'Image 1' },
         { image: image2, name: 'Image 2' },
         { image: image3, name: 'Image 3' },
-        { image: image4, name: 'Image 4' },
-        { image: image5, name: 'Image 5' },
-        { image: image6, name: 'Image 6' },
-        { image: image7, name: 'Image 7' },
-        { image: image8, name: 'Image 8' },
-        { image: image9, name: 'Image 9' },
-        { image: image10, name: 'Image 10' },
+        // { image: image4, name: 'Image 4' },
+        // { image: image5, name: 'Image 5' },
+        // { image: image6, name: 'Image 6' },
+        // { image: image7, name: 'Image 7' },
+        // { image: image8, name: 'Image 8' },
+        // { image: image9, name: 'Image 9' },
+        // { image: image10, name: 'Image 10' },
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -1371,7 +1413,7 @@ const HomePage = () => {
         <div className="gallery-item" data-value="3"><img src={gallery7} alt="gallery-image" /> </div>,
         <div className="gallery-item" data-value="4"><img src={gallery8} alt="gallery-image" /></div>,
         <div className="gallery-item" data-value="5"><img src={gallery9} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="5"><img src={gallery10}alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="5"><img src={gallery10} alt="gallery-image" /> </div>,
 
     ];
 
@@ -1461,7 +1503,7 @@ const HomePage = () => {
                         </div>
 
                         {isVisible && (
-                            <div id='parent-div' className={`animated-div scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
+                            <div id='parent-div' className={`animated-div  scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
                                 {/* booking header div */}
                                 <div className='header-container'>
                                     <div className='book-header'>
@@ -1503,20 +1545,28 @@ const HomePage = () => {
 
                                 {/* this div has all the service types listed*/}
                                 {serviceCard !== null && (
-                                    <div className='expanded-card scrollbar '>
+                                    <div className='expanded-card-1 scrollbar '>
                                         {/* <button className='close-btn ' onClick={closeselectedcard}>
                                             <AiOutlineClose className='close-icon' />
                                         </button> */}
-                                        <div className='service-cards'>
+                                        <div className='service-cards menu-1'>
                                             {serviceData.map((service, serviceindex) => (
                                                 <div
                                                     key={serviceindex}
-                                                    className={`service-card-1 ${selectedService === serviceindex ? 'selected' : ''
+                                                    className={` ${selectedService === serviceindex ? 'selected' : ''
                                                         } ${clickedServiceIndex === serviceindex ? 'clicked' : ''}`}
                                                     onClick={() => openServiceDetails(serviceindex)}
                                                 >
-                                                    <div>
-                                                        <p>{service.title}</p>
+                                                    <div className='sercice-card-name'>
+                                                        <div className='sercice-card-name-icon'>
+                                                            <div>{serviceindex === 0 ? <GiHairStrands /> : (serviceindex === 1 ? <GiRazor />
+                                                                : <GiCharcuterie />
+                                                            )} </div>
+                                                            <p>{service.title} </p>
+                                                        </div>
+
+                                                        <div><IoIosArrowForward />
+                                                        </div>
                                                     </div>
                                                 </div>
                                             ))}
@@ -1583,12 +1633,12 @@ const HomePage = () => {
 
                                             {addonCards.map(id => (
                                                 <div
-                                                    className="service-card-1"
+                                                    className="service-card-1 addons"
                                                     onClick={() => toggleSelectAddon(id)}
                                                     style={{ background: selectedAddon.includes(id) ? 'rgb(224, 224, 224)' : '' }}
                                                     key={id}
                                                 >
-                                                    Add on {id}
+                                                    {id}
                                                 </div>
                                             ))}
 
@@ -1821,7 +1871,7 @@ const HomePage = () => {
                                 customized to your specific needs.</p>
                         </div>
                     </div>
-                    <div className='card-4 card-right'>
+                    {/* <div className='card-4 card-right'>
                         <div className='card-info-right'>
                             <h4>Haircut & Style</h4>
                             <p>Our talented team of hair care experts deliver designer <br />
@@ -1847,11 +1897,20 @@ const HomePage = () => {
                                 customized to your specific needs.</p>
                         </div>
                         <div className='card-img'></div>
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
 
+
+
+            <div className="content-7" id='content7' ref={myDiv7Ref}>
+
+                <h1>Check Our Gallery</h1>
+
+                <CustomCarousel items={galleryItems} className="content-7-carousel" />
+
+            </div>
 
             <div className="content-3" id="content3" ref={myDivRef}>
                 <div className={`content-3-img ${isContent3Animated ? 'slideInLeft' : ''}`}></div>
@@ -1883,7 +1942,7 @@ const HomePage = () => {
                                 onMouseLeave={handleMouseLeave}
                                 onMouseEnter={handleHover}
                             >
-                                <img src={item.image} alt={`Image ${index + 1}`} />
+                                <img src={item.image} alt={`Image ${index + 1}`} className='carousel-img' />
                                 {currentIndex === index && (
                                     <div className="content">
                                         <p>{item.name}</p>
@@ -2013,13 +2072,6 @@ const HomePage = () => {
                 </AliceCarousel>
             </div>
 
-            <div className="content-7" id='content7' ref={myDiv7Ref}>
-
-                <h1>Check Our Gallery</h1>
-
-                <CustomCarousel items={galleryItems} className="content-7-carousel" />
-
-            </div>
 
             <div className="content-8" ref={myDiv8Ref}>
                 <h1>Our Partnership</h1>
