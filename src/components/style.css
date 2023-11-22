@@ -253,7 +253,7 @@
     .content-1 {
         background-position: center center;
         background-image: url(./Resources//gallery/gallery-1-mobile.png);
-        height: 90vh;
+        height: 80vh;
     }
 
     .tagline {
@@ -432,6 +432,7 @@
 
 .menu-1 {
     display: flex;
+    margin-top: 20px;
     flex-direction: column;
 }
 
@@ -466,7 +467,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 500px;
+    width: 90%;
     height: 50px;
     border-radius: 15px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -488,10 +489,10 @@
 
 }
 
-.sercice-card-name {
+.service-card-name {
     position: relative;
     display: flex;
-    width: 500px;
+    width: 90%;
     height: 50px;
     border-radius: 15px;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
@@ -502,14 +503,14 @@
     margin: 1px;
 }
 
-.sercice-card-name-icon {
+.service-card-name-icon {
     display: flex;
     align-items: center;
     margin-left: 10px;
     gap: 10px;
 }
 
-.sercice-card-name p {
+.service-card-name p {
     font-size: medium;
 }
 
@@ -546,7 +547,9 @@
     margin-top: auto;
     bottom: 0;
     padding: 20px;
+    /* margin-bottom: -63px; */
     margin-bottom: -20px;
+
 
 
     animation-name: slideUp;
@@ -559,6 +562,75 @@
     height: 8%;
     overflow: hidden;
 
+}
+
+/* Reset default list styles */
+.array-info {
+    list-style: none;
+    padding: 0;
+}
+
+/* Container for each list item */
+.array-info>div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Styling for the service name */
+.clicked-service-name {
+    font-weight: bold;
+    /* Other styling for service name */
+}
+
+/* Styling for the pricing */
+.pricing {
+    /* Styling for pricing */
+    color: #0a8c7d;
+    /* Example color for pricing */
+}
+
+/* Container for each selected addon */
+.selected-addon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    /* Adjust spacing between addons */
+}
+
+/* Styling for the delete button */
+.order-div-button {
+    background-color: #ff0000;
+    /* Example background color */
+    color: #fff;
+    /* Example text color */
+    border: none;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+
+
+/* Styling for the time */
+.proffname {
+    font-weight: bold;
+    /* Other styles for professional name */
+}
+
+/* Styling for the time */
+.selected-date-time {
+    /* Styles for time */
+    font-style: italic;
+}
+
+/* Styling for the total price */
+.total-price {
+    font-weight: bold;
+    /* Other styles for total price */
+    color: #333;
+    /* Example color for total price */
 }
 
 
@@ -656,8 +728,8 @@
         text-align: center;
     }
 
-    .sercice-card-name {
-        width: 85vw;
+    .service-card-name {
+        width: 85vw !important;
     }
 
     .service-price {
@@ -702,10 +774,10 @@
 }
 
 @media (max-width: 768px) {
-    .Add-on-div{
+    .Add-on-div {
         row-gap: 5px;
-        column-gap: 5px ;
-        height: 70vh;
+        column-gap: 5px;
+        height: 80vh;
     }
 }
 

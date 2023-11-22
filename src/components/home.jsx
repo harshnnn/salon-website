@@ -861,23 +861,69 @@ const HomePage = () => {
 
     //for color toggle 
     const addonCards = [
-        'Face Bleach', 'Derma Blade', 'Clay Mask', 'Extra Massage', 'Gua Sha 15 min Massage', 'Bleach Facial',
+        { name: 'Face Bleach', price: '$20' },
+        { name: 'Derma Blade', price: '$30' },
+        { name: 'Clay Mask', price: '$15' },
+        { name: 'Extra Massage', price: '$25' },
+        { name: 'Gua Sha 15 min Massage', price: '$35' },
+        { name: 'Bleach Facial', price: '$40' },
     ];
+
 
     const [selectedAddon, setSelectedAddon] = useState([]);
 
-    const toggleSelectAddon = (id) => {
+
+    //const [selectedAddon, setSelectedAddon] = useState([]);
+
+    const toggleSelectAddon = (name, price) => {
         setSelectedAddon(prev => {
-            if (prev.includes(id)) {
-                return prev.filter(x => x !== id);
+            const existingIndex = prev.findIndex(addon => addon.name === name);
+
+            if (existingIndex !== -1) {
+                // Remove the addon if already selected
+                const updatedAddons = [...prev.slice(0, existingIndex), ...prev.slice(existingIndex + 1)];
+                return updatedAddons;
             } else {
-                return [...prev, id];
+                // Add the addon with its name and price
+                const newAddon = { name, price };
+                return [...prev, newAddon];
             }
         });
+    };
 
-        // Log the selectedAddon array after updating
-        console.log("Selected Addons:", selectedAddon);
-    }
+    const handleAddonDelete = (name) => {
+        const updatedAddons = selectedAddon.filter(addon => addon.name !== name);
+        setSelectedAddon(updatedAddons);
+    };
+
+
+
+    // const toggleSelectAddon = (id) => {
+    //     setSelectedAddon(prev => {
+    //         if (prev.includes(id)) {
+    //             return prev.filter(x => x !== id);
+    //         } else {
+    //             return [...prev, id];
+    //         }
+    //     });
+
+    //     // Log the selectedAddon array after updating
+    //     console.log("Selected Addons:", selectedAddon);
+    // }
+
+
+
+    // const handleAddonDelete = (id) => {
+
+    //     const index = selectedAddon.indexOf(id);
+
+    //     const updatedAddons = [...selectedAddon];
+
+    //     updatedAddons.splice(index, 1);
+
+    //     setSelectedAddon(updatedAddons);
+
+    // }
 
     const closeSelectedAddon = () => {
         SetAddon(null);
@@ -885,20 +931,8 @@ const HomePage = () => {
         setBookingHeader('Choose Service');
     }
 
-    const handleAddonDelete = (id) => {
-
-        const index = selectedAddon.indexOf(id);
-
-        const updatedAddons = [...selectedAddon];
-
-        updatedAddons.splice(index, 1);
-
-        setSelectedAddon(updatedAddons);
-
-    }
-
     const OpenProfessional = () => {
-
+        // document.querySelector.clicked-div-content.classlist.add('handleclickeddivcontentheightor margin after this also a fun to remove the class when going back')
         if (!proffVisible) {
             setOrderbtn(true);
             setBookingDetail(true);
@@ -1093,6 +1127,11 @@ const HomePage = () => {
         } else {
             // Handle items without pricing (if needed)
         }
+        selectedAddon.forEach(addon => {
+            const addonPrice = parseFloat(addon.price.slice(1)); // Assuming addon price is in format '$X.XX'
+            selectedItems.push({ price: addonPrice });
+            totalPrice += addonPrice;
+        });
     });
 
     // Render the list of selected items
@@ -1557,8 +1596,8 @@ const HomePage = () => {
                                                         } ${clickedServiceIndex === serviceindex ? 'clicked' : ''}`}
                                                     onClick={() => openServiceDetails(serviceindex)}
                                                 >
-                                                    <div className='sercice-card-name'>
-                                                        <div className='sercice-card-name-icon'>
+                                                    <div className='service-card-name'>
+                                                        <div className='service-card-name-icon'>
                                                             <div>{serviceindex === 0 ? <GiHairStrands /> : (serviceindex === 1 ? <GiRazor />
                                                                 : <GiCharcuterie />
                                                             )} </div>
@@ -1631,16 +1670,19 @@ const HomePage = () => {
                                             </div>
 
 
-                                            {addonCards.map(id => (
+                                            {addonCards.map(addon => (
                                                 <div
                                                     className="service-card-1 addons"
-                                                    onClick={() => toggleSelectAddon(id)}
-                                                    style={{ background: selectedAddon.includes(id) ? 'rgb(224, 224, 224)' : '' }}
-                                                    key={id}
+                                                    onClick={() => toggleSelectAddon(addon.name, addon.price)}
+                                                    style={{ background: selectedAddon.some(selected => selected.name.toLowerCase() === addon.name.toLowerCase()) ? 'rgb(224, 224, 224)' : '' }}
+                                                    key={addon.name}
                                                 >
-                                                    {id}
+                                                    <span>{addon.name}</span>
+                                                    <span>{addon.price}</span>
                                                 </div>
                                             ))}
+
+
 
                                             <div onClick={OpenProfessional}></div>
                                         </div>
@@ -1744,7 +1786,7 @@ const HomePage = () => {
                                                     return (
                                                         <li key={index} className={item.type}>
                                                             <span className='clicked-service-name'>{parts[0]}</span>  <span className="pricing">{`$${parts[1]}`}</span>
-                                                            <button onClick={handleDelete}>Delete</button>
+                                                            <button onClick={handleDelete} className='order-div-button'>Delete</button>
                                                             {/* - Index: {item.index} */}
                                                         </li>
 
@@ -1754,23 +1796,32 @@ const HomePage = () => {
                                                         <li key={index} className={`item.type proffname`}>
                                                             {'By ' + item.value}
                                                             {/* - Index: {item.index} */}
+
                                                         </li>
                                                     );
                                                 }
 
                                             })}
+                                            <h2>Addons</h2>
 
-                                            {selectedAddon.map(id => (
+                                            {selectedAddon.map((addon, index) => (
+                                                <div key={index} className="selected-addon">
+                                                    <h3>{addon.name}</h3>
+                                                    <span>{addon.price}</span>
+                                                    <button onClick={() => handleAddonDelete(addon.name)} className='order-div-button'>Delete</button>
+                                                </div>
+                                            ))}
+
+                                            {/* {selectedAddon.map(id => (
 
                                                 <div key={id} className="selected-addon">
-                                                    Addon {id}
+                                                    <h3>{id.price}</h3>
 
-                                                    <button onClick={() => handleAddonDelete(id)}>Delete</button>
+                                                    <button onClick={() => handleAddonDelete(id)} className='order-div-button'>Delete</button>
 
                                                 </div>
 
-
-                                            ))}
+                                            ))} */}
 
                                             {isTimeSelected != null && (
                                                 <div className='selected-date-time content-3-style'>
@@ -1779,7 +1830,7 @@ const HomePage = () => {
                                                 </div>)
                                             }
 
-
+                                            
                                             <div className='total-price'>
                                                 {total}
                                             </div>
@@ -1790,10 +1841,10 @@ const HomePage = () => {
                                         {/* Display the total price in a separate div */}
 
                                     </ul>
-
+                                    {/* 
                                     {isTimeSelected == null && (
                                         <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
-                                    }
+                                    } */}
 
                                     {orderbtn !== null && (<button className="button-48" role="button" onClick={handleChooseTimeClick}>
 
