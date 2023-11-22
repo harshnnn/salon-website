@@ -523,9 +523,7 @@
     align-self: flex-end;
     font-size: large;
     font-weight: 700;
-    margin-bottom: 30px;
     border-radius: 5px;
-
 }
 
 
@@ -586,7 +584,9 @@
 /* Styling for the pricing */
 .pricing {
     /* Styling for pricing */
-    color: #0a8c7d;
+    color: black;
+    margin-left: auto;
+    margin-right: 10px;
     /* Example color for pricing */
 }
 
@@ -597,6 +597,10 @@
     align-items: center;
     margin-bottom: 8px;
     /* Adjust spacing between addons */
+}
+.addons{
+    display: flex;
+    align-items: center;
 }
 
 /* Styling for the delete button */
@@ -629,7 +633,7 @@
 .total-price {
     font-weight: bold;
     /* Other styles for total price */
-    color: #333;
+    color:black;
     /* Example color for total price */
 }
 
@@ -733,9 +737,10 @@
     }
 
     .service-price {
-        margin-left: 0;
         text-align: center;
-        margin-bottom: 10px;
+        margin: auto 0;
+        margin-left: auto;
+
     }
 
     .clicked-div-content {
@@ -814,8 +819,8 @@
 
 .pricing {
 
-    background-color: #84E1BC;
-    border-radius: 5%;
+    background-color: #84e1bcc2;
+    border-radius: 10%;
     padding: 1px;
     font-size: large;
     font-weight: 600;

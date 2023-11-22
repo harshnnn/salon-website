@@ -133,7 +133,7 @@ const HomePage = () => {
     }, [token]);
 
     const handleLoginClick = (OTP) => {
-        alert("it must open!!...")
+        alert("backend server down!!...")
         const parentDiv = document.getElementById('parent-div');
 
         // Create the container div
@@ -1677,8 +1677,8 @@ const HomePage = () => {
                                                     style={{ background: selectedAddon.some(selected => selected.name.toLowerCase() === addon.name.toLowerCase()) ? 'rgb(224, 224, 224)' : '' }}
                                                     key={addon.name}
                                                 >
-                                                    <span>{addon.name}</span>
-                                                    <span>{addon.price}</span>
+                                                    <span className='service-name'>{addon.name}</span>
+                                                    <span className='service-price'>{addon.price}</span>
                                                 </div>
                                             ))}
 
@@ -1785,7 +1785,7 @@ const HomePage = () => {
                                                 if (parts.length > 1) {
                                                     return (
                                                         <li key={index} className={item.type}>
-                                                            <span className='clicked-service-name'>{parts[0]}</span>  <span className="pricing">{`$${parts[1]}`}</span>
+                                                            <span className='content-3-style'>{parts[0]}</span>  <span className="pricing">{`$${parts[1]}`}</span>
                                                             <button onClick={handleDelete} className='order-div-button'>Delete</button>
                                                             {/* - Index: {item.index} */}
                                                         </li>
@@ -1805,9 +1805,9 @@ const HomePage = () => {
                                             <h2>Addons</h2>
 
                                             {selectedAddon.map((addon, index) => (
-                                                <div key={index} className="selected-addon">
-                                                    <h3>{addon.name}</h3>
-                                                    <span>{addon.price}</span>
+                                                <div key={index} className=" content-3-style">
+                                                    <span className='content-3-style'>{addon.name}</span>
+                                                    <span className='pricing'>{addon.price}</span>
                                                     <button onClick={() => handleAddonDelete(addon.name)} className='order-div-button'>Delete</button>
                                                 </div>
                                             ))}
