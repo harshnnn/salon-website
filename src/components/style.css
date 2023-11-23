@@ -1187,6 +1187,7 @@
 /* content-2 */
 .content-2 {
     background-color: #fff;
+
 }
 
 .content-2 h1 {
@@ -1257,6 +1258,7 @@
 .card-info-left {
     text-align: justify;
     font-size: 1.3em;
+    width: 40%;
 }
 
 .card-info-left h4 {
@@ -1270,6 +1272,8 @@
 .card-info-right {
     text-align: end;
     font-size: 1.3em;
+    width: 40%;
+
 }
 
 .card-info-right h4 {

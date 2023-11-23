@@ -362,103 +362,53 @@ const HomePage = () => {
                     </div>
                 </>
         },
-        // {
-        //     title: 'Eyelashes Services',
-        //     content:
-        //         <>
-        //             <div class='service-card-1'>
-        //                 Classic Eyelash Extensions
-        //                 $50
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Volume Eyelash Extensions
-        //                 $55
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Eyelash Lift & Tint
-        //                 $60
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Eyelash Extension Refill
-        //                 $65
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Lash Removal
-        //                 $70
-        //             </div>
 
 
-        //         </>
-        // },
-        // {
-        //     title: 'Hair Removal', content:
-        //         <>
-        //             <div class='service-card-1'>
-        //                 Waxing Services
-        //                 $70
-        //             </div>
 
-        //             <div class='service-card-1'>
-        //                 Threading
-        //                 $65
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Laser Hair Removal
-        //                 $60
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Bikini Wax
-        //                 $55
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Body Sugaring
-        //                 $50
-        //             </div>
-
-        //         </>
-        // },
-        // {
-        //     title: 'Express Treatments', content:
-        //         <>
-        //             <div class='service-card-1'>
-        //                 Express Facial
-        //                 $45
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Mini Manicure
-        //                 $40
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Mini Pedicure
-        //                 $35
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Eyebrow Tinting
-        //                 $30
-        //             </div>
-
-        //             <div class='service-card-1'>
-        //                 Lash Tinting
-        //                 $25
-        //             </div>
-
-        //         </>
-        // },
-
-        // ... other service data ...
     ];
 
     const [serviceData, setServiceData] = useState(defaultServiceData);
+
+    //fetching servicedata
+    useEffect(() => {
+        const fetchServiceData = async () => {
+            try {
+                // Fetching service titles from the first endpoint
+                const serviceTitlesResponse = await fetch('https://thorfinn.pythonanywhere.com/services/');
+                const serviceTitlesData = await serviceTitlesResponse.json();
+
+                // Fetching subservices for each title
+                const subservicesPromises = serviceTitlesData.map(async (service) => {
+                    const subservicesResponse = await fetch(`https://thorfinn.pythonanywhere.com/subservices/?service=${service.id}`);
+                    const subservicesData = await subservicesResponse.json();
+                    return {
+                        title: service.title,
+                        content: subservicesData.map((subservice) => (
+                            <div className='service-card-1' key={subservice.id}>
+                                {subservice.title}
+                                ${subservice.price}
+                            </div>
+                        )),
+                    };
+                });
+
+                // Resolve all promises for subservices
+                const resolvedSubservices = await Promise.all(subservicesPromises);
+
+                // Update serviceData state with the resolved data
+                setServiceData(resolvedSubservices);
+            } catch (error) {
+                console.error('Error fetching service data:', error);
+                // Set default data or handle error state
+                setServiceData([]);
+            }
+        };
+
+        fetchServiceData();
+    }, []);
+
+
+
 
     // // Function to fetch additional service data from the backend
     // async function fetchServiceDataFromBackend() {
@@ -502,7 +452,8 @@ const HomePage = () => {
         'Spa Facial',
         'Eylashes Services',
         'Hair Removal',
-        'Express Treatments'];
+        'Express Treatments'
+    ];
     const content = [
         <div className='list-1-detail'>
             <div className='detail-1'>
@@ -821,10 +772,17 @@ const HomePage = () => {
         // setMinimized(true);
 
         // const content3 = serviceName;
-        // alert(content3); // Log content3 to see its value
+
         if (true) {
             const content3 = index;
-            setClickedContents(prevContents => [...prevContents, { type: 'content-3-style', value: content3, index: prevContents.filter(item => item.type === 'content-3-style').length },]);
+            setClickedContents(
+                prevContents => [...prevContents,
+                {
+                    type: 'content-3-style', value: content3, index: prevContents.filter(
+                        item => item.type === 'content-3-style'
+                    ).length
+                },
+                ]);
         }
 
         // const content3 = serviceName; 
@@ -862,7 +820,7 @@ const HomePage = () => {
 
 
     //for color toggle 
-    const addonCards = [
+    const defaultaddonCards = [
         { name: 'Face Bleach', price: '$20' },
         { name: 'Derma Blade', price: '$30' },
         { name: 'Clay Mask', price: '$15' },
@@ -871,30 +829,52 @@ const HomePage = () => {
         { name: 'Bleach Facial', price: '$40' },
     ];
 
+    const [addonCards, setAddonCards] = useState([defaultaddonCards]);
+
+    useEffect(() => {
+        fetch('https://thorfinn.pythonanywhere.com/addons/')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Assuming data is an array of objects with name and price properties
+                setAddonCards(data);
+            })
+            .catch(error => {
+                console.error('There was an error fetching data:', error);
+            });
+    }, []); // Empty dependency array ensures this effect runs only once
+
+    // Rest of your component's logic
+
+
 
     const [selectedAddon, setSelectedAddon] = useState([]);
 
 
-    //const [selectedAddon, setSelectedAddon] = useState([]);
+    const toggleSelectAddon = (addon) => {
+        const existingIndex = selectedAddon.findIndex(selected => selected.title?.toLowerCase() === addon.title?.toLowerCase());
 
-    const toggleSelectAddon = (name, price) => {
-        setSelectedAddon(prev => {
-            const existingIndex = prev.findIndex(addon => addon.name === name);
-
-            if (existingIndex !== -1) {
-                // Remove the addon if already selected
-                const updatedAddons = [...prev.slice(0, existingIndex), ...prev.slice(existingIndex + 1)];
-                return updatedAddons;
-            } else {
-                // Add the addon with its name and price
-                const newAddon = { name, price };
-                return [...prev, newAddon];
-            }
-        });
+        if (existingIndex !== -1) {
+            // Remove the addon if already selected
+            const updatedAddons = [
+                ...selectedAddon.slice(0, existingIndex),
+                ...selectedAddon.slice(existingIndex + 1)
+            ];
+            setSelectedAddon(updatedAddons);
+        } else {
+            // Add the addon if not already selected
+            setSelectedAddon(prev => [...prev, addon]);
+        }
     };
 
-    const handleAddonDelete = (name) => {
-        const updatedAddons = selectedAddon.filter(addon => addon.name !== name);
+
+
+    const handleAddonDelete = (addon) => {
+        const updatedAddons = selectedAddon.filter(selected => selected.title !== addon.title);
         setSelectedAddon(updatedAddons);
     };
 
@@ -1109,46 +1089,56 @@ const HomePage = () => {
 
 
     //to store the total price
-    let totalPrice = 0;
-    const selectedItems = [];
-
-    // Loop through clickedContents and process each item
-    clickedContents.forEach((item, index) => {
-        // Split the content based on the '$' symbol
-        const parts = item.value.split('$');
-
-        // Check if there are multiple parts after splitting
-        if (parts.length > 1) {
-            const itemPrice = parseFloat(parts[1]);
-
-            // Add the item to the selectedItems array
-            selectedItems.push({ price: itemPrice });
-
-            // Add the item price to the total price
-            totalPrice += itemPrice;
-        } else {
-            // Handle items without pricing (if needed)
-        }
-        selectedAddon.forEach(addon => {
-            const addonPrice = parseFloat(addon.price.slice(1)); // Assuming addon price is in format '$X.XX'
-            selectedItems.push({ price: addonPrice });
-            totalPrice += addonPrice;
-        });
-    });
+    // let totalPrice = 0;
+    //const [totalPrice, setTotalPrice] = useState(0);
 
     // Render the list of selected items
-    const itemList = selectedItems.map((item, index) => (
-        <li key={index} >
-            <span className="pricing">{`$${item.price.toFixed(2)}`}</span>
-        </li>
-    ));
+    // const itemList = selectedItems.map((item, index) => (
+    //     <li key={index} >
+    //         <span className="pricing">{`$${item.price.toFixed(2)}`}</span>
+    //     </li>
+    // ));
 
-    // Render the total price separately
+    // // Render the total price separately
+    // const total = (
+    //     <div className="total-price">
+    //         Total Price: ${totalPrice.toFixed(2)}
+    //     </div>
+    // );
+
+    // Calculate total price based on clicked contents
+
+    // Function to calculate total price from clickedContents
+    // Function to calculate total price from clickedContents and selectedAddon
+    const calculateTotalPrice = () => {
+        const clickedContentsTotal = clickedContents.reduce((accumulator, content) => {
+            if (content.type === "content-3-style" && Array.isArray(content.value) && content.value.length >= 3) {
+                const itemPrice = parseFloat(content.value[2]); // Assuming price is at index 2
+                return accumulator + itemPrice;
+            }
+            return accumulator;
+        }, 0);
+
+        const addonTotal = selectedAddon.reduce((accumulator, addon) => {
+            const addonPrice = parseFloat(addon.price); // Assuming price starts with '$'
+            return accumulator + addonPrice;
+        }, 0);
+
+        return clickedContentsTotal + addonTotal;
+    };
+
+    // Use this function to get the total price
+    const totalPrice = calculateTotalPrice();
+
+    // Render the total price
     const total = (
         <div className="total-price">
             Total Price: ${totalPrice.toFixed(2)}
         </div>
     );
+
+
+
 
 
     //Storing the selected Time
@@ -1508,36 +1498,40 @@ const HomePage = () => {
                                         </button>
                                         {/* <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1> */}
                                         <div className='' style={{ color: 'black' }} >
-                                            {/* {serviceData[selectedService].content }  */}
 
                                             {serviceData.map((service, index) => (
                                                 serviceCardStates[index] && (
-                                                    <div key={index}>
+
+                                                    <div key={index} style={{ color: 'black' }} className="service-cards" >
                                                         <h3 style={{ color: 'black' }}>{service.title}</h3>
-                                                        <div style={{ color: 'black' }} className="service-cards">
-                                                            {service.content.props.children.map((child, i) => {
-                                                                const serviceName = child.props.children;
-                                                                const [beforeDollar, afterDollar] = serviceName.split('$');
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        className={`service-card-1 ${higlited === i ? 'selected' : ''}`}
-                                                                        onClick={() => openAddon(index, serviceName)}
-                                                                    >
-                                                                        <span className="service-name">{beforeDollar}</span>
-                                                                        <span className="service-price">${afterDollar}</span>
-                                                                    </div>
-                                                                );
-                                                            })}
-                                                        </div>
+
+                                                        {service.content && service.content.length > 0 ? (
+                                                            service.content.map((item, i) => (
+
+                                                                <div key={i} onClick={() => openAddon(index, item.props.children)} className={`service-card-1 ${higlited === i ? 'selected' : ''}`}>
+
+                                                                    <span className="service-name">{item.props.children[0]}</span>
+                                                                    <span className="service-price">${item.props.children[2]}</span>
+                                                                    {/* {item} */}
+                                                                    {/* {console.log(item.props.children)} */}
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <p>No content available</p>
+                                                        )}
                                                     </div>
                                                 )
                                             ))}
+
+
+
 
                                         </div>
                                     </div>
 
                                 )}
+
+
 
                                 {/* This div has all the add-on service cards  */}
                                 {
@@ -1550,18 +1544,36 @@ const HomePage = () => {
                                                 </button>
                                             </div>
 
-
+                                            {/* 
                                             {addonCards.map(addon => (
                                                 <div
                                                     className="service-card-1 addons"
-                                                    onClick={() => toggleSelectAddon(addon.name, addon.price)}
-                                                    style={{ background: selectedAddon.some(selected => selected.name.toLowerCase() === addon.name.toLowerCase()) ? 'rgb(224, 224, 224)' : '' }}
-                                                    key={addon.name}
+                                                    onClick={() => toggleSelectAddon(addon.title, addon.price)}
+                                                    style={{ background: selectedAddon.some(selected => selected.title.toLowerCase() === addon.title.toLowerCase()) ? 'rgb(224, 224, 224)' : '' }}
+                                                    key={addon.title}
                                                 >
-                                                    <span className='service-name'>{addon.name}</span>
+                                                    <span className='service-name'>{addon.title}</span>
                                                     <span className='service-price'>{addon.price}</span>
                                                 </div>
+                                            ))} */}
+                                            {addonCards.map(addon => (
+                                                <div
+                                                    className="service-card-1 addons"
+                                                    onClick={() => toggleSelectAddon(addon)}
+                                                    style={{
+                                                        background: selectedAddon.some(selected =>
+                                                            selected.title?.toLowerCase() === addon.title?.toLowerCase()
+                                                        )
+                                                            ? 'rgb(224, 224, 224)'
+                                                            : ''
+                                                    }}
+                                                    key={addon.title}
+                                                >
+                                                    <span className='service-name'>{addon.title || 'Title not available'}</span>
+                                                    <span className='service-price'>{addon.price || 'Price not available'}</span>
+                                                </div>
                                             ))}
+
 
 
 
@@ -1651,45 +1663,42 @@ const HomePage = () => {
                                         <div>
                                             {/* Render the contents of clickedContents */}
 
-                                            {clickedContents.map((item, index) => {
-                                                // Split the content based on the '$' symbol
-                                                const parts = item.value.split('$');
-
+                                            {clickedContents.map((content, index) => {
                                                 //delete function
                                                 const handleDelete = () => {
                                                     // Implement logic to remove the clicked item
                                                     const updatedContents = clickedContents.filter((_, i) => i !== index);
                                                     setClickedContents(updatedContents);
                                                 };
-
-                                                // Check if there are multiple parts after splitting
-                                                if (parts.length > 1) {
+                                                if (content.type === "content-3-style") {
                                                     return (
-                                                        <li key={index} className={item.type}>
-                                                            <span className='content-3-style'>{parts[0]}</span>  <span className="pricing">{`$${parts[1]}`}</span>
+
+                                                        <div key={index} className={content.type} >
+                                                            <span className='content-3-style'>{content.value[0]}</span>
+                                                            <span className="pricing">${content.value[2]}</span>
+                                                            {/* <p>{content.value}</p> */}
                                                             <button onClick={handleDelete} className='order-div-button'>Delete</button>
-                                                            {/* - Index: {item.index} */}
-                                                        </li>
 
-                                                    );
-                                                } else {
-                                                    return (
-                                                        <li key={index} className={`item.type proffname`}>
-                                                            {'By ' + item.value}
-                                                            {/* - Index: {item.index} */}
-
-                                                        </li>
-                                                    );
+                                                        </div>
+                                                    )
                                                 }
+                                                else {
+                                                    return (
+                                                        <li className={`content.type proffname`}>
+                                                            By: {content.value}
+                                                        </li>
+                                                    )
 
+                                                }
                                             })}
+
                                             <h2>Addons</h2>
 
                                             {selectedAddon.map((addon, index) => (
                                                 <div key={index} className=" content-3-style">
-                                                    <span className='content-3-style'>{addon.name}</span>
-                                                    <span className='pricing'>{addon.price}</span>
-                                                    <button onClick={() => handleAddonDelete(addon.name)} className='order-div-button'>Delete</button>
+                                                    <span className='content-3-style'>{addon.title}</span>
+                                                    <span className='pricing'>${addon.price}</span>
+                                                    <button onClick={() => handleAddonDelete(addon)} className='order-div-button'>Delete</button>
                                                 </div>
                                             ))}
 
@@ -1708,8 +1717,8 @@ const HomePage = () => {
 
 
 
+
                                         </div>
-                                        {/* Display the total price in a separate div */}
 
                                     </ul>
                                     {/* 
@@ -1769,18 +1778,22 @@ const HomePage = () => {
                     <div className='card-1 card-left'>
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h4>Haircut & Style</h4>
-                            <p>Our talented team of hair care experts deliver designer <br />
-                                cuts, treatments, and styling services that are <br />
-                                customized to your specific needs.</p>
+                            <h4>Hair Services</h4>
+                            <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong> elevates the art of hairstyling to new heights. With a collective passion for innovation and a commitment to excellence, our specialists are devoted to curating an exceptional experience for each client.</p>
+
+                            <p>Through years of honing their craft, our experts have mastered the intricate details of hairstyling. Their keen eye for trends and unwavering dedication to continual learning ensure that you receive not just a service, but a personalized journey towards your perfect look.</p>
+
+                            <p>From the moment you sit in our chairs, expect more than a simple haircut or color treatment. Our professionals engage in thoughtful consultations, taking the time to understand your preferences, lifestyle, and personality. This thorough understanding enables them to tailor their expertise to your unique needs.</p>
+
+                            <p>Our comprehensive range of services encompasses:</p>
+
                         </div>
                     </div>
                     <div className='card-2 card-right'>
                         <div className='card-info-right'>
-                            <h4>Haircut & Style</h4>
-                            <p>Our talented team of hair care experts deliver designer <br />
-                                cuts, treatments, and styling services that are <br />
-                                customized to your specific needs.</p>
+                            <h4>Hair Services</h4>
+                            <p><strong>Our highly skilled team of hair care experts</strong> <br /> is dedicated to delivering top-notch designer cuts, <br /> specialized treatments, and personalized styling services tailored <br /> precisely to meet your individual needs.</p>
+
                         </div>
                         <div className='card-img'></div>
                     </div>
@@ -1824,7 +1837,7 @@ const HomePage = () => {
             <div className="content-4">
                 <h1>Our Talanted Staff</h1>
 
-                <ProfessionalCarousel items={ProffesonalsData} className="content-7-carousel"/>
+                <ProfessionalCarousel items={ProffesonalsData} className="content-7-carousel" />
 
             </div>
 
