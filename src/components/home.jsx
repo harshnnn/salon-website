@@ -46,6 +46,8 @@ import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
 import CustomCarousel from './content7'
 import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
+import ProfessionalCarousel from './content4';
+
 
 
 
@@ -1308,128 +1310,13 @@ const HomePage = () => {
     // For Content 4
 
     //carusel
-    const cardData = [
-        { image: image1, name: 'Image 1' },
-        { image: image2, name: 'Image 2' },
-        { image: image3, name: 'Image 3' },
-        // { image: image4, name: 'Image 4' },
-        // { image: image5, name: 'Image 5' },
-        // { image: image6, name: 'Image 6' },
-        // { image: image7, name: 'Image 7' },
-        // { image: image8, name: 'Image 8' },
-        // { image: image9, name: 'Image 9' },
-        // { image: image10, name: 'Image 10' },
+    const ProffesonalsData = [
+        <div className="gallery-item" data-value="1"><img src={image1} alt="gallery-image" /></div>,
+        <div className="gallery-item" data-value="2"><img src={image2} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={image3} alt="gallery-image" /> </div>,
+
     ];
 
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const activeCardRef = useRef(null);
-
-    const handlePrevClick = () => {
-        setCurrentIndex((currentIndex - 1 + cardData.length) % cardData.length);
-    };
-
-    const handleNextClick = () => {
-        setCurrentIndex((currentIndex + 1) % cardData.length);
-    };
-
-    const handleHover = () => {
-
-        const body = document.body;
-        body.style.overflowY = 'hidden'; // Disable vertical scrolling
-
-    }
-
-    const handleMouseLeave = () => {
-
-        const body = document.body;
-        body.style.overflow = 'auto';
-
-    }
-
-
-    // Add event listener to the window to enable scrolling when the mouse leaves the carousel
-
-
-
-    useEffect(() => {
-        if (activeCardRef.current && currentIndex !== 0) {  //To prevent this behavior, you can use a conditional check to ensure that scrollIntoView is only called when necessary
-            activeCardRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center',
-                inline: 'center',
-            });
-        }
-    }, [currentIndex]);
-
-
-
-    useEffect(() => {
-        const carouselContainer = document.querySelector('.carousel');
-        let isScrolling = false;
-        let touchStartX = null;
-        let touchEndX = null;
-
-        const handleTouchStart = (event) => {
-            touchStartX = event.touches[0].clientX;
-        };
-
-        const handleTouchEnd = (event) => {
-
-            touchEndX = event.changedTouches[0].clientX;
-            const swipeDistance = touchEndX - touchStartX;
-
-            if (swipeDistance > 30) {
-
-                // Right swipe
-                handlePrevClick();
-            } else if (swipeDistance < -30) {
-                // Left swipe
-
-                handleNextClick();
-            }
-        };
-
-        const handleWheelScroll = (event) => {
-            if (isScrolling) return;
-
-            if (event.deltaY > 40) {
-                isScrolling = true;
-                setTimeout(() => {
-                    handleNextClick(); // Scroll down, go to the next card
-                    isScrolling = false;
-                }, 500); // Adjust the delay time (in milliseconds) as needed
-            } else if (event.deltaY < -40) {
-                isScrolling = true;
-                setTimeout(() => {
-                    handlePrevClick(); // Scroll up, go to the previous card
-                    isScrolling = false;
-                }, 500); // Adjust the delay time (in milliseconds) as needed
-            }
-        };
-
-        const handleKeyDown = (event) => {
-            if (event.key === 'ArrowLeft') {
-                handlePrevClick(); // Left arrow key
-            } else if (event.key === 'ArrowRight') {
-                handleNextClick(); // Right arrow key
-            }
-        };
-
-        if (carouselContainer) {
-            carouselContainer.addEventListener('wheel', handleWheelScroll, { passive: true });
-            window.addEventListener('keydown', handleKeyDown); // Listen for keydown events
-            carouselContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
-            carouselContainer.addEventListener('touchend', handleTouchEnd);
-
-            return () => {
-                carouselContainer.removeEventListener('wheel', handleWheelScroll);
-                window.removeEventListener('keydown', handleKeyDown); // Remove the event listener
-                carouselContainer.removeEventListener('touchstart', handleTouchStart);
-                carouselContainer.removeEventListener('touchend', handleTouchEnd);
-
-            };
-        }
-    }, [currentIndex]);
 
 
 
@@ -1656,12 +1543,6 @@ const HomePage = () => {
                                 {
                                     isAddon !== null && (
                                         <div className='Add-on-div scrollbar'>
-                                            {/* 
-                                            <div className="service-card-1" onClick={toggleAddon} >Add on 1</div>
-                                            <div className="service-card-1" onClick={toggleAddon} >Add on 2</div>
-                                            <div className="service-card-1" onClick={toggleAddon} >Add on 3</div>
-                                            <div className="service-card-1" onClick={toggleAddon} >Add on 4</div>
-                                            <div className="service-card-1" onClick={toggleAddon} >Add on 5</div> */}
 
                                             <div style={{ display: 'block', width: '100%' }}>
                                                 <button className='close-btn' onClick={closeSelectedAddon} >
@@ -1812,16 +1693,6 @@ const HomePage = () => {
                                                 </div>
                                             ))}
 
-                                            {/* {selectedAddon.map(id => (
-
-                                                <div key={id} className="selected-addon">
-                                                    <h3>{id.price}</h3>
-
-                                                    <button onClick={() => handleAddonDelete(id)} className='order-div-button'>Delete</button>
-
-                                                </div>
-
-                                            ))} */}
 
                                             {isTimeSelected != null && (
                                                 <div className='selected-date-time content-3-style'>
@@ -1830,7 +1701,7 @@ const HomePage = () => {
                                                 </div>)
                                             }
 
-                                            
+
                                             <div className='total-price'>
                                                 {total}
                                             </div>
@@ -1922,33 +1793,7 @@ const HomePage = () => {
                                 customized to your specific needs.</p>
                         </div>
                     </div>
-                    {/* <div className='card-4 card-right'>
-                        <div className='card-info-right'>
-                            <h4>Haircut & Style</h4>
-                            <p>Our talented team of hair care experts deliver designer <br />
-                                cuts, treatments, and styling services that are <br />
-                                customized to your specific needs.</p>
-                        </div>
-                        <div className='card-img'></div>
-                    </div>
-                    <div className='card-5 card-left'>
-                        <div className='card-img'></div>
-                        <div className='card-info-left'>
-                            <h4>Haircut & Style</h4>
-                            <p>Our talented team of hair care experts deliver designer <br />
-                                cuts, treatments, and styling services that are <br />
-                                customized to your specific needs.</p>
-                        </div>
-                    </div>
-                    <div className='card-6 card-right'>
-                        <div className='card-info-right'>
-                            <h4>Haircut & Style</h4>
-                            <p>Our talented team of hair care experts deliver designer <br />
-                                cuts, treatments, and styling services that are <br />
-                                customized to your specific needs.</p>
-                        </div>
-                        <div className='card-img'></div>
-                    </div> */}
+
                 </div>
 
             </div>
@@ -1979,36 +1824,7 @@ const HomePage = () => {
             <div className="content-4">
                 <h1>Our Talanted Staff</h1>
 
-                <div className="carousel-container" >
-                    <button className="prev-button" onClick={handlePrevClick}>
-                        <BiSolidChevronLeft />
-                    </button>
-                    <div className="carousel">
-                        <div className="carousel-card empty"><img src={image11} alt="Image Description" /></div>
-                        {cardData.map((item, index) => (
-                            <div
-                                className={`carousel-card ${currentIndex === index ? 'active' : ''}`}
-                                key={index}
-                                ref={currentIndex === index ? activeCardRef : null}
-                                onMouseLeave={handleMouseLeave}
-                                onMouseEnter={handleHover}
-                            >
-                                <img src={item.image} alt={`Image ${index + 1}`} className='carousel-img' />
-                                {currentIndex === index && (
-                                    <div className="content">
-                                        <p>{item.name}</p>
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                        <div className="carousel-card empty">
-                            <img src={image1} alt="Image Description" />
-                        </div>
-                    </div>
-                    <button className="next-button" onClick={handleNextClick}>
-                        <BiSolidChevronRight />
-                    </button>
-                </div>
+                <ProfessionalCarousel items={ProffesonalsData} className="content-7-carousel"/>
 
             </div>
 
