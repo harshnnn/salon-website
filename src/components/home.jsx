@@ -1,7 +1,7 @@
 import React, { Component, useState, useRef, useEffect } from 'react';
 import './style.css'
 import Navbar from './navbar';
-import { AiOutlineArrowLeft, AiOutlineArrowRight, AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
+import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
@@ -9,7 +9,6 @@ import { IoCallOutline } from 'react-icons/io5';
 import { IoIosArrowForward } from "react-icons/io";
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
-import { BiSolidChevronLeft, BiSolidChevronRight } from 'react-icons/bi';
 import { TiTick } from 'react-icons/ti'
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -18,17 +17,6 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import image1 from './Resources/proffessionals/proff2-1.jpg';
 import image2 from './Resources/proffessionals/proff2-2.jpg';
 import image3 from './Resources/proffessionals/proff2-3.jpg';
-//import image1 from './Resources/gallery/content2-1.jpg';
-//import image2 from './Resources/gallery/content2-2.jpg';
-//import image3 from './Resources/gallery/content2-3.jpg';
-import image4 from './Resources/proffessionals/proff4.jpg';
-import image5 from './Resources/proffessionals/proff5.jpg';
-import image6 from './Resources/proffessionals/proff6.jpg';
-import image7 from './Resources/proffessionals/proff7.jpg';
-import image8 from './Resources/proffessionals/proff8.jpg';
-import image9 from './Resources/proffessionals/proff9.jpg';
-import image10 from './Resources/proffessionals/proff10.jpg';
-import image11 from './Resources/proffessionals/Yvonne-Brown-Colorist.jpg';
 import gallery1 from './Resources/gallery/gallery-1.jpg'
 import gallery2 from './Resources/gallery/gallery-2.jpg'
 import gallery3 from './Resources/gallery/gallery-3.jpg'
@@ -39,10 +27,6 @@ import gallery7 from './Resources/gallery/gallery-7.jpg'
 import gallery8 from './Resources/gallery/gallery-8.jpg'
 import gallery9 from './Resources/gallery/gallery-9.jpg'
 import gallery10 from './Resources/gallery/gallery-10.jpg'
-import partner1 from './Resources/svg-images/partner1.jpeg';
-import partner2 from './Resources/svg-images/partner2.avif';
-import partner3 from './Resources/svg-images/partner3.avif';
-import partner4 from './Resources/svg-images/partner4.avif';
 import axios from 'axios';
 import CustomCarousel from './content7'
 import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
@@ -381,6 +365,8 @@ const HomePage = () => {
                 const subservicesPromises = serviceTitlesData.map(async (service) => {
                     const subservicesResponse = await fetch(`https://thorfinn.pythonanywhere.com/subservices/?service=${service.id}`);
                     const subservicesData = await subservicesResponse.json();
+
+              
                     return {
                         title: service.title,
                         content: subservicesData.map((subservice) => (
@@ -406,45 +392,6 @@ const HomePage = () => {
 
         fetchServiceData();
     }, []);
-
-
-
-
-    // // Function to fetch additional service data from the backend
-    // async function fetchServiceDataFromBackend() {
-    //     try {
-    //         const response = await fetch('/api/services'); // Replace with your actual backend API endpoint
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //         }
-    //         const data = await response.json();
-    //         return data; // Assuming the data is an array of new service objects
-    //     } catch (error) {
-    //         console.error('Error fetching service data:', error);
-    //         return []; // Return an empty array or handle the error as needed
-    //     }
-    // }
-
-    // // Function to update the serviceData array with new data
-    // async function updateServiceData() {
-    //     const newServiceData = await fetchServiceDataFromBackend();
-    //     if (newServiceData.length > 0) {
-    //         // Merge or append the new data to the existing array
-    //         const updatedServiceData = [...serviceData, ...newServiceData];
-    //         // Update the state or variable holding your service data
-    //         setServiceData(updatedServiceData); // If using React state
-    //         // Alternatively, assign the updated data to your existing array
-    //         // serviceData = updatedServiceData;
-    //     }
-    // }
-
-    // // Call the updateServiceData function to fetch and update data when needed
-    // useEffect(() => {
-    //     updateServiceData();
-    // }, []); // Empty dependency array ensures it runs only once on component mount
-
-
-
 
     const items = [
         'Haircut & Style',
@@ -748,9 +695,10 @@ const HomePage = () => {
 
 
     const closeSelectedService = () => {
+        
         sethighlited(null);
         //to get back
-        setBookingDetail(false);//last
+        setBookingDetail(false);//lastDD
         setSelectedService(null);
 
         setServiceCard(true);
@@ -759,7 +707,7 @@ const HomePage = () => {
 
 
     //click of the service subtype (service subtype + price div)
-    const openAddon = (serviceName, index) => {
+    const openAddon = (serviceName, index, id) => {
         setBookingDetail(true);
 
         // setBookingDetail(true); //target
@@ -774,49 +722,27 @@ const HomePage = () => {
         // const content3 = serviceName;
 
         if (true) {
+            const subserviceId = id;
             const content3 = index;
             setClickedContents(
                 prevContents => [...prevContents,
                 {
-                    type: 'content-3-style', value: content3, index: prevContents.filter(
+                    type: 'content-3-style', value: content3,id:subserviceId, index: prevContents.filter(
                         item => item.type === 'content-3-style'
                     ).length
                 },
                 ]);
         }
 
-        // const content3 = serviceName; 
-        // setClickedContents(prevContents => [
-        //     ...prevContents,
-        //     {
-        //         type: 'content-3-style',
-        //         value: content3,
-        //         index: prevContents.filter(item => item.type === 'content-3-style').length,
-        //     },
-        // ]);
 
-        // alert(serviceName);
         sethighlited(index);
-        // setselectedServiceCard2(index);
+
         //if any div is highlited then setting the selected item list div to maximized
         if (higlited) {
             setMinimized(false);
         }
 
-
-        //for dynamically adding 
-
     };
-
-    //For add-on cards click 
-    // const [isAddonSelected,SetAddonSelected] = useState(false);
-    // const toggleAddon = () =>{
-    //     SetAddonSelected(!isAddonSelected);
-    //     if(isAddonSelected){
-    //         alert('selected');
-    //     }
-    // }
-
 
 
     //for color toggle 
@@ -877,35 +803,6 @@ const HomePage = () => {
         const updatedAddons = selectedAddon.filter(selected => selected.title !== addon.title);
         setSelectedAddon(updatedAddons);
     };
-
-
-
-    // const toggleSelectAddon = (id) => {
-    //     setSelectedAddon(prev => {
-    //         if (prev.includes(id)) {
-    //             return prev.filter(x => x !== id);
-    //         } else {
-    //             return [...prev, id];
-    //         }
-    //     });
-
-    //     // Log the selectedAddon array after updating
-    //     console.log("Selected Addons:", selectedAddon);
-    // }
-
-
-
-    // const handleAddonDelete = (id) => {
-
-    //     const index = selectedAddon.indexOf(id);
-
-    //     const updatedAddons = [...selectedAddon];
-
-    //     updatedAddons.splice(index, 1);
-
-    //     setSelectedAddon(updatedAddons);
-
-    // }
 
     const closeSelectedAddon = () => {
         SetAddon(null);
@@ -1086,29 +983,6 @@ const HomePage = () => {
     }
 
 
-
-
-    //to store the total price
-    // let totalPrice = 0;
-    //const [totalPrice, setTotalPrice] = useState(0);
-
-    // Render the list of selected items
-    // const itemList = selectedItems.map((item, index) => (
-    //     <li key={index} >
-    //         <span className="pricing">{`$${item.price.toFixed(2)}`}</span>
-    //     </li>
-    // ));
-
-    // // Render the total price separately
-    // const total = (
-    //     <div className="total-price">
-    //         Total Price: ${totalPrice.toFixed(2)}
-    //     </div>
-    // );
-
-    // Calculate total price based on clicked contents
-
-    // Function to calculate total price from clickedContents
     // Function to calculate total price from clickedContents and selectedAddon
     const calculateTotalPrice = () => {
         const clickedContentsTotal = clickedContents.reduce((accumulator, content) => {
@@ -1136,10 +1010,6 @@ const HomePage = () => {
             Total Price: ${totalPrice.toFixed(2)}
         </div>
     );
-
-
-
-
 
     //Storing the selected Time
     const [isTimeSelected, setIsTimeSelected] = useState(null);
@@ -1508,8 +1378,8 @@ const HomePage = () => {
                                                         {service.content && service.content.length > 0 ? (
                                                             service.content.map((item, i) => (
 
-                                                                <div key={i} onClick={() => openAddon(index, item.props.children)} className={`service-card-1 ${higlited === i ? 'selected' : ''}`}>
-
+                                                                <div key={i} onClick={() => openAddon(index, item.props.children, item.key)} className={`service-card-1 ${higlited === i ? 'selected' : ''}`}>
+                                                                    
                                                                     <span className="service-name">{item.props.children[0]}</span>
                                                                     <span className="service-price">${item.props.children[2]}</span>
                                                                     {/* {item} */}
@@ -1674,6 +1544,7 @@ const HomePage = () => {
                                                     return (
 
                                                         <div key={index} className={content.type} >
+                                                            
                                                             <span className='content-3-style'>{content.value[0]}</span>
                                                             <span className="pricing">${content.value[2]}</span>
                                                             {/* <p>{content.value}</p> */}

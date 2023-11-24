@@ -2183,3 +2183,54 @@ const HomePage = () => {
 
 
 export default HomePage;
+
+
+
+const openAddon = (serviceName, index) => {
+        setBookingDetail(true);
+
+        // setBookingDetail(true); //target
+        //changes made here on 13-11-23
+        setProffVisible(null);
+        setSelectedService(null);
+        setServiceCard(null);
+        SetAddon(true);
+        setBookingHeader("Choose Addons");
+        // setMinimized(true);
+
+        // const content3 = serviceName;
+
+        if (true) {
+            const content3 = index;
+            setClickedContents(
+                prevContents => [...prevContents,
+                {
+                    type: 'content-3-style', value: content3, index: prevContents.filter(
+                        item => item.type === 'content-3-style'
+                    ).length
+                },
+                ]);
+        }
+
+        // const content3 = serviceName; 
+        // setClickedContents(prevContents => [
+        //     ...prevContents,
+        //     {
+        //         type: 'content-3-style',
+        //         value: content3,
+        //         index: prevContents.filter(item => item.type === 'content-3-style').length,
+        //     },
+        // ]);
+
+        // alert(serviceName);
+        sethighlited(index);
+        // setselectedServiceCard2(index);
+        //if any div is highlited then setting the selected item list div to maximized
+        if (higlited) {
+            setMinimized(false);
+        }
+
+
+        //for dynamically adding 
+
+    };
