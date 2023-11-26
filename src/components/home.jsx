@@ -36,6 +36,7 @@ import ProfessionalCarousel from './content4';
 
 
 
+
 const HomePage = () => {
 
 
@@ -219,28 +220,16 @@ const HomePage = () => {
     const [professionals, setProfessionals] = useState([]);
 
     useEffect(() => {
-        // Initialize with default professionals
-        const defaultProfessionals = [
-            { name: 'Professional 1', image: image1 },
-            { name: 'Professional 2', image: image2 },
-            { name: 'Professional 3', image: image3 },
-            // { name: 'Professional 4', image: image4 },
-            // { name: 'Professional 5', image: image5 },
-            // { name: 'Professional 6', image: image6 },
-            // { name: 'Professional 7', image: image7 },
-        ];
-
-        setProfessionals(defaultProfessionals);
-
-        // // Fetch additional professionals from the backend API and append to the state
-        // fetch('/api/professionals')
-        //     .then(response => response.json())
-        //     .then(data => {
-        //         // Append the fetched professionals to the existing state
-        //         setProfessionals(prevProfessionals => [...prevProfessionals, ...data]);
-        //     })
-        //     .catch(error => console.error('Error fetching data:', error));
+        // Fetch additional professionals from the backend API and append to the state
+        fetch('https://thorfinn.pythonanywhere.com/professionals/')
+            .then(response => response.json())
+            .then(data => {
+                // Update state with fetched professionals
+                setProfessionals(data);
+            })
+            .catch(error => console.error('Error fetching data:', error));
     }, []);
+
 
 
     const defaultServiceData = [
@@ -366,7 +355,7 @@ const HomePage = () => {
                     const subservicesResponse = await fetch(`https://thorfinn.pythonanywhere.com/subservices/?service=${service.id}`);
                     const subservicesData = await subservicesResponse.json();
 
-              
+
                     return {
                         title: service.title,
                         content: subservicesData.map((subservice) => (
@@ -632,7 +621,7 @@ const HomePage = () => {
 
         setBookingHeader("Choose a service")
     };
-    const openCardDetails = (cardIndex) => {
+    const openCardDetails = (cardIndex, professional) => {
         //setServiceCard(cardIndex);
         setProffVisible(null); // Hide the .cards div
         setMinimized(true);
@@ -641,14 +630,32 @@ const HomePage = () => {
         setIsChooseTImeClicked(true);
 
         //pushing the professional name
+        // if (clickedDiv) {
+        //     alert(professional)
+        //     const contentElement = clickedDiv.querySelector('p');
+        //     if (contentElement) {
+        //         const content1 = contentElement.textContent;
+        //         setClickedContents(prevContents => [...prevContents, { type: 'content-1-style', value: content1, index: prevContents.filter(item => item.type === 'content-1-style').length },]);
+        //     }
+        // }
         const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
-        if (clickedDiv) {
-            const contentElement = clickedDiv.querySelector('p');
-            if (contentElement) {
-                const content1 = contentElement.textContent;
-                setClickedContents(prevContents => [...prevContents, { type: 'content-1-style', value: content1, index: prevContents.filter(item => item.type === 'content-1-style').length },]);
-            }
+        const contentElement = clickedDiv.querySelector('p');
+
+        if (contentElement && professional) {
+            const professionalId = professional.id;
+            const professionalName = professional.user;
+
+            setClickedContents(prevContents => [
+                ...prevContents,
+                {
+                    type: 'content-1-style',
+                    id: professionalId,
+                    value: professionalName,
+                    index: prevContents.filter(item => item.type === 'content-1-style').length,
+                },
+            ]);
         }
+
     };
 
 
@@ -695,7 +702,7 @@ const HomePage = () => {
 
 
     const closeSelectedService = () => {
-        
+
         sethighlited(null);
         //to get back
         setBookingDetail(false);//lastDD
@@ -727,7 +734,7 @@ const HomePage = () => {
             setClickedContents(
                 prevContents => [...prevContents,
                 {
-                    type: 'content-3-style', value: content3,id:subserviceId, index: prevContents.filter(
+                    type: 'content-3-style', value: content3, id: subserviceId, index: prevContents.filter(
                         item => item.type === 'content-3-style'
                     ).length
                 },
@@ -1021,13 +1028,116 @@ const HomePage = () => {
     const [date, setDate] = useState(new Date()); // Initialize with today's date
     const [showTimeSlots1, setShowTimeSlots1] = useState(null);
     const [showTimeSlots2, setShowTimeSlots2] = useState(null);
+    const [slotsData, setSlotsData] = useState(null);
     const today = new Date();
+    const [timesForToday, setTimesForToday] = useState([]);
 
+    useEffect(() => {
+        // This function will run whenever timesForToday changes
+        // You can perform any side effects here that rely on timesForToday's updated value
+        console.log('timesForToday has changed:', timesForToday);
+        addHighlightClass();
+
+        // timeSlots1.forEach(timeSlot => {
+        //     if (timesForToday.includes(timeSlot.time24)) {
+        //         console.log(`timeSlot.time24 ${timeSlot.time24} is included in timesForToday`);
+        //         // You can perform additional actions here if needed
+
+        //     }
+        // });
+
+        // timeSlots2.forEach(timeSlot => {
+        //     if (timesForToday.includes(timeSlot.time24)) {
+        //         console.log(`timeSlot.time24 ${timeSlot.time24} is included in timesForToday`);
+        //         // You can perform additional actions here if needed
+
+        //     }
+        // });
+
+    }, [timesForToday]);
+
+    const addHighlightClass = () => {
+        const elements = document.querySelectorAll('.time-slot-card');
+        elements.forEach((element) => {
+            const time24 = element.getAttribute('data-time24');
+            if (timesForToday.includes(time24)) {
+                element.classList.add('highlighted-time-slot');
+                // const clonedElement = element.cloneNode(true);
+                // element.parentNode.replaceChild(clonedElement, element);
+            } else {
+                element.classList.remove('highlighted-time-slot');
+                element.disabled = false;
+            
+            }
+        });
+    };
 
     const handleDateChange = (newDate) => {
         setDate(newDate);
+        //console.log(clickedContents);
+        const selectedProfessional = clickedContents[1];
+
+        if (selectedProfessional) {
+            const professionalId = selectedProfessional.id; // Assuming the professional ID is available in selectedProfessional
+
+            // Make a request to fetch slots for the selected professional and date
+            fetch(`https://thorfinn.pythonanywhere.com/slots/?professional=${professionalId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(slotsData => {
+                    // Handle slots data here, for example, update state or perform any necessary operations
+                   // console.log('Slots Data:', slotsData);
+                    // Set the received slots data to a state variable, if needed
+                    setSlotsData(slotsData);
+
+                    //for checking time slot
+                    const today = new Date(newDate); // Create a new Date object based on the selected date
+                    today.setDate(today.getDate() + 1); // Add one day to the selected date
+
+                    const todayDate = today.toISOString().split('T')[0];
+
+                    //Filter slots for today
+                    const slotsForToday = slotsData.filter(slot => {
+                        const slotDate = new Date(slot.start_time).toISOString().split('T')[0];
+                        return slotDate === todayDate;
+                    });
+
+                    // If today's slots are found, log the times
+                    if (slotsForToday.length > 0) {
+                        const timesForToday = slotsForToday.map(slot => {
+                            return slot.start_time.split('T')[1].slice(0, 5); // Extracting HH:MM from start_time
+                        });
+                        setTimesForToday(timesForToday);
+                        console.log('Slots for today:', timesForToday);
+
+
+                    } else {
+                        console.log('No slots available for today.');
+                        // Check if timesForToday doesn't include any time24 value
+
+                        if (true) {
+                            // Function to remove highlighted class from elements
+                            document.querySelectorAll('.time-slot-card').forEach((element) => {
+                                element.classList.remove('highlighted-time-slot');
+                            });
+                        }
+                    }
+
+                })
+                .catch(error => {
+                    // Handle fetch errors here
+                    console.error('Error fetching slots:', error);
+                });
+        }
+        // Get today's date in YYYY-MM-DD format
+
+
         // toggleCalendar();
-        today.setDate(today.getDate() - 1);
+        today.setDate(today.getDate() - 1)
 
         if (newDate >= today) {
             if (newDate.getDay() === 0 || newDate.getDay() === 1) {
@@ -1048,6 +1158,7 @@ const HomePage = () => {
     };
 
     const [calendarVisible, setCalendarVisible] = useState(true);
+
 
     // ... (array push button)
     const [isPushButtonVisible, setPushButtonVisible] = useState(false);
@@ -1070,6 +1181,8 @@ const HomePage = () => {
         //storing the time
         setSelectedTime(timeSlot.time);
 
+        console.log('tjos',timeSlot)
+
     }
 
 
@@ -1083,27 +1196,29 @@ const HomePage = () => {
 
     //time slots
     const timeSlots1 = [
-        { icon: <BsSunrise />, time: '10:00 AM' },
-        { icon: <BsSunrise />, time: '11:00 AM' },
-        { icon: <BsSun />, time: '12:00 PM' },
-        { icon: <BsSun />, time: '01:00 PM' },
-        { icon: <BsSun />, time: '02:00 PM' },
-        { icon: <BsSun />, time: '03:00 PM' },
-        { icon: <BsSun />, time: '04:00 PM' },
-        { icon: <BsSunset />, time: '05:00 PM' },
-        { icon: <BsSunset />, time: '06:00 PM' },
-        { icon: <BsSunset />, time: '07:00 PM' },
+        { icon: <BsSunrise />, time24: '10:00', time: '10:00 AM' },
+        { icon: <BsSunrise />, time24: '11:00', time: '11:00 AM' },
+        { icon: <BsSun />, time24: '12:00', time: '12:00 PM' },
+        { icon: <BsSun />, time24: '13:00', time: '01:00 PM' },
+        { icon: <BsSun />, time24: '14:00', time: '02:00 PM' },
+        { icon: <BsSun />, time24: '15:00', time: '03:00 PM' },
+        { icon: <BsSun />, time24: '16:00', time: '04:00 PM' },
+        { icon: <BsSunset />, time24: '17:00', time: '05:00 PM' },
+        { icon: <BsSunset />, time24: '18:00', time: '06:00 PM' },
+        { icon: <BsSunset />, time24: '19:00', time: '07:00 PM' },
     ];
     const timeSlots2 = [
-        { icon: <BsSunrise />, time: '10:00 AM' },
-        { icon: <BsSunrise />, time: '11:00 AM' },
-        { icon: <BsSun />, time: '12:00 PM' },
-        { icon: <BsSun />, time: '01:00 PM' },
-        { icon: <BsSun />, time: '02:00 PM' },
-        { icon: <BsSun />, time: '03:00 PM' },
-        { icon: <BsSun />, time: '04:00 PM' },
-        { icon: <BsSunset />, time: '05:00 PM' },
+        { icon: <BsSunrise />, time24: '10:00', time: '10:00 AM' },
+        { icon: <BsSunrise />, time24: '11:00', time: '11:00 AM' },
+        { icon: <BsSun />, time24: '12:00', time: '12:00 PM' },
+        { icon: <BsSun />, time24: '13:00', time: '01:00 PM' },
+        { icon: <BsSun />, time24: '14:00', time: '02:00 PM' },
+        { icon: <BsSun />, time24: '15:00', time: '03:00 PM' },
+        { icon: <BsSun />, time24: '16:00', time: '04:00 PM' },
+        { icon: <BsSunset />, time24: '17:00', time: '05:00 PM' },
+        { icon: <BsSunset />, time24: '18:00', time: '06:00 PM' },
     ];
+
 
 
     //For Content 2
@@ -1279,6 +1394,7 @@ const HomePage = () => {
 
     return (
         <div className='home-page'>
+
             <div className='content-1' id="content1" >
                 <div className='tagline'><p>We provde you the best experience which your hair <span>loves</span></p>
 
@@ -1316,7 +1432,7 @@ const HomePage = () => {
                                             <AiOutlineClose className='close-icon' />
                                         </button>
                                     </div>
-
+                                    {/* 
                                     {professionals.map((professional, index) => (
                                         <div
                                             className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
@@ -1326,7 +1442,19 @@ const HomePage = () => {
                                             <img className='card-0-proff' src={professional.image} alt={`Image for ${professional.name}`} />
                                             <p>{professional.name}</p>
                                         </div>
+                                    ))} */}
+
+                                    {professionals.map((professional, index) => (
+                                        <div
+                                            className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
+                                            key={professional.id} // Use the professional's ID as the key
+                                            onClick={() => openCardDetails(index + 1, professional)}
+                                        >
+                                            <img className='card-0-proff' src={professional.image_url} alt={`Image for ${professional.id}`} />
+                                            <p>{professional.user + " " + professional.id}</p>
+                                        </div>
                                     ))}
+
                                 </div>
 
                                 {/* this div has all the service types listed*/}
@@ -1379,7 +1507,7 @@ const HomePage = () => {
                                                             service.content.map((item, i) => (
 
                                                                 <div key={i} onClick={() => openAddon(index, item.props.children, item.key)} className={`service-card-1 ${higlited === i ? 'selected' : ''}`}>
-                                                                    
+
                                                                     <span className="service-name">{item.props.children[0]}</span>
                                                                     <span className="service-price">${item.props.children[2]}</span>
                                                                     {/* {item} */}
@@ -1480,7 +1608,15 @@ const HomePage = () => {
                                                 </div>
                                                 <div className='Time-slots'>
                                                     {timeSlots1.map((timeSlot, index) => (
-                                                        <div className='time-slot-card' key={index} onClick={() => handleSelectedTimeClick(timeSlot)}>
+                                                        <div
+                                                                    
+                                                            className={`time-slot-card `}
+                                                            key={index}
+                                                            data-time24={timeSlot.time24}
+
+                                                            onClick={() => handleSelectedTimeClick(timeSlot)}
+                                                        >
+                                                            
                                                             {timeSlot.icon} {timeSlot.time}
                                                         </div>
                                                     ))}
@@ -1489,6 +1625,7 @@ const HomePage = () => {
                                             </div>
                                         )}
                                         {showTimeSlots2 !== null && (
+
                                             <div >
 
                                                 {/* This div will be shown for today or future dates */}
@@ -1497,11 +1634,19 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    {timeSlots2.map((timeSlot, index) => (
-                                                        <div className='time-slot-card' key={index} onClick={() => handleSelectedTimeClick(timeSlot)}>
-                                                            {timeSlot.icon} {timeSlot.time}
-                                                        </div>
-                                                    ))}
+                                                    <div className='Time-slots'>
+                                                        {timeSlots2.map((timeSlot, index) => (
+                                                            <div
+                                                                className={`time-slot-card`}
+                                                                key={index}
+                                                                data-time24={timeSlot.time24}
+
+                                                                onClick={() => handleSelectedTimeClick(timeSlot)}
+                                                            >
+                                                                {timeSlot.icon} {timeSlot.time}
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                 </div>
                                             </div>
                                         )}
@@ -1544,10 +1689,10 @@ const HomePage = () => {
                                                     return (
 
                                                         <div key={index} className={content.type} >
-                                                            
-                                                            <span className='content-3-style'>{content.value[0]}</span>
+
+                                                            <span className='content-3-style'>{content.value[0] + " " + content.id}</span>
                                                             <span className="pricing">${content.value[2]}</span>
-                                                            {/* <p>{content.value}</p> */}
+                                                            {/* <p>{content.id for id of subbservice}</p> */}
                                                             <button onClick={handleDelete} className='order-div-button'>Delete</button>
 
                                                         </div>
@@ -1556,7 +1701,7 @@ const HomePage = () => {
                                                 else {
                                                     return (
                                                         <li className={`content.type proffname`}>
-                                                            By: {content.value}
+                                                            By: {content.value + " id: " + content.id}
                                                         </li>
                                                     )
 
@@ -1567,7 +1712,7 @@ const HomePage = () => {
 
                                             {selectedAddon.map((addon, index) => (
                                                 <div key={index} className=" content-3-style">
-                                                    <span className='content-3-style'>{addon.title}</span>
+                                                    <span className='content-3-style'>{addon.title + " " + addon.id}</span>
                                                     <span className='pricing'>${addon.price}</span>
                                                     <button onClick={() => handleAddonDelete(addon)} className='order-div-button'>Delete</button>
                                                 </div>

@@ -992,8 +992,10 @@
     flex-wrap: wrap;
     font-size: medium;
     font-weight: 650;
-    margin-bottom: 50px;
+    margin-bottom: 150px;
 }
+
+
 
 .time-slot-card {
     width: 20%;
@@ -1003,6 +1005,11 @@
     align-items: center;
     cursor: pointer;
     justify-content: center;
+}
+.highlighted-time-slot{
+    display: none;
+    background-color: #000000;
+    cursor:not-allowed ;
 }
 
 .CartPush {
@@ -2680,3 +2687,18 @@ display: none;
 .content-7{
     display: none;
 }*/
+
+.auth-login{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 500px;
+    height: 500px;
+    background-color: teal;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}

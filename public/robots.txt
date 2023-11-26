@@ -2234,3 +2234,25 @@ const openAddon = (serviceName, index) => {
         //for dynamically adding 
 
     };
+
+
+
+
+
+
+    const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
+        const contentElement = clickedDiv.querySelector('p');
+        if (contentElement) {
+            const professionalId = professionals[cardIndex].id; // Fetching the id from the professionals array
+            const professionalName = professionals[cardIndex].user; // Assuming the name is stored in 'textContent'
+
+            setClickedContents(prevContents => [
+                ...prevContents,
+                {
+                    type: 'content-1-style',
+                    id: professionalId,
+                    value: professionalName, // Use the professional's name from the updated data structure
+                    index: prevContents.filter(item => item.type === 'content-1-style').length,
+                },
+            ]);
+        }

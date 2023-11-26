@@ -3,6 +3,7 @@ import {GiHamburgerMenu} from 'react-icons/gi';
 import {AiOutlineClose} from 'react-icons/ai';
 import './style.css'
 import logo from './logo.svg'
+import Auth from './auth';
 
 const Navbar = () => {
 
@@ -52,6 +53,7 @@ const Navbar = () => {
           <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content2')}>Services</a></li>
           <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content7')} >Gallery</a></li>
           <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content3')}>About Us</a></li>
+          {/* <li><a href="#" className='nav-link'  onClick={(e) => handleNavLinkClick(e, 'content3')}>User</a></li> */}
         </ul>
       </div>
       <div className='contact-btn' onClick={handleCallClick}><p> {phoneNumber}</p></div>
