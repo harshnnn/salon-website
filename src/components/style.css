@@ -2688,17 +2688,27 @@ display: none;
     display: none;
 }*/
 
-.auth-login{
-    position: absolute;
+.auth-div{
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 500px;
     height: 500px;
-    background-color: teal;
+    background-color: rgb(143, 208, 208);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+}
+
+.auth-login{
+    background-color: rgb(141, 250, 250);
+    width: 80%;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

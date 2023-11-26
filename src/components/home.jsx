@@ -61,7 +61,7 @@ const HomePage = () => {
     };
 
     const handleOtpRequest = () => {
-        axios.post('https://thorfinn.pythonanywhere.com/api/v1/generate/', postData)
+        axios.post('https://thorfinn.pythonanywhere.com/auth/generate/', postData)
             .then((response) => {
                 setResponse(response.data);
 
@@ -81,13 +81,15 @@ const HomePage = () => {
 
     const handleVerifyRequest = () => {
 
-        axios.post('https://thorfinn.pythonanywhere.com/api/v1/verify/', verifyData)
+        axios.post('https://thorfinn.pythonanywhere.com/auth/verify/', verifyData)
             .then((response) => {
                 // Assuming the token is in response.data.token, you can set it in state or use it as needed.
                 if (response.data.token != null) {
                     setToken(true);
                     setTokenKey(response.data.token);
                     console.log("just set the token to true ");
+                    setCookie('token', response.data.token, 1);
+
                 }
 
                 console.log("the token is " + response.data.token);
@@ -100,6 +102,57 @@ const HomePage = () => {
                 console.error('Verify request error:', error);
             });
     }
+
+    // Function to set the cookie with token
+    const setCookie = (cname, cvalue, exdays) => {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    };
+
+    // Function to get the cookie value by name
+    const getCookie = (cname) => {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    };
+
+    // Function to delete the cookie by name
+    const deleteCookie = (cname) => {
+        document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    };
+
+    // Handle logout: Delete token cookie and update state
+    const handleLogout = () => {
+        deleteCookie('token');
+        setToken(null);
+    };
+
+    // Check if the token exists in cookies to determine user login status
+    const checkUserLoginStatus = () => {
+        const tokenFromCookie = getCookie('token');
+        if (tokenFromCookie) {
+            setToken(tokenFromCookie);
+            setIsUser(true);
+        }
+    };
+
+    //keep checking if user is present or not
+    useEffect(() => {
+        checkUserLoginStatus();
+    }, []);
+
 
     //Login 
 
@@ -858,18 +911,55 @@ const HomePage = () => {
         }
         else { setShowTimeSlots1(true); }
 
+        //for time conversion
+        const convertTo24Hour = (time12h) => {
+            const [time, modifier] = time12h.split(' ');
+
+            let [hours, minutes] = time.split(':');
+
+            if (hours === '12') {
+                hours = '00';
+            }
+
+            if (modifier === 'PM') {
+                hours = parseInt(hours, 10) + 12;
+            }
+
+            return `${hours}:${minutes}`;
+        }
+
         //For Book Now
         if (isTimeSelected && isUser) {
 
-            // console.log("professional: " + clickedContents[0].value + " Service " + clickedContents[1].value);
-            // clickedContents.map((item, index) => {
-            //     console.log(`Item ${index}: ${item.value}`);
-            // });
 
-            // console.log("date: " + selectedDate + " time " + selectedTime);
+            //for start time
+            const parsedDate = new Date(selectedDate);
+            const parsedTime = new Date(`1970-01-01T${convertTo24Hour(selectedTime)}`);
+            const offset = parsedTime.getTimezoneOffset();
 
-            // console.log('total $' + totalPrice.toFixed(2))
-            // const professional = clickedContents[0];
+                // Combine date and time
+            parsedDate.setHours(parsedTime.getHours());
+            parsedDate.setMinutes(parsedTime.getMinutes()-offset);
+            
+                // Format the combined date and time into the required format (ISO string)
+            const formattedDateTime = parsedDate.toISOString();
+
+            console.log('formated time is ', formattedDateTime);
+
+            //for selected addon id
+            const selectedAddonIds = selectedAddon.map(item => item.id);
+            console.log('formated addons is ', selectedAddonIds);
+
+            //for selected sebservice id
+            const content3Elements = clickedContents.filter(item => item.type === 'content-3-style')
+            const selectedSubserviceIds = content3Elements.map(item => item.id);
+            console.log('formated subservice is ', selectedSubserviceIds);
+
+            //for selected professional id
+            const content1Elements = clickedContents.filter(item => item.type === 'content-1-style')
+            const selectedProfessionalIds = content1Elements.map(item => item.id);
+            console.log('formated professional is ', selectedProfessionalIds);
+
             clickedContents.forEach((item, index) => {
                 if (index === 0) return;
 
@@ -878,60 +968,30 @@ const HomePage = () => {
             });
 
             // Create object with professional and items
+            console.log("final clicked contents: ", clickedContents);
+            console.log('final addons: ', selectedAddon);
+            console.log('final time: ', selectedDate + " " + selectedTime);
+
+
             const data = {
-                professional: clickedContents[0].value,
-                items: [],
-                date: selectedDate + '  ' + selectedTime,
-                total: '$' + (totalPrice.toFixed(2)),
-            };
-
-            // Add items to array
-            // Initialize counter
-            let id = 1;
-
-            // Loop through items
-            for (let i = 1; i < clickedContents.length; i++) {
-
-                // Extract name
-                const itemValue = window[`item${i}`].value;
-                const match = itemValue.match(/^(.*?)\$/);
-                const name = match[1];
-
-                // Create item object with id
-                const item = {
-                    id: id,
-                    name
-                };
-
-                // Increment counter 
-                id++;
-
-                // Add item to array
-                data.items.push(item);
+                "addons": selectedAddonIds.map(addonId => ({ id: addonId })),
+                "slot": {
+                    "start_time": formattedDateTime,
+                    "professional": selectedProfessionalIds
+                },
+                "user": null,
+                "subservice": selectedSubserviceIds,
+                "professional": selectedProfessionalIds
             }
 
-            // Stringify as JSON
-            const jsonData = JSON.stringify(data);
 
-            console.log(data);
-
-            const dummy = {
-                items: {},
-                customer: 1,
-                staff: 3,
-                slot: 0,
-                ordered: '',
-                total: '21',
-                status: 'X',
-            }
-
-            const jsonBody = JSON.stringify(dummy);
+             const jsonBody = JSON.stringify(data);
 
 
-            console.log('header token is : ', tokenKey);
-            fetch('https://thorfinn.pythonanywhere.com/api/v1/order/', {
+            console.log('header token is : ', getCookie('token'));
+            fetch('https://thorfinn.pythonanywhere.com/book/', {
                 headers: {
-                    'Authorization': `Token ${tokenKey}`,
+                    'Authorization': `Token ${getCookie('token')}`,
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
@@ -1067,7 +1127,7 @@ const HomePage = () => {
             } else {
                 element.classList.remove('highlighted-time-slot');
                 element.disabled = false;
-            
+
             }
         });
     };
@@ -1090,7 +1150,7 @@ const HomePage = () => {
                 })
                 .then(slotsData => {
                     // Handle slots data here, for example, update state or perform any necessary operations
-                   // console.log('Slots Data:', slotsData);
+                    // console.log('Slots Data:', slotsData);
                     // Set the received slots data to a state variable, if needed
                     setSlotsData(slotsData);
 
@@ -1181,7 +1241,7 @@ const HomePage = () => {
         //storing the time
         setSelectedTime(timeSlot.time);
 
-        console.log('tjos',timeSlot)
+        console.log('tjos', timeSlot)
 
     }
 
@@ -1609,14 +1669,14 @@ const HomePage = () => {
                                                 <div className='Time-slots'>
                                                     {timeSlots1.map((timeSlot, index) => (
                                                         <div
-                                                                    
+
                                                             className={`time-slot-card `}
                                                             key={index}
                                                             data-time24={timeSlot.time24}
 
                                                             onClick={() => handleSelectedTimeClick(timeSlot)}
                                                         >
-                                                            
+
                                                             {timeSlot.icon} {timeSlot.time}
                                                         </div>
                                                     ))}
@@ -1732,7 +1792,7 @@ const HomePage = () => {
                                             </div>
 
 
-
+                                            {/* <button onClick={handleLogout}>Logout</button>   */}
 
                                         </div>
 
@@ -1744,7 +1804,7 @@ const HomePage = () => {
 
                                     {orderbtn !== null && (<button className="button-48" role="button" onClick={handleChooseTimeClick}>
 
-                                        <span className="text">
+                                        {/* <span className="text">
                                             {isUser ? <div  >Book Now </div> : (isTimeSelected ? <div style={{
                                                 padding: '0',
                                                 width: '100%',
@@ -1755,7 +1815,27 @@ const HomePage = () => {
                                             }} onClick={handleLoginClick}>Login
 
                                             </div> : 'Choose a time')}
-                                        </span>
+                                        </span> */}
+                                        {!isTimeSelected ? (
+                                            'Choose a time'
+                                        ) : !isUser ? (
+                                            <div
+                                                style={{
+                                                    padding: '0',
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center'
+                                                }}
+                                                onClick={handleLoginClick}
+                                            >
+                                                Login
+                                            </div>
+                                        ) : (
+                                            <div>Book Now</div>
+                                        )}
+
                                     </button>
                                     )}
 

@@ -1,29 +1,232 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './style.css'
+import axios from 'axios';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
-const Auth = () => {
-    const [isUser, setIsUser] = useState(false);
+const Auth = (props) => {
+
+    const [snackbarLogin, setSnackbarLogin] = useState(false);
+    const [snackbarLogout, setSnackbarLogout] = useState(false);
+    const handleCloseSnackbar = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSnackbarLogin(false);
+
+        setSnackbarLogout(false);
+    };
+
+
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [response, setResponse] = useState('');
+    const [isUser, setIsUser] = useState(null);
+    const [token, setToken] = useState(null);
+    const [tokenKey, setTokenKey] = useState('');
+    const [OTP, SetOpt] = useState('');
+    const [isVerifyOTP, setIsVerifyOTP] = useState(false);
+
+
+    const postData = {
+        phone: phoneNumber,
+    };
+
+    let verifyData = {
+        phone: '',
+        otp: '',
+    };
+
+    const handleLoginFormSubmit = (event) => {
+        event.preventDefault(); // Prevents the form from reloading the page
+        handleOtpRequest(); // Initiates OTP request based on the phone number entered
+        setIsVerifyOTP(true);
+    };
+
+    const handleVerifyFormSubmit = (event) => {
+        event.preventDefault();
+        verifyData.phone = phoneNumber;
+        verifyData.otp = OTP; // Set OTP to verify
+        handleVerifyRequest();
+    };
+
+
+    const handleOtpRequest = () => {
+        axios.post('https://thorfinn.pythonanywhere.com/auth/generate/', postData)
+            .then((response) => {
+                setResponse(response.data);
+
+                // After getting the OTP, make another request to verify and obtain the token
+                verifyData = {
+                    phone: postData.phone,
+                    otp: String(response.data.generated_otp),
+                };
+
+                alert(response.data.generated_otp);
+
+            })
+            .catch((error) => {
+                console.error('POST request error:', error);
+            });
+    };
+
+    const handleVerifyRequest = () => {
+
+        axios.post('https://thorfinn.pythonanywhere.com/auth/verify/', verifyData)
+            .then((response) => {
+                // Assuming the token is in response.data.token, you can set it in state or use it as needed.
+                if (response.data.token != null) {
+                    setToken(true);
+                    setTokenKey(response.data.token);
+                    console.log("just set the token to true ");
+                    setCookie('token', response.data.token, 1);
+                    setSnackbarLogin(true); // Open Snackbar on successful token retrieval
+                    setTimeout(() => {
+                        props.toggleAuth();
+                        window.location.reload();
+
+                    }, 2000);
+
+                }
+
+                console.log("the token is " + response.data.token);
+
+
+            })
+            .catch((error) => {
+                setToken(false);
+                console.log("just set the token to false");
+                console.error('Verify request error:', error);
+            });
+    }
+
+
+
+    // Function to delete the cookie by name
+    const deleteCookie = (cname) => {
+        document.cookie = cname + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    };
+
+    // Handle logout: Delete token cookie and update state
+    const handleLogout = () => {
+        deleteCookie('token');
+        setToken(null);
+        setIsUser(null);
+        setSnackbarLogout(true); // Open Snackbar on logout
+        setTimeout(() => {
+            props.toggleAuth();
+            window.location.reload();
+
+        },2000);
+
+    };
+
+    // Function to set the cookie with token
+    const setCookie = (cname, cvalue, exdays) => {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    };
+
+    const getCookie = (cname) => {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    };
+
+    const checkUserLoginStatus = () => {
+        const tokenFromCookie = getCookie('token');
+        if (tokenFromCookie) {
+            setToken(tokenFromCookie);
+            setIsUser(true);
+
+        }
+        else (
+            setIsUser(false)
+        )
+    };
+    useEffect(() => {
+        // Check user login status when the component mounts
+        checkUserLoginStatus();
+    }, []);
+
     return (
-        <>
-            {isUser &&(
+        <div className='auth-div'>
+
+            <Snackbar
+                open={snackbarLogin}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                message="Token retrieved successfully"
+                action={
+                    <IconButton size="small" color="inherit" onClick={handleCloseSnackbar}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            />
+            <Snackbar
+                open={snackbarLogout}
+                autoHideDuration={6000}
+                onClose={handleCloseSnackbar}
+                message="Logged out successfully"
+                action={
+                    <IconButton size="small" color="inherit" onClick={handleCloseSnackbar}>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
+                }
+            />
+
+
+            {isUser && (
                 <div>
-                    <div>Booking Div</div>
-                    <button>Logout</button>
+                    <div>Booking Div   working.....</div>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
             )}
-            {isUser === false &&(
+            {isUser === false && (
                 <div className='auth-login'>
-                    <h1>Login div</h1>
-                    <form action="">
-                        <label htmlFor="">Enter Nummber</label>
-                        <input type="number" />
-                        <button type='submit'>Submit</button>
-                    </form>
+                    <h1>Login div working....</h1>
+                    {isVerifyOTP === false && (
+                        <form onSubmit={handleLoginFormSubmit}>
+                            <label htmlFor="">Enter Number</label>
+                            <input
+                                type="number"
+                                value={phoneNumber}
+                                onChange={(e) => setPhoneNumber(e.target.value)}
+                            />
+                            <button type='submit'>Submit</button>
+                        </form>
+                    )};
+                    {isVerifyOTP && (
+                        <div className='otp-verification'>
+                            <h2>Enter OTP</h2>
+                            <form onSubmit={handleVerifyFormSubmit}>
+                                <input
+                                    type="text"
+                                    value={OTP}
+                                    onChange={(e) => SetOpt(e.target.value)}
+                                />
+                                <button type='submit'>Verify OTP</button>
+                            </form>
+                        </div>
+                    )}
                 </div>
             )}
 
 
-        </>
+        </div>
     );
 }
 
