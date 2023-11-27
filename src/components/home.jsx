@@ -1750,7 +1750,7 @@ const HomePage = () => {
 
                                                         <div key={index} className={content.type} >
 
-                                                            <span className='content-3-style'>{content.value[0] + " " + content.id}</span>
+                                                            <span className='content-3-style'>{content.value[0] }</span>
                                                             <span className="pricing">${content.value[2]}</span>
                                                             {/* <p>{content.id for id of subbservice}</p> */}
                                                             <button onClick={handleDelete} className='order-div-button'>Delete</button>
@@ -1761,7 +1761,8 @@ const HomePage = () => {
                                                 else {
                                                     return (
                                                         <li className={`content.type proffname`}>
-                                                            By: {content.value + " id: " + content.id}
+                                                            By: {content.value}
+                                                            {/* content.id for proff id */}
                                                         </li>
                                                     )
 
@@ -1772,7 +1773,8 @@ const HomePage = () => {
 
                                             {selectedAddon.map((addon, index) => (
                                                 <div key={index} className=" content-3-style">
-                                                    <span className='content-3-style'>{addon.title + " " + addon.id}</span>
+                                                    {/* addon.id for id */}
+                                                    <span className='content-3-style'>{addon.title }</span>
                                                     <span className='pricing'>${addon.price}</span>
                                                     <button onClick={() => handleAddonDelete(addon)} className='order-div-button'>Delete</button>
                                                 </div>

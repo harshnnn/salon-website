@@ -2836,24 +2836,24 @@ display: none;
 /* For screens smaller than 768px */
 @media (max-width: 768px) {
     .auth-div {
-        width: 90%;
-        height: 90%;
+        width: 80%;
+        height: 80%;
     }
 
     .active-booking {
-        width: 100%;
-        height: auto;
+        width: 95%;
+        height: 95%;
         padding: 10px;
         margin: 10px;
     }
-
+/* 
     .booking-details div {
         width: 100%;
     }
 
     .booking-details span {
-        width: auto;
-    }
+        width: 30%;
+    } */
 }
 
 /* For screens smaller than 480px */
@@ -2867,7 +2867,7 @@ display: none;
         margin: 5px;
     }
 
-    .booking-details div {
+    /* .booking-details div {
         flex-direction: column;
         align-items: flex-start;
         text-align: start;
@@ -2876,7 +2876,7 @@ display: none;
 
     .booking-details span {
         width: 100%;
-    }
+    } */
 
     .logout-button {
         margin-right: 0;
