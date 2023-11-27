@@ -937,11 +937,11 @@ const HomePage = () => {
             const parsedTime = new Date(`1970-01-01T${convertTo24Hour(selectedTime)}`);
             const offset = parsedTime.getTimezoneOffset();
 
-                // Combine date and time
+            // Combine date and time
             parsedDate.setHours(parsedTime.getHours());
-            parsedDate.setMinutes(parsedTime.getMinutes()-offset);
-            
-                // Format the combined date and time into the required format (ISO string)
+            parsedDate.setMinutes(parsedTime.getMinutes() - offset);
+
+            // Format the combined date and time into the required format (ISO string)
             const formattedDateTime = parsedDate.toISOString();
 
             console.log('formated time is ', formattedDateTime);
@@ -985,7 +985,7 @@ const HomePage = () => {
             }
 
 
-             const jsonBody = JSON.stringify(data);
+            const jsonBody = JSON.stringify(data);
 
 
             console.log('header token is : ', getCookie('token'));
@@ -1750,7 +1750,7 @@ const HomePage = () => {
 
                                                         <div key={index} className={content.type} >
 
-                                                            <span className='content-3-style'>{content.value[0] }</span>
+                                                            <span className='content-3-style'>{content.value[0]}</span>
                                                             <span className="pricing">${content.value[2]}</span>
                                                             {/* <p>{content.id for id of subbservice}</p> */}
                                                             <button onClick={handleDelete} className='order-div-button'>Delete</button>
@@ -1774,7 +1774,7 @@ const HomePage = () => {
                                             {selectedAddon.map((addon, index) => (
                                                 <div key={index} className=" content-3-style">
                                                     {/* addon.id for id */}
-                                                    <span className='content-3-style'>{addon.title }</span>
+                                                    <span className='content-3-style'>{addon.title}</span>
                                                     <span className='pricing'>${addon.price}</span>
                                                     <button onClick={() => handleAddonDelete(addon)} className='order-div-button'>Delete</button>
                                                 </div>
@@ -1877,7 +1877,7 @@ const HomePage = () => {
                         <div className='card-img'></div>
                         <div className='card-info-left'>
                             <h4>Hair Services</h4>
-                            <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong> elevates the art of hairstyling to new heights. With a collective passion for innovation and a commitment to excellence, our specialists are devoted to curating an exceptional experience for each client.</p>
+                            <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong> elevates the art of hairstyling to new heights. With a collective passion for innovation and a commitment to excellence.</p>
 
                             <p>Through years of honing their craft, our experts have mastered the intricate details of hairstyling. Their keen eye for trends and unwavering dedication to continual learning ensure that you receive not just a service, but a personalized journey towards your perfect look.</p>
 
@@ -1889,19 +1889,45 @@ const HomePage = () => {
                     </div>
                     <div className='card-2 card-right'>
                         <div className='card-info-right'>
-                            <h4>Hair Services</h4>
-                            <p><strong>Our highly skilled team of hair care experts</strong> <br /> is dedicated to delivering top-notch designer cuts, <br /> specialized treatments, and personalized styling services tailored <br /> precisely to meet your individual needs.</p>
+                            <h4>Spa Facials</h4>
+                            <p>
+                                <strong>Indulge in our rejuvenating spa facials, where tranquility meets skincare perfection.</strong>
+                                Our expert estheticians bring together a harmonious blend of luxurious treatments and cutting-edge techniques.
+                            </p>
 
-                        </div>
+                            <p>
+                                Relax as our professionals meticulously analyze your skin, customizing each facial to address your unique needs. With an array of specialized products and personalized approaches, we ensure an experience that's not just skin deep but also soul-soothing.
+                            </p>
+
+                            <p>
+                                Our spa facials transcend the ordinary by incorporating therapeutic practices and tailored solutions. Whether it's hydration, anti-aging, or rejuvenation, our treatments are designed to restore your skin's natural radiance and vitality.
+                            </p>
+
+                            <p>
+                                At our spa, you'll encounter an oasis of tranquility where every facial is a fusion of luxury and transformation, leaving you with a renewed sense of well-being.
+                            </p>                        </div>
                         <div className='card-img'></div>
                     </div>
                     <div className='card-3 card-left'>
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h4>Haircut & Style</h4>
-                            <p>Our talented team of hair care experts deliver designer <br />
-                                cuts, treatments, and styling services that are <br />
-                                customized to your specific needs.</p>
+                            <h4>Hair Removal</h4>
+                            <p>
+                                <strong>Experience the epitome of smoothness and confidence with our hair removal services.</strong>
+                                Our proficient technicians employ advanced techniques and top-quality products to ensure a hair-free experience .
+                            </p>
+
+                            <p>
+                                Whether it's waxing, threading, or laser treatments, our specialists prioritize precision and care, delivering exceptional results tailored to your preferences.
+                            </p>
+
+                            <p>
+                                At our salon, we prioritize your comfort and satisfaction. We provide a serene and hygienic environment for your hair removal sessions, ensuring a stress-free and relaxing experience.
+                            </p>
+
+                            <p>
+                                Step into our sanctuary of beauty and bid farewell to unwanted hair. Our commitment to excellence ensures that each hair removal session is not just a treatment but a step towards your self-assured glow.
+                            </p>
                         </div>
                     </div>
 
