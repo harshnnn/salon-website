@@ -8,46 +8,25 @@ import Auth from './auth';
 const Navbar = () => {
 
   const [isAuthVisible, setIsAuthVisible] = useState(false);
-  // const [token, setToken] = useState(null);
-  // const [isUser, setIsUser] = useState(false);
-
-  // const getCookie = (cname) => {
-  //   const name = cname + "=";
-  //   const decodedCookie = decodeURIComponent(document.cookie);
-  //   const ca = decodedCookie.split(';');
-  //   for (let i = 0; i < ca.length; i++) {
-  //     let c = ca[i];
-  //     while (c.charAt(0) === ' ') {
-  //       c = c.substring(1);
-  //     }
-  //     if (c.indexOf(name) === 0) {
-  //       return c.substring(name.length, c.length);
-  //     }
-  //   }
-  //   return "";
-  // };
-
-
-  // const checkUserLoginStatus = () => {
-  //   const tokenFromCookie = getCookie('token');
-  //   if (tokenFromCookie) {
-  //     setToken(tokenFromCookie);
-  //     setIsUser(true);
-  //     toggleAuth();
-  //   }
-  //   else {
-
-  //     setIsUser(false)
-  //     toggleAuth(); 
-  //   }
-  // };
-  // useEffect(() => {
-  //   // Check user login status when the component mounts
-  //   checkUserLoginStatus();
-  // }, []);
 
   const toggleAuth = () => {
     setIsAuthVisible(!isAuthVisible)
+
+      //for mobile screen
+      if (!isAuthVisible) {
+        for (let i = 2; i <= 9; i++) {
+            const contentElement = document.querySelector('.content-' + i);
+            contentElement.classList.add('responsive-class'); // No dot here
+        }
+
+    }
+    if (isAuthVisible) {
+        for (let i = 2; i <= 9; i++) {
+            const contentElement = document.querySelector('.content-' + i);
+            contentElement.classList.remove('responsive-class'); // No dot here
+        }
+
+    }
   }
 
   //Phone call
@@ -65,12 +44,6 @@ const Navbar = () => {
   };
 
 
-
-  // scrolling 
-  // const handleNavLinkClick = (event) => {
-  //   event.preventDefault();
-  //   // Handle your navigation logic here
-  // };
   const handleNavLinkClick = (event, targetId) => {
     event.preventDefault();
     const targetElement = document.getElementById(targetId);

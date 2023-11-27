@@ -952,7 +952,7 @@ const HomePage = () => {
 
             //for selected sebservice id
             const content3Elements = clickedContents.filter(item => item.type === 'content-3-style')
-            const selectedSubserviceIds = content3Elements.map(item => item.id);
+            const selectedSubserviceIds = content3Elements.id;
             console.log('formated subservice is ', selectedSubserviceIds);
 
             //for selected professional id
@@ -974,7 +974,7 @@ const HomePage = () => {
 
 
             const data = {
-                "addons": selectedAddonIds.map(addonId => ({ id: addonId })),
+                "addons": selectedAddonIds.map(addonId => ({ addonId })),
                 "slot": {
                     "start_time": formattedDateTime,
                     "professional": selectedProfessionalIds

@@ -4,11 +4,21 @@ import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
+import { AiOutlineClose } from 'react-icons/ai';
+import logo from './logo.svg'
+
 
 const Auth = (props) => {
 
     const [snackbarLogin, setSnackbarLogin] = useState(false);
     const [snackbarLogout, setSnackbarLogout] = useState(false);
+    const [isAppointmentCance, setIsAppointmentCancell] = useState(false);
+
+    const cancelAppointment = () => {
+        alert('appointment canceled')
+        props.toggleAuth();
+    }
+
     const handleCloseSnackbar = (event, reason) => {
         if (reason === 'clickaway') {
             return;
@@ -50,6 +60,10 @@ const Auth = (props) => {
         verifyData.otp = OTP; // Set OTP to verify
         handleVerifyRequest();
     };
+
+    const handleChangeNumber = () =>{
+        setIsVerifyOTP(false);
+    }
 
 
     const handleOtpRequest = () => {
@@ -118,7 +132,7 @@ const Auth = (props) => {
             props.toggleAuth();
             window.location.reload();
 
-        },2000);
+        }, 2000);
 
     };
 
@@ -164,7 +178,6 @@ const Auth = (props) => {
 
     return (
         <div className='auth-div'>
-
             <Snackbar
                 open={snackbarLogin}
                 autoHideDuration={6000}
@@ -190,35 +203,70 @@ const Auth = (props) => {
 
 
             {isUser && (
-                <div>
-                    <div>Booking Div   working.....</div>
-                    <button onClick={handleLogout}>Logout</button>
+                <div className="active-booking">
+                    <button className='close-btn' onClick={() => { props.toggleAuth()}}>
+                    <AiOutlineClose className='close-icon' />
+                    </button>
+                    <h3 style={{marginRight: '55%', marginTop:'10px', marginBottom: '10px'}}>Your Active Booking</h3>
+
+                    <div className="booking-item">
+                        <div className="booking-details">
+                            <div>Date & Time: <span>Nov 27, 2023 at 3:00 PM</span></div>
+                            <div>Services: <span>Haircut & Blowdry</span></div>
+                            <div>Add-ons: <span>None</span></div>
+                            <div>Professional: <span>Jane Doe</span></div>
+                            <div >Cost: <span>$65</span></div>
+                        </div>
+
+                        {isAppointmentCance && (
+                            <div className='appointment-cancel-alert'>
+                                Are you sure you want to cancel this appointment?
+                                <button onClick={cancelAppointment}>YES</button>
+                                <button onClick={() => { setIsAppointmentCancell(false) }}>No</button>
+                            </div>
+                        )}
+
+
+                        <button className='cancel-btn' onClick={() => { setIsAppointmentCancell(true) }}>Cancel</button>
+                    </div>
+
+                    <button className="logout-button" onClick={handleLogout}>Logout</button>
+
                 </div>
+
             )}
             {isUser === false && (
                 <div className='auth-login'>
-                    <h1>Login div working....</h1>
+                      <button className='close-btn auth-close' onClick={() => { props.toggleAuth()}}>
+                    <AiOutlineClose className='close-icon' />
+                    </button>
+                    <img src={logo} className='auth-logo' alt="" />
+                    
                     {isVerifyOTP === false && (
                         <form onSubmit={handleLoginFormSubmit}>
+                            <h3>Login With Your Phone </h3>
                             <label htmlFor="">Enter Number</label>
                             <input
-                                type="number"
+                                type="text"
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                             />
                             <button type='submit'>Submit</button>
                         </form>
-                    )};
+                    )}
                     {isVerifyOTP && (
                         <div className='otp-verification'>
-                            <h2>Enter OTP</h2>
+                            
                             <form onSubmit={handleVerifyFormSubmit}>
+                            <h4>Enter OTP</h4>
                                 <input
                                     type="text"
                                     value={OTP}
                                     onChange={(e) => SetOpt(e.target.value)}
                                 />
-                                <button type='submit'>Verify OTP</button>
+                                <button type='submit'>Verify</button>
+                                <button  onClick={handleChangeNumber} className='change-num-btn'>Change number</button>
+
                             </form>
                         </div>
                     )}
