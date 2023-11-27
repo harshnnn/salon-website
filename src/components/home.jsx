@@ -906,10 +906,11 @@ const HomePage = () => {
         setIsChooseTImeClicked(!isChooseTimeClicked);
         handleMinimizeOrder();
 
-        if (today.getDay() === 0 || today.getDay() === 1) {
-            setShowTimeSlots2(true);
-        }
-        else { setShowTimeSlots1(true); }
+        //target
+        // if (today.getDay() === 0 || today.getDay() === 1) {
+        //     setShowTimeSlots2(true);
+        // }
+        // else { setShowTimeSlots1(true); }
 
         //for time conversion
         const convertTo24Hour = (time12h) => {
@@ -952,13 +953,14 @@ const HomePage = () => {
 
             //for selected sebservice id
             const content3Elements = clickedContents.filter(item => item.type === 'content-3-style')
-            const selectedSubserviceIds = content3Elements.id;
+            const selectedSubserviceIds = content3Elements[0].id;
             console.log('formated subservice is ', selectedSubserviceIds);
 
             //for selected professional id
             const content1Elements = clickedContents.filter(item => item.type === 'content-1-style')
             const selectedProfessionalIds = content1Elements.map(item => item.id);
-            console.log('formated professional is ', selectedProfessionalIds);
+            const selectedProffID = selectedProfessionalIds[0];
+            console.log('formated professional is ', selectedProffID);
 
             clickedContents.forEach((item, index) => {
                 if (index === 0) return;
@@ -974,14 +976,14 @@ const HomePage = () => {
 
 
             const data = {
-                "addons": selectedAddonIds.map(addonId => ({ addonId })),
+                "addons": selectedAddonIds,
                 "slot": {
                     "start_time": formattedDateTime,
-                    "professional": selectedProfessionalIds
+                    "professional": selectedProffID
                 },
-                "user": null,
+                "user": 1,
                 "subservice": selectedSubserviceIds,
-                "professional": selectedProfessionalIds
+                "professional": selectedProffID
             }
 
 

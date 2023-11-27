@@ -182,7 +182,7 @@ const Auth = (props) => {
                 open={snackbarLogin}
                 autoHideDuration={6000}
                 onClose={handleCloseSnackbar}
-                message="Token retrieved successfully"
+                message="Login successful"
                 action={
                     <IconButton size="small" color="inherit" onClick={handleCloseSnackbar}>
                         <CloseIcon fontSize="small" />
