@@ -638,6 +638,7 @@ const HomePage = () => {
     const [bookingDetail, setBookingDetail] = useState(null);
     const [orderbtn, setOrderbtn] = useState(null); //hiding and showing the choose time div
     const [isNextBtnVisible, SetNextBtnvisible] = useState(true);
+    const [isLoading, setIsLoading] = useState('loading');// for loading animaiton
 
     const [clickedContents, setClickedContents] = useState([]); //storing the clicked content
 
@@ -755,7 +756,6 @@ const HomePage = () => {
 
 
     const closeSelectedService = () => {
-
         sethighlited(null);
         //to get back
         setBookingDetail(false);//lastDD
@@ -865,8 +865,16 @@ const HomePage = () => {
     };
 
     const closeSelectedAddon = () => {
+        //target
+        //removing all subservices
+        setClickedContents(prevContents => (
+            prevContents.filter(item => item.type !== 'content-3-style')
+        ));
+        setBookingDetail(false)
         SetAddon(null);
         setSelectedService(true);
+        // SetNextBtnvisible(false);
+
         setBookingHeader('Choose Service');
     }
 
@@ -1012,16 +1020,16 @@ const HomePage = () => {
                     console.error('Error:', error);
                 });
 
-            // SetIsSuccess(true);
+            SetIsSuccess(true);
 
-            // setTimeout(() => {
-            //     toggleBookingDiv();
+            setTimeout(() => {
+                toggleBookingDiv();
 
-            //     // Reload the page after 3 seconds
-            //     setTimeout(() => {
-            //         window.location.reload();
-            //     }, 1000);
-            // }, 3000); // 3000 milliseconds = 3 seconds
+                // Reload the page after 3 seconds
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }, 3000); // 3000 milliseconds = 3 seconds
         }
 
 
@@ -1100,21 +1108,6 @@ const HomePage = () => {
         console.log('timesForToday has changed:', timesForToday);
         addHighlightClass();
 
-        // timeSlots1.forEach(timeSlot => {
-        //     if (timesForToday.includes(timeSlot.time24)) {
-        //         console.log(`timeSlot.time24 ${timeSlot.time24} is included in timesForToday`);
-        //         // You can perform additional actions here if needed
-
-        //     }
-        // });
-
-        // timeSlots2.forEach(timeSlot => {
-        //     if (timesForToday.includes(timeSlot.time24)) {
-        //         console.log(`timeSlot.time24 ${timeSlot.time24} is included in timesForToday`);
-        //         // You can perform additional actions here if needed
-
-        //     }
-        // });
 
     }, [timesForToday]);
 
@@ -1135,6 +1128,8 @@ const HomePage = () => {
     };
 
     const handleDateChange = (newDate) => {
+        setIsLoading(true); // Set isLoading to true when fetching starts
+
         setDate(newDate);
         //console.log(clickedContents);
         const selectedProfessional = clickedContents[1];
@@ -1149,13 +1144,13 @@ const HomePage = () => {
                         throw new Error('Network response was not ok');
                     }
                     return response.json();
+
                 })
                 .then(slotsData => {
                     // Handle slots data here, for example, update state or perform any necessary operations
                     // console.log('Slots Data:', slotsData);
                     // Set the received slots data to a state variable, if needed
                     setSlotsData(slotsData);
-
                     //for checking time slot
                     const today = new Date(newDate); // Create a new Date object based on the selected date
                     today.setDate(today.getDate() + 1); // Add one day to the selected date
@@ -1176,11 +1171,9 @@ const HomePage = () => {
                         setTimesForToday(timesForToday);
                         console.log('Slots for today:', timesForToday);
 
-
                     } else {
                         console.log('No slots available for today.');
                         // Check if timesForToday doesn't include any time24 value
-
                         if (true) {
                             // Function to remove highlighted class from elements
                             document.querySelectorAll('.time-slot-card').forEach((element) => {
@@ -1188,12 +1181,18 @@ const HomePage = () => {
                             });
                         }
                     }
+                    setIsLoading(false); // Set isLoading to false after fetch is completed
+
 
                 })
                 .catch(error => {
+                    setIsLoading(false); // Set isLoading to false after fetch is completed
+
                     // Handle fetch errors here
                     console.error('Error fetching slots:', error);
                 });
+
+
         }
         // Get today's date in YYYY-MM-DD format
 
@@ -1669,7 +1668,7 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    {timeSlots1.map((timeSlot, index) => (
+                                                    {/* {timeSlots1.map((timeSlot, index) => (
                                                         <div
 
                                                             className={`time-slot-card `}
@@ -1681,7 +1680,21 @@ const HomePage = () => {
 
                                                             {timeSlot.icon} {timeSlot.time}
                                                         </div>
-                                                    ))}
+                                                    ))} */}
+                                                    {isLoading ? (
+                                                        <div className='loading-animation'></div>
+                                                    ) : (
+                                                        timeSlots1.map((timeSlot, index) => (
+                                                            <div
+                                                                className='time-slot-card'
+                                                                key={index}
+                                                                data-time24={timeSlot.time24}
+                                                                onClick={() => handleSelectedTimeClick(timeSlot)}
+                                                            >
+                                                                {timeSlot.icon} {timeSlot.time}
+                                                            </div>
+                                                        ))
+                                                    )}
                                                 </div>
 
                                             </div>
@@ -1755,14 +1768,14 @@ const HomePage = () => {
                                                             <span className='content-3-style'>{content.value[0]}</span>
                                                             <span className="pricing">${content.value[2]}</span>
                                                             {/* <p>{content.id for id of subbservice}</p> */}
-                                                            <button onClick={handleDelete} className='order-div-button'>Delete</button>
+                                                            {/* <button onClick={handleDelete} className='order-div-button'>Delete</button> */}
 
                                                         </div>
                                                     )
                                                 }
                                                 else {
                                                     return (
-                                                        <li className={`content.type proffname`}>
+                                                        <li key={index} className={`content.type proffname`}>
                                                             By: {content.value}
                                                             {/* content.id for proff id */}
                                                         </li>
