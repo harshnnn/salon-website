@@ -31,6 +31,7 @@ import axios from 'axios';
 import CustomCarousel from './content7'
 import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
 import ProfessionalCarousel from './content4';
+import { dividerClasses } from '@mui/material';
 
 
 
@@ -172,8 +173,7 @@ const HomePage = () => {
         }
     }, [token]);
 
-    const handleLoginClick = (OTP) => {
-        alert("backend server down!!...")
+    const handleLoginClick = () => {
         const parentDiv = document.getElementById('parent-div');
 
         // Create the container div
@@ -1465,6 +1465,7 @@ const HomePage = () => {
                             Book Now
                         </div>
 
+
                         {isVisible && (
                             <div id='parent-div' className={`animated-div  scrollbar ${isVisible ? 'slide-in' : 'slide-out'} ${minimized ? 'animated-div-overflow-hidden' : ''}`}                            >
                                 {/* booking header div */}
@@ -1629,7 +1630,7 @@ const HomePage = () => {
                                                     key={addon.title}
                                                 >
                                                     <span className='service-name'>{addon.title || 'Title not available'}</span>
-                                                    <span className='service-price'>{addon.price || 'Price not available'}</span>
+                                                    <span className='service-price'>${addon.price || 'Price not available'}</span>
                                                 </div>
                                             ))}
 
@@ -1710,18 +1711,23 @@ const HomePage = () => {
                                                 </div>
                                                 <div className='Time-slots'>
                                                     <div className='Time-slots'>
-                                                        {timeSlots2.map((timeSlot, index) => (
-                                                            <div
-                                                                className={`time-slot-card`}
-                                                                key={index}
-                                                                data-time24={timeSlot.time24}
+                                                        {isLoading ? (
+                                                            <div className='loading-animation'></div>
+                                                        ) : (
+                                                            timeSlots2.map((timeSlot, index) => (
+                                                                <div
+                                                                    className={`time-slot-card`}
+                                                                    key={index}
+                                                                    data-time24={timeSlot.time24}
 
-                                                                onClick={() => handleSelectedTimeClick(timeSlot)}
-                                                            >
-                                                                {timeSlot.icon} {timeSlot.time}
-                                                            </div>
-                                                        ))}
+                                                                    onClick={() => handleSelectedTimeClick(timeSlot)}
+                                                                >
+                                                                    {timeSlot.icon} {timeSlot.time}
+                                                                </div>
+                                                            ))
+                                                        )}
                                                     </div>
+
                                                 </div>
                                             </div>
                                         )}
@@ -1740,7 +1746,7 @@ const HomePage = () => {
                                     <div className='clicked-div-content-header'>
                                         <h2>Your Order </h2>
 
-                                        {isNextBtnVisible != null && (<div onClick={OpenProfessional} className='button-48 btn-modified'>Next</div>)}
+                                        {isNextBtnVisible != null && (<div onClick={OpenProfessional} className='button-48 btn-modified'><span className='text'>Next</span></div>)}
 
                                         <button onClick={handleMinimizeOrder} className='button-28'>
                                             {minimized ? <MdExpandMore /> : <MdExpandLess />}
@@ -1809,7 +1815,6 @@ const HomePage = () => {
                                             </div>
 
 
-                                            {/* <button onClick={handleLogout}>Logout</button>   */}
 
                                         </div>
 
@@ -1818,46 +1823,40 @@ const HomePage = () => {
                                     {isTimeSelected == null && (
                                         <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
                                     } */}
+                                    {/*                                     
+                                    {orderbtn !== null && (
 
-                                    {orderbtn !== null && (<button className="button-48" role="button" onClick={handleChooseTimeClick}>
+                                        <div className="button-48"  onClick={handleChooseTimeClick}>
 
-                                        {/* <span className="text">
-                                            {isUser ? <div  >Book Now </div> : (isTimeSelected ? <div style={{
-                                                padding: '0',
-                                                width: '100%',
-                                                height: '100%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center'
-                                            }} onClick={handleLoginClick}>Login
+                                            {!isTimeSelected ? (
+                                                'Choose a time' ) : !isUser ? (
+                                                <button  onClick={  handleLoginClick} style={{ padding: '0', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
+                                                    Login
+                                                </button>
+                                            ) : (
+                                                <div>Book Now</div>
+                                            )}
 
-                                            </div> : 'Choose a time')}
-                                        </span> */}
-                                        {!isTimeSelected ? (
-                                            'Choose a time'
-                                        ) : !isUser ? (
-                                            <div
-                                                style={{
-                                                    padding: '0',
-                                                    width: '100%',
-                                                    height: '100%',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center'
-                                                }}
-                                                onClick={handleLoginClick}
-                                            >
-                                                Login
-                                            </div>
-                                        ) : (
-                                            <div>Book Now</div>
-                                        )}
+                                        </div>
+                                    )}  */}
 
-                                    </button>
+                                    {/* {orderbtn !== null && (
+                                        <div className=''>
+                                            {!isTimeSelected ? <button className='bug-btn' onClick={handleChooseTimeClick}>Choose Time</button> : !isUser ? <button className='bug-btn' onClick={handleLoginClick}>Login</button> : <button className='bug-btn' onClick={handleChooseTimeClick}>Book Now</button>}
+                                        </div>
+                                    )} */}
+
+                                    {orderbtn !== null && (
+                                        <div className='bug-btn'>
+                                            {!isTimeSelected ? <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Choose Time</span></button> : !isUser ? <button className="button-48" onClick={handleLoginClick} role="button"><span className="text">Login </span></button> : <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Book Now</span></button>}
+                                        </div>
                                     )}
 
+
+
+
                                     {orderbtn == null && (
-                                        <button className='button-48' onClick={OpenProfessional}>Choose Professional</button>
+                                        <button className='button-48' onClick={OpenProfessional}><span className='text'>Choose Professional</span></button>
                                     )}
 
 
