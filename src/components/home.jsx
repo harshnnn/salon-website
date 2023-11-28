@@ -183,7 +183,7 @@ const HomePage = () => {
         // Create the closeContainer button
         // Create close button 
         const closeButton = document.createElement('button');
-        closeButton.textContent = 'Back' ;
+        closeButton.textContent = 'Back';
         closeButton.classList.add('close-button');
         loginContainer.appendChild(closeButton);
 
@@ -680,17 +680,17 @@ const HomePage = () => {
 
             document.querySelector('.nav-div').classList.remove('responsive-class'); // No dot here
         }
-        //bug-fix-2
+        //bug-fix-2 date:28-11-2023
         //setServiceCard(true); // Reset selected card when toggling
         setProffVisible(null); // Show the .cards div
 
         SetIsSuccess(null);
         setIsTimeSelected(null);
-        if(serviceCard){
-        setBookingHeader("Choose a service")
+        if (serviceCard) {
+            setBookingHeader("Choose a service")
         }
 
-        if(bookingHeader == "Choose Proffesonals"){
+        if (bookingHeader == "Choose Professional") {
             OpenProfessional();
         }
     };
@@ -903,7 +903,7 @@ const HomePage = () => {
             setOrderbtn(true);
             setBookingDetail(true);
             setProffVisible(true);
-            setBookingHeader("Choose Proffesonals")
+            setBookingHeader("Choose Professional")
             SetAddon(null);
         }
 
@@ -1054,6 +1054,7 @@ const HomePage = () => {
 
         //toggleBookingDiv();
 
+        handleDateChange(date);
 
     }
     //to toggle the order list div up and down 
@@ -1076,6 +1077,7 @@ const HomePage = () => {
 
         // Set the state with the new array
         setClickedContents(filteredContents);
+
     }
 
 
@@ -1476,7 +1478,7 @@ const HomePage = () => {
         <div className='home-page'>
 
             <div className='content-1' id="content1" >
-                <div className='tagline'><p>We provde you the best experience which your hair <span>loves</span></p>
+                <div className='tagline'><p>We provide you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
 
@@ -1910,7 +1912,7 @@ const HomePage = () => {
                         <div className='card-img'></div>
                         <div className='card-info-left'>
                             <h4>Hair Services</h4>
-                            <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong> elevates the art of hairstyling to new heights. With a collective passion for innovation and a commitment to excellence.</p>
+                            <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong>  </p> <p>elevates the art of hairstyling to new heights. With a collective passion for innovation and a commitment to excellence.</p>
 
                             <p>Through years of honing their craft, our experts have mastered the intricate details of hairstyling. Their keen eye for trends and unwavering dedication to continual learning ensure that you receive not just a service, but a personalized journey towards your perfect look.</p>
 
@@ -1923,9 +1925,9 @@ const HomePage = () => {
                     <div className='card-2 card-right'>
                         <div className='card-info-right'>
                             <h4>Spa Facials</h4>
-                            <p>
-                                <strong>Indulge in our rejuvenating spa facials, where tranquility meets skincare perfection.</strong>
-                                Our expert estheticians bring together a harmonious blend of luxurious treatments and cutting-edge techniques.
+
+                            <p><strong>Indulge in our rejuvenating spa facials, where tranquility meets skincare perfection.</strong>
+                            </p>  <p>Our expert estheticians bring together a harmonious blend of luxurious treatments and cutting-edge techniques.
                             </p>
 
                             <p>
@@ -1946,8 +1948,8 @@ const HomePage = () => {
                         <div className='card-info-left'>
                             <h4>Hair Removal</h4>
                             <p>
-                                <strong>Experience the epitome of smoothness and confidence with our hair removal services.</strong>
-                                Our proficient technicians employ advanced techniques and top-quality products to ensure a hair-free experience .
+                                <strong>Experience the epitome of smoothness and confidence with our hair removal services.</strong> </p>
+                              <p>  Our proficient technicians employ advanced techniques and top-quality products to ensure a hair-free experience .
                             </p>
 
                             <p>
@@ -2183,7 +2185,7 @@ const HomePage = () => {
                                 <td>10:00 -- 7:00</td>
                             </tr>
                             <tr>
-                                <td>Webnesday</td>
+                                <td>Wednesday</td>
                                 <td>10:00 -- 7:00</td>
                             </tr>
                             <tr>
@@ -2199,7 +2201,7 @@ const HomePage = () => {
                                 <td>10:00 -- 7:00</td>
                             </tr>
                             <tr>
-                                <td>Sunnday</td>
+                                <td>Sunday</td>
                                 <td>10:00 -- 5:00</td>
                             </tr>
                         </tbody>
