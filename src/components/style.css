@@ -2676,6 +2676,26 @@ Carousel {
     overflow: hidden;
 }
 
+.close-button {
+    background-color: transparent;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    width: 100px;
+    height: 30px;
+    background-color: #0056b3;
+    font-size: 16px;
+    color: #000; 
+    margin-bottom: 100px;
+    margin-top: 0;
+  }
+  
+  .close-button:hover {
+    color: #ff0000; 
+  }
+  
+
 .login-input {
     width: 80%;
     padding: 10px;

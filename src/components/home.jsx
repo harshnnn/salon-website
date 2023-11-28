@@ -180,6 +180,20 @@ const HomePage = () => {
         const loginContainer = document.createElement('div');
         loginContainer.classList.add('login-container');
 
+        // Create the closeContainer button
+        // Create close button 
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'Back' ;
+        closeButton.classList.add('close-button');
+        loginContainer.appendChild(closeButton);
+
+
+
+        // Add click event to close button
+        closeButton.addEventListener('click', () => {
+            parentDiv.removeChild(loginContainer);
+        });
+
         // Create the input field for mobile number
         const mobileInput = document.createElement('input');
         mobileInput.type = 'tel';
@@ -666,14 +680,19 @@ const HomePage = () => {
 
             document.querySelector('.nav-div').classList.remove('responsive-class'); // No dot here
         }
-
-        setServiceCard(true); // Reset selected card when toggling
+        //bug-fix-2
+        //setServiceCard(true); // Reset selected card when toggling
         setProffVisible(null); // Show the .cards div
 
         SetIsSuccess(null);
         setIsTimeSelected(null);
-
+        if(serviceCard){
         setBookingHeader("Choose a service")
+        }
+
+        if(bookingHeader == "Choose Proffesonals"){
+            OpenProfessional();
+        }
     };
     const openCardDetails = (cardIndex, professional) => {
         //setServiceCard(cardIndex);
