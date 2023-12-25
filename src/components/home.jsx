@@ -32,11 +32,7 @@ import CustomCarousel from './content7'
 import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
 import ProfessionalCarousel from './content4';
 import { dividerClasses } from '@mui/material';
-
-
-
-
-
+import MapContainer from './MapContainer'; // Path to your MapContainer component
 
 const HomePage = () => {
 
@@ -286,16 +282,17 @@ const HomePage = () => {
 
     const [professionals, setProfessionals] = useState([]);
 
-    useEffect(() => {
-        // Fetch additional professionals from the backend API and append to the state
-        fetch('https://thorfinn.pythonanywhere.com/professionals/')
-            .then(response => response.json())
-            .then(data => {
-                // Update state with fetched professionals
-                setProfessionals(data);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    }, []);
+    //target-01
+    // useEffect(() => {
+    //     // Fetch additional professionals from the backend API and append to the state
+    //     fetch('https://thorfinn.pythonanywhere.com/professionals/')
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             // Update state with fetched professionals
+    //             setProfessionals(data);
+    //         })
+    //         .catch(error => console.error('Error fetching data:', error));
+    // }, []);
 
 
 
@@ -532,7 +529,7 @@ const HomePage = () => {
             <div className='detail-1'>
                 <p className='list-detail-heading'>Classic Spa Facial
                     <br />$80</p>
-                <p className='list-detail-content'>Indulge in relaxation with our classic spa facial. Includes deep cleansing, exfoliation, steam, extractions, mask, and soothing massage.</p>
+                <p className='list-detail-content'>Indulge in relaxation with our classic facial. Includes deep cleansing, exfoliation, steam, extractions, mask, and soothing massage.</p>
             </div>
             <div className='detail-1'>
                 <p className='list-detail-heading'>Anti-Aging Facial
@@ -690,47 +687,64 @@ const HomePage = () => {
             setBookingHeader("Choose a service")
         }
 
-        if (bookingHeader == "Choose Professional") {
-            OpenProfessional();
-        }
     };
-    const openCardDetails = (cardIndex, professional) => {
+    const openChooseTime = (cardIndex, professional) => {
+        
         //setServiceCard(cardIndex);
         setProffVisible(null); // Hide the .cards div
         setMinimized(true);
         setBookingDetail(true); //Booking
         setBookingHeader('Choose Time');
         setIsChooseTImeClicked(true);
+        SetAddon(null);
+        setOrderbtn(true);
+        SetNextBtnvisible(null);
+
 
         //pushing the professional name
-        // if (clickedDiv) {
-        //     alert(professional)
-        //     const contentElement = clickedDiv.querySelector('p');
-        //     if (contentElement) {
-        //         const content1 = contentElement.textContent;
-        //         setClickedContents(prevContents => [...prevContents, { type: 'content-1-style', value: content1, index: prevContents.filter(item => item.type === 'content-1-style').length },]);
-        //     }
+
+        // const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
+        // const contentElement = clickedDiv.querySelector('p');
+
+        // if (contentElement && professional) {
+        //     const professionalId = professional.id;
+        //     const professionalName = professional.user;
+
+        //     setClickedContents(prevContents => [
+        //         ...prevContents,
+        //         {
+        //             type: 'content-1-style',
+        //             id: professionalId,
+        //             value: professionalName,
+        //             index: prevContents.filter(item => item.type === 'content-1-style').length,
+        //         },
+        //     ]);
         // }
-        const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
-        const contentElement = clickedDiv.querySelector('p');
-
-        if (contentElement && professional) {
-            const professionalId = professional.id;
-            const professionalName = professional.user;
-
-            setClickedContents(prevContents => [
-                ...prevContents,
-                {
-                    type: 'content-1-style',
-                    id: professionalId,
-                    value: professionalName,
-                    index: prevContents.filter(item => item.type === 'content-1-style').length,
-                },
-            ]);
+        
+        if (bookingHeader == "Choose Time") {
+            setMinimized(null);
         }
 
     };
 
+    const closeChooseTime = () => {
+        setIsChooseTImeClicked(null);
+        //marked
+        setMinimized(false);
+
+        // setProffVisible(true);
+        setBookingHeader('Choose Addons');
+
+        // console.log(clickedContents);
+        // // Filter out elements with type 'content-1-style' (which is professionals)
+        // const filteredContents = clickedContents.filter(item => item.type !== 'content-1-style');
+
+        // // Set the state with the new array
+        // setClickedContents(filteredContents);
+        SetNextBtnvisible(true);
+        SetAddon(true);
+
+    }
 
 
     //close button for closing the service list
@@ -985,8 +999,8 @@ const HomePage = () => {
 
             //for selected professional id
             const content1Elements = clickedContents.filter(item => item.type === 'content-1-style')
-            const selectedProfessionalIds = content1Elements.map(item => item.id);
-            const selectedProffID = selectedProfessionalIds[0];
+            // const selectedProffID = selectedProfessionalIds[0]; target1
+            const selectedProffID = 1;
             console.log('formated professional is ', selectedProffID);
 
             clickedContents.forEach((item, index) => {
@@ -1005,12 +1019,11 @@ const HomePage = () => {
             const data = {
                 "addons": selectedAddonIds,
                 "slot": {
-                    "start_time": formattedDateTime,
-                    "professional": selectedProffID
+                    "start_time": formattedDateTime
                 },
-                "user": 1,
+                "cancelled": false,
+                "user": 2,
                 "subservice": selectedSubserviceIds,
-                "professional": selectedProffID
             }
 
 
@@ -1039,7 +1052,7 @@ const HomePage = () => {
                     console.error('Error:', error);
                 });
 
-            SetIsSuccess(true);
+              SetIsSuccess(true);
 
             setTimeout(() => {
                 toggleBookingDiv();
@@ -1063,22 +1076,7 @@ const HomePage = () => {
     }
 
 
-    const closeChooseTime = () => {
-        setIsChooseTImeClicked(null);
-        //marked
-        setMinimized(false);
-
-        setProffVisible(true);
-        setBookingHeader('Choose Professional');
-
-        console.log(clickedContents);
-        // Filter out elements with type 'content-1-style' (which is professionals)
-        const filteredContents = clickedContents.filter(item => item.type !== 'content-1-style');
-
-        // Set the state with the new array
-        setClickedContents(filteredContents);
-
-    }
+    
 
 
     // Function to calculate total price from clickedContents and selectedAddon
@@ -1155,11 +1153,13 @@ const HomePage = () => {
         //console.log(clickedContents);
         const selectedProfessional = clickedContents[1];
 
-        if (selectedProfessional) {
-            const professionalId = selectedProfessional.id; // Assuming the professional ID is available in selectedProfessional
+
+        if (newDate) {
+           
 
             // Make a request to fetch slots for the selected professional and date
-            fetch(`https://thorfinn.pythonanywhere.com/slots/?professional=${professionalId}`)
+            fetch(`https://thorfinn.pythonanywhere.com/slots/`
+            )
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -1508,37 +1508,26 @@ const HomePage = () => {
                                 </div>
 
                                 {/* this div has the list of all the professionals */}
-                                <div className={`cards ${proffVisible ? '' : 'hidden'}`}>
+                                {/* <div className={`cards ${proffVisible ? '' : 'hidden'}`}>
 
                                     <div style={{ display: 'block', width: '100%' }}>
                                         <button className='close-btn' onClick={closeSelecteProff} >
                                             <AiOutlineClose className='close-icon' />
                                         </button>
                                     </div>
-                                    {/* 
-                                    {professionals.map((professional, index) => (
-                                        <div
-                                            className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
-                                            key={index}
-                                            onClick={() => openCardDetails(index + 1)}
-                                        >
-                                            <img className='card-0-proff' src={professional.image} alt={`Image for ${professional.name}`} />
-                                            <p>{professional.name}</p>
-                                        </div>
-                                    ))} */}
 
                                     {professionals.map((professional, index) => (
                                         <div
                                             className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
                                             key={professional.id} // Use the professional's ID as the key
-                                            onClick={() => openCardDetails(index + 1, professional)}
+                                            onClick={() => openChooseTime(index + 1, professional)}
                                         >
                                             <img className='card-0-proff' src={professional.image_url} alt={`Image for ${professional.id}`} />
                                             <p>{professional.user + " " + professional.id}</p>
                                         </div>
                                     ))}
 
-                                </div>
+                                </div> */}
 
                                 {/* this div has all the service types listed*/}
                                 {serviceCard !== null && (
@@ -1767,7 +1756,10 @@ const HomePage = () => {
                                     <div className='clicked-div-content-header'>
                                         <h2>Your Order </h2>
 
-                                        {isNextBtnVisible != null && (<div onClick={OpenProfessional} className='button-48 btn-modified'><span className='text'>Next</span></div>)}
+                                        {/* {isNextBtnVisible != null && (<div onClick={OpenProfessional} className='button-48 btn-modified'><span className='text'>Next</span></div>)} */}
+
+                                        {isNextBtnVisible != null && (<div onClick={openChooseTime} className='button-48 btn-modified'><span className='text'>Next</span></div>)}
+
 
                                         <button onClick={handleMinimizeOrder} className='button-28'>
                                             {minimized ? <MdExpandMore /> : <MdExpandLess />}
@@ -1869,7 +1861,10 @@ const HomePage = () => {
 
                                     {orderbtn !== null && (
                                         <div className='bug-btn'>
-                                            {!isTimeSelected ? <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Choose Time</span></button> : !isUser ? <button className="button-48" onClick={handleLoginClick} role="button"><span className="text">Login </span></button> : <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Book Now</span></button>}
+                                            {!isTimeSelected ? 
+                                            <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Choose Time</span></button> 
+                                            : !isUser ? <button className="button-48" onClick={handleLoginClick} role="button"><span className="text">Login </span></button> 
+                                            : <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Book Now</span></button>}
                                         </div>
                                     )}
 
@@ -1877,7 +1872,7 @@ const HomePage = () => {
 
 
                                     {orderbtn == null && (
-                                        <button className='button-48' onClick={OpenProfessional}><span className='text'>Choose Professional</span></button>
+                                        <button className='button-48' onClick={openChooseTime}><span className='text'>Choose Time</span></button>
                                     )}
 
 
@@ -1926,7 +1921,7 @@ const HomePage = () => {
                         <div className='card-info-right'>
                             <h4>Spa Facials</h4>
 
-                            <p><strong>Indulge in our rejuvenating spa facials, where tranquility meets skincare perfection.</strong>
+                            <p><strong>Indulge in our rejuvenating facials, where tranquility meets skincare perfection.</strong>
                             </p>  <p>Our expert estheticians bring together a harmonious blend of luxurious treatments and cutting-edge techniques.
                             </p>
 
@@ -1935,7 +1930,7 @@ const HomePage = () => {
                             </p>
 
                             <p>
-                                Our spa facials transcend the ordinary by incorporating therapeutic practices and tailored solutions. Whether it's hydration, anti-aging, or rejuvenation, our treatments are designed to restore your skin's natural radiance and vitality.
+                                Our facials transcend the ordinary by incorporating therapeutic practices and tailored solutions. Whether it's hydration, anti-aging, or rejuvenation, our treatments are designed to restore your skin's natural radiance and vitality.
                             </p>
 
                             <p>
@@ -1985,7 +1980,7 @@ const HomePage = () => {
                 <div className={`content-3-info ${isContent3Animated ? 'slideInRight' : ''}`}>
                     <h1>ABOUT US</h1>
                     <p>
-                        Come relax and rejuvenate with the variety of luxurious salon and spa services <br />
+                        Come relax and rejuvenate with the variety of luxurious salon services <br />
                         offered by Intermezzo Salon & Spa, nestled on the top of Queen Anne Hill. <br />
                         Our staff of highly trained professionals is committed <br />
                         to bringing you the highest quality service and products.
@@ -2131,6 +2126,10 @@ const HomePage = () => {
             </div>
 
             <div className="content-9">
+                {/* <div>
+                <MapContainer />
+
+                </div> */}
                 <div>
                     <h2>About our store</h2>
                     <p>
@@ -2178,31 +2177,31 @@ const HomePage = () => {
                         <tbody>
                             <tr>
                                 <td>Monday</td>
-                                <td><p>10:00 -- 5:00</p></td>
+                                <td><p>10:00 -- 6:00</p></td>
                             </tr>
                             <tr>
                                 <td>Tuesday</td>
-                                <td>10:00 -- 7:00</td>
+                                <td>10:00 -- 6:00</td>
                             </tr>
                             <tr>
                                 <td>Wednesday</td>
-                                <td>10:00 -- 7:00</td>
+                                <td>10:00 -- 6:00</td>
                             </tr>
                             <tr>
                                 <td>Thursday</td>
-                                <td>10:00 -- 7:00</td>
+                                <td>10:00 -- 6:00</td>
                             </tr>
                             <tr>
                                 <td>Friday</td>
-                                <td>10:00 -- 7:00</td>
+                                <td>10:00 -- 6:00</td>
                             </tr>
                             <tr>
                                 <td>Saturday</td>
-                                <td>10:00 -- 7:00</td>
+                                <td>10:00 -- 6:00</td>
                             </tr>
                             <tr>
                                 <td>Sunday</td>
-                                <td>10:00 -- 5:00</td>
+                                <td>Closed</td>
                             </tr>
                         </tbody>
                     </table>

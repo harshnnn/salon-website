@@ -12,7 +12,281 @@ const Auth = (props) => {
 
     const [snackbarLogin, setSnackbarLogin] = useState(false);
     const [snackbarLogout, setSnackbarLogout] = useState(false);
-    const [isAppointmentCance, setIsAppointmentCancell] = useState(false);
+    const [isAppointmentCancel, setIsAppointmentCancel] = useState(false);
+
+    const handleCancelAppointment = async (appointmentId) => {
+        try {
+            const response = await fetch(`https://thorfinn.pythonanywhere.com/auth/users/2/appointments/${appointmentId}`, {
+                method: 'DELETE',
+                headers: {
+                    // Include any headers if required (e.g., authorization headers)
+                    'Content-Type': 'application/json'
+                },
+                // Optionally, add a body if needed
+                // body: JSON.stringify({ /* Your request body */ })
+            });
+
+            if (response.ok) {
+                // Appointment canceled successfully, perform any necessary actions
+                console.log('Appointment canceled successfully');
+                // Update state or perform any other action upon successful cancellation
+            } else {
+                // Handle errors if the cancellation fails
+                console.error('Failed to cancel appointment');
+            }
+        } catch (error) {
+            console.error('Error occurred while canceling appointment:', error);
+        }
+    };
+
+
+    //fetching appointments
+    const [appointments, setAppointments] = useState([]);
+    const [subservicesData, setSubservicesData] = useState({});
+    const [flattenedSubservices, setFlattenedSubservices] = useState([]);
+    const [addonsData, setAddonsData] = useState([]);
+
+    const fetchAddonsData = async () => {
+        try {
+            const response = await fetch('https://thorfinn.pythonanywhere.com/addons/');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await response.json();
+            // Assuming the data fetched is an array of addon objects
+            return data.reduce((acc, addon) => {
+                acc[addon.id] = {
+                    id: addon.id,
+                    name: addon.title,
+                    price: `$${addon.price}`,
+                };
+                return acc;
+            }, {});
+        } catch (error) {
+            console.error('Error fetching addon data:', error);
+            return {}; // Return empty object in case of an error
+        }
+    };
+
+    useEffect(() => {
+
+        // Fetch addon data when the component mounts
+        const fetchAddonData = async () => {
+            const addonsData = await fetchAddonsData();
+            // Set addonsData to state or perform necessary operations
+            setAddonsData(addonsData);
+        };
+
+        fetchAddonData();
+    }, []);
+
+    const fetchSubserviceData = async (serviceId) => {
+        try {
+            const response = await fetch(`https://thorfinn.pythonanywhere.com/subservices/?service=${serviceId}`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch subservice-${serviceId} data`);
+            }
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error(error);
+            return []; // Return an empty array or handle the error accordingly
+        }
+    };
+
+    const fetchAllSubservices = async () => {
+        const subservicesPromises = [2, 1, 3].map(serviceId => fetchSubserviceData(serviceId));
+        try {
+            const subservicesData = await Promise.all(subservicesPromises);
+            return subservicesData;
+        } catch (error) {
+            console.error('Error fetching subservices:', error);
+            return []; // Return an empty array or handle the error accordingly
+        }
+    };
+
+    // useEffect to fetch subservices data separately
+    useEffect(() => {
+        fetchAllSubservices()
+            .then(data => {
+                data.forEach((subservices, index) => {
+                    updateSubservicesData(subservices, index);
+                });
+            })
+            .catch(error => console.error('Error fetching subservices:', error));
+
+        // Fetch data from the appointments endpoint
+        fetch('https://thorfinn.pythonanywhere.com/auth/users/2/appointments/')
+            .then(response => response.json())
+            .then(data => setAppointments(data))
+            .catch(error => console.error('Error fetching data:', error));
+    }, []);
+
+    // Update subservicesData state with fetched subservices based on service ID
+    const updateSubservicesData = (data, serviceId) => {
+        setSubservicesData(prevData => ({
+            ...prevData,
+            [serviceId]: data,
+        }));
+
+    };
+
+    useEffect(() => {
+        const flattenedSubservices = Object.values(subservicesData).reduce((acc, currentValue) => {
+            return acc.concat(currentValue);
+        }, []);
+
+        // Do something with flattenedSubservices if needed
+        setFlattenedSubservices(flattenedSubservices);
+        //console.log(flattenedSubservices);
+    }, [subservicesData]);
+
+
+    // useEffect(() => {
+
+    //     // Fetch data from the appointments endpoint
+    //     fetch('https://thorfinn.pythonanywhere.com/auth/users/1/appointments/')
+    //         .then(response => response.json())
+    //         .then(data => setAppointments(data))
+    //         .catch(error => console.error('Error fetching data:', error));     
+    // }, []);
+
+
+    const formatDate = (slot) => {
+        const date = new Date(slot); // slot is already in ISO format
+        return date.toLocaleString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true,
+            timeZone: 'UTC' // Ensure date is interpreted as UTC time
+        });
+    }
+
+
+    // Function to render appointment details
+    // const renderAppointments = () => {
+
+    //     return appointments.map(appointment => {
+    //         const subserviceData = flattenedSubservices[appointment.subservice-1];
+    //         const serviceName = subserviceData ? subserviceData.title : 'Unknown Service';
+    //         const servicePrice = subserviceData ? subserviceData.price : '$0';
+    //         const startTime = appointment.slot.start_time; // Accessing the start_time
+    //         const formattedStartTime = formatDate(new Date(startTime));
+
+    //         const addons = appointment.addons.map(addonId => {
+    //             // Assuming addonsData is fetched and available in a similar manner to subservicesData
+    //             const addonData = addonsData[addonId]; // Fetch addon details based on ID
+    //             return addonData ? addonData.name : 'Addon not found';
+    //         });
+
+    //         return (
+    //             <div key={appointment.id} className="booking-details">
+    //                 <div>Date & Time: <span>{formattedStartTime}</span></div>
+    //                 <div>Services: <span>{serviceName}</span></div>
+    //                 <div>Price: <span>{servicePrice}</span></div>
+    //                 <div>Add-ons: <span>{addons.length > 0 ? addons.join(', ') : 'None'}</span></div>
+    //                 <div>Cost: <span>{calculateCost(addons, appointment.id)}</span></div>
+    //                 <button className='cancel-btn' onClick={() => { setIsAppointmentCancel(true) }}>Cancel</button>
+    //             </div>
+    //         );
+    //     });
+    // }
+
+    const renderAppointments = () => {
+        return appointments.map(appointment => {
+            const subserviceData = flattenedSubservices[appointment.subservice - 1];
+            const serviceName = subserviceData ? subserviceData.title : 'Unknown Service';
+            const servicePrice = subserviceData ? subserviceData.price : '$0';
+            const startTime = appointment.slot.start_time;
+            const formattedStartTime = formatDate(new Date(startTime));
+
+            const addons = appointment.addons.map(addonId => {
+                const addonData = addonsData[addonId];
+                if (addonData) {
+                    return `${addonData.name} - ${addonData.price}`;
+                } else {
+                    return 'Addon not found';
+                }
+            });
+
+            return (
+                <div key={appointment.id} className="booking-details">
+                    <div>Date & Time: <span>{formattedStartTime}</span></div>
+                    <div>Service: <span>{serviceName}  - ${servicePrice}</span></div>
+                    {/* <div>Price: <span>${servicePrice}</span></div> */}
+                    {/* <div>
+                        Add-ons:{' '}
+                        <span style={{backgroundColor:'red'}} >
+                            {addons.length > 0 ? addons.join(', ') : 'None'}
+                        </span>
+                    </div>  */}
+                    <div >
+                        Add-ons:{' '}
+                        <span >
+                            {addons.length > 0
+                                ? addons.map((addon, index) => (
+                                    <React.Fragment key={index} >
+                                        {index !== 0 && <br />}
+                                        {addon}
+                                    </React.Fragment>
+                                ))
+                                : 'None'}
+                        </span>
+                    </div>
+
+                    <div>Cost: <span>{calculateCost(addons, appointment.id)}</span></div>
+                    <button
+                        className="cancel-btn"
+                        onClick={() => {
+                            setIsAppointmentCancel(true);
+                            handleCancelAppointment(appointment.id); // Call the function to cancel appointment
+
+                        }}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            );
+        });
+    };
+
+
+
+
+
+    // Function to calculate cost based on services and addons
+    // const calculateCost = (addons, appointmentId) => {
+    //     // Add your logic to calculate cost based on services and addons
+    //     console.log("addons: ", addons, "id ",appointmentId );
+    //     return '$65'; // Placeholder value
+    // }
+    const calculateCost = (addons, appointmentId) => {
+        const subserviceData = flattenedSubservices[appointments.find(appointment => appointment.id === appointmentId).subservice - 1];
+        const servicePrice = subserviceData ? parseFloat(subserviceData.price) : 0;
+
+        let addonsTotal = 0;
+        addons.forEach(addon => {
+
+            const addonPrice = parseFloat(addon.split('$')[1]); // Assuming addon price is separated by ' - '
+            // console.log("testing: ",addonPrice);
+            addonsTotal += addonPrice;
+        });
+
+        //const totalCost = Number(servicePrice + addonsTotal);
+        console.log("addons total, ", addonsTotal, " and service ", servicePrice);
+        const totalCost = parseFloat((servicePrice + addonsTotal)).toFixed(2);
+        ;
+        return `$${totalCost}`;
+    };
+
+
+
+
+
+
 
     const cancelAppointment = () => {
         alert('appointment canceled')
@@ -61,7 +335,7 @@ const Auth = (props) => {
         handleVerifyRequest();
     };
 
-    const handleChangeNumber = () =>{
+    const handleChangeNumber = () => {
         setIsVerifyOTP(false);
     }
 
@@ -204,30 +478,29 @@ const Auth = (props) => {
 
             {isUser && (
                 <div className="active-booking">
-                    <button className='close-btn' onClick={() => { props.toggleAuth()}}>
-                    <AiOutlineClose className='close-icon' />
-                    </button>
-                    <h3 style={{marginRight: '55%', marginTop:'10px', marginBottom: '10px'}}>Your Active Booking</h3>
+                    <div className='active-booking-header'>
+                        <button className='close-btn' onClick={() => { props.toggleAuth() }}>
+                            <AiOutlineClose className='close-icon' />
+                        </button>
+                        <h3 style={{ marginRight: '55%', marginTop: '10px', marginBottom: '10px' }}>Your Active Booking</h3>
+                    </div>
+
 
                     <div className="booking-item">
-                        <div className="booking-details">
-                            <div>Date & Time: <span>Nov 27, 2023 at 3:00 PM</span></div>
-                            <div>Services: <span>Haircut & Blowdry</span></div>
-                            <div>Add-ons: <span>None</span></div>
-                            <div>Professional: <span>Jane Doe</span></div>
-                            <div >Cost: <span>$65</span></div>
-                        </div>
 
-                        {isAppointmentCance && (
+                        
+                        {renderAppointments()}
+
+                        {isAppointmentCancel && (
                             <div className='appointment-cancel-alert'>
                                 Are you sure you want to cancel this appointment?
                                 <button onClick={cancelAppointment}>YES</button>
-                                <button onClick={() => { setIsAppointmentCancell(false) }}>No</button>
+                                <button onClick={() => { setIsAppointmentCancel(false) }}>No</button>
                             </div>
                         )}
 
 
-                        <button className='cancel-btn' onClick={() => { setIsAppointmentCancell(true) }}>Cancel</button>
+
                     </div>
 
                     <button className="logout-button" onClick={handleLogout}>Logout</button>
@@ -237,17 +510,19 @@ const Auth = (props) => {
             )}
             {isUser === false && (
                 <div className='auth-login'>
-                      <button className='close-btn auth-close' onClick={() => { props.toggleAuth()}}>
-                    <AiOutlineClose className='close-icon' />
+                    <button className='close-btn auth-close' onClick={() => { props.toggleAuth() }}>
+                        <AiOutlineClose className='close-icon' />
                     </button>
                     <img src={logo} className='auth-logo' alt="" />
-                    
+
                     {isVerifyOTP === false && (
                         <form onSubmit={handleLoginFormSubmit}>
                             <h3>Login With Your Phone </h3>
                             <label htmlFor="">Enter Number</label>
                             <input
                                 type="text"
+                                inputMode='numeric'
+                                pattern='[0-9]+'
                                 value={phoneNumber}
                                 onChange={(e) => setPhoneNumber(e.target.value)}
                             />
@@ -256,16 +531,18 @@ const Auth = (props) => {
                     )}
                     {isVerifyOTP && (
                         <div className='otp-verification'>
-                            
+
                             <form onSubmit={handleVerifyFormSubmit}>
-                            <h4>Enter OTP</h4>
+                                <h4>Enter OTP</h4>
                                 <input
                                     type="text"
+                                    inputMode='numeric'
+                                    pattern='[0-9]+'
                                     value={OTP}
                                     onChange={(e) => SetOpt(e.target.value)}
                                 />
                                 <button type='submit'>Verify</button>
-                                <button  onClick={handleChangeNumber} className='change-num-btn'>Change number</button>
+                                <button onClick={handleChangeNumber} className='change-num-btn'>Change number</button>
 
                             </form>
                         </div>
