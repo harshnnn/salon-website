@@ -6,7 +6,7 @@ import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { TiTick } from 'react-icons/ti'
@@ -689,7 +689,7 @@ const HomePage = () => {
 
     };
     const openChooseTime = (cardIndex, professional) => {
-        
+
         //setServiceCard(cardIndex);
         setProffVisible(null); // Hide the .cards div
         setMinimized(true);
@@ -720,7 +720,7 @@ const HomePage = () => {
         //         },
         //     ]);
         // }
-        
+
         if (bookingHeader == "Choose Time") {
             setMinimized(null);
         }
@@ -1052,16 +1052,16 @@ const HomePage = () => {
                     console.error('Error:', error);
                 });
 
-              SetIsSuccess(true);
+            //   SetIsSuccess(true);
 
-            setTimeout(() => {
-                toggleBookingDiv();
+            // setTimeout(() => {
+            //     toggleBookingDiv();
 
-                // Reload the page after 3 seconds
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }, 3000); // 3000 milliseconds = 3 seconds
+            //     // Reload the page after 3 seconds
+            //     setTimeout(() => {
+            //         window.location.reload();
+            //     }, 1000);
+            // }, 3000); // 3000 milliseconds = 3 seconds
         }
 
 
@@ -1076,7 +1076,7 @@ const HomePage = () => {
     }
 
 
-    
+
 
 
     // Function to calculate total price from clickedContents and selectedAddon
@@ -1155,7 +1155,7 @@ const HomePage = () => {
 
 
         if (newDate) {
-           
+
 
             // Make a request to fetch slots for the selected professional and date
             fetch(`https://thorfinn.pythonanywhere.com/slots/`
@@ -1564,7 +1564,8 @@ const HomePage = () => {
                                 {selectedService !== null && (
                                     <div className='expanded-card scrollbar'>
                                         <button className='close-btn' onClick={closeSelectedService}>
-                                            <AiOutlineClose className='close-icon' />
+                                            {/* <AiOutlineClose className='close-icon' /> */}
+                                            <IoIosArrowBack className='back-icon' />
                                         </button>
                                         {/* <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1> */}
                                         <div className='' style={{ color: 'black' }} >
@@ -1610,7 +1611,9 @@ const HomePage = () => {
 
                                             <div style={{ display: 'block', width: '100%' }}>
                                                 <button className='close-btn' onClick={closeSelectedAddon} >
-                                                    <AiOutlineClose className='close-icon' />
+                                                    {/* <AiOutlineClose className='close-icon' /> */}
+                                                    <IoIosArrowBack className='back-icon' />
+
                                                 </button>
                                             </div>
 
@@ -1658,7 +1661,9 @@ const HomePage = () => {
                                 {isChooseTimeClicked !== null && (
                                     <div className='expanded-card scrollbar choose-time-div' >
                                         <button className='close-btn' onClick={closeChooseTime}>
-                                            <AiOutlineClose className='close-icon' />
+                                            {/* <AiOutlineClose className='close-icon' /> */}
+                                            <IoIosArrowBack className='back-icon' />
+
                                         </button>
 
                                         {calendarVisible !== null && (
@@ -1747,9 +1752,13 @@ const HomePage = () => {
 
                                 {/* Pushing items to cart */}
                                 {isPushButtonVisible && (
-                                    <button className='CartPush' id="myButton" onClick={handlePushButtonClick}>
-                                        <TiTick className='tick' />
-                                    </button>
+                                    <div>
+                                        <h4>Are You Sure? </h4>
+                                        <button className='CartPush' id="myButton" onClick={handlePushButtonClick}>
+                                            <TiTick className='tick' />
+                                        </button>
+                                    </div>
+
                                 )}
 
                                 <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`}>
@@ -1861,10 +1870,10 @@ const HomePage = () => {
 
                                     {orderbtn !== null && (
                                         <div className='bug-btn'>
-                                            {!isTimeSelected ? 
-                                            <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Choose Time</span></button> 
-                                            : !isUser ? <button className="button-48" onClick={handleLoginClick} role="button"><span className="text">Login </span></button> 
-                                            : <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Book Now</span></button>}
+                                            {!isTimeSelected ?
+                                                <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Choose Time</span></button>
+                                                : !isUser ? <button className="button-48" onClick={handleLoginClick} role="button"><span className="text">Login </span></button>
+                                                    : <button className="button-48" onClick={handleChooseTimeClick} role="button"><span className="text">Book Now</span></button>}
                                         </div>
                                     )}
 
@@ -1944,7 +1953,7 @@ const HomePage = () => {
                             <h4>Hair Removal</h4>
                             <p>
                                 <strong>Experience the epitome of smoothness and confidence with our hair removal services.</strong> </p>
-                              <p>  Our proficient technicians employ advanced techniques and top-quality products to ensure a hair-free experience .
+                            <p>  Our proficient technicians employ advanced techniques and top-quality products to ensure a hair-free experience .
                             </p>
 
                             <p>

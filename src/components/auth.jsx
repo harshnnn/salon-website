@@ -6,6 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { AiOutlineClose } from 'react-icons/ai';
 import logo from './logo.svg'
+import { LuCalendarClock } from "react-icons/lu";
+import { HiMiniScissors } from "react-icons/hi2";
+import { CiSquarePlus } from "react-icons/ci";
+import { MdOutlineAttachMoney } from "react-icons/md";
+
+
+
+
 
 
 const Auth = (props) => {
@@ -44,41 +52,7 @@ const Auth = (props) => {
     const [appointments, setAppointments] = useState([]);
     const [subservicesData, setSubservicesData] = useState({});
     const [flattenedSubservices, setFlattenedSubservices] = useState([]);
-    const [addonsData, setAddonsData] = useState([]);
 
-    const fetchAddonsData = async () => {
-        try {
-            const response = await fetch('https://thorfinn.pythonanywhere.com/addons/');
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            const data = await response.json();
-            // Assuming the data fetched is an array of addon objects
-            return data.reduce((acc, addon) => {
-                acc[addon.id] = {
-                    id: addon.id,
-                    name: addon.title,
-                    price: `$${addon.price}`,
-                };
-                return acc;
-            }, {});
-        } catch (error) {
-            console.error('Error fetching addon data:', error);
-            return {}; // Return empty object in case of an error
-        }
-    };
-
-    useEffect(() => {
-
-        // Fetch addon data when the component mounts
-        const fetchAddonData = async () => {
-            const addonsData = await fetchAddonsData();
-            // Set addonsData to state or perform necessary operations
-            setAddonsData(addonsData);
-        };
-
-        fetchAddonData();
-    }, []);
 
     const fetchSubserviceData = async (serviceId) => {
         try {
@@ -203,41 +177,36 @@ const Auth = (props) => {
             const startTime = appointment.slot.start_time;
             const formattedStartTime = formatDate(new Date(startTime));
 
-            const addons = appointment.addons.map(addonId => {
-                const addonData = addonsData[addonId];
-                if (addonData) {
-                    return `${addonData.name} - ${addonData.price}`;
-                } else {
-                    return 'Addon not found';
-                }
-            });
+            // Extract addons and their prices
+            const addons = appointment.addons.map(addon => (
+                <div key={addon.id}>
+                    {addon.title} - ${addon.price}
+                </div>
+            ));
+
+            // Calculate total cost including service and addons
+            const totalCost = calculateCost(appointment.addons, appointment.id);
 
             return (
                 <div key={appointment.id} className="booking-details">
-                    <div>Date & Time: <span>{formattedStartTime}</span></div>
-                    <div>Service: <span>{serviceName}  - ${servicePrice}</span></div>
-                    {/* <div>Price: <span>${servicePrice}</span></div> */}
-                    {/* <div>
-                        Add-ons:{' '}
-                        <span style={{backgroundColor:'red'}} >
-                            {addons.length > 0 ? addons.join(', ') : 'None'}
-                        </span>
-                    </div>  */}
-                    <div >
-                        Add-ons:{' '}
-                        <span >
-                            {addons.length > 0
-                                ? addons.map((addon, index) => (
-                                    <React.Fragment key={index} >
-                                        {index !== 0 && <br />}
-                                        {addon}
-                                    </React.Fragment>
-                                ))
-                                : 'None'}
-                        </span>
+                    <div>
+                        <p><LuCalendarClock /> Date & Time</p>
+                        <span>{formattedStartTime}</span></div>
+                    <div>
+                        <p><HiMiniScissors /> Service</p>
+                        <span>{serviceName}  - ${servicePrice}</span>
                     </div>
 
-                    <div>Cost: <span>{calculateCost(addons, appointment.id)}</span></div>
+                    <div>
+                        <p><CiSquarePlus /> Add-ons</p>
+                        <span>{addons.length > 0 ? addons : 'None'}</span>
+                    </div>
+
+                    <div>
+                        <p><MdOutlineAttachMoney />Cost</p>
+                        <span>${totalCost}</span>
+                    </div>
+
                     <button
                         className="cancel-btn"
                         onClick={() => {
@@ -263,24 +232,39 @@ const Auth = (props) => {
     //     console.log("addons: ", addons, "id ",appointmentId );
     //     return '$65'; // Placeholder value
     // }
+    // const calculateCost = (addons, appointmentId) => {
+    //     const subserviceData = flattenedSubservices[appointments.find(appointment => appointment.id === appointmentId).subservice - 1];
+    //     const servicePrice = subserviceData ? parseFloat(subserviceData.price) : 0;
+
+    //     let addonsTotal = 0;
+    //     addons.forEach(addon => {
+
+    //         const addonPrice = addon.price // Assuming addon price is separated by ' - '
+    //         // console.log("testing: ",addonPrice);
+    //         addonsTotal += addonPrice;
+    //     });
+
+    //     //const totalCost = Number(servicePrice + addonsTotal);
+    //     console.log("addons total, ", addonsTotal, " and service ", servicePrice);
+    //     const totalCost = parseFloat((servicePrice + addonsTotal)).toFixed(2);
+    //     ;
+    //     return `$${totalCost}`;
+    // };
+
     const calculateCost = (addons, appointmentId) => {
         const subserviceData = flattenedSubservices[appointments.find(appointment => appointment.id === appointmentId).subservice - 1];
         const servicePrice = subserviceData ? parseFloat(subserviceData.price) : 0;
 
         let addonsTotal = 0;
         addons.forEach(addon => {
-
-            const addonPrice = parseFloat(addon.split('$')[1]); // Assuming addon price is separated by ' - '
-            // console.log("testing: ",addonPrice);
+            const addonPrice = parseFloat(addon.price); // Assuming addon price is a string representing a number
             addonsTotal += addonPrice;
         });
 
-        //const totalCost = Number(servicePrice + addonsTotal);
-        console.log("addons total, ", addonsTotal, " and service ", servicePrice);
-        const totalCost = parseFloat((servicePrice + addonsTotal)).toFixed(2);
-        ;
-        return `$${totalCost}`;
+        const totalCost = (servicePrice + addonsTotal).toFixed(2); // Calculate total cost including service and addons
+        return `${totalCost}`;
     };
+
 
 
 
@@ -479,16 +463,17 @@ const Auth = (props) => {
             {isUser && (
                 <div className="active-booking">
                     <div className='active-booking-header'>
+                        <h3 >Your Active Booking</h3>
+
                         <button className='close-btn' onClick={() => { props.toggleAuth() }}>
                             <AiOutlineClose className='close-icon' />
                         </button>
-                        <h3 style={{ marginRight: '55%', marginTop: '10px', marginBottom: '10px' }}>Your Active Booking</h3>
                     </div>
 
 
                     <div className="booking-item">
 
-                        
+
                         {renderAppointments()}
 
                         {isAppointmentCancel && (

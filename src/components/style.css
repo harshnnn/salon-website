@@ -320,11 +320,14 @@
         /* Apply initial hover rotation */
     }
     
-
-    
-
 }
 
+.back-icon{
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+    border-radius: 50%;
+}
 
 @keyframes slideIn {
     from {
@@ -2801,19 +2804,18 @@ display: none;
     background-color: #f9f9f9;
     border-radius: 2%;
     overflow-y: scroll;
-
+    overflow-x: hidden;
+    
 }
 
 .active-booking-header{
     position: fixed;
-    width: 90%;
-    height: 10%;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    width: 85%;
+    height: 7%;
+    padding: 10px;
     background-color: white;
     z-index: 1;
-    display: flex;
-    flex-direction: column;
+    display: flex; 
     justify-content: center;
     align-items: center;
     
@@ -2828,7 +2830,7 @@ display: none;
     flex-direction: column;
     align-items: center;
     margin-bottom: 15px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
     
     
 }   
@@ -2852,18 +2854,27 @@ display: none;
     padding-bottom: 3%;
     width: 95%;
     display: flex;
-    justify-content: space-between;
-    
+    flex-direction: column;
 }
-
+.booking-details div p{
+    font-weight: 200;
+    color: gray;
+}
 .booking-details span {
-    text-align: end;
-    width: 80%;
+    /* text-align: end; */
+    font-weight: 600;
+    padding: 5px;
+    /* width: 80%; */
+} 
+.booking-details span div{
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 0;
 }
-
 .logout-button {
-    margin-top: 15%;
-    margin-right: 90%;
+    margin-bottom: 5%;
+    margin-right: 70%;
     background-color: #f44336;
     color: white;
     padding: 8px 16px;
@@ -2922,6 +2933,12 @@ display: none;
 
 /* For screens smaller than 768px */
 @media (max-width: 768px) {
+    .active-booking-header{
+        margin-top: -10px;
+        margin-bottom: 70px;
+        width: 90%;
+    }
+
     .auth-div {
         width: 80%;
         height: 80%;
