@@ -10,6 +10,8 @@ import { LuCalendarClock } from "react-icons/lu";
 import { HiMiniScissors } from "react-icons/hi2";
 import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineAttachMoney } from "react-icons/md";
+import Swal from 'sweetalert2';
+
 
 
 const Auth = (props) => {
@@ -140,15 +142,12 @@ const Auth = (props) => {
         return `${totalCost}`;
     };
 
-
-
-
-
-
-
-
     const cancelAppointment = () => {
-        alert('appointment canceled')
+        Swal.fire({
+            icon: 'info', // Use a different icon (e.g., 'info')
+            title: 'Appointment Canceled',
+            text: 'Your appointment has been Cancled.',
+        });
         props.toggleAuth();
     }
 

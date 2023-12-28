@@ -7,6 +7,7 @@ import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight, PiMaskHappyThin } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoColorPalette } from "react-icons/io5";
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
 import { MdExpandLess, MdExpandMore } from 'react-icons/md';
 import { TiTick } from 'react-icons/ti'
@@ -33,6 +34,8 @@ import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
 import ProfessionalCarousel from './content4';
 import { dividerClasses } from '@mui/material';
 import MapContainer from './MapContainer'; // Path to your MapContainer component
+import Swal from 'sweetalert2';
+
 
 const HomePage = () => {
 
@@ -399,6 +402,14 @@ const HomePage = () => {
                     </div>
                 </>
         },
+        {
+            title: 'Color Services', content:
+                <>
+                    <div className='service-card-1'>
+                        fafafa $69
+                    </div>
+                </>
+        }
 
 
 
@@ -774,7 +785,8 @@ const HomePage = () => {
     //to open the list of  service cards having service name and price
     const openServiceDetails = (serviceindex) => {
 
-        //To Show the title of the service detail 
+        //To Show the title of the service detail
+        console.log('it is: ', serviceindex);
         const title = serviceData[serviceindex].title;
 
         const content = (
@@ -1096,16 +1108,16 @@ const HomePage = () => {
                     console.error('Error:', error);
                 });
 
-            //   SetIsSuccess(true);
+            SetIsSuccess(true);
 
-            // setTimeout(() => {
-            //     toggleBookingDiv();
+            setTimeout(() => {
+                toggleBookingDiv();
 
-            //     // Reload the page after 3 seconds
-            //     setTimeout(() => {
-            //         window.location.reload();
-            //     }, 1000);
-            // }, 3000); // 3000 milliseconds = 3 seconds
+                // Reload the page after 3 seconds
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }, 3000); // 3000 milliseconds = 3 seconds
         }
 
 
@@ -1265,21 +1277,34 @@ const HomePage = () => {
         today.setDate(today.getDate() - 1)
 
         if (newDate >= today) {
-            if (newDate.getDay() === 0 || newDate.getDay() === 1) {
-                setShowTimeSlots1(null);
-                setShowTimeSlots2(true);
-            }
-            else {
+            const day = newDate.getDay();
+            if (day === 0 || day === 1) {
+                if (day === 0) { 
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'Salon Closed',
+                        text: 'Our salon is closed on Sundays. Please choose another day.',
+                    });
+                    setShowTimeSlots1(null);
+                    setShowTimeSlots2(null);
+
+                } else {
+                    setShowTimeSlots1(null);
+                    setShowTimeSlots2(true);
+                }
+            } else {
                 setShowTimeSlots1(true);
                 setShowTimeSlots2(null);
             }
-
-            // alert(today);
         } else {
             setShowTimeSlots1(null);
             setShowTimeSlots2(null);
-            alert('Choose a valid date');
+            Swal.fire({
+                icon: 'error',
+            title: 'Invalid Date',
+            text: 'Please choose a date that is not in the past.',            });
         }
+        
     };
 
     const [calendarVisible, setCalendarVisible] = useState(true);
@@ -1582,9 +1607,13 @@ const HomePage = () => {
                                                 >
                                                     <div className='service-card-name'>
                                                         <div className='service-card-name-icon'>
-                                                            <div>{serviceindex === 0 ? <GiHairStrands /> : (serviceindex === 1 ? <PiMaskHappyThin />
-                                                                : <GiCharcuterie />
-                                                            )} </div>
+                                                            <div>
+                                                                {serviceindex === 0 ? <GiHairStrands /> :
+                                                                    (serviceindex === 1 ? <PiMaskHappyThin /> :
+                                                                        (serviceindex === 3 ? <IoColorPalette /> : <GiCharcuterie />)
+                                                                    )
+                                                                }
+                                                            </div>
                                                             <p>{service.title} </p>
                                                         </div>
 
@@ -1606,19 +1635,36 @@ const HomePage = () => {
 
                                             {serviceData.map((service, index) => (
                                                 serviceCardStates[index] && (
-                                                    <div key={index} style={{ color: 'black' }} className="service-cards">
+
+                                                    <div key={index} style={{ color: 'black', marginBottom: '100px' }} className="service-cards" >
                                                         <div className='sub-header'>
                                                             <button className='close-btn' onClick={closeSelectedService}>
                                                                 {/* <AiOutlineClose className='close-icon' /> */}
                                                                 <IoIosArrowBack className='back-icon' />
                                                             </button>
                                                             <h4 style={{ color: 'black' }}>{service.title}</h4>
-
                                                         </div>
                                                         {service.content && service.content.length > 0 ? (
+
                                                             service.content.map((item, i) => {
                                                                 const itemKey = parseInt(item.key);
-
+                                                                if (itemKey === 5) {
+                                                                    return (
+                                                                        <>
+                                                                            <p style={{ fontWeight: '500', color: "grey", fontSize: 'lagre' }}>Party Facials</p>
+                                                                            <div
+                                                                                key={i}
+                                                                                onClick={() => {
+                                                                                    openAddon(index, item.props.children, item.key);
+                                                                                }}
+                                                                                className={`service-card-1 ${highlited === i ? 'selected' : ''}`}
+                                                                            >
+                                                                                <span className="service-name">{item.props.children[0]}</span>
+                                                                                <span className="service-price">${item.props.children[2]}</span>
+                                                                            </div>
+                                                                        </>
+                                                                    );
+                                                                }
                                                                 return (
                                                                     <div
                                                                         key={i}
@@ -1834,7 +1880,7 @@ const HomePage = () => {
 
                                 )}
 
-                                <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`}>
+                                <div className={`clicked-div-content ${bookingDetail ? (minimized ? 'clicked-div-content-active' : '') : 'hidden'}`} >
                                     <div className='clicked-div-content-header'>
                                         <h2>Your Order </h2>
 
