@@ -4,7 +4,7 @@ import Navbar from './navbar';
 import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
-import { PiPaperPlaneTiltLight ,PiMaskHappyThin} from 'react-icons/pi';
+import { PiPaperPlaneTiltLight, PiMaskHappyThin } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
@@ -646,6 +646,8 @@ const HomePage = () => {
     const [isAddon, SetAddon] = useState(null); //for add on cards
     const [proffVisible, setProffVisible] = useState(null); //for professional list
     const [selectedService, setSelectedService] = useState(null); // for the selected service type
+    const [selectedItemKey, setSelectedItemKey] = useState(null); // for the key of selected service
+
     const [bookingDetail, setBookingDetail] = useState(null);
     const [orderbtn, setOrderbtn] = useState(null); //hiding and showing the choose time div
     const [isNextBtnVisible, SetNextBtnvisible] = useState(true);
@@ -746,6 +748,20 @@ const HomePage = () => {
 
     }
 
+    const closeChooseTimeSkipAddon = () => {
+        // sethighlited(null);
+        setMinimized(false);
+        setIsChooseTImeClicked(null);
+        setBookingHeader('Choose Service');
+        SetAddon(null);
+        SetNextBtnvisible(true);
+
+
+        //  const filteredContents = clickedContents.filter(item => item.type !== 'content-3-style');
+        // // // Set the state with the new array
+        // setClickedContents(filteredContents);
+
+    }
 
     //close button for closing the service list
     const closeselectedcard = () => {
@@ -796,6 +812,11 @@ const HomePage = () => {
 
         setServiceCard(true);
 
+        const filteredContents = clickedContents.filter(item => item.type !== 'content-3-style');
+        // // Set the state with the new array
+        setClickedContents(filteredContents);
+
+
     }
 
 
@@ -831,12 +852,35 @@ const HomePage = () => {
         sethighlited(index);
 
         //if any div is highlited then setting the selected item list div to maximized
-        if (higlited) {
+        if (highlited) {
             setMinimized(false);
         }
 
     };
 
+    const skipAddon = (serviceName, index, id) => {
+        setBookingDetail(true);
+        setProffVisible(null);
+        setServiceCard(null);
+        sethighlited(null)
+        // Assuming you need to add a new content-3-style item and remove all others
+        const subserviceId = id;
+        const content3 = index;
+
+        // Filter out all previous content-3-style items
+        const filteredContents = clickedContents.filter(item => item.type !== 'content-3-style');
+
+        // Add the new content-3-style item to the filtered array
+        setClickedContents([
+            ...filteredContents,
+            {
+                type: 'content-3-style',
+                value: content3,
+                id: subserviceId,
+                index: filteredContents.filter(item => item.type === 'content-3-style').length,
+            },
+        ]);
+    };
 
     //for color toggle 
     const defaultaddonCards = [
@@ -936,7 +980,7 @@ const HomePage = () => {
 
 
 
-    const [higlited, sethighlited] = useState(null);
+    const [highlited, sethighlited] = useState(null);
     const [minimized, setMinimized] = useState(false);
 
     const [isChooseTimeClicked, setIsChooseTImeClicked] = useState(null);
@@ -1152,7 +1196,6 @@ const HomePage = () => {
         setDate(newDate);
         //console.log(clickedContents);
         const selectedProfessional = clickedContents[1];
-
 
         if (newDate) {
 
@@ -1493,16 +1536,10 @@ const HomePage = () => {
                                 <div className='header-container'>
                                     <div className='book-header'>
                                         <h3>{bookingHeader}</h3>
-                                        {/* <h3>{serviceCard !== null ? 'Choose a service' : 'Choose add-on service'}</h3> */}
-                                        {/* <h2>
-                                            {serviceCard !== null
-                                                ? 'Choose a service'
-                                                : showTimeSelection !== null
-                                                    ? 'Choose Time'
-                                                    : 'Choose a professional'}
-                                        </h2> */}
+
                                         <button className='close-btn' onClick={toggleBookingDiv}>
-                                            <AiOutlineClose className='close-icon' />
+                                            Close
+                                            {/* <AiOutlineClose className='close-icon' /> */}
                                         </button>
                                     </div>
                                 </div>
@@ -1563,37 +1600,56 @@ const HomePage = () => {
                                 {/* this div has all the types of services  prices */}
                                 {selectedService !== null && (
                                     <div className='expanded-card scrollbar'>
-                                        <button className='close-btn' onClick={closeSelectedService}>
-                                            {/* <AiOutlineClose className='close-icon' /> */}
-                                            <IoIosArrowBack className='back-icon' />
-                                        </button>
+
                                         {/* <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1> */}
                                         <div className='' style={{ color: 'black' }} >
 
                                             {serviceData.map((service, index) => (
                                                 serviceCardStates[index] && (
+                                                    <div key={index} style={{ color: 'black' }} className="service-cards">
+                                                        <div className='sub-header'>
+                                                            <button className='close-btn' onClick={closeSelectedService}>
+                                                                {/* <AiOutlineClose className='close-icon' /> */}
+                                                                <IoIosArrowBack className='back-icon' />
+                                                            </button>
+                                                            <h4 style={{ color: 'black' }}>{service.title}</h4>
 
-                                                    <div key={index} style={{ color: 'black' }} className="service-cards" >
-                                                        <h3 style={{ color: 'black' }}>{service.title}</h3>
-
+                                                        </div>
                                                         {service.content && service.content.length > 0 ? (
-                                                            service.content.map((item, i) => (
+                                                            service.content.map((item, i) => {
+                                                                const itemKey = parseInt(item.key);
 
-                                                                <div key={i} onClick={() => openAddon(index, item.props.children, item.key)} className={`service-card-1 ${higlited === i ? 'selected' : ''}`}>
+                                                                return (
+                                                                    <div
+                                                                        key={i}
+                                                                        onClick={() => {
+                                                                            if (itemKey >= 1 && itemKey <= 6) {
+                                                                                openAddon(index, item.props.children, item.key);
 
-                                                                    <span className="service-name">{item.props.children[0]}</span>
-                                                                    <span className="service-price">${item.props.children[2]}</span>
-                                                                    {/* {item} */}
-                                                                    {/* {console.log(item.props.children)} */}
-                                                                </div>
-                                                            ))
+                                                                            }
+                                                                            else {
+
+
+                                                                                skipAddon(index, item.props.children, item.key);
+                                                                                setSelectedAddon([]);
+                                                                            }
+                                                                            sethighlited(i); // Highlight the clicked item
+
+
+                                                                        }}
+                                                                        className={`service-card-1 ${highlited === i ? 'selected' : ''}`}
+                                                                    >
+                                                                        <span className="service-name">{item.props.children[0]}</span>
+                                                                        <span className="service-price">${item.props.children[2]}</span>
+                                                                    </div>
+                                                                );
+                                                            })
                                                         ) : (
                                                             <p>No content available</p>
                                                         )}
                                                     </div>
                                                 )
                                             ))}
-
 
 
 
@@ -1656,11 +1712,28 @@ const HomePage = () => {
 
                                     )
                                 }
-
+                                {/* 
+                                                onClick={() => {
+                                                if (itemKey >= 1 && itemKey <= 6) {
+                                                    closeChooseTime(index, item.props.children, item.key);
+                                                } else {
+                                                    closeChooseTimeSkipAddon(service.title, i, item.key);
+                                                }}} */}
                                 {/* To open the div Having calendar and time slots */}
                                 {isChooseTimeClicked !== null && (
+
                                     <div className='expanded-card scrollbar choose-time-div' >
-                                        <button className='close-btn' onClick={closeChooseTime}>
+                                        {console.log('clicked content is: ', clickedContents[0].id)}
+                                        <button className='close-btn' onClick={() => {
+                                            if (clickedContents[0].id >= 1 && clickedContents[0].id <= 6) {
+                                                closeChooseTime();
+                                            }
+                                            else {
+                                                closeChooseTimeSkipAddon();
+                                            }
+                                        }}
+
+                                        >
                                             {/* <AiOutlineClose className='close-icon' /> */}
                                             <IoIosArrowBack className='back-icon' />
 
