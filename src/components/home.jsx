@@ -1355,7 +1355,6 @@ const HomePage = () => {
         { icon: <BsSun />, time24: '16:00', time: '04:00 PM' },
         { icon: <BsSunset />, time24: '17:00', time: '05:00 PM' },
         { icon: <BsSunset />, time24: '18:00', time: '06:00 PM' },
-        { icon: <BsSunset />, time24: '19:00', time: '07:00 PM' },
     ];
     const timeSlots2 = [
         { icon: <BsSunrise />, time24: '10:00', time: '10:00 AM' },
