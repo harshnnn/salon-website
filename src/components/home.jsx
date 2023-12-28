@@ -4,7 +4,7 @@ import Navbar from './navbar';
 import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
-import { PiPaperPlaneTiltLight } from 'react-icons/pi';
+import { PiPaperPlaneTiltLight ,PiMaskHappyThin} from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { BsSunrise, BsSun, BsSunset, BsChevronBarExpand } from 'react-icons/bs';
@@ -1545,7 +1545,7 @@ const HomePage = () => {
                                                 >
                                                     <div className='service-card-name'>
                                                         <div className='service-card-name-icon'>
-                                                            <div>{serviceindex === 0 ? <GiHairStrands /> : (serviceindex === 1 ? <GiRazor />
+                                                            <div>{serviceindex === 0 ? <GiHairStrands /> : (serviceindex === 1 ? <PiMaskHappyThin />
                                                                 : <GiCharcuterie />
                                                             )} </div>
                                                             <p>{service.title} </p>

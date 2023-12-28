@@ -12,10 +12,6 @@ import { CiSquarePlus } from "react-icons/ci";
 import { MdOutlineAttachMoney } from "react-icons/md";
 
 
-
-
-
-
 const Auth = (props) => {
 
     const [snackbarLogin, setSnackbarLogin] = useState(false);
@@ -50,44 +46,10 @@ const Auth = (props) => {
 
     //fetching appointments
     const [appointments, setAppointments] = useState([]);
-    const [subservicesData, setSubservicesData] = useState({});
-    const [flattenedSubservices, setFlattenedSubservices] = useState([]);
-
-
-    const fetchSubserviceData = async (serviceId) => {
-        try {
-            const response = await fetch(`https://thorfinn.pythonanywhere.com/subservices/?service=${serviceId}`);
-            if (!response.ok) {
-                throw new Error(`Failed to fetch subservice-${serviceId} data`);
-            }
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            console.error(error);
-            return []; // Return an empty array or handle the error accordingly
-        }
-    };
-
-    const fetchAllSubservices = async () => {
-        const subservicesPromises = [2, 1, 3].map(serviceId => fetchSubserviceData(serviceId));
-        try {
-            const subservicesData = await Promise.all(subservicesPromises);
-            return subservicesData;
-        } catch (error) {
-            console.error('Error fetching subservices:', error);
-            return []; // Return an empty array or handle the error accordingly
-        }
-    };
+    
 
     // useEffect to fetch subservices data separately
     useEffect(() => {
-        fetchAllSubservices()
-            .then(data => {
-                data.forEach((subservices, index) => {
-                    updateSubservicesData(subservices, index);
-                });
-            })
-            .catch(error => console.error('Error fetching subservices:', error));
 
         // Fetch data from the appointments endpoint
         fetch('https://thorfinn.pythonanywhere.com/auth/users/2/appointments/')
@@ -96,36 +58,7 @@ const Auth = (props) => {
             .catch(error => console.error('Error fetching data:', error));
     }, []);
 
-    // Update subservicesData state with fetched subservices based on service ID
-    const updateSubservicesData = (data, serviceId) => {
-        setSubservicesData(prevData => ({
-            ...prevData,
-            [serviceId]: data,
-        }));
-
-    };
-
-    useEffect(() => {
-        const flattenedSubservices = Object.values(subservicesData).reduce((acc, currentValue) => {
-            return acc.concat(currentValue);
-        }, []);
-
-        // Do something with flattenedSubservices if needed
-        setFlattenedSubservices(flattenedSubservices);
-        //console.log(flattenedSubservices);
-    }, [subservicesData]);
-
-
-    // useEffect(() => {
-
-    //     // Fetch data from the appointments endpoint
-    //     fetch('https://thorfinn.pythonanywhere.com/auth/users/1/appointments/')
-    //         .then(response => response.json())
-    //         .then(data => setAppointments(data))
-    //         .catch(error => console.error('Error fetching data:', error));     
-    // }, []);
-
-
+    
     const formatDate = (slot) => {
         const date = new Date(slot); // slot is already in ISO format
         return date.toLocaleString('en-US', {
@@ -139,39 +72,9 @@ const Auth = (props) => {
         });
     }
 
-
-    // Function to render appointment details
-    // const renderAppointments = () => {
-
-    //     return appointments.map(appointment => {
-    //         const subserviceData = flattenedSubservices[appointment.subservice-1];
-    //         const serviceName = subserviceData ? subserviceData.title : 'Unknown Service';
-    //         const servicePrice = subserviceData ? subserviceData.price : '$0';
-    //         const startTime = appointment.slot.start_time; // Accessing the start_time
-    //         const formattedStartTime = formatDate(new Date(startTime));
-
-    //         const addons = appointment.addons.map(addonId => {
-    //             // Assuming addonsData is fetched and available in a similar manner to subservicesData
-    //             const addonData = addonsData[addonId]; // Fetch addon details based on ID
-    //             return addonData ? addonData.name : 'Addon not found';
-    //         });
-
-    //         return (
-    //             <div key={appointment.id} className="booking-details">
-    //                 <div>Date & Time: <span>{formattedStartTime}</span></div>
-    //                 <div>Services: <span>{serviceName}</span></div>
-    //                 <div>Price: <span>{servicePrice}</span></div>
-    //                 <div>Add-ons: <span>{addons.length > 0 ? addons.join(', ') : 'None'}</span></div>
-    //                 <div>Cost: <span>{calculateCost(addons, appointment.id)}</span></div>
-    //                 <button className='cancel-btn' onClick={() => { setIsAppointmentCancel(true) }}>Cancel</button>
-    //             </div>
-    //         );
-    //     });
-    // }
-
     const renderAppointments = () => {
         return appointments.map(appointment => {
-            const subserviceData = flattenedSubservices[appointment.subservice - 1];
+            const subserviceData = appointment.subservice ;
             const serviceName = subserviceData ? subserviceData.title : 'Unknown Service';
             const servicePrice = subserviceData ? subserviceData.price : '$0';
             const startTime = appointment.slot.start_time;
@@ -185,7 +88,7 @@ const Auth = (props) => {
             ));
 
             // Calculate total cost including service and addons
-            const totalCost = calculateCost(appointment.addons, appointment.id);
+            const totalCost = calculateCost(appointment.addons, subserviceData.price);
 
             return (
                 <div key={appointment.id} className="booking-details">
@@ -224,36 +127,8 @@ const Auth = (props) => {
 
 
 
-
-
-    // Function to calculate cost based on services and addons
-    // const calculateCost = (addons, appointmentId) => {
-    //     // Add your logic to calculate cost based on services and addons
-    //     console.log("addons: ", addons, "id ",appointmentId );
-    //     return '$65'; // Placeholder value
-    // }
-    // const calculateCost = (addons, appointmentId) => {
-    //     const subserviceData = flattenedSubservices[appointments.find(appointment => appointment.id === appointmentId).subservice - 1];
-    //     const servicePrice = subserviceData ? parseFloat(subserviceData.price) : 0;
-
-    //     let addonsTotal = 0;
-    //     addons.forEach(addon => {
-
-    //         const addonPrice = addon.price // Assuming addon price is separated by ' - '
-    //         // console.log("testing: ",addonPrice);
-    //         addonsTotal += addonPrice;
-    //     });
-
-    //     //const totalCost = Number(servicePrice + addonsTotal);
-    //     console.log("addons total, ", addonsTotal, " and service ", servicePrice);
-    //     const totalCost = parseFloat((servicePrice + addonsTotal)).toFixed(2);
-    //     ;
-    //     return `$${totalCost}`;
-    // };
-
-    const calculateCost = (addons, appointmentId) => {
-        const subserviceData = flattenedSubservices[appointments.find(appointment => appointment.id === appointmentId).subservice - 1];
-        const servicePrice = subserviceData ? parseFloat(subserviceData.price) : 0;
+    const calculateCost = (addons, subservicePrice) => {
+        const servicePrice = parseFloat(subservicePrice) || 0; // Parse the subservice price to a float
 
         let addonsTotal = 0;
         addons.forEach(addon => {
