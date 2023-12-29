@@ -1,8 +1,6 @@
-import React, { Component, useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect } from 'react';
 import './style.css'
-import Navbar from './navbar';
 import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
-import { FaRandom } from 'react-icons/fa';
 import { ImLocation } from 'react-icons/im';
 import { PiPaperPlaneTiltLight, PiMaskHappyThin } from 'react-icons/pi';
 import { IoCallOutline } from 'react-icons/io5';
@@ -30,10 +28,8 @@ import gallery9 from './Resources/gallery/gallery-9.jpg'
 import gallery10 from './Resources/gallery/gallery-10.jpg'
 import axios from 'axios';
 import CustomCarousel from './content7'
-import { GiHairStrands, GiRazor, GiCharcuterie } from "react-icons/gi";
+import { GiHairStrands,GiCharcuterie } from "react-icons/gi";
 import ProfessionalCarousel from './content4';
-import { dividerClasses } from '@mui/material';
-import MapContainer from './MapContainer'; // Path to your MapContainer component
 import Swal from 'sweetalert2';
 
 
@@ -158,7 +154,11 @@ const HomePage = () => {
 
     useEffect(() => {
         if (token === true) {
-            alert("Login Sucessfull!!");
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Successful!',
+                text: 'Welcome back!',
+            });
             setIsUser(true);
 
             const parentDiv = document.getElementById('parent-div');
@@ -285,20 +285,7 @@ const HomePage = () => {
 
     const [professionals, setProfessionals] = useState([]);
 
-    //target-01
-    // useEffect(() => {
-    //     // Fetch additional professionals from the backend API and append to the state
-    //     fetch('https://thorfinn.pythonanywhere.com/professionals/')
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             // Update state with fetched professionals
-    //             setProfessionals(data);
-    //         })
-    //         .catch(error => console.error('Error fetching data:', error));
-    // }, []);
-
-
-
+    
     const defaultServiceData = [
         {
             title: 'Hair Services', content:
@@ -459,194 +446,126 @@ const HomePage = () => {
 
     const items = [
         'Haircut & Style',
-        'Hair Color',
-        'Spa Facial',
-        'Eylashes Services',
+        'Color Services',
+        'Facial',
         'Hair Removal',
-        'Express Treatments'
     ];
     const content = [
         <div className='list-1-detail'>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Women’s Haircut <br />
-                    $75 - $90</p>
-
-                <p className='list-detail-content'>Consult with our stylists to create a look that compliments your features and accents your personal style.
-                    Includes a shampoo, blowdry and style.</p>
+                <p className='list-detail-heading'>Haircut <br /> $28</p>
+                <p className='list-detail-content'>Consult with our stylists to create a look that compliments your features and accents your personal style. </p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Blowdry & Style
-                    <br />
-                    $55 - $60</p>
-
-                <p className='list-detail-content'>Starting with freshly cleansed and conditioned hair, our stylists apply different
-                    techniques to achieve the perfect straight, wavy or curly style.</p>
+                <p className='list-detail-heading'>Barber Cut <br /> $35</p>
+                <p className='list-detail-content'>Our expert barbers specialize in short hairstyles for women. Tailored, polished pixie cut or other short style.</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Deep Conditioner<br />
-                    $65</p>
-
-                <p className='list-detail-content'>
-                    This nutrient-rich treatment saves your strands from the stressors of day-to-day life by
-                    adding extra moisture for shiny, healthy hair.</p>
+                <p className='list-detail-heading'>Shampoo & Cut <br /> $35</p>
+                <p className='list-detail-content'>Shampoo and precision haircut, Hair is cleansed, conditioned and cut wet for an impeccable look</p>
             </div>
             <div className='detail-1'>
-                <p className='list-detail-heading'>Men’s Haircut <br />
-                    $60 - $70</p>
-
-                <p className='list-detail-content'>
-                    Add some swagger to your step with our high-quality men's haircuts.
-                    Includes head massage, shampoo, cut, style & neck clean-up.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Brazilian Blowout
-                    <br />
-                    Starting at $315</p>
-
-                <p className='list-detail-content'>
-                    Brazilian Blowout is by far the most-requested hair smoothing treatment as it creates a protective
-                    layer around each strand of hair, effectively diminishing frizz and promoting intense shine.</p>
+                <p className='list-detail-heading'>Shampoo, Cut & Style <br /> $40</p>
+                <p className='list-detail-content'>Shampoo, expert cut and styling for a tailored, polished look.</p>
             </div>
         </div>,
-        <div className='list-1-detail'>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Hair Color
-                    <br />$100-$150</p>
-                <p className='list-detail-content'>Our expert colorists use the latest techniques and high-quality products to create a hair color that suits your personality and style.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Highlights<br />
-                    Starting at $120</p>
-                <p className='list-detail-content'>Add dimension and brightness to your hair with our professional highlighting services. Choose from a variety of shades and techniques.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Balayage
-                    <br />Starting at $150</p>
-                <p className='list-detail-content'>Get that sun-kissed, natural look with our custom balayage technique. Our colorists blend shades seamlessly for a stunning result.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Color Correction
-                    <br />Price Varies</p>
-                <p className='list-detail-content'>If you're unhappy with your current hair color, our color correction service can help you achieve your desired shade while maintaining hair health.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Ombre
-                    <br />Starting at $130</p>
-                <p className='list-detail-content'>Transform your look with the trendy ombre hair coloring technique. Our experts create a smooth transition between two shades for a striking effect.</p>
-            </div>
-        </div>
-        ,
-        <div className='list-1-detail'>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Classic Spa Facial
-                    <br />$80</p>
-                <p className='list-detail-content'>Indulge in relaxation with our classic facial. Includes deep cleansing, exfoliation, steam, extractions, mask, and soothing massage.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Anti-Aging Facial
-                    <br />$100</p>
-                <p className='list-detail-content'>Revitalize your skin with our anti-aging facial. Specialized products and techniques target fine lines, wrinkles, and promote a youthful complexion.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Hydrating Facial
-                    <br />$90</p>
-                <p className='list-detail-content'>Restore moisture balance to your skin with our hydrating facial. Perfect for dry or dehydrated skin, leaving you with a radiant glow.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Acne Clearing Facial
-                    <br />$85</p>
-                <p className='list-detail-content'>Combat acne and blemishes with our acne clearing facial. Deep cleansing, exfoliation, and targeted treatments help improve skin clarity.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Sensitive Skin Facial
-                    <br />$95</p>
-                <p className='list-detail-content'>Gentle care for sensitive skin. Our soothing facial calms irritation and redness, providing relief and leaving your skin feeling refreshed.</p>
-            </div>
-        </div>
-        ,
-        <div className='list-1-detail'>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Classic Eyelash Extensions
-                    <br />$120</p>
-                <p className='list-detail-content'>Enhance your natural beauty with our classic eyelash extensions. One extension is applied to each natural lash for a subtle yet stunning look.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Volume Eyelash Extensions
-                    <br />$150</p>
-                <p className='list-detail-content'>Get a more dramatic and voluminous look with our volume eyelash extensions. Multiple lightweight extensions are applied to each natural lash.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Eyelash Lift & Tint
-                    <br />$75</p>
-                <p className='list-detail-content'>Lift and curl your natural lashes while adding a tint for enhanced definition. Wake up with beautifully lifted and darkened lashes.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Eyelash Extension Refill
-                    <br />$60</p>
-                <p className='list-detail-content'>Maintain the longevity of your eyelash extensions with our refill service. Recommended every 2-3 weeks to keep your lashes looking full.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Lash Removal<br />$25</p>
-                <p className='list-detail-content'>If you decide to remove your eyelash extensions, our gentle removal process ensures your natural lashes remain intact.</p>
-            </div>
-        </div>
-        ,
-        <div className='list-1-detail'>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Waxing Services
-                    <br />Price Varies</p>
-                <p className='list-detail-content'>Our waxing services offer hair removal solutions for various areas including eyebrows, upper lip, chin, legs, arms, and more. Prices depend on the area.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Threading
-                    <br />Price Varies</p>
-                <p className='list-detail-content'>Experience the precision of threading for facial hair removal. Our technicians shape eyebrows and remove unwanted facial hair with this ancient technique.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Laser Hair
-                    <br />Price Varies</p>
-                <p className='list-detail-content'>Permanently reduce unwanted hair with our advanced laser hair removal technology. Sessions are tailored to your needs for optimal results.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Bikini Wax
-                    <br />Starting at $45</p>
-                <p className='list-detail-content'>Get beach-ready with our bikini waxing services. Choose from a standard bikini wax or more comprehensive styles like Brazilian or Hollywood wax.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Body Sugaring
-                    <br />Price Varies</p>
-                <p className='list-detail-content'>Try the natural alternative to waxing with our body sugaring services. Gentle on the skin and effective for hair removal on various body parts.</p>
-            </div>
-        </div>
-        ,
-        <div className='list-1-detail'>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Express Facial
-                    <br />$50</p>
-                <p className='list-detail-content'>When time is limited, our express facial provides a quick and rejuvenating treatment to cleanse, exfoliate, and nourish your skin.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Mini Manicure
-                    <br />$25</p>
-                <p className='list-detail-content'>Give your hands some attention with our mini manicure. Includes nail shaping, cuticle care, and a polish application of your choice.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Mini Pedicure
-                    <br />$30</p>
-                <p className='list-detail-content'>Treat your feet with our mini pedicure. Relax in a foot soak, get nail shaping, cuticle care, and a polish application for a quick refresh.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Eyebrow Tinting
-                    <br />$20</p>
-                <p className='list-detail-content'>Enhance your brows with eyebrow tinting. Our experts apply a custom tint to match your desired shade, providing a defined look.</p>
-            </div>
-            <div className='detail-1'>
-                <p className='list-detail-heading'>Lash Tinting
-                    <br />$25</p>
-                <p className='list-detail-content'>Darken your lashes with our lash tinting service. Achieve the appearance of mascara without the daily hassle.</p>
-            </div>
-        </div>
 
+        <div className='list-1-detail'>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Root Touch Up <br />$55</p>
+                <p className='list-detail-content'>Our expert colorists precisely touch up your roots with high-quality color for a fresh, seamless look.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>All-over Color <br />Starting at $65</p>
+                <p className='list-detail-content'>Update your entire hair color for a bold, vibrant look. Our colorists use high-quality color and the latest techniques.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Gloss <br />Starting at $30</p>
+                <p className='list-detail-content'>Enhance shine and refresh faded color with a gloss treatment. Leaves hair vibrant, hydrated and healthy looking.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Toning <br />$30</p>
+                <p className='list-detail-content'>Correct and neutralize unwanted color tones. Our expert color toning services restore your hair's natural vibrancy.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Accent Highlight/Balayage <br />$70</p>
+                <p className='list-detail-content'>Add dimension with subtle, natural-looking highlights placed throughout the mid-lengths and ends.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Partial Highlight/Balayage <br />$120</p>
+                <p className='list-detail-content'>Brighten and add depth to your hair with highlights focused on the top and crown area for a sunshine effect.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Full Highlight/Balayage <br />$170</p>
+                <p className='list-detail-content'>Completely transform your look with highlights throughout for radiant, multi-dimensional color from roots to ends.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>All Over Bleach <br />$70</p>
+                <p className='list-detail-content'>Lighten hair multiple shades with an all over bleach for a dramatic color transformation.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Specialty Color <br />Price Varies</p>
+                <p className='list-detail-content'>Vibrant fashion shades like pastels, neons, or ombré. Consult on customized specialty coloring services and pricing.</p>
+            </div>
+        </div>,
+
+        <div className='list-1-detail'>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Express Facial <br />$35</p>
+                <p className='list-detail-content'>Deep cleanse, exfoliate, and hydrate your skin with this quick pick-me-up facial.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Papaya Facial <br />$50</p>
+                <p className='list-detail-content'>Reveal bright, youthful skin with this antioxidant and Vitamin C enriched facial.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Aloe & Cucumber Facial <br />$50</p>
+                <p className='list-detail-content'>Soothe and deeply hydrate dry skin with this cooling, calming facial.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>English Rose Facial <br />$50</p>
+                <p className='list-detail-content'>Gently purify while combating breakouts with this clarifying rose facial.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Gold Facial <br />$70</p>
+                <p className='list-detail-content'>Replenish your skin with ultra-hydrating and nourishing gold extracts.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Diamond Facial <br />$70</p>
+                <p className='list-detail-content'>Resurface and renew with this results-driven facial using diamond powder.</p>
+            </div>
+        </div>,
+
+        <div className='list-1-detail'>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Full Face <br />$35</p>
+                <p className='list-detail-content'>Remove unwanted facial hair quickly and effectively with waxing.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Eyebrow <br />$10</p>
+                <p className='list-detail-content'>Get perfectly shaped brows with precision hair removal by threading.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Upper Lip <br />$6</p>
+                <p className='list-detail-content'>Gently remove upper lip hair through threading for smooth results.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Forehead <br />$6</p>
+                <p className='list-detail-content'>Remove unwanted forehead and hairline hair with precision threading.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Cheeks <br />$6</p>
+                <p className='list-detail-content'>Define your cheeks and jawline by removing unwanted facial hair through threading.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Chin <br />$6</p>
+                <p className='list-detail-content'>Shape your chin area with unwanted hair removal by threading.</p>
+            </div>
+            <div className='detail-1'>
+                <p className='list-detail-heading'>Side Burns <br />$8</p>
+                <p className='list-detail-content'>Clean up and define sideburns with precision threading services.</p>
+            </div>
+        </div>
     ];
 
 
@@ -714,25 +633,6 @@ const HomePage = () => {
         SetNextBtnvisible(null);
 
 
-        //pushing the professional name
-
-        // const clickedDiv = document.querySelector(`.card-0:nth-child(${cardIndex + 1})`);
-        // const contentElement = clickedDiv.querySelector('p');
-
-        // if (contentElement && professional) {
-        //     const professionalId = professional.id;
-        //     const professionalName = professional.user;
-
-        //     setClickedContents(prevContents => [
-        //         ...prevContents,
-        //         {
-        //             type: 'content-1-style',
-        //             id: professionalId,
-        //             value: professionalName,
-        //             index: prevContents.filter(item => item.type === 'content-1-style').length,
-        //         },
-        //     ]);
-        // }
 
         if (bookingHeader == "Choose Time") {
             setMinimized(null);
@@ -748,12 +648,6 @@ const HomePage = () => {
         // setProffVisible(true);
         setBookingHeader('Choose Addons');
 
-        // console.log(clickedContents);
-        // // Filter out elements with type 'content-1-style' (which is professionals)
-        // const filteredContents = clickedContents.filter(item => item.type !== 'content-1-style');
-
-        // // Set the state with the new array
-        // setClickedContents(filteredContents);
         SetNextBtnvisible(true);
         SetAddon(true);
 
@@ -766,11 +660,6 @@ const HomePage = () => {
         setBookingHeader('Choose Service');
         SetAddon(null);
         SetNextBtnvisible(true);
-
-
-        //  const filteredContents = clickedContents.filter(item => item.type !== 'content-3-style');
-        // // // Set the state with the new array
-        // setClickedContents(filteredContents);
 
     }
 
@@ -786,7 +675,6 @@ const HomePage = () => {
     const openServiceDetails = (serviceindex) => {
 
         //To Show the title of the service detail
-        console.log('it is: ', serviceindex);
         const title = serviceData[serviceindex].title;
 
         const content = (
@@ -795,13 +683,6 @@ const HomePage = () => {
                 <div className='card-title'>{title}</div>
             </div>
         );
-
-        //pushing the service name title
-        // if (serviceindex >= 0) {
-        //     const content2 = title;
-        //     setClickedContents(prevContents => [...prevContents, { type: 'content-2-style', value: content2, index: prevContents.filter(item => item.type === 'content-2-style').length },]);
-        // }
-
 
         //last
         setSelectedService(serviceindex);
@@ -968,7 +849,6 @@ const HomePage = () => {
     }
 
     const OpenProfessional = () => {
-        // document.querySelector.clicked-div-content.classlist.add('handleclickeddivcontentheightor margin after this also a fun to remove the class when going back')
         if (!proffVisible) {
             setOrderbtn(true);
             setBookingDetail(true);
@@ -990,8 +870,6 @@ const HomePage = () => {
     //for showing the sliced array to it's correct title
     const [serviceCardStates, setServiceCardStates] = useState(Array(serviceData.length).fill(false));
 
-
-
     const [highlited, sethighlited] = useState(null);
     const [minimized, setMinimized] = useState(false);
 
@@ -1002,12 +880,6 @@ const HomePage = () => {
 
         setIsChooseTImeClicked(!isChooseTimeClicked);
         handleMinimizeOrder();
-
-        //target
-        // if (today.getDay() === 0 || today.getDay() === 1) {
-        //     setShowTimeSlots2(true);
-        // }
-        // else { setShowTimeSlots1(true); }
 
         //for time conversion
         const convertTo24Hour = (time12h) => {
@@ -1131,10 +1003,6 @@ const HomePage = () => {
         setMinimized(!minimized);
     }
 
-
-
-
-
     // Function to calculate total price from clickedContents and selectedAddon
     const calculateTotalPrice = () => {
         const clickedContentsTotal = clickedContents.reduce((accumulator, content) => {
@@ -1179,8 +1047,6 @@ const HomePage = () => {
 
     useEffect(() => {
         // This function will run whenever timesForToday changes
-        // You can perform any side effects here that rely on timesForToday's updated value
-        console.log('timesForToday has changed:', timesForToday);
         addHighlightClass();
 
 
@@ -1192,12 +1058,9 @@ const HomePage = () => {
             const time24 = element.getAttribute('data-time24');
             if (timesForToday.includes(time24)) {
                 element.classList.add('highlighted-time-slot');
-                // const clonedElement = element.cloneNode(true);
-                // element.parentNode.replaceChild(clonedElement, element);
             } else {
                 element.classList.remove('highlighted-time-slot');
                 element.disabled = false;
-
             }
         });
     };
@@ -1224,7 +1087,6 @@ const HomePage = () => {
                 })
                 .then(slotsData => {
                     // Handle slots data here, for example, update state or perform any necessary operations
-                    // console.log('Slots Data:', slotsData);
                     // Set the received slots data to a state variable, if needed
                     setSlotsData(slotsData);
                     //for checking time slot
@@ -1257,14 +1119,13 @@ const HomePage = () => {
                             });
                         }
                     }
-                    setIsLoading(false); // Set isLoading to false after fetch is completed
+                    setIsLoading(false); // after fetch is completed
 
 
                 })
                 .catch(error => {
-                    setIsLoading(false); // Set isLoading to false after fetch is completed
+                    setIsLoading(false); // after fetch is completed
 
-                    // Handle fetch errors here
                     console.error('Error fetching slots:', error);
                 });
 
@@ -1273,13 +1134,12 @@ const HomePage = () => {
         // Get today's date in YYYY-MM-DD format
 
 
-        // toggleCalendar();
         today.setDate(today.getDate() - 1)
 
         if (newDate >= today) {
             const day = newDate.getDay();
             if (day === 0 || day === 1) {
-                if (day === 0) { 
+                if (day === 0) {
                     Swal.fire({
                         icon: 'info',
                         title: 'Salon Closed',
@@ -1301,10 +1161,11 @@ const HomePage = () => {
             setShowTimeSlots2(null);
             Swal.fire({
                 icon: 'error',
-            title: 'Invalid Date',
-            text: 'Please choose a date that is not in the past.',            });
+                title: 'Invalid Date',
+                text: 'Please choose a date that is not in the past.',
+            });
         }
-        
+
     };
 
     const [calendarVisible, setCalendarVisible] = useState(true);
@@ -1327,11 +1188,13 @@ const HomePage = () => {
         setIsTimeSelected(true);
     }
     const handleSelectedTimeClick = (timeSlot) => {
-        setPushButtonVisible(true);
+        // setPushButtonVisible(true);
+
+        handlePushButtonClick();
+
         //storing the time
         setSelectedTime(timeSlot.time);
 
-        console.log('tjos', timeSlot)
 
     }
 
@@ -1568,27 +1431,6 @@ const HomePage = () => {
                                     </div>
                                 </div>
 
-                                {/* this div has the list of all the professionals */}
-                                {/* <div className={`cards ${proffVisible ? '' : 'hidden'}`}>
-
-                                    <div style={{ display: 'block', width: '100%' }}>
-                                        <button className='close-btn' onClick={closeSelecteProff} >
-                                            <AiOutlineClose className='close-icon' />
-                                        </button>
-                                    </div>
-
-                                    {professionals.map((professional, index) => (
-                                        <div
-                                            className={`card-0 ${serviceCard === index ? 'card-expanded' : ''}`}
-                                            key={professional.id} // Use the professional's ID as the key
-                                            onClick={() => openChooseTime(index + 1, professional)}
-                                        >
-                                            <img className='card-0-proff' src={professional.image_url} alt={`Image for ${professional.id}`} />
-                                            <p>{professional.user + " " + professional.id}</p>
-                                        </div>
-                                    ))}
-
-                                </div> */}
 
                                 {/* this div has all the service types listed*/}
                                 {serviceCard !== null && (
@@ -1627,81 +1469,65 @@ const HomePage = () => {
 
                                 {/* this div has all the types of services  prices */}
                                 {selectedService !== null && (
-                                    <div className='expanded-card scrollbar'>
-
-                                        {/* <h1 style={{ color: "red" }}>{serviceData[selectedService].title}</h1> */}
-                                        <div className='' style={{ color: 'black' }} >
-
-                                            {serviceData.map((service, index) => (
-                                                serviceCardStates[index] && (
-
-                                                    <div key={index} style={{ color: 'black', marginBottom: '100px' }} className="service-cards" >
-                                                        <div className='sub-header'>
-                                                            <button className='close-btn' onClick={closeSelectedService}>
-                                                                {/* <AiOutlineClose className='close-icon' /> */}
-                                                                <IoIosArrowBack className='back-icon' />
-                                                            </button>
-                                                            <h4 style={{ color: 'black' }}>{service.title}</h4>
-                                                        </div>
-                                                        {service.content && service.content.length > 0 ? (
-
-                                                            service.content.map((item, i) => {
-                                                                const itemKey = parseInt(item.key);
-                                                                if (itemKey === 5) {
-                                                                    return (
-                                                                        <>
-                                                                            <p style={{ fontWeight: '500', color: "grey", fontSize: 'lagre' }}>Party Facials</p>
-                                                                            <div
-                                                                                key={i}
-                                                                                onClick={() => {
-                                                                                    openAddon(index, item.props.children, item.key);
-                                                                                }}
-                                                                                className={`service-card-1 ${highlited === i ? 'selected' : ''}`}
-                                                                            >
-                                                                                <span className="service-name">{item.props.children[0]}</span>
-                                                                                <span className="service-price">${item.props.children[2]}</span>
-                                                                            </div>
-                                                                        </>
-                                                                    );
-                                                                }
-                                                                return (
-                                                                    <div
-                                                                        key={i}
-                                                                        onClick={() => {
-                                                                            if (itemKey >= 1 && itemKey <= 6) {
-                                                                                openAddon(index, item.props.children, item.key);
-
-                                                                            }
-                                                                            else {
-
-
-                                                                                skipAddon(index, item.props.children, item.key);
-                                                                                setSelectedAddon([]);
-                                                                            }
-                                                                            sethighlited(i); // Highlight the clicked item
-
-
-                                                                        }}
-                                                                        className={`service-card-1 ${highlited === i ? 'selected' : ''}`}
-                                                                    >
-                                                                        <span className="service-name">{item.props.children[0]}</span>
-                                                                        <span className="service-price">${item.props.children[2]}</span>
-                                                                    </div>
-                                                                );
-                                                            })
-                                                        ) : (
-                                                            <p>No content available</p>
-                                                        )}
+                                    <div className='expanded-card scrollbar' key='uniqueKey'>
+                                        {serviceData.map((service, index) => (
+                                            serviceCardStates[index] && (
+                                                <div key={index} style={{ color: 'black', marginBottom: '100px' }} className="service-cards">
+                                                    <div className='sub-header'>
+                                                        <button className='close-btn' onClick={closeSelectedService}>
+                                                            {/* <AiOutlineClose className='close-icon' /> */}
+                                                            <IoIosArrowBack className='back-icon' />
+                                                        </button>
+                                                        <h4 style={{ color: 'black' }}>{service.title}</h4>
                                                     </div>
-                                                )
-                                            ))}
-
-
-
-                                        </div>
+                                                    {service.content && service.content.length > 0 ? (
+                                                        service.content.map((item, i) => {
+                                                            const itemKey = parseInt(item.key);
+                                                            if (itemKey === 5) {
+                                                                return (
+                                                                    <React.Fragment key={i}>
+                                                                        <p style={{ fontWeight: '500', color: "grey", fontSize: 'large' }}>Party Facials</p>
+                                                                        <div
+                                                                            onClick={() => {
+                                                                                openAddon(index, item.props.children, item.key);
+                                                                            }}
+                                                                            className={`service-card-1 ${highlited === i ? 'selected' : ''}`}
+                                                                        >
+                                                                            <span className="service-name">{item.props.children[0]}</span>
+                                                                            <span className="service-price">${item.props.children[2]}</span>
+                                                                        </div>
+                                                                    </React.Fragment>
+                                                                );
+                                                            }
+                                                            return (
+                                                                <div
+                                                                    key={i}
+                                                                    onClick={() => {
+                                                                        if (itemKey >= 1 && itemKey <= 6) {
+                                                                            openAddon(index, item.props.children, item.key);
+                                                                        } else {
+                                                                            skipAddon(index, item.props.children, item.key);
+                                                                            setSelectedAddon([]);
+                                                                        }
+                                                                        sethighlited(i); // Highlight the clicked item
+                                                                    }}
+                                                                    className={`service-card-1 ${highlited === i ? 'selected' : ''}`}
+                                                                >
+                                                                    <span className="service-name">{item.props.children[0]}</span>
+                                                                    <span className="service-price">${item.props.children[2]}</span>
+                                                                </div>
+                                                            );
+                                                        })
+                                                    ) : (
+                                                        <p>No content available</p>
+                                                    )}
+                                                </div>
+                                            )
+                                        ))}
                                     </div>
-
                                 )}
+
+
 
 
 
@@ -1718,18 +1544,6 @@ const HomePage = () => {
                                                 </button>
                                             </div>
 
-                                            {/* 
-                                            {addonCards.map(addon => (
-                                                <div
-                                                    className="service-card-1 addons"
-                                                    onClick={() => toggleSelectAddon(addon.title, addon.price)}
-                                                    style={{ background: selectedAddon.some(selected => selected.title.toLowerCase() === addon.title.toLowerCase()) ? 'rgb(224, 224, 224)' : '' }}
-                                                    key={addon.title}
-                                                >
-                                                    <span className='service-name'>{addon.title}</span>
-                                                    <span className='service-price'>{addon.price}</span>
-                                                </div>
-                                            ))} */}
                                             {addonCards.map(addon => (
                                                 <div
                                                     className="service-card-1 addons"
@@ -1757,18 +1571,11 @@ const HomePage = () => {
 
                                     )
                                 }
-                                {/* 
-                                                onClick={() => {
-                                                if (itemKey >= 1 && itemKey <= 6) {
-                                                    closeChooseTime(index, item.props.children, item.key);
-                                                } else {
-                                                    closeChooseTimeSkipAddon(service.title, i, item.key);
-                                                }}} */}
+
                                 {/* To open the div Having calendar and time slots */}
                                 {isChooseTimeClicked !== null && (
 
                                     <div className='expanded-card scrollbar choose-time-div' >
-                                        {console.log('clicked content is: ', clickedContents[0].id)}
                                         <button className='close-btn' onClick={() => {
                                             if (clickedContents[0].id >= 1 && clickedContents[0].id <= 6) {
                                                 closeChooseTime();
@@ -1802,19 +1609,7 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    {/* {timeSlots1.map((timeSlot, index) => (
-                                                        <div
-
-                                                            className={`time-slot-card `}
-                                                            key={index}
-                                                            data-time24={timeSlot.time24}
-
-                                                            onClick={() => handleSelectedTimeClick(timeSlot)}
-                                                        >
-
-                                                            {timeSlot.icon} {timeSlot.time}
-                                                        </div>
-                                                    ))} */}
+                                                    
                                                     {isLoading ? (
                                                         <div className='loading-animation'></div>
                                                     ) : (
@@ -1871,7 +1666,7 @@ const HomePage = () => {
                                 {/* Pushing items to cart */}
                                 {isPushButtonVisible && (
                                     <div>
-                                        <h4>Are You Sure? </h4>
+                                        <h4 style={{ color: 'white' }}>Are You Sure? </h4>
                                         <button className='CartPush' id="myButton" onClick={handlePushButtonClick}>
                                             <TiTick className='tick' />
                                         </button>
@@ -1959,32 +1754,7 @@ const HomePage = () => {
                                         </div>
 
                                     </ul>
-                                    {/* 
-                                    {isTimeSelected == null && (
-                                        <div className='add-more-div' onClick={addMoreItems}>Add More</div>)
-                                    } */}
-                                    {/*                                     
-                                    {orderbtn !== null && (
-
-                                        <div className="button-48"  onClick={handleChooseTimeClick}>
-
-                                            {!isTimeSelected ? (
-                                                'Choose a time' ) : !isUser ? (
-                                                <button  onClick={  handleLoginClick} style={{ padding: '0', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} >
-                                                    Login
-                                                </button>
-                                            ) : (
-                                                <div>Book Now</div>
-                                            )}
-
-                                        </div>
-                                    )}  */}
-
-                                    {/* {orderbtn !== null && (
-                                        <div className=''>
-                                            {!isTimeSelected ? <button className='bug-btn' onClick={handleChooseTimeClick}>Choose Time</button> : !isUser ? <button className='bug-btn' onClick={handleLoginClick}>Login</button> : <button className='bug-btn' onClick={handleChooseTimeClick}>Book Now</button>}
-                                        </div>
-                                    )} */}
+                                    
 
                                     {orderbtn !== null && (
                                         <div className='bug-btn'>
@@ -2109,7 +1879,7 @@ const HomePage = () => {
                     <p>
                         Come relax and rejuvenate with the variety of luxurious salon services <br />
                         offered by Intermezzo Salon & Spa, nestled on the top of Queen Anne Hill. <br />
-                        Our staff of highly trained professionals is committed <br />
+                        Our staff of highly trained professionals are committed <br />
                         to bringing you the highest quality service and products.
                     </p>
                 </div>
@@ -2176,13 +1946,9 @@ const HomePage = () => {
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
 
                         <p>
-                            Brazilian Blowout is by far the most-requested hair
-                            smoothing treatment <br /> as it creates a protective layer
-                            around each strand of hair, effectively <br /> diminishing frizz
-                            and promoting intense shine. This nutrient-rich <br />
-                            treatment saves your strands from the stressors of day-to-day <br />
-                            life by adding extra moisture for shiny, healthy <br />
-                            hair. <br />
+                            All of my experiences at the hair place today was fine the haircut <br />
+                            she did perfect then I went in and then had my eyebrows done thanks for the <br />
+                            great job.
 
                         </p>
                         <img className='content-6-img img1' />
@@ -2191,16 +1957,15 @@ const HomePage = () => {
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
 
                         <p>
-                            Keratin treatment is widely known as a highly sought-after hair <br />
-                            care solution that forms a shielding barrier around each hair <br />
-                            strand, effectively reducing frizz and enhancing brilliant gloss. <br />
-                            This nourishing therapy revitalizes your locks from everyday <br />
-                            challenges, replenishing added hydration for lustrous, vibrant <br />
-                            hair. <br />
+                            Went in there with my partner to get our eye brows threaded. <br />
+                            It was the most amazing service and kind people. <br />
+                            They make you feel so invited and welcome. <br />
+                            I highly recommend this place to others..
+
 
                         </p>
                         <img className='content-6-img img2' />
-                        <p>~Aqua</p>
+                        <p>~Kimberly Lynn</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>
 
@@ -2253,10 +2018,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-9">
-                {/* <div>
-                <MapContainer />
-
-                </div> */}
+                
                 <div>
                     <h2>About our store</h2>
                     <p>
@@ -2264,7 +2026,7 @@ const HomePage = () => {
                         Hill, Intermezzo Salon & Spa has been <br />
                         Seattle’s premiere boutique salon for for  <br />
                         over 20 years. Our staff of highly-trained <br />
-                        professionals is committed to bringing <br />
+                        professionals are committed to bringing <br />
                         best-in-class service and products <br />
                         designed to make you feel and look <br />
                         your best.</p>

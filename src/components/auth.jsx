@@ -28,8 +28,7 @@ const Auth = (props) => {
                     // Include any headers if required (e.g., authorization headers)
                     'Content-Type': 'application/json'
                 },
-                // Optionally, add a body if needed
-                // body: JSON.stringify({ /* Your request body */ })
+                
             });
 
             if (response.ok) {

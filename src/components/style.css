@@ -568,8 +568,6 @@
     /* margin-bottom: -63px; */
     margin-bottom: -20px;
 
-
-
     animation-name: slideUp;
     animation-duration: 0.25s;
     animation-timing-function: ease-in;
@@ -579,6 +577,7 @@
     /* Start with opacity 0 */
     height: 8%;
     overflow: hidden;
+
 
 }
 
@@ -660,16 +659,22 @@
 
 
 @keyframes slideUp {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
     }
-
-    to {
-        transform: translateY(0%);
-        opacity: 1;
+  
+    50% {
+      transform: translateY(50%);
+      opacity: 0.5;
     }
-}
+  
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
 
 
 
@@ -678,6 +683,7 @@
     transform: translateY(calc(30% - 60px)) !important;
     height: 1000vh !important;
     opacity: 1;
+
 }
 
 
