@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './style.css'
 import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook, AiOutlineClose, AiOutlineDownCircle } from 'react-icons/ai';
 import { ImLocation } from 'react-icons/im';
@@ -28,7 +28,7 @@ import gallery9 from './Resources/gallery/gallery-9.jpg'
 import gallery10 from './Resources/gallery/gallery-10.jpg'
 import axios from 'axios';
 import CustomCarousel from './content7'
-import { GiHairStrands,GiCharcuterie } from "react-icons/gi";
+import { GiHairStrands, GiCharcuterie } from "react-icons/gi";
 import ProfessionalCarousel from './content4';
 import Swal from 'sweetalert2';
 
@@ -285,7 +285,7 @@ const HomePage = () => {
 
     const [professionals, setProfessionals] = useState([]);
 
-    
+
     const defaultServiceData = [
         {
             title: 'Hair Services', content:
@@ -1404,6 +1404,10 @@ const HomePage = () => {
     }, []);
 
 
+    const openExternalLink = () => {
+        window.open('https://thehaircompanypsc.square.site/', '_blank');
+    };
+
     return (
         <div className='home-page'>
 
@@ -1412,9 +1416,13 @@ const HomePage = () => {
 
                     <div className='container'>
 
-                        <div className='book-btn' onClick={toggleBookingDiv} id='content4'>
+                        {/* <div className='book-btn' onClick={toggleBookingDiv} id='content4'>
                             Book Now
-                        </div>
+                        </div> */}
+
+                        <div className='book-btn' onClick={openExternalLink} id='content4'>
+                            Book Now
+                        </div> 
 
 
                         {isVisible && (
@@ -1609,7 +1617,7 @@ const HomePage = () => {
                                                     <div className='selected-date'>{date.toDateString()}</div>
                                                 </div>
                                                 <div className='Time-slots'>
-                                                    
+
                                                     {isLoading ? (
                                                         <div className='loading-animation'></div>
                                                     ) : (
@@ -1754,7 +1762,7 @@ const HomePage = () => {
                                         </div>
 
                                     </ul>
-                                    
+
 
                                     {orderbtn !== null && (
                                         <div className='bug-btn'>
@@ -2018,7 +2026,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-9">
-                
+
                 <div>
                     <h2>About our store</h2>
                     <p>
@@ -2035,8 +2043,13 @@ const HomePage = () => {
 
                     <h2>Contact Details</h2>
                     <div>
-                        <p> <ImLocation /> 407 W. Galer Street </p>
-                        <p> <IoCallOutline />  206 281 XXXX</p>
+                        <p> <ImLocation /> 3411 W Court St
+                            Pasco, WA 99301
+
+                        </p>
+                        <p> <IoCallOutline />
+                            (509) 547-0580
+                        </p>
                         <p> <PiPaperPlaneTiltLight /> info@thehaircompany.com</p>
                     </div>
                     <div>

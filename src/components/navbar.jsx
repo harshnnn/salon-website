@@ -12,25 +12,25 @@ const Navbar = () => {
   const toggleAuth = () => {
     setIsAuthVisible(!isAuthVisible)
 
-      //for mobile screen
-      if (!isAuthVisible) {
-        for (let i = 2; i <= 9; i++) {
-            const contentElement = document.querySelector('.content-' + i);
-            contentElement.classList.add('responsive-class'); // No dot here
-        }
+    //for mobile screen
+    if (!isAuthVisible) {
+      for (let i = 2; i <= 9; i++) {
+        const contentElement = document.querySelector('.content-' + i);
+        contentElement.classList.add('responsive-class'); // No dot here
+      }
 
     }
     if (isAuthVisible) {
-        for (let i = 2; i <= 9; i++) {
-            const contentElement = document.querySelector('.content-' + i);
-            contentElement.classList.remove('responsive-class'); // No dot here
-        }
+      for (let i = 2; i <= 9; i++) {
+        const contentElement = document.querySelector('.content-' + i);
+        contentElement.classList.remove('responsive-class'); // No dot here
+      }
 
     }
   }
 
   //Phone call
-  const phoneNumber = '+1234567890';
+  const phoneNumber = '(509) 547 -0580';
 
   const handleCallClick = () => {
     window.location.href = `tel:${phoneNumber}`;
