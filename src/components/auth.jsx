@@ -371,7 +371,7 @@ const Auth = (props) => {
                     <button className='close-btn auth-close' onClick={() => { props.toggleAuth() }}>
                         <AiOutlineClose className='close-icon' />
                     </button>
-                    <img src={logo} className='auth-logo' alt="" />
+                    <img src={logo} className='auth-logo' alt="The hair company salon" />
 
                     {isVerifyOTP === false && (
                         <form onSubmit={handleLoginFormSubmit}>

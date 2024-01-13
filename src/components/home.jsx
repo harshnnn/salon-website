@@ -1298,9 +1298,9 @@ const HomePage = () => {
 
     //carusel
     const ProffesonalsData = [
-        <div className="gallery-item" data-value="1"><img src={image1} alt="gallery-image" /></div>,
-        <div className="gallery-item" data-value="2"><img src={image2} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="3"><img src={image3} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="1"><img src={image1} alt="hair company gallery image" /></div>,
+        <div className="gallery-item" data-value="2"><img src={image2} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={image3} alt="hair company gallery image" /> </div>,
 
     ];
 
@@ -1317,16 +1317,16 @@ const HomePage = () => {
 
     //for content 7
     const galleryItems = [
-        <div className="gallery-item" data-value="1"><img src={gallery1} alt="gallery-image" /></div>,
-        <div className="gallery-item" data-value="2"><img src={gallery2} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="3"><img src={gallery3} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="4"><img src={gallery4} alt="gallery-image" /></div>,
-        <div className="gallery-item" data-value="5"><img src={gallery5} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="2"><img src={gallery6} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="3"><img src={gallery7} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="4"><img src={gallery8} alt="gallery-image" /></div>,
-        <div className="gallery-item" data-value="5"><img src={gallery9} alt="gallery-image" /> </div>,
-        <div className="gallery-item" data-value="5"><img src={gallery10} alt="gallery-image" /> </div>,
+        <div className="gallery-item" data-value="1"><img src={gallery1} alt="hair company gallery image" /></div>,
+        <div className="gallery-item" data-value="2"><img src={gallery2} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={gallery3} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="4"><img src={gallery4} alt="hair company gallery image" /></div>,
+        <div className="gallery-item" data-value="5"><img src={gallery5} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="2"><img src={gallery6} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={gallery7} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="4"><img src={gallery8} alt="hair company gallery image" /></div>,
+        <div className="gallery-item" data-value="5"><img src={gallery9} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="5"><img src={gallery10} alt="hari company gallery image" /> </div>,
 
     ];
 
@@ -1422,7 +1422,7 @@ const HomePage = () => {
 
                         <div className='book-btn' onClick={openExternalLink} id='content4'>
                             Book Now
-                        </div> 
+                        </div>
 
 
                         {isVisible && (
@@ -1806,6 +1806,12 @@ const HomePage = () => {
 
             <div className='content-2' id='content2'>
 
+                <head>
+                    <meta name="description" content="Explore the premium services offered at The Hair Company. From expert hair services to rejuvenating spa facials and advanced hair removal treatments, discover a world of beauty and self-care." />
+                    <meta name="keywords" content="hair services, spa facials, hair removal, beauty salon, self-care" />
+                    <meta name="author" content="The Hair Company" />
+                </head>
+
                 <h1>SERVICES WE OFFER</h1>
                 <div className='cards'>
                     <div className='card-1 card-left'>
@@ -1873,6 +1879,12 @@ const HomePage = () => {
 
 
             <div className="content-7" id='content7' ref={myDiv7Ref}>
+
+                <head>
+                    <meta name="description" content="Explore the stunning gallery of The Hair Company. Browse through images showcasing our premium salon services, expert hairstyling, and tranquil spa environment." />
+                    <meta name="keywords" content="salon gallery, hair services images, spa environment, beauty salon photos" />
+                    <meta name="author" content="The Hair Company" />
+                </head>
 
                 <h1>Check Our Gallery</h1>
 

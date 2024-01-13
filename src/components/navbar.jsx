@@ -58,10 +58,14 @@ const Navbar = () => {
   return (
     <div className='nav-div'>
       <div className='logo'>
-        <img src={logo} alt="" className='nav-logo' />
+        <img src={logo} alt="The Hair Company Logo" className='nav-logo' />
       </div>
       {isAuthVisible && (<Auth toggleAuth={toggleAuth} />)}
 
+      <head>
+        <meta name="description" content="The Hair Company - Your go-to salon for professional hair services. Explore our prices, services, gallery, and learn more about us." />
+      </head>
+      
       <div className={`menu-items ${menuVisible ? 'active' : ''}`}>
         <ul>
           <li><a href="#" className='nav-link' onClick={(e) => handleNavLinkClick(e, 'content1')}>Home</a></li>
