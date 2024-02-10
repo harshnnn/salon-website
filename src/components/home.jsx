@@ -16,21 +16,23 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import image1 from './Resources/proffessionals/proff2-1.jpg';
 import image2 from './Resources/proffessionals/proff2-2.jpg';
 import image3 from './Resources/proffessionals/proff2-3.jpg';
-import gallery1 from './Resources/gallery/gallery-1.jpg'
-import gallery2 from './Resources/gallery/gallery-2.jpg'
-import gallery3 from './Resources/gallery/gallery-3.jpg'
-import gallery4 from './Resources/gallery/gallery-4.jpg'
-import gallery5 from './Resources/gallery/gallery-5.jpg'
-import gallery6 from './Resources/gallery/gallery-6.jpg'
-import gallery7 from './Resources/gallery/gallery-7.jpg'
-import gallery8 from './Resources/gallery/gallery-8.jpg'
-import gallery9 from './Resources/gallery/gallery-9.jpg'
-import gallery10 from './Resources/gallery/gallery-10.jpg'
+import gallery1 from './Resources/gallery/gallery-1.jpg';
+import gallerymobile from './Resources/gallery/gallery-1-mobile.jpg'
+import gallery2 from './Resources/gallery/gallery-2.jpg';
+import gallery3 from './Resources/gallery/gallery-3.jpg';
+import gallery4 from './Resources/gallery/gallery-4.jpg';
+import gallery5 from './Resources/gallery/gallery-5.jpg';
+import gallery6 from './Resources/gallery/gallery-6.jpg';
+import gallery7 from './Resources/gallery/gallery-7.jpg';
+import gallery8 from './Resources/gallery/gallery-8.jpg';
+import gallery9 from './Resources/gallery/gallery-9.jpg';
+import gallery10 from './Resources/gallery/gallery-10.jpg';
 import axios from 'axios';
 import CustomCarousel from './content7'
 import { GiHairStrands, GiCharcuterie } from "react-icons/gi";
 import ProfessionalCarousel from './content4';
 import Swal from 'sweetalert2';
+
 
 
 const HomePage = () => {
@@ -1411,7 +1413,8 @@ const HomePage = () => {
     return (
         <div className='home-page'>
 
-            <div className='content-1' id="content1" >
+            <div className='content-1' id="content1"  >
+                
                 <div className='tagline'><p>We provide you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
@@ -1802,6 +1805,7 @@ const HomePage = () => {
                         )}
                     </div>
                 </div>
+                
             </div>
 
             <div className='content-2' id='content2'>
@@ -1815,6 +1819,7 @@ const HomePage = () => {
                 <h1>SERVICES WE OFFER</h1>
                 <div className='cards'>
                     <div className='card-1 card-left'>
+                    
                         <div className='card-img'></div>
                         <div className='card-info-left'>
                             <h4>Hair Services</h4>
