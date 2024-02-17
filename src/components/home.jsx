@@ -1414,7 +1414,7 @@ const HomePage = () => {
         <div className='home-page'>
 
             <div className='content-1' id="content1"  >
-                
+
                 <div className='tagline'><p>We provide you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
@@ -1805,7 +1805,7 @@ const HomePage = () => {
                         )}
                     </div>
                 </div>
-                
+
             </div>
 
             <div className='content-2' id='content2'>
@@ -1819,23 +1819,23 @@ const HomePage = () => {
                 <h1>SERVICES WE OFFER</h1>
                 <div className='cards'>
                     <div className='card-1 card-left'>
-                    
+
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h4>Hair Services</h4>
+                            <h3>Hair Services</h3>
                             <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong>  </p> <p>elevates the art of hairstyling to new heights. With a collective passion for innovation and a commitment to excellence.</p>
 
                             <p>Through years of honing their craft, our experts have mastered the intricate details of hairstyling. Their keen eye for trends and unwavering dedication to continual learning ensure that you receive not just a service, but a personalized journey towards your perfect look.</p>
 
-                            <p>From the moment you sit in our chairs, expect more than a simple haircut or color treatment. Our professionals engage in thoughtful consultations, taking the time to understand your preferences, lifestyle, and personality. This thorough understanding enables them to tailor their expertise to your unique needs.</p>
+                            {/* <p>From the moment you sit in our chairs, expect more than a simple haircut or color treatment. Our professionals engage in thoughtful consultations, taking the time to understand your preferences, lifestyle, and personality. This thorough understanding enables them to tailor their expertise to your unique needs.</p>
 
-                            <p>Our comprehensive range of services encompasses:</p>
+                            <p>Our comprehensive range of services encompasses:</p> */}
 
                         </div>
                     </div>
                     <div className='card-2 card-right'>
                         <div className='card-info-right'>
-                            <h4>Spa Facials</h4>
+                            <h3>Spa Facials</h3>
 
                             <p><strong>Indulge in our rejuvenating facials, where tranquility meets skincare perfection.</strong>
                             </p>  <p>Our expert estheticians bring together a harmonious blend of luxurious treatments and cutting-edge techniques.
@@ -1845,21 +1845,22 @@ const HomePage = () => {
                                 Relax as our professionals meticulously analyze your skin, customizing each facial to address your unique needs. With an array of specialized products and personalized approaches, we ensure an experience that's not just skin deep but also soul-soothing.
                             </p>
 
-                            <p>
+                            {/* <p>
                                 Our facials transcend the ordinary by incorporating therapeutic practices and tailored solutions. Whether it's hydration, anti-aging, or rejuvenation, our treatments are designed to restore your skin's natural radiance and vitality.
                             </p>
 
                             <p>
                                 At our spa, you'll encounter an oasis of tranquility where every facial is a fusion of luxury and transformation, leaving you with a renewed sense of well-being.
-                            </p>                        </div>
+                            </p> */}
+                        </div>
                         <div className='card-img'></div>
                     </div>
                     <div className='card-3 card-left'>
                         <div className='card-img'></div>
                         <div className='card-info-left'>
-                            <h4>Hair Removal</h4>
+                            <h3>Hair Removal</h3>
                             <p>
-                                <strong>Experience the epitome of smoothness and confidence with our hair removal services.</strong> </p>
+                                <span>Experience the epitome of smoothness and confidence with our hair removal services.</span> </p>
                             <p>  Our proficient technicians employ advanced techniques and top-quality products to ensure a hair-free experience .
                             </p>
 
@@ -1867,13 +1868,13 @@ const HomePage = () => {
                                 Whether it's waxing, threading, or laser treatments, our specialists prioritize precision and care, delivering exceptional results tailored to your preferences.
                             </p>
 
-                            <p>
+                            {/* <p>
                                 At our salon, we prioritize your comfort and satisfaction. We provide a serene and hygienic environment for your hair removal sessions, ensuring a stress-free and relaxing experience.
                             </p>
 
                             <p>
                                 Step into our sanctuary of beauty and bid farewell to unwanted hair. Our commitment to excellence ensures that each hair removal session is not just a treatment but a step towards your self-assured glow.
-                            </p>
+                            </p> */}
                         </div>
                     </div>
 
@@ -1884,6 +1885,7 @@ const HomePage = () => {
 
 
             <div className="content-7" id='content7' ref={myDiv7Ref}>
+                {/* problem */}
 
                 <head>
                     <meta name="description" content="Explore the stunning gallery of The Hair Company. Browse through images showcasing our premium salon services, expert hairstyling, and tranquil spa environment." />
@@ -1898,6 +1900,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-3" id="content3" ref={myDivRef}>
+                {/* problem */}
                 <div className={`content-3-img ${isContent3Animated ? 'slideInLeft' : ''}`}></div>
                 <div className={`content-3-info ${isContent3Animated ? 'slideInRight' : ''}`}>
                     <h1>ABOUT US</h1>
@@ -1911,6 +1914,7 @@ const HomePage = () => {
             </div>
 
             <div className="content-4">
+                {/* problem */}
                 <h1>Our Talanted Staff</h1>
 
                 <ProfessionalCarousel items={ProffesonalsData} className="content-7-carousel" />
@@ -1961,10 +1965,11 @@ const HomePage = () => {
 
                 </div>
 
-                <button className='book-slot-btn' onClick={toggleBookingDiv}><p>Book Your Slot</p></button>
+                <button className='book-slot-btn' onClick={openExternalLink}><p>Book Your Slot</p></button>
             </div>
 
             <div className="content-6">
+                {/* problem */}
                 <h1>TESTIMONIALS</h1>
 
                 <AliceCarousel className='content-6-box' >
@@ -2025,12 +2030,13 @@ const HomePage = () => {
 
 
             <div className="content-8" ref={myDiv8Ref}>
+                {/* problem */}
                 <h1>Our Partnership</h1>
                 <div className='content-8-body'>
                     <div className={`content-8-info ${isContent8Animated ? 'slideInInfo' : ''}`}>
                         <h2>WE WORK WITH THE <br /> BEST PARTNERS</h2>
                         <p>Experience beauty like never before with our salon's exclusive partnerships. Our commitment to excellence is fueled by collaborations with the industry's finest. Discover the best in beauty with our trusted partners.</p>
-                        <button>READ MORE</button>
+                        {/* <button>READ MORE</button> */}
                     </div>
                     <div className={`content-8-images ${isContent8Animated ? 'slideInImages' : ''}`} >
                         <div className='content-8-images-img1'></div>

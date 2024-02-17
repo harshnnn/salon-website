@@ -263,14 +263,14 @@
     .content-1 {
         background-position: center center;
         background-image: url(./Resources//gallery/gallery-1-mobile.png);
-        height: 80vh;
+        height: 91vh;
+        min-height: 500px;
     }
 
     .tagline {
-        margin-top: 150px;
+        margin-top: 75%;
         margin-bottom: auto;
         margin-left: 17%;
-
 
 
     }
@@ -1266,6 +1266,11 @@
     overflow-y: scroll;
 }
 
+.cards span{
+    font-weight:550;
+    padding-bottom: 1em;
+}
+
 .card-left {
     display: flex;
     justify-content: center;
@@ -1284,6 +1289,7 @@
     background-size: cover;
     height: 550px;
     width: 400px;
+    border-radius: 10px;
 }
 
 .card-1 .card-img {
@@ -1327,7 +1333,7 @@
     width: 40%;
 }
 
-.card-info-left h4 {
+.card-info-left h3 {
     padding: 1em;
 }
 
@@ -1343,7 +1349,7 @@
 
 }
 
-.card-info-right h4 {
+.card-info-right h3 {
     padding: 1em;
 }
 
@@ -2119,6 +2125,13 @@
     transform: translate(4000%, -675%);
 }
 
+.alice-carousel__next-btn-item{
+    padding:0px !important;    
+    margin-bottom: 8px !important;
+}
+.alice-carousel__prev-btn-item{
+    padding: 0px !important;
+}    
 
 
 @media (max-width: 768px) {
