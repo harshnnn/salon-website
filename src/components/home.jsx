@@ -1982,6 +1982,8 @@ const HomePage = () => {
 
                         </p>
                         <img className='content-6-img img1' />
+                        
+
                         <p>~Cherry</p>
                     </div>
                     <div onDragStart={handleOnDragStart} className='content-6-card'>

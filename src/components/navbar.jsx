@@ -58,7 +58,7 @@ const Navbar = () => {
   return (
     <div className='nav-div'>
       <div className='logo'>
-        <img src={logo} alt="The Hair Company Logo" className='nav-logo' />
+        <img src={logo} alt="The Hair Company Logo" className='nav-logo' onClick={(e) => handleNavLinkClick(e, 'content1')} />
       </div>
       {isAuthVisible && (<Auth toggleAuth={toggleAuth} />)}
 
@@ -73,7 +73,7 @@ const Navbar = () => {
           <li><a href="#" className='nav-link' onClick={(e) => handleNavLinkClick(e, 'content2')}>Services</a></li>
           <li><a href="#" className='nav-link' onClick={(e) => handleNavLinkClick(e, 'content7')} >Gallery</a></li>
           <li><a href="#" className='nav-link' onClick={(e) => handleNavLinkClick(e, 'content3')}>About Us</a></li>
-          <li><a href="#" className='nav-link' onClick={(e) => toggleAuth()}>User</a></li>
+          {/* <li><a href="#" className='nav-link' onClick={(e) => toggleAuth()}>User</a></li> */}
 
         </ul>
       </div>

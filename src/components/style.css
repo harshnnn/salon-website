@@ -1946,25 +1946,28 @@
 }
 
 .content-6 .img1 {
-    background-image: url('./Resources/Ellipse\ 14.png');
+    /* background-image: url('./Resources/Ellipse\ 14.png'); */
+    background-image: url('./Resources/user.jpg');
+    background-position: center;
+    background-size: cover;
     width: 100px;
     height: 100px;
 }
 
 .content-6 .img2 {
-    background-image: url('./Resources/Ellipse\ 14.png');
+    background-image: url('./Resources/user.jpg');
     width: 100px;
     height: 100px;
 }
 
 .content-6 .img3 {
-    background-image: url('./Resources/Ellipse\ 14.png');
+    background-image: url('./Resources/user.jpg');
     width: 100px;
     height: 100px;
 }
 
 .content-6 .img4 {
-    background-image: url('./Resources/Ellipse\ 14.png');
+    background-image: url('./Resources/user.jpg');
     width: 100px;
     height: 100px;
 }
