@@ -263,8 +263,10 @@
     .content-1 {
         background-position: center center;
         background-image: url(./Resources//gallery/gallery-1-mobile.png);
-        height: 91vh;
+        height: 90vh;
         min-height: 500px;
+        scale: 0.99;
+        margin-top: 65px;
     }
 
     .tagline {
