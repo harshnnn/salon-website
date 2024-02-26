@@ -210,7 +210,8 @@
 .content-1 {
 
     
-    background-image: url(./Resources//gallery/gallery-1.jpg);
+    /* background-image: url(./Resources//gallery/gallery-1.jpg); */
+    background-image: url(./Resources//gallery/gallery-1\(again\).png);
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -1263,6 +1264,10 @@
     padding-top: 3em;
 }
 
+.content-2 strong{
+    padding-top: 50px;
+}
+
 .cards {
     padding-top: 10px;
     overflow-y: scroll;
@@ -1277,12 +1282,17 @@
     display: flex;
     justify-content: center;
     margin-bottom: 100px;
+    word-spacing: 4px;
+
 }
+
 
 .card-right {
     display: flex;
     justify-content: center;
     margin-bottom: 100px;
+    word-spacing: 4px;
+
 }
 
 
@@ -1340,7 +1350,7 @@
 }
 
 .card-info-left p {
-    margin: auto 0;
+    margin: 20px auto;
 }
 
 .card-info-right {
@@ -1356,7 +1366,7 @@
 }
 
 .card-info-right p {
-    margin: auto 0px;
+    margin: 20px auto;
 }
 
 

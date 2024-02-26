@@ -1835,7 +1835,7 @@ const HomePage = () => {
                     </div>
                     <div className='card-2 card-right'>
                         <div className='card-info-right'>
-                            <h3>Spa Facials</h3>
+                            <h3>Facials</h3>
 
                             <p><strong>Indulge in our rejuvenating facials, where tranquility meets skincare perfection.</strong>
                             </p>  <p>Our expert estheticians bring together a harmonious blend of luxurious treatments and cutting-edge techniques.
@@ -1982,7 +1982,7 @@ const HomePage = () => {
 
                         </p>
                         <img className='content-6-img img1' />
-                        
+
 
                         <p>~Cherry</p>
                     </div>
@@ -2055,14 +2055,9 @@ const HomePage = () => {
                 <div>
                     <h2>About our store</h2>
                     <p>
-                        Nestled on the top of Queen Anne <br />
-                        Hill, Intermezzo Salon & Spa has been <br />
-                        Seattle’s premiere boutique salon for for  <br />
-                        over 20 years. Our staff of highly-trained <br />
-                        professionals are committed to bringing <br />
-                        best-in-class service and products <br />
-                        designed to make you feel and look <br />
-                        your best.</p>
+                        Welcome to our salon, nestled in the heart of Pasco, WA, <br /> at 3411 W Court St. Here, we invite you <br /> to step into a realm where the art of <br /> hairstyling is elevated to new heights <br /> by our highly skilled team of hair care experts. <br />
+                        With a collective passion for innovation and <br /> an unwavering commitment to excellence, we strive <br /> to create an experience that transcends mere  <br />beauty services.
+                     </p>   
                 </div>
                 <div>
 
