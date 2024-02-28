@@ -1415,7 +1415,7 @@ const HomePage = () => {
 
             <div className='content-1' id="content1"  >
 
-                <div className='tagline'><p>We provide you the best experience which your hair <span>loves</span></p>
+                <div className='tagline'><p >We provide you the best experience which your hair <span>loves</span></p>
 
                     <div className='container'>
 
@@ -1905,10 +1905,11 @@ const HomePage = () => {
                 <div className={`content-3-info ${isContent3Animated ? 'slideInRight' : ''}`}>
                     <h1>ABOUT US</h1>
                     <p>
-                        Come relax and rejuvenate with the variety of luxurious salon services <br />
-                        offered by Intermezzo Salon & Spa, nestled on the top of Queen Anne Hill. <br />
-                        Our staff of highly trained professionals are committed <br />
-                        to bringing you the highest quality service and products.
+                    Our experts have honed their craft over years of dedicated practice, <br />
+                     mastering the intricate details of hairstyling and staying abreast <br />
+                      of the latest trends. When you entrust us with your hair, <br /> you embark on a personalized journey towards your <br /> perfect look, guided by our keen eye for detail and commitment to <br />continual learning.
+
+
                     </p>
                 </div>
             </div>

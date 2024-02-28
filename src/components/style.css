@@ -211,7 +211,7 @@
 
     
     /* background-image: url(./Resources//gallery/gallery-1.jpg); */
-    background-image: url(./Resources//gallery/gallery-1\(again\).png);
+    background-image: url(./Resources//gallery/gallery-2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -1306,17 +1306,19 @@
 
 .card-1 .card-img {
     margin-right: 100px;
-    background-image: url('./Resources/gallery/content2-1.jpg');
+    background-image: url('./Resources/gallery/hair-services.jpg');
 }
 
 .card-2 .card-img {
     margin-left: 100px;
-    background-image: url('./Resources/gallery/content2-2.jpg');
+    background-image: url('./Resources/gallery/spa-facials.jpg');
 }
 
 .card-3 .card-img {
     margin-right: 100px;
-    background-image: url('./Resources/gallery/content2-3.jpg');
+    background-image: url('./Resources/gallery/hair-removal.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .card-4 .card-img {
