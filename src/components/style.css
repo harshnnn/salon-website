@@ -220,7 +220,6 @@
     display: flex;
     align-items: center;
     width: 100%;
-
     justify-items: flex-start;
 }
 .background-image {
@@ -232,7 +231,7 @@
     object-fit: cover;
     object-position: center center;
     z-index: -1;
-  }
+}
 
 
 .tagline {
@@ -274,8 +273,6 @@
         margin-top: 75%;
         margin-bottom: auto;
         margin-left: 17%;
-
-
     }
 
 }
@@ -327,9 +324,7 @@
     }
 
     .close-icon:hover {
-
         transform: rotateZ(90deg);
-
         /* Apply initial hover rotation */
     }
     

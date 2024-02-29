@@ -16,6 +16,8 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import image1 from './Resources/proffessionals/proff2-1.jpg';
 import image2 from './Resources/proffessionals/proff2-2.jpg';
 import image3 from './Resources/proffessionals/proff2-3.jpg';
+import image4 from './Resources/proffessionals/proff2-4.jpg';
+import image5 from './Resources/proffessionals/proff2-5.jpg';
 import gallery1 from './Resources/gallery/gallery-1.jpg';
 import gallerymobile from './Resources/gallery/gallery-1-mobile.jpg'
 import gallery2 from './Resources/gallery/gallery-2.jpg';
@@ -1303,7 +1305,8 @@ const HomePage = () => {
         <div className="gallery-item" data-value="1"><img src={image1} alt="hair company gallery image" /></div>,
         <div className="gallery-item" data-value="2"><img src={image2} alt="hair company gallery image" /> </div>,
         <div className="gallery-item" data-value="3"><img src={image3} alt="hair company gallery image" /> </div>,
-
+        <div className="gallery-item" data-value="3"><img src={image4} alt="hair company gallery image" /> </div>,
+        <div className="gallery-item" data-value="3"><img src={image5} alt="hair company gallery image" /> </div>,
     ];
 
 
