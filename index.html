@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./carousel.css">
+
+    <!-- slick carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <title>Document</title>
+</head>
+
+<body>
+
+    <nav>
+        <div class='nav-div'>
+            <div class='logo'>
+                <img src='./logo.svg' alt="The Hair Company Logo" class='nav-logo' />
+            </div>
+    
+            <div class='menu-items'>
+                <ul class="nav-list" id="navList">
+                    <li><a href="#" class='nav-link'>Home</a></li>
+                    <li><a href="#content5" id="pricesLink" class='nav-link'>Our Prices</a></li>
+                    <li><a href="#content2" id="servicesLink" class='nav-link'>Services</a></li>
+                    <li><a href="#content7" id="galleryLink" class='nav-link'>Gallery</a></li>
+                    <li><a href="#content3" id="aboutusLink" class='nav-link'>About Us</a></li>
+                </ul>
+            </div>
+    
+            <div class='contact-btn' onClick='handleCallClick()'>
+                <p>(509) 547 -0580</p>
+            </div>
+    
+            <div class='menu-toggle-btn' id="menuToggleBtn">
+                <div class="burger-icon" id="burgerIcon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <div class="home-page">
+        <div class='content-1' id="content1">
+
+            <div class='tagline'>
+                <p>We provide you the best experience which your hair <span>loves</span></p>
+
+                <div class='container'>
+
+
+                    <div class='book-btn' onClick={openExternalLink} id='content4'>
+                        Book Now
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class='content-2' id='content2'>
+
+            <head>
+                <meta name="description"
+                    content="Explore the premium services offered at The Hair Company. From expert hair services to rejuvenating spa facials and advanced hair removal treatments, discover a world of beauty and self-care." />
+                <meta name="keywords" content="hair services, spa facials, hair removal, beauty salon, self-care" />
+                <meta name="author" content="The Hair Company" />
+            </head>
+
+            <h1>SERVICES WE OFFER</h1>
+            <div class='cards'>
+                <div class='card-1 card-left'>
+
+                    <div class='card-img'></div>
+                    <div class='card-info-left'>
+                        <h3>Hair Services</h3>
+                        <p><strong>Step into our salon, where our highly skilled team of hair care experts</strong> </p>
+                        <p>elevates the art of hairstyling to new heights. With a collective passion for innovation and
+                            a commitment to excellence.</p>
+
+                        <p>Through years of honing their craft, our experts have mastered the intricate details of
+                            hairstyling. Their keen eye for trends and unwavering dedication to continual learning
+                            ensure that you receive not just a service, but a personalized journey towards your perfect
+                            look.</p>
+
+
+                    </div>
+                </div>
+                <div class='card-2 card-right'>
+                    <div class='card-info-right'>
+                        <h3>Facials</h3>
+
+                        <p><strong>Indulge in our rejuvenating facials, where tranquility meets skincare
+                                perfection.</strong>
+                        </p>
+                        <p>Our expert estheticians bring together a harmonious blend of luxurious treatments and
+                            cutting-edge techniques.
+                        </p>
+
+                        <p>
+                            Relax as our professionals meticulously analyze your skin, customizing each facial to
+                            address your unique needs. With an array of specialized products and personalized
+                            approaches, we ensure an experience that's not just skin deep but also soul-soothing.
+                        </p>
+
+
+                    </div>
+                    <div class='card-img'></div>
+                </div>
+                <div class='card-3 card-left'>
+                    <div class='card-img'></div>
+                    <div class='card-info-left'>
+                        <h3>Hair Removal</h3>
+                        <p>
+                            <span>Experience the epitome of smoothness and confidence with our hair removal
+                                services.</span>
+                        </p>
+                        <p> Our proficient technicians employ advanced techniques and top-quality products to ensure a
+                            hair-free experience .
+                        </p>
+
+                        <p>
+                            Whether it's waxing, threading, or laser treatments, our specialists prioritize precision
+                            and care, delivering exceptional results tailored to your preferences.
+                        </p>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="content-7" id="content7">
+            <h1>Check Our Gallery</h1>
+
+            <div class="your-class1">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-1.jpg" alt="Image 1">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-2.jpg" alt="Image 2">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-3.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-4.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-5.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-6.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-7.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-8.jpg" alt="Image 3">
+            </div>
+
+        </div>
+
+
+
+        <div class="content-3" id="content3" >
+
+            <div class='content-3-img'></div>
+            <div class='content-3-info'>
+                <h1>ABOUT US</h1>
+                <p>
+                    Our experts have honed their craft over years of dedicated practice, <br />
+                    mastering the intricate details of hairstyling and staying abreast <br />
+                    of the latest trends. When you entrust us with your hair, <br /> you embark on a personalized
+                    journey towards your <br /> perfect look, guided by our keen eye for detail and commitment to
+                    <br />continual learning.
+
+
+                </p>
+            </div>
+        </div>
+
+        <div class="content-4">
+
+            <h1>Our Talanted Staff</h1>
+    
+            <div class="your-class">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-1.jpg" alt="Image 1">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-2.jpg" alt="Image 2">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-3.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-4.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-5.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-6.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-7.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-8.jpg" alt="Image 3">
+            </div>
+        </div>
+         
+        <div class="content-5" id='content5'>
+            <h1>Our Prices</h1>
+        
+            <div class='list-details'>
+        
+                <div>
+
+                    <div class="list-group-item" id="toggleList">
+                        Service List <p id="hiddenText" style="visibility: hidden; display: inline;">lal</p> <span id="chevronIcon">&#x25BA;</span>
+                    </div>
+
+                    <ul class='list-title' id="listTitle">
+                        <!-- Dynamic list items will be added here -->
+                    </ul>
+                    
+
+                    <div class="list-group" id="listGroup">
+                        
+                        
+                        
+                        <ul class="list-group-content" id="listGroupContent">
+                            <!-- Dynamic list items will be added here -->
+                        </ul>
+                    </div>
+        
+                    <div id="selectedItemContent">
+                        <!-- Content of selected item will be displayed here -->
+                    </div>
+                </div>
+        
+            </div>
+        
+            <button class='book-slot-btn' id="bookSlotBtn"><p>Book Your Slot</p></button>
+        </div>
+        
+        <div class="content-6">
+            
+            <h1>TESTIMONIALS</h1>
+
+            <div class='content-6-box' >
+                <div  class="carousel-content content-6-card">
+
+                    <p>
+                        All of my experiences at the hair place today was fine the haircut <br />
+                        she did perfect then I went in and then had my eyebrows done thanks for the <br />
+                        great job.
+
+                    </p>
+                    <img class='content-6-img img1' />
+
+
+                    <p>~Cherry</p>
+                </div>
+                <div  class="carousel-content content-6-card">
+
+                    <p>
+                        Went in there with my partner to get our eye brows threaded. <br />
+                        It was the most amazing service and kind people. <br />
+                        They make you feel so invited and welcome. <br />
+                        I highly recommend this place to others..
+
+
+                    </p>
+                    <img class='content-6-img img2' />
+                    <p>~Kimberly Lynn</p>
+                </div>
+                <div class="carousel-content content-6-card">
+
+                    <p>
+                        The trendsetting Silk Press has become the ultimate choice for <br />
+                        achieving sleek hair, crafting a safeguarding coat around every <br />
+                        single strand. This enriching procedure combats frizz and fosters <br />
+                        a radiant sheen. This enriching treatment rejuvenates your hair <br />
+                        against everyday pressures, infusing additional moisture for <br />
+                        luminous, robust hair. <br />
+
+                    </p>
+                    <img class='content-6-img img3' />
+                    <p>~Luna</p>
+                </div>
+                <div class="carousel-content content-6-card">
+
+                    <p>
+                        Glossy hair, sought-after by many, the Japanese Straightening <br />
+                        technique is renowned for enveloping each strand with a <br />
+                        protective shield, effectively eliminating frizz and enhancing <br />
+                        luminous brilliance. This nutrient-packed treatment shields your <br />
+                        strands from daily life challenges, providing extra hydration <br />
+                        for glossy, resilient hair. <br />
+
+                    </p>
+                    <img class='content-6-img img4' />
+                    <p>~Jade</p>
+                </div>
+            </div>
+        </div> 
+
+        <div class="content-8">
+
+            <h1>Our Partnership</h1>
+            <div class='content-8-body'>
+                <div class='content-8-info'>
+                    <h2>WE WORK WITH THE <br /> BEST PARTNERS</h2>
+                    <p>Experience beauty like never before with our salon's exclusive partnerships. Our commitment
+                        to
+                        excellence is fueled by collaborations with the industry's finest. Discover the best in
+                        beauty
+                        with our trusted partners.</p>
+
+                </div>
+                <div class='content-8-images'>
+                    <div class='content-8-images-img1'></div>
+                    <div class='content-8-images-img2'></div>
+                    <div class='content-8-images-img3'></div>
+                    <div class='content-8-images-img4'></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="content-9">
+
+            <div>
+                <h2>About our store</h2>
+                <p>
+                    Welcome to our salon, nestled in the heart of Pasco, WA, <br /> at 3411 W Court St. Here, we
+                    invite
+                    you <br /> to step into a realm where the art of <br /> hairstyling is elevated to new heights
+                    <br /> by our highly skilled team of hair care experts. <br />
+                    With a collective passion for innovation and <br /> an unwavering commitment to excellence, we
+                    strive <br /> to create an experience that transcends mere <br />beauty services.
+                </p>
+            </div>
+            <div>
+
+                <h2>Contact Details</h2>
+                <div>
+                    <p>
+                        <ImLocation /> 3411 W Court St
+                        Pasco, WA 99301
+
+                    </p>
+                    <p>
+                        <IoCallOutline />
+                        (509) 547-0580
+                    </p>
+                    <p>
+                        <PiPaperPlaneTiltLight /> info@thehaircompany.com
+                    </p>
+                </div>
+                <div>
+                    <h2>Follow Us</h2>
+                    <ul>
+                        <li>
+                            <AiOutlineInstagram class='icons' />
+                        </li>
+                        <li>
+                            <AiOutlineWhatsApp class='icons' />
+                        </li>
+                        <li>
+                            <AiOutlineFacebook class='icons' />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h2>Opening Time</h2>
+                <div class='lines'>
+                    <table></table>
+                    <table></table>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class='th' colSpan={2}>
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Monday</td>
+                            <td>
+                                <p>10:00 -- 6:00</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tuesday</td>
+                            <td>10:00 -- 6:00</td>
+                        </tr>
+                        <tr>
+                            <td>Wednesday</td>
+                            <td>10:00 -- 6:00</td>
+                        </tr>
+                        <tr>
+                            <td>Thursday</td>
+                            <td>10:00 -- 6:00</td>
+                        </tr>
+                        <tr>
+                            <td>Friday</td>
+                            <td>10:00 -- 6:00</td>
+                        </tr>
+                        <tr>
+                            <td>Saturday</td>
+                            <td>10:00 -- 6:00</td>
+                        </tr>
+                        <tr>
+                            <td>Sunday</td>
+                            <td>Closed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"
+        integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+        </script>
+
+</body>
+<script src="./functions.js"></script>
+<script src="./script.js"></script>
+<script src="./slick.js"></script>
+
+</html>

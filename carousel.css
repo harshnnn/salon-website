@@ -1,0 +1,115 @@
+/* Add your custom CSS styles here */
+
+/* Container for the carousel */
+.your-class{
+    width: 40%;
+}
+
+.your-class1 .slick-prev:before,.your-class1 .slick-next:before{
+    color: black;
+}
+.your-class1{
+    width: 40%;
+}
+.content-6-box{
+    width: 50%;
+}
+
+.content-6-box .slick-prev:before,.content-6-box .slick-next:before {
+    color:black ;
+}
+
+@media (max-width: 768px){
+    .your-class,
+    .your-class1,
+    .content-6-box{
+        width: 100%;
+        height: 60%;
+    }
+    .slick-next{
+
+        z-index: 1;
+        right: 0 !important;
+    }
+
+    .slick-prev{
+        z-index: 1;
+        left: 0 !important;
+    }
+}
+
+.carousel-container {
+    width: 30%;
+    /* Adjust the width as needed */
+    margin: 0 auto;
+    /* Center the carousel */
+    margin-bottom: 20px;
+    /* Add some space between carousels */
+}
+
+.carousel-style {
+    width: 200px;
+    height: 600px;
+    border-radius: 5%;
+    background-color: antiquewhite;
+}
+
+/* Individual slides */
+.slick-slide {
+    margin: 0 10px;
+    /* Adjust the margin as needed */
+}
+
+/* Styling for the dots navigation */
+.slick-dots {
+    text-align: center;
+    margin-top: 20px;
+    /* Adjust the margin as needed */
+}
+
+/* Styling for the dots */
+.slick-dots li {
+    display: inline-block;
+    margin: 0 5px;
+    /* Adjust the margin as needed */
+}
+
+/* Styling for active dot */
+/* .slick-dots li.slick-active button {
+    background: #007bff;
+    /* Change the background color as needed */
+} */
+
+/* Styling for the previous and next buttons */
+.slick-prev,
+.slick-next {
+    font-size: 20px;
+    line-height: 1;
+    color: #ffffff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    cursor: pointer;
+}
+
+/* Styling for the next button */
+.slick-next {
+    right: 10px;
+}
+
+/* Styling for the previous button */
+.slick-prev {
+    left: 10px;
+}
+
+/* Change button color on hover */
+.slick-prev:hover,
+.slick-next:hover {
+    background-color: #0056b3;
+}
