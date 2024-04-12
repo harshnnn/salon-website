@@ -3,11 +3,11 @@
     window.location.href = 'tel:' + 5095470580
   })
 
-  // Function to toggle menu visibility
 // Function to toggle menu visibility
+const navList = document.getElementById('navList');
+
 function toggleMenu() {
-    const navList = document.getElementById('navList');
-    navList.classList.toggle('hidden');
+    navList.classList.toggle('mobNav');
 }
 
 // Toggle menu when burger icon is clicked
@@ -241,40 +241,48 @@ document.getElementById('aboutusLink').addEventListener('click', scrollToAboutus
     function renderList() {
         const listTitle = document.getElementById('listTitle');
         const listGroupContent = document.getElementById('listGroupContent');
-
+    
         listTitle.innerHTML = '';
         listGroupContent.innerHTML = '';
-
+    
         items.forEach(function (item, index) {
             const li = document.createElement('li');
             li.textContent = item;
-            li.class = selectedItem === index ? 'selected' : '';
+            if (selectedItem === index) {
+                li.classList.add('selected');
+            }
             li.addEventListener('click', function () {
                 handleItemClick(index);
+                // Remove 'selected' class from all list items
+                // document.querySelectorAll('#listTitle li').forEach(function (item) {
+                //     item.classList.remove('selected');
+                // });
+                // Add 'selected' class to the clicked list item
+                li.classList.add('selected');
             });
             listTitle.appendChild(li);
-
+    
             const liContent = document.createElement('li');
             liContent.innerHTML = content[index];
-            liContent.class = selectedItem === index ? 'selected' : '';
             liContent.addEventListener('click', function () {
                 handleItemClick(index);
             });
             listGroupContent.appendChild(liContent);
         });
-
+    
         const toggleListBtn = document.getElementById('toggleList');
         toggleListBtn.addEventListener('click', toggleList);
-
+    
         const chevronIcon = document.getElementById('chevronIcon');
         chevronIcon.textContent = isExpanded ?  '▶' : '▼';
-
+    
         // const hiddenText = document.getElementById('hiddenText');
         // hiddenText.style.visibility = isExpanded ? 'visible' : 'hidden';
-
+    
         // Add or remove class to listGroupContent based on isExpanded
         listTitle.classList.toggle('hidden', isExpanded);
     }
+    
 
     function renderSelectedItemContent() {
         const selectedItemContent = document.getElementById('selectedItemContent');
@@ -287,12 +295,105 @@ document.getElementById('aboutusLink').addEventListener('click', scrollToAboutus
     }
 
     function openExternalLink() {
-        // Add your logic here to open an external link
+        window.open('https://thehaircompanypsc.square.site/', '_blank');
     }
 
     const bookSlotBtn = document.getElementById('bookSlotBtn');
+    const bookBtn = document.getElementById('bookBtn');
     bookSlotBtn.addEventListener('click', openExternalLink);
+    bookBtn.addEventListener('click', openExternalLink);
 
     renderList();
     renderSelectedItemContent();
 });
+
+//Animations
+// Select the target element
+ const targetElement1 = document.getElementById('content3');
+ const leftAnimation = document.getElementById('content3left');
+ const rightAnimation = document.getElementById('content3right')
+
+
+// Set up the Intersection Observer
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            
+            leftAnimation.classList.add('postAnimationLeft');
+            rightAnimation.classList.add('postAnimationRight');
+            
+            observer.unobserve(entry.target);
+        }
+    });
+});
+
+// Start observing the target element
+observer.observe(targetElement1); 
+
+// Set up the Intersection Observer for content2id1
+const targetElement2id1 = document.getElementById('content2id1');
+const leftAnimation2id1 = document.getElementById('content2id1');
+const rightAnimation2id1 = document.getElementById('content2id2');
+
+const observer2id1 = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            leftAnimation2id1.classList.add('postAnimationLeft');
+            rightAnimation2id1.classList.add('postAnimationRight');
+            
+            observer2id1.unobserve(entry.target);
+        }
+    });
+});
+
+observer2id1.observe(targetElement2id1);
+
+// Set up the Intersection Observer for content2id2
+const targetElement2id2 = document.getElementById('content2id2');
+const leftAnimation2id2 = document.getElementById('content2id2');
+const rightAnimation2id2 = document.getElementById('content2id3');
+
+const observer2id2 = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            leftAnimation2id2.classList.add('postAnimationLeft');
+            rightAnimation2id2.classList.add('postAnimationRight');
+            
+            observer2id2.unobserve(entry.target);
+        }
+    });
+});
+
+observer2id2.observe(targetElement2id2);
+
+// Set up the Intersection Observer for content2id3
+const targetElement2id3 = document.getElementById('content2id3');
+const leftAnimation2id3 = document.getElementById('content2id3');
+
+const observer2id3 = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            leftAnimation2id3.classList.add('postAnimationLeft');
+            
+            observer2id3.unobserve(entry.target);
+        }
+    });
+});
+
+observer2id3.observe(targetElement2id3);
+
+const targetElement3 = document.getElementById('content8');
+const leftAnimation8 = document.getElementById('content8left');
+const rightAnimation8 = document.getElementById('content8right');
+
+const observer3 = new IntersectionObserver(entries =>{
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            leftAnimation8.classList.add('postAnimationLeft');
+            rightAnimation8.classList.add('postAnimationRight');
+            observer3.unobserve(entry.target);
+        }
+    })
+})
+
+observer3.observe(targetElement3)

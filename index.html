@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="./carousel.css">
+    <link rel="icon" type="image/x-icon" href="./logo.svg">
 
     <!-- slick carousel -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
@@ -14,8 +15,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
         integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <title>Document</title>
+
+    <title>The Hair Company</title>
 </head>
 
 <body>
@@ -25,9 +26,9 @@
             <div class='logo'>
                 <img src='./logo.svg' alt="The Hair Company Logo" class='nav-logo' />
             </div>
-    
+
             <div class='menu-items'>
-                <ul class="nav-list" id="navList">
+                <ul class="nav-list mobNav" id="navList">
                     <li><a href="#" class='nav-link'>Home</a></li>
                     <li><a href="#content5" id="pricesLink" class='nav-link'>Our Prices</a></li>
                     <li><a href="#content2" id="servicesLink" class='nav-link'>Services</a></li>
@@ -35,11 +36,11 @@
                     <li><a href="#content3" id="aboutusLink" class='nav-link'>About Us</a></li>
                 </ul>
             </div>
-    
-            <div class='contact-btn' onClick='handleCallClick()'>
+
+            <div class='contact-btn'>
                 <p>(509) 547 -0580</p>
             </div>
-    
+
             <div class='menu-toggle-btn' id="menuToggleBtn">
                 <div class="burger-icon" id="burgerIcon">
                     <span></span>
@@ -49,7 +50,7 @@
             </div>
         </div>
     </nav>
-    
+
 
     <div class="home-page">
         <div class='content-1' id="content1">
@@ -60,7 +61,7 @@
                 <div class='container'>
 
 
-                    <div class='book-btn' onClick={openExternalLink} id='content4'>
+                    <div class='book-btn ' id='bookBtn'>
                         Book Now
                     </div>
 
@@ -81,7 +82,7 @@
 
             <h1>SERVICES WE OFFER</h1>
             <div class='cards'>
-                <div class='card-1 card-left'>
+                <div class='card-1 card-left preAnimationLeft' id="content2id1">
 
                     <div class='card-img'></div>
                     <div class='card-info-left'>
@@ -98,7 +99,7 @@
 
                     </div>
                 </div>
-                <div class='card-2 card-right'>
+                <div class='card-2 card-right preAnimationRight' id="content2id2">
                     <div class='card-info-right'>
                         <h3>Facials</h3>
 
@@ -119,7 +120,7 @@
                     </div>
                     <div class='card-img'></div>
                 </div>
-                <div class='card-3 card-left'>
+                <div class='card-3 card-left preAnimationLeft' id="content2id3">
                     <div class='card-img'></div>
                     <div class='card-info-left'>
                         <h3>Hair Removal</h3>
@@ -151,21 +152,23 @@
                 <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-1.jpg" alt="Image 1">
                 <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-2.jpg" alt="Image 2">
                 <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-3.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-4.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-5.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-6.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-7.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-8.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-4.jpg" alt="Image 4">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-5.jpg" alt="Image 5">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-6.jpg" alt="Image 6">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-7.jpg" alt="Image 7">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-8.jpg" alt="Image 8">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-9.jpg" alt="Image 9">
+                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-10.jpg" alt="Image 10">
             </div>
 
         </div>
 
 
 
-        <div class="content-3" id="content3" >
+        <div class="content-3" id="content3">
 
-            <div class='content-3-img'></div>
-            <div class='content-3-info'>
+            <div class='content-3-img preAnimationLeft' id="content3left"></div>
+            <div class='content-3-info preAnimationRight' id="content3right">
                 <h1>ABOUT US</h1>
                 <p>
                     Our experts have honed their craft over years of dedicated practice, <br />
@@ -182,60 +185,61 @@
         <div class="content-4">
 
             <h1>Our Talanted Staff</h1>
-    
+
             <div class="your-class">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-1.jpg" alt="Image 1">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-2.jpg" alt="Image 2">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-3.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-4.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-5.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-6.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-7.jpg" alt="Image 3">
-                <img class="carousel-content carousel-style" src="./Resources/gallery/gallery-8.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources//proffessionals/proff2-1.jpg" alt="Image 1">
+                <img class="carousel-content carousel-style" src="./Resources//proffessionals/proff2-2.jpg" alt="Image 2">
+                <img class="carousel-content carousel-style" src="./Resources//proffessionals/proff2-3.jpg" alt="Image 3">
+                <img class="carousel-content carousel-style" src="./Resources//proffessionals/proff2-4.jpg" alt="Image 4">
+                <img class="carousel-content carousel-style" src="./Resources//proffessionals/proff2-5.jpg" alt="Image 5">
+               
             </div>
         </div>
-         
+
         <div class="content-5" id='content5'>
             <h1>Our Prices</h1>
-        
+
             <div class='list-details'>
-        
+
                 <div>
 
                     <div class="list-group-item" id="toggleList">
-                        Service List <p id="hiddenText" style="visibility: hidden; display: inline;">lal</p> <span id="chevronIcon">&#x25BA;</span>
+                        Service List <p id="hiddenText" style="visibility: hidden; display: inline;">lal</p> <span
+                            id="chevronIcon">&#x25BA;</span>
                     </div>
 
                     <ul class='list-title' id="listTitle">
                         <!-- Dynamic list items will be added here -->
                     </ul>
-                    
+
 
                     <div class="list-group" id="listGroup">
-                        
-                        
-                        
+
+
+
                         <ul class="list-group-content" id="listGroupContent">
                             <!-- Dynamic list items will be added here -->
                         </ul>
                     </div>
-        
+
                     <div id="selectedItemContent">
                         <!-- Content of selected item will be displayed here -->
                     </div>
                 </div>
-        
+
             </div>
-        
-            <button class='book-slot-btn' id="bookSlotBtn"><p>Book Your Slot</p></button>
+
+            <button class='book-slot-btn' id="bookSlotBtn">
+                <p>Book Your Slot</p>
+            </button>
         </div>
-        
+
         <div class="content-6">
-            
+
             <h1>TESTIMONIALS</h1>
 
-            <div class='content-6-box' >
-                <div  class="carousel-content content-6-card">
+            <div class='content-6-box'>
+                <div class="carousel-content content-6-card">
 
                     <p>
                         All of my experiences at the hair place today was fine the haircut <br />
@@ -248,7 +252,7 @@
 
                     <p>~Cherry</p>
                 </div>
-                <div  class="carousel-content content-6-card">
+                <div class="carousel-content content-6-card">
 
                     <p>
                         Went in there with my partner to get our eye brows threaded. <br />
@@ -290,13 +294,13 @@
                     <p>~Jade</p>
                 </div>
             </div>
-        </div> 
+        </div>
 
-        <div class="content-8">
+        <div class="content-8" id="content8">
 
             <h1>Our Partnership</h1>
             <div class='content-8-body'>
-                <div class='content-8-info'>
+                <div class='content-8-info preAnimationLeft' id="content8left">
                     <h2>WE WORK WITH THE <br /> BEST PARTNERS</h2>
                     <p>Experience beauty like never before with our salon's exclusive partnerships. Our commitment
                         to
@@ -305,7 +309,7 @@
                         with our trusted partners.</p>
 
                 </div>
-                <div class='content-8-images'>
+                <div class='content-8-images preAnimationLeft' id="content8right">
                     <div class='content-8-images-img1'></div>
                     <div class='content-8-images-img2'></div>
                     <div class='content-8-images-img3'></div>
@@ -370,7 +374,7 @@
                 <table>
                     <thead>
                         <tr>
-                            <th class='th' colSpan={2}>
+                            <th class='th' colspan="2">
 
                             </th>
                         </tr>
@@ -418,10 +422,11 @@
         integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A=="
         crossorigin="anonymous" referrerpolicy="no-referrer">
         </script>
-
+    
 </body>
 <script src="./functions.js"></script>
 <script src="./script.js"></script>
 <script src="./slick.js"></script>
+
 
 </html>

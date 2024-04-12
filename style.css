@@ -116,8 +116,6 @@ html, body {
         justify-content: center;
     }
 
-
-
     .menu-items li {
         background-color: aliceblue;
         padding: 5px 15px;
@@ -194,6 +192,10 @@ html, body {
         top: -8px;
     }
 
+    .mobNav{
+        display: none !important;
+    }
+
 }
 
 
@@ -255,8 +257,16 @@ html, body {
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .tagline{
+        margin-top: 0%;
+    }
+    .cards{
+        padding: 15%;
+    }
+  }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .content-1 {
         background-position: center center;
         background-image: url(./Resources//gallery/gallery-1-mobile.png);
@@ -1249,6 +1259,7 @@ html, body {
 }
 
 .content-2 h1 {
+    text-align: center;
     padding: 2em;
     padding-top: 3em;
 }
@@ -1343,7 +1354,7 @@ html, body {
 }
 
 .card-info-right {
-    text-align: end;
+    /* text-align: end; */
     font-size: 1.3em;
     width: 40%;
     padding-left: 10px;
@@ -1435,6 +1446,7 @@ html, body {
 
 
     .content-2 h1 {
+        text-align: center;
         padding: 1.2em;
         font-size: large;
     }
@@ -2862,4 +2874,29 @@ display: none;
         margin-bottom: 80%;
         margin-left: 80%;
     }
+}
+
+/* Animations */
+.preAnimationLeft{
+    opacity: 0;
+    transform: translateX(-100%);
+    filter: blur(5px);
+    transition: all 1s;
+}
+.preAnimationRight{
+    opacity: 0;
+    transform: translateX(100%);
+    filter: blur(5px);
+    transition: all 1s;
+}
+.postAnimationLeft{
+    opacity: 1;
+    transform: translateX(0%);
+    filter: blur(0px);
+}
+.postAnimationRight{
+    opacity: 1;
+    transform: translateX(0%);
+    filter: blur(0px);
+
 }
