@@ -2159,6 +2159,96 @@ html, body {
     }
 }
 
+/* Blog Section */
+.blog-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.blog-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.blog-post {
+    margin-bottom: 20px;
+}
+
+.blog-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.blog-link:hover {
+    color: #666;
+}
+
+.blog-post img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.blog-post h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.blog-post p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Article Section */
+.article-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.article-section h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.article {
+    margin-bottom: 20px;
+}
+
+.article-link {
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.article-link:hover {
+    color: #666;
+}
+
+.article img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.article h2 {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.article p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
 /* content-9 */
 
 .content-9 {
