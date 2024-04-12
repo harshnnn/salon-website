@@ -1,8 +1,11 @@
-  var contactBtn = document.querySelector('.contact-btn');
-  contactBtn.addEventListener('click', () => {
+  var contactBtnSm = document.querySelector('.contact-btn-sm');
+  var contactBtnLg = document.querySelector('.contact-btn-lg');
+  contactBtnSm.addEventListener('click', () => {
     window.location.href = 'tel:' + 5095470580
   })
-
+  contactBtnLg.addEventListener('click', () => {
+    window.location.href = 'tel:' + 5095470580
+  })
 // Function to toggle menu visibility
 const navList = document.getElementById('navList');
 

@@ -69,7 +69,7 @@ html, body {
     display: none;
 }
 
-.contact-btn {
+.contact-btn-lg {
     background-color: #E91E63;
     color: black;
     padding: 10px 15px;
@@ -78,8 +78,39 @@ html, body {
     margin-right: 50px;
 }
 
+.burger-icon {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.burger-icon span {
+    width: 100%;
+    height: 3px;
+    background-color: black;
+    border-radius: 3px;
+}
+
+/* Add styles for the hamburger icon animation */
+.burger-icon.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.burger-icon.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-icon.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
+}
+
 
 @media (max-width: 768px) {
+
+
     .nav-div {
         flex-direction: row;
         align-items: flex-start;
@@ -88,11 +119,17 @@ html, body {
         transition: max-height 0.5s ease-in-out;
         z-index: 2;
     }
+    .contact-btn-lg{
+        display: none;
+    }
 
-    .contact-btn {
+    .contact-btn-sm {
         position: fixed;
-        right: 50px;
-        /* margin-right: 70px; */
+        left:230px;
+        color: black;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
         margin-top: 8px;
         height: 12px;
         mix-blend-mode: darken;
